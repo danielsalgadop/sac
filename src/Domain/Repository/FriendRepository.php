@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository\Entity;
+namespace App\Domain\Repository;
 
 use App\Domain\Entity\Friend;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
