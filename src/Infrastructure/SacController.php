@@ -13,6 +13,16 @@ class SacController extends AbstractController
      */
     public function login()
     {
-        return new Response("login with facebook");
+        return $this->render('login.html.twig');
+//        new Response("login with facebook");
+    }
+
+    /**
+     * @Route("/loginOk", name="loginOk", methods={"GET"})
+     */
+    public function loginOk()
+    {
+        return $this->render('loginOk.html.twig');
+//        new Response("login with facebook");
     }
 }
