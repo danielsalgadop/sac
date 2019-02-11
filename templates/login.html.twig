@@ -5,11 +5,17 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
     </head>
     <body>
-        {% include 'fbSdk.html.twig' %}
+    {% include 'fbSdk.html.twig' %}
+    <div id="status"></div>
+        Please identify yourself<br>
+          <fb:login-button
+                scope="public_profile,email"
+                onlogin="checkLoginState();">
+        </fb:login-button>
 
-    <script>
+        <script>
 
-    </script>
+        </script>
 
-    Place to log with facebook</body>
+    </body>
 </html>

@@ -1,30 +1,51 @@
 <script>
-window.fbAsyncInit = function() {
-FB.init({
-appId      : '361174884467644',
-cookie     : true,
-xfbml      : true,
-version    : 'v3.2'
-});
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '361174884467644',
+            cookie: true,
+            xfbml: true,
+            version: 'v3.2'
+        });
+    };
 
-// FB.AppEvents.logPageView();
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+            return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
 
 
-    toe = FB.getLoginStatus();
-    console.log(toe);
-    // FB.getLoginStatus(function(response) {
-    //     statusChangeCallback(response);
-    //     console.log(response);
-    // });
+    // docs on this response https://developers.facebook.com/apps/361174884467644/fb-login/quickstart/
+    // basicaly is fullfilled in FB.getLoginStatus()
+    function statusChangeCallback(response) {
+        if (response.status === 'connected') {
+            // Logged into your app and Facebook.
+            FB.api('/me', function (response) {
+                window.location.href = '{{ login_ok_url }}';
+                // window.location.href = ;
+                // Successful login for: ' + response.name;
+                // document.getElementById('status').innerHTML =
+                    {#'Thanks for logging in, {{ login_ok_url }}' + response.name + '!';#}
+            });
+        } else {
+            // The person is not logged into your app or we are unable to tell.
+            window.location.href = '{{ login_ko_url }}';
 
+            // document.getElementById('status').innerHTML = 'Please log ' +
+            //     'into this app.';
+        }
+    }
 
-};
-
-(function(d, s, id){
-var js, fjs = d.getElementsByTagName(s)[0];
-if (d.getElementById(id)) {return;}
-js = d.createElement(s); js.id = id;
-js.src = "https://connect.facebook.net/en_US/sdk.js";
-fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
+    // called in fb button
+    function checkLoginState() {
+        FB.getLoginStatus(function (response) {
+            statusChangeCallback(response);
+            // console.log(response);
+        });
+    }
 </script>

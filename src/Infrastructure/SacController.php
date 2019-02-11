@@ -13,11 +13,11 @@ class SacController extends AbstractController
 //version    : 'v3.2'
 
     /**
-     * @Route("/login", name="login", methods={"GET"})
+     * @Route("/", name="login", methods={"GET"})
      */
     public function login()
     {
-        return $this->render('login.html.twig');
+        return $this->render('login.html.twig', ['login_ok_url'=> $this->generateUrl('loginOk'), 'login_ko_url'=> $this->generateUrl('login')]);
     }
 
     /**
@@ -25,7 +25,7 @@ class SacController extends AbstractController
      */
     public function loginOk()
     {
-        return $this->render('loginOk.html.twig');
+        return $this->render('loginOk.html.twig', ['login_ok_url'=> $this->generateUrl('loginOk'), 'login_ko_url'=> $this->generateUrl('login')]);
     }
 
 

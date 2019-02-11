@@ -2,8 +2,15 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Wellcome to SAC{% endblock %}</title>
     </head>
     <body>
+    {% include 'fbSdk.html.twig' %}
+    You are logged in<br>
+    Add thing
+    <script>
+        checkLoginState();
+
+    </script>
     </body>
 </html>
