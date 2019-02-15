@@ -3,8 +3,11 @@
 namespace App\Infrastructure;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 class SacController extends AbstractController
 {
@@ -17,14 +20,23 @@ class SacController extends AbstractController
      */
     public function login()
     {
+        // $cookie = new Cookie('Peter', 'Griffin', time() + 3600);
+        // return new Response($cookie);
+        // $request->headers->setCookie(new Cookie('Peter', 'Griffin', time() + 3600));
         return $this->render('login.html.twig', ['login_ok_url'=> $this->generateUrl('loginOk'), 'login_ko_url'=> $this->generateUrl('login')]);
     }
 
     /**
      * @Route("/loginOk", name="loginOk", methods={"GET"})
      */
-    public function loginOk()
+    public function loginOk(Request $request)
     {
+        
+        // meter en bbdd ID
+
+        // $request->headers;
+        // $ei = $request;
+        // return new Response(var_dump($request->headers));
         return $this->render('loginOk.html.twig', ['login_ok_url'=> $this->generateUrl('loginOk'), 'login_ko_url'=> $this->generateUrl('login')]);
     }
 
