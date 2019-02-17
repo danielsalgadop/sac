@@ -28,16 +28,6 @@ class SacController extends Controller
      */
     public function login()
     {
-        try{
-
-        $mysqlOwnerRepository = $this->get('app.repository.owner');
-        $createOwnerHandler = new CreateOwnerHandler($mysqlOwnerRepository);
-        $createOwnerCommand = new CreateOwnerCommand("hardcoded", "fb_delegated_hardcoded");
-        $createOwnerHandler->handle($createOwnerCommand);
-
-        }catch (\Exception $e){
-            return new Response($e->getMessage());
-        }
         // return new Response($cookie);
         // $request->headers->setCookie(new Cookie('Peter', 'Griffin', time() + 3600));
         return $this->render('login.html.twig', ['login_ok_url'=> $this->generateUrl('loginOk'), 'login_ko_url'=> $this->generateUrl('login')]);

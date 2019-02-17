@@ -26,11 +26,6 @@ class Owner
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $password;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $fbDelegated;
 
     /**
@@ -65,18 +60,6 @@ class Owner
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): self
-    {
-        $this->password = $password;
 
         return $this;
     }
