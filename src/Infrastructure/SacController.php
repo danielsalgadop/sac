@@ -2,14 +2,22 @@
 
 namespace App\Infrastructure;
 
+use App\Application\Command\Thing\CreateThingCommand;
+use App\Application\CommandHandler\Owner\CreateOwnerHandler;
+use App\Domain\Entity\Owner;
+use App\Infrastructure\Owner\MySQLOwnerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Application\Command\Owner\CreateOwnerCommand;
+use Doctrine\ORM\EntityManager;
+use Symfony\Contracts\Service;
 
 
-class SacController extends AbstractController
+class SacController extends Controller
 {
 //appId      : '361174884467644',
 
@@ -20,7 +28,16 @@ class SacController extends AbstractController
      */
     public function login()
     {
-        // $cookie = new Cookie('Peter', 'Griffin', time() + 3600);
+        try{
+
+        $mysqlOwnerRepository = $this->get('app.repository.owner');
+        $createOwnerHandler = new CreateOwnerHandler($mysqlOwnerRepository);
+        $createOwnerCommand = new CreateOwnerCommand("hardcoded", "fb_delegated_hardcoded");
+        $createOwnerHandler->handle($createOwnerCommand);
+
+        }catch (\Exception $e){
+            return new Response($e->getMessage());
+        }
         // return new Response($cookie);
         // $request->headers->setCookie(new Cookie('Peter', 'Griffin', time() + 3600));
         return $this->render('login.html.twig', ['login_ok_url'=> $this->generateUrl('loginOk'), 'login_ko_url'=> $this->generateUrl('login')]);
@@ -31,7 +48,8 @@ class SacController extends AbstractController
      */
     public function loginOk(Request $request)
     {
-        
+
+
         // meter en bbdd ID
 
         // $request->headers;

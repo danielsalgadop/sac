@@ -43,8 +43,11 @@ class Owner
      */
     private $friends;
 
-    public function __construct()
+    public function __construct(string $name, string $fbDelegated)
     {
+        // DUDA, tiene sentido setear estos params (name, fbDelegated usando métodos set*)? (asi podría validarlos)
+        $this->name = $name;
+        $this->fbDelegated = $fbDelegated;
         $this->things = new ArrayCollection();
         $this->friends = new ArrayCollection();
     }
