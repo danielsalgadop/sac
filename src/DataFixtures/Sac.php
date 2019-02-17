@@ -12,40 +12,53 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class Sac extends Fixture
 {
+    // DUDA: he probado (y no funciona) a tener solo 1 $manager->flush(); al final del método ->load. Por q no funciona?
     public function load(ObjectManager $manager)
     {
-        // Thing
-        $thing = new Thing();
-        $thing->setPassword("password_from_fixture");
-        $thing->setUser("name_from_fixture");
-        $thing->setRoot("/");
-        $manager->persist($thing);
-        $manager->flush();
+        foreach ([1, 2, 3] as $i) {
 
-        // Owner
-        $owner = new Owner();
-        $owner->setName("name_from fixture".__LINE__);
-        $owner->setPassword("password_from_fixture".__LINE__);
-        $owner->setFbDelegated("fbDelegates_from_fixture".__LINE__);
-        $manager->persist($owner);
-        $manager->flush();
+            // Thing
+            $thing = new Thing();
+            $thing->setPassword("password_from_fixture");
+            $thing->setUser("name_from_fixture");
+            $thing->setRoot("/");
+            $manager->persist($thing);
+            $manager->flush();
 
-        // Friend
-        $friend = new Friend();
-        $friend->setFbDelegated("fbDelegates_from_fixture".__LINE__);
-        $manager->persist($friend);
-        $manager->flush();
+            // Owner
+            $owner = new Owner("name_from fixture" . $i, "fbDelegates_from_fixture" . $i);
+//        $owner->setName();
+//        $owner->setPassword("password_from_fixture".$i);
+//        $owner->setFbDelegated();
+            $manager->persist($owner);
+            $manager->flush();
 
-        // Action
-        $action = new Action();
-        $action->setDescription("action_from_fixture".__LINE__);
-        $action->setHttpVerb("GET".__LINE__);
-        $action->setRoute("/route/from/fixture".__LINE__);
-        $action->setWt($thing);
-        $action->addFriend($friend);
-        $manager->persist($action);
-        $manager->flush();
+            // Owner has thing  owner_thing
+            $owner->addThing($thing);
+            $manager->flush();
 
 
+            // Friend
+            $friend = new Friend();
+            $friend->setFbDelegated("fbDelegates_from_fixture" . $i);
+            $manager->persist($friend);
+            $manager->flush();
+
+            // Owner has Friend
+            $owner->addFriend($friend);
+            $manager->flush();
+
+            // Action
+            $action = new Action();
+            $action->setDescription("action_from_fixture" . $i);
+            $action->setHttpVerb("GET" . $i);
+            $action->setRoute("/route/from/fixture" . $i);
+            $action->setWt($thing);
+            $action->addFriend($friend);
+            $manager->persist($action);
+            $manager->flush();
+
+
+        }
     }
 }
