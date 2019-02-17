@@ -1,0 +1,14 @@
+#esto será un POST, es GET para falicitar pruebas dsd navegaror
+GET localhost:8000/owner/
+
+###
+
+GET localhost:8000/owner/friends/
+
+###
+
+GET localhost:8000/owner/things/
+
+###
+
+
