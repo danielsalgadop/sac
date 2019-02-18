@@ -17,20 +17,32 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Contracts\Service;
 
 
-/** TODO: hacer prefix e todo controller (no te olvides de poner doble asterisco aqui)
-* https://symfony.com/blog/new-in-symfony-3-4-prefix-all-controller-route-names
+/**
  * @Route("/owner", name="owner_")
  */
 class OwnerController extends Controller
 {
     /**
-     * @Route("/", name="info_user", methods={"GET"})
+     * @Route("/", name="info_owner", methods={"GET"})
      */
-    public function info()
+    public function info_owner()
     {
+
+        // voy a recibir un fb_delegated
+
+
+
+        // hc things
+        $things = [];
+        foreach ([1,2,3] as $i){
+            $thing['name'] = 'thing_HC_in_controller'.$i;
+            $thing['url'] = 'url_/hard/coded/'.$i;  // TODO: generateUrl();
+            $things[] = $thing;
+        }
+
+        return $this->render('Owner/info_owner.html.twig', ['complete_name' => 'nombre_hc_controller','things' => $things]);
         return new Response('info about user');
     }
-
 
 
     /**
@@ -48,7 +60,7 @@ class OwnerController extends Controller
         } catch (\Exception $e) {
             return new Response($e->getMessage());
         }
-         return new Response("HC owner created");
+        return new Response("HC owner created");
     }
 
 

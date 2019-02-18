@@ -12,23 +12,23 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class Sac extends Fixture
 {
-    // DUDA: he probado (y no funciona) a tener solo 1 $manager->flush(); al final del método ->load. Por q no funciona?
+    // DUDA: he probado (y no funciona) a tener solo 1 $manager->flush(); al final de_d método ->load. Por q no funciona?
     public function load(ObjectManager $manager)
     {
         foreach ([1, 2, 3] as $i) {
 
             // Thing
             $thing = new Thing();
-            $thing->setPassword("password_from_fixture");
-            $thing->setUser("name_from_fixture");
+            $thing->setPassword("thing_password_".$i);
+            $thing->setUser("thing_name_".$i);
             $thing->setRoot("/");
             $manager->persist($thing);
             $manager->flush();
 
             // Owner
-            $owner = new Owner("name_from fixture" . $i, "fbDelegates_from_fixture" . $i);
+            $owner = new Owner("owner_name_" . $i, "fb_delegated_" . $i);
 //        $owner->setName();
-//        $owner->setPassword("password_from_fixture".$i);
+//        $owner->setPassword("password_".$i);
 //        $owner->setFbDelegated();
             $manager->persist($owner);
             $manager->flush();
@@ -40,7 +40,7 @@ class Sac extends Fixture
 
             // Friend
             $friend = new Friend();
-            $friend->setFbDelegated("fbDelegates_from_fixture" . $i);
+            $friend->setFbDelegated("fb_delegated_" . $i);
             $manager->persist($friend);
             $manager->flush();
 
@@ -50,7 +50,7 @@ class Sac extends Fixture
 
             // Action
             $action = new Action();
-            $action->setDescription("action_from_fixture" . $i);
+            $action->setDescription("action_" . $i);
             $action->setHttpVerb("GET" . $i);
             $action->setRoute("/route/from/fixture" . $i);
             $action->setWt($thing);

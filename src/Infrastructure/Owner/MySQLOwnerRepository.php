@@ -24,4 +24,14 @@ class MySQLOwnerRepository implements OwnerRepository
             return $e->getMessage();
         }
     }
+
+    public function searchOwnerByfbDelegatedOrException(string $fbDelegated)
+    {
+
+        $owner = $this->em->findByFbDelegated(Owner::class, $fbDelegated);
+        if($owner === null){
+            throw new \Exception("Non-existing fbDelegated");
+        }
+        return $owner;
+    }
 }
