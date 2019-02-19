@@ -2,8 +2,10 @@
 
 namespace App\Infrastructure;
 
+use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
 use App\Application\Command\Thing\CreateThingCommand;
 use App\Application\CommandHandler\Owner\CreateOwnerHandler;
+use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
 use App\Domain\Entity\Owner;
 use App\Infrastructure\Owner\MySQLOwnerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,10 +29,19 @@ class OwnerController extends Controller
      */
     public function info_owner()
     {
-
         // voy a recibir un fb_delegated
+        $hc_fb_delegated = "fb_delegated_1";
 
+        // Intentando usar el Repo desde aqui, el controller
+//        $owner = $this->getDoctrine()->getRepository(MySQLOwnerRepository::class)->findOneBy(['fb_delegated' => $hc_fb_delegated]);
 
+//        TODO: no consigo buscar algo distinto a 1 id
+        $mysqlOwnerRepository = $this->get('app.repository.owner');
+        $searchOwnerByFbDelegatedHandler = new SearchOwnerByFbDelegatedHandler($mysqlOwnerRepository);
+        $searchOwnerByFbDelegatedCommand = new SearchOwnerByFbDelegatedCommand($hc_fb_delegated);
+        $owner = $searchOwnerByFbDelegatedHandler->handle($searchOwnerByFbDelegatedCommand);
+
+        $things = $owner->getThings();
 
         // hc things
         $things = [];
