@@ -45,13 +45,13 @@ class MySQLOwnerRepository implements OwnerRepository
 
 
         // Funciona si busco por id
-//     $owner = $this->em->find(Owner::class, 1);
+     $owner = $this->em->find(Owner::class, 1);
 
 
         // usar desde Entity Manager el método findOneBy
-        $owner = $this->em->findOneBy(['fb_delegated' => $fbDelegated]);
-        // ERROR
-        // Attempted to call an undefined method named "findOneBy" of class "Doctrine\ORM\EntityManager".
+//        $owner = $this->em->findOneBy(['fb_delegated' => $fbDelegated]);
+//         ERROR
+//         Attempted to call an undefined method named "findOneBy" of class "Doctrine\ORM\EntityManager".
 
 
         // intentando sacar el ID desde el fbDelegated
@@ -72,9 +72,9 @@ class MySQLOwnerRepository implements OwnerRepository
 // Intentando usar findOneBy
 
         // Intentando obtener repositorio como servicio
-        $owner_repo = Controller::get('app.repository.owner');
+//        $owner_repo = Controller::get('app.repository.owner');
         // ERROR
-        Call to protected method Symfony\Bundle\FrameworkBundle\Controller\Controller::get() from context 'App\Infrastructure\Owner\MySQLOwnerRepository'
+//        Call to protected method Symfony\Bundle\FrameworkBundle\Controller\Controller::get() from context 'App\Infrastructure\Owner\MySQLOwnerRepository'
 
 
 
