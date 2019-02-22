@@ -22,7 +22,8 @@ class SearchOwnerByFbDelegatedHandler
         $fbDelegated = $command->getFbDelegated();
 
         $owner = $this->ownerRepository->searchOwnerByfbDelegatedOrException($fbDelegated);
-//        $user = $owner->getUser();
+
+        //        $user = $owner->getUser();
 //        $user->correctCredentialsOrException($command->getUser(),$command->getPassword());
         return $owner;
     }

@@ -35,19 +35,18 @@ class OwnerController extends Controller
         // Intentando usar el Repo desde aqui, el controller
 //        $owner = $this->getDoctrine()->getRepository(MySQLOwnerRepository::class)->findOneBy(['fb_delegated' => $hc_fb_delegated]);
 
-//        TODO: no consigo buscar algo distinto a 1 id
+//        TODO: no consigo buscar algo distinto al id
         $mysqlOwnerRepository = $this->get('app.repository.owner');
         $searchOwnerByFbDelegatedHandler = new SearchOwnerByFbDelegatedHandler($mysqlOwnerRepository);
         $searchOwnerByFbDelegatedCommand = new SearchOwnerByFbDelegatedCommand($hc_fb_delegated);
         $owner = $searchOwnerByFbDelegatedHandler->handle($searchOwnerByFbDelegatedCommand);
 
-        $things = $owner->getThings();
-
-        // hc things
         $things = [];
-        foreach ([1,2,3] as $i){
-            $thing['name'] = 'thing_HC_in_controller'.$i;
-            $thing['url'] = 'url_/hard/coded/'.$i;  // TODO: generateUrl();
+        $owner_things = $owner->getThings();
+        foreach($owner_things as $owner_thing){
+            $id_thing = $owner_thing->getId();
+            $thing['name'] = 'thing_HC_in_controller'.$id_thing;
+            $thing['url'] = 'url_/hard/coded/'.$id_thing;  // TODO: generateUrl();
             $things[] = $thing;
         }
 
