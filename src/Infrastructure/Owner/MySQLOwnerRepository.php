@@ -4,7 +4,7 @@ namespace App\Infrastructure\Owner;
 
 use App\Domain\Entity\Owner;
 use App\Domain\Repository\OwnerRepository;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -12,7 +12,7 @@ class MySQLOwnerRepository implements OwnerRepository
 {
     private $em;
 
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManagerInterface $entityManager)
     {
         $this->em = $entityManager;
     }
@@ -45,11 +45,11 @@ class MySQLOwnerRepository implements OwnerRepository
 
 
         // Funciona si busco por id
-     $owner = $this->em->find(Owner::class, 1);
+//     $owner = $this->em->find(Owner::class, 1);
 
 
         // usar desde Entity Manager el método findOneBy
-//        $owner = $this->em->findOneBy(['fb_delegated' => $fbDelegated]);
+        $owner = $this->em->findOneBy(['fb_delegated' => $fbDelegated]);
 //         ERROR
 //         Attempted to call an undefined method named "findOneBy" of class "Doctrine\ORM\EntityManager".
 
