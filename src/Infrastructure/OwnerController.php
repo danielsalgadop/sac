@@ -36,13 +36,15 @@ class OwnerController extends Controller
         $hc_fb_delegated = "fb_delegated_1";
 
         // Intentando usar el Repo desde aqui, el controller
-//        $owner = $this->getDoctrine()->getRepository(MySQLOwnerRepository::class)->findOneBy(['fb_delegated' => $hc_fb_delegated]);
+        $ownerRepo = $this->getDoctrine()->getRepository(Owner::class);
+        $owner = $ownerRepo->findOneBy(['fbDelegated' => $hc_fb_delegated]);
+//        $owner = $ownerRepo->find(1);
 
 //        TODO: no consigo buscar algo distinto al id
-        $mysqlOwnerRepository = $this->get('app.repository.owner');
-        $searchOwnerByFbDelegatedHandler = new SearchOwnerByFbDelegatedHandler($mysqlOwnerRepository);
-        $searchOwnerByFbDelegatedCommand = new SearchOwnerByFbDelegatedCommand($hc_fb_delegated);
-        $owner = $searchOwnerByFbDelegatedHandler->handle($searchOwnerByFbDelegatedCommand);
+//        $mysqlOwnerRepository = $this->get('app.repository.owner');
+//        $searchOwnerByFbDelegatedHandler = new SearchOwnerByFbDelegatedHandler($mysqlOwnerRepository);
+//        $searchOwnerByFbDelegatedCommand = new SearchOwnerByFbDelegatedCommand($hc_fb_delegated);
+//        $owner = $searchOwnerByFbDelegatedHandler->handle($searchOwnerByFbDelegatedCommand);
 
         $array_of_things = [];
         foreach($owner->getThings() as $thing){
