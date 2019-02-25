@@ -16,15 +16,13 @@ class getThingNameHandler
         $thing_user_name = $getThingNameCommand->getThingUsername();
         $thing_password = $getThingNameCommand->getThingPassword();
         // llamar via curl a iot_emulator
-        $json = $this->sendCurl($id);
+        $json = $this->sendCurl($id,$thing_user_name,$thing_password);
         $result = json_decode($json);
-
+        // TODO: detect when credentials fail or when there is no conecction
         return $result->name;
-//        return "el_nombre_de_id".$id."autenticado_conuser".$thing_user_name."_y_password".$thing_password;
     }
 
-    // TODO: enviar usuario y password
-    function sendCurl($id)
+    function sendCurl($id,$thing_user_name,$thing_password)
     {
         $time = time();
 
@@ -34,8 +32,8 @@ class getThingNameHandler
         curl_setopt($ch, CURLOPT_PORT, 8001);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                'user: user',
-                'password: password'
+                'user: '.$thing_user_name,
+                'password: '.$thing_password
             )
         );
 
