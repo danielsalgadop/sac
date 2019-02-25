@@ -46,12 +46,14 @@ class MySQLOwnerRepository implements OwnerRepositoryInterface
     public function searchOwnerByfbDelegatedOrException(string $fbDelegated)
     {
 
-        return $this->ownerRepository->findOneBy(['fbDelegated' => $fbDelegated]);
+        $owner = $this->ownerRepository->findOneBy(['fbDelegated' => $fbDelegated]);
+        if (!$owner) {
+            throw new \Exception("Owner not found by fbDelegated");
+        }
 
 
         // Intentando usar este metodo creado en OwnerRepository
         //  return $this->findTOE('fb_delegated_1');
-
 
 
         // Funciona si busco por id
@@ -87,7 +89,6 @@ class MySQLOwnerRepository implements OwnerRepositoryInterface
 //        Call to protected method Symfony\Bundle\FrameworkBundle\Controller\Controller::get() from context 'App\Infrastructure\Owner\MySQLOwnerRepository'
 
 
-
         // intentando usar findeOneBy
 //        $owner_repo = $this->em->getRepository('App\Domain\Repository\OwnerRepository');
 //        $owner_repo = $this->em->getRepository(Owner::class);
@@ -105,7 +106,7 @@ class MySQLOwnerRepository implements OwnerRepositoryInterface
 //        $owner = $qb->getFirstResult();
 //        $toe = $qb->getQuery();
 
-        if($owner === null){
+        if ($owner === null) {
             throw new \Exception("Non-existing fbDelegated");
         }
         return $owner;

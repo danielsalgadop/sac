@@ -33,17 +33,24 @@ class OwnerController extends Controller
     public function info_owner()
     {
         // voy a recibir un fb_delegated
-        $hc_fb_delegated = "fb_delegated_2";
+        $hc_fb_delegated = "fb_delegated_1";
 
         // Intentando usar el Repo desde aqui, el controller
 //        $ownerRepo = $this->getDoctrine()->getRepository(Owner::class);
 //        $owner = $ownerRepo->findOneBy(['fbDelegated' => $hc_fb_delegated]);
 
 //        TODO: no consigo buscar algo distinto al id
+        // TODO: pasar esto como servicio, sirve para identificar fbDelegated válidos (para autenticar)
         $mysqlOwnerRepository = $this->get('app.repository.owner');
         $searchOwnerByFbDelegatedHandler = new SearchOwnerByFbDelegatedHandler($mysqlOwnerRepository);
         $searchOwnerByFbDelegatedCommand = new SearchOwnerByFbDelegatedCommand($hc_fb_delegated);
-        $owner = $searchOwnerByFbDelegatedHandler->handle($searchOwnerByFbDelegatedCommand);
+        try{
+            $owner = $searchOwnerByFbDelegatedHandler->handle($searchOwnerByFbDelegatedCommand);
+        }
+        catch (\Exception $e){
+            // TODO se podría recoger el valor del error y pasarlo como mensaje al login
+            return $this->redirect($this->generateUrl('login'));
+        }
 
         $array_of_things = [];
         foreach($owner->getThings() as $thing){
