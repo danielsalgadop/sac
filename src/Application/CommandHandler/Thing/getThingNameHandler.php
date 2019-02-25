@@ -15,11 +15,13 @@ class getThingNameHandler
         $id = $getThingNameCommand->getId();
         $thing_user_name = $getThingNameCommand->getThingUsername();
         $thing_password = $getThingNameCommand->getThingPassword();
-        // TODO llamar via curl a iot_emulator
-        return "el_nombre_de_id".$id."autenticado_conuser".$thing_user_name."_y_password".$thing_password;
+        // llamar via curl a iot_emulator
+        $result = $this->sendCurl($id);
+        return $result;
+//        return "el_nombre_de_id".$id."autenticado_conuser".$thing_user_name."_y_password".$thing_password;
     }
 
-
+    // TODO: enviar usuario y password
     function sendCurl($id)
     {
         $time = time();
@@ -37,8 +39,8 @@ class getThingNameHandler
 
 
         $result = curl_exec($ch);
-        file_put_contents("/tmp/get_actions." . $time . ".html", __METHOD__ . ' ' . __LINE__ . PHP_EOL . var_export($result, true) . PHP_EOL, FILE_APPEND);
-        var_dump($result);
+//        file_put_contents("/tmp/get_actions." . $time . ".html", __METHOD__ . ' ' . __LINE__ . PHP_EOL . var_export($result, true) . PHP_EOL, FILE_APPEND);
+//        var_dump($result);
         return $result;
     }
 
