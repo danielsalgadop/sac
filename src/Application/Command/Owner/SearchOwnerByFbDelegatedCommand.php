@@ -14,7 +14,6 @@ class SearchOwnerByFbDelegatedCommand
 
     public function getFbDelegated()
     {
-        return "fb_delegated_1"; //TODO: quitar este hardcoded
         return $this->fb_delegated;
     }
 }

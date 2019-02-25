@@ -33,7 +33,7 @@ class OwnerController extends Controller
     public function info_owner()
     {
         // voy a recibir un fb_delegated
-        $hc_fb_delegated = "fb_delegated_1";
+        $hc_fb_delegated = "fb_delegated_2";
 
         // Intentando usar el Repo desde aqui, el controller
 //        $ownerRepo = $this->getDoctrine()->getRepository(Owner::class);
