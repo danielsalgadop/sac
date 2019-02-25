@@ -16,8 +16,10 @@ class getThingNameHandler
         $thing_user_name = $getThingNameCommand->getThingUsername();
         $thing_password = $getThingNameCommand->getThingPassword();
         // llamar via curl a iot_emulator
-        $result = $this->sendCurl($id);
-        return $result;
+        $json = $this->sendCurl($id);
+        $result = json_decode($json);
+
+        return $result->name;
 //        return "el_nombre_de_id".$id."autenticado_conuser".$thing_user_name."_y_password".$thing_password;
     }
 
