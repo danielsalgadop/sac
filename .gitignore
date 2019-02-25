@@ -12,3 +12,5 @@
 /.web-server-pid
 ###< symfony/web-server-bundle ###
 .idea
+src/Domain/Repository/OwnerRepository.php.interfaz
+src/Domain/Repository/OwnerRepository.php.psa.php
