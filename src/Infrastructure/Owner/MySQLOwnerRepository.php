@@ -11,10 +11,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class MySQLOwnerRepository extends OwnerRepository
 {
     private $em;
+    private $ownerRepository;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->em = $entityManager;
+        $this->ownerRepository = $this->em->getRepository(Owner::class);
     }
 
     public function save(Owner $owner)
@@ -43,13 +45,20 @@ class MySQLOwnerRepository extends OwnerRepository
     public function searchOwnerByfbDelegatedOrException(string $fbDelegated)
     {
 
+        return $this->ownerRepository->findOneBy(['fbDelegated' => $fbDelegated]);
+
+
+        // Intentando usar este metodo creado en OwnerRepository
+        //  return $this->findTOE('fb_delegated_1');
+
+
 
         // Funciona si busco por id
 //     $owner = $this->em->find(Owner::class, 1);
 
 
         // usar desde Entity Manager el método findOneBy
-        $owner = $this->em->findOneBy(['fbDelegated' => $fbDelegated]);
+//        $owner = $this->em->findOneBy(['fbDelegated' => $fbDelegated]);
 //         ERROR
 //         Attempted to call an undefined method named "findOneBy" of class "Doctrine\ORM\EntityManager".
 

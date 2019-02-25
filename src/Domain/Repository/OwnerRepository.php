@@ -19,6 +19,14 @@ class OwnerRepository extends ServiceEntityRepository
         parent::__construct($registry, Owner::class);
     }
 
+
+    public function findTOE($fbDelegated)
+    {
+
+//        return $this->find(1);
+        return $this->findOneBy(['fbDelegated' => $fbDelegated]);
+    }
+
     // /**
     //  * @return Sac[] Returns an array of Sac objects
     //  */
