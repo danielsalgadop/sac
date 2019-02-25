@@ -19,8 +19,8 @@ class Sac extends Fixture
 
             // Thing
             $thing = new Thing();
-            $thing->setPassword("thing_password_".$i);
-            $thing->setUser("thing_credential_name_".$i);
+            $thing->setPassword("password");
+            $thing->setUser("user");
             $thing->setRoot("/");
             $manager->persist($thing);
             $manager->flush();
