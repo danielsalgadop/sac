@@ -22,11 +22,12 @@ class getThingNameHandler
         return $result->name;
     }
 
+    // Mover a ConnectedThingRepository
     function sendCurl($id,$thing_user_name,$thing_password)
     {
         $time = time();
 
-
+        // Esto q es tan variable, definirlo conf/ en parámetros, o hacerlo en services
         $ch = curl_init(ENDPOINT . '/' . $id);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
         curl_setopt($ch, CURLOPT_PORT, 8001);

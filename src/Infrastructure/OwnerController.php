@@ -58,6 +58,7 @@ class OwnerController extends Controller
             $thing_username = $thing->getUser();
             $thing_password = $thing->getPassword();
             // TODO: pasar esto a un servicio
+
             $getThingNameCommand = new getThingNameCommand($id_thing, $thing_username, $thing_password);
             $getThingNameHandler = new getThingNameHandler();
             $thing_name = $getThingNameHandler->handle($getThingNameCommand); // Voy a tener que llamar a iot_emulator para sacar el nombre del thing

@@ -19,6 +19,8 @@ use Symfony\Contracts\Service;
 
 class SacController extends Controller
 {
+
+    // TODO: cambiar nombre de este controlador, algo estilo CredentialsController
 //appId      : '361174884467644',
 
 //version    : 'v3.2'
@@ -30,7 +32,7 @@ class SacController extends Controller
     {
         // return new Response($cookie);
         // $request->headers->setCookie(new Cookie('Peter', 'Griffin', time() + 3600));
-        return $this->render('login.html.twig', ['login_ok_url'=> $this->generateUrl('loginOk'), 'login_ko_url'=> $this->generateUrl('login')]);
+        return $this->render('login.html.twig', ['login_ok_url' => $this->generateUrl('loginOk'), 'login_ko_url' => $this->generateUrl('login')]);
     }
 
     /**
@@ -45,7 +47,7 @@ class SacController extends Controller
         // $request->headers;
         // $ei = $request;
         // return new Response(var_dump($request->headers));
-        return $this->render('loginOk.html.twig', ['login_ok_url'=> $this->generateUrl('loginOk'), 'login_ko_url'=> $this->generateUrl('login')]);
+        return $this->render('loginOk.html.twig', ['login_ok_url' => $this->generateUrl('loginOk'), 'login_ko_url' => $this->generateUrl('login')]);
     }
 
 
