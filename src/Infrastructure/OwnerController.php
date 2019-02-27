@@ -61,7 +61,7 @@ class OwnerController extends Controller
 
             $getThingNameCommand = new getThingNameCommand($id_thing, $thing_username, $thing_password);
             $getThingNameHandler = new getThingNameHandler();
-            $thing_name = $getThingNameHandler->handle($getThingNameCommand); // Voy a tener que llamar a iot_emulator para sacar el nombre del thing
+            $thing_name = $getThingNameHandler->handle($getThingNameCommand);
 
             $array_of_things[] = ['name' => $thing_name, 'url'=> 'usl_hard/coded/'.$id_thing]; //$thing_name;
         }
