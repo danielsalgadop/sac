@@ -18,15 +18,22 @@ class getThingNameHandler
         // llamar via curl a iot_emulator
         $json = $this->sendCurl($id,$thing_user_name,$thing_password);
         $result = json_decode($json);
-        // TODO: detect when credentials fail or when there is no conecction
+        $this->throwExceptionIfError($result);
+        var_dump($result);
         return $result->name;
+    }
+
+    function throwExceptionIfError(object $result)
+    {
+        if(isset($result->error)){
+            throw new \Exception("Error while connecting to thing ".$thing->error);
+        }
+
     }
 
     // Mover a ConnectedThingRepository
     function sendCurl($id,$thing_user_name,$thing_password)
     {
-        $time = time();
-
         // Esto q es tan variable, definirlo conf/ en parámetros, o hacerlo en services
         $ch = curl_init(ENDPOINT . '/' . $id);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");

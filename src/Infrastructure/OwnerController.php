@@ -33,7 +33,7 @@ class OwnerController extends Controller
     public function info_owner()
     {
         // voy a recibir un fb_delegated
-        $hc_fb_delegated = "fb_delegated_1";
+        $hc_fb_delegated = "fb_delegated_3";
 
         // Intentando usar el Repo desde aqui, el controller
 //        $ownerRepo = $this->getDoctrine()->getRepository(Owner::class);
@@ -44,16 +44,15 @@ class OwnerController extends Controller
         $mysqlOwnerRepository = $this->get('app.repository.owner');
         $searchOwnerByFbDelegatedHandler = new SearchOwnerByFbDelegatedHandler($mysqlOwnerRepository);
         $searchOwnerByFbDelegatedCommand = new SearchOwnerByFbDelegatedCommand($hc_fb_delegated);
-        try{
+        try {
             $owner = $searchOwnerByFbDelegatedHandler->handle($searchOwnerByFbDelegatedCommand);
-        }
-        catch (\Exception $e){
+        } catch (\Exception $e) {
             // TODO se podría recoger el valor del error y pasarlo como mensaje al login
             return $this->redirect($this->generateUrl('login'));
         }
 
         $array_of_things = [];
-        foreach($owner->getThings() as $thing){
+        foreach ($owner->getThings() as $thing) {
             $id_thing = $thing->getId();
             $thing_username = $thing->getUser();
             $thing_password = $thing->getPassword();
@@ -61,12 +60,16 @@ class OwnerController extends Controller
 
             $getThingNameCommand = new getThingNameCommand($id_thing, $thing_username, $thing_password);
             $getThingNameHandler = new getThingNameHandler();
-            $thing_name = $getThingNameHandler->handle($getThingNameCommand);
+            try {
+                $thing_name = $getThingNameHandler->handle($getThingNameCommand);
+                $array_of_things[] = ['id' => $id_thing, 'conection' => true, 'name' => $thing_name, 'url' => 'usl_hard/coded/' . $id_thing]; //$thing_name;
+            } catch (\Exception $e) {
+                $array_of_things[] = ['id' => $id_thing, 'conection' => false, 'message' => $e->getMessage(), 'name' => '', 'url' => '']; //something whent wrong;
 
-            $array_of_things[] = ['name' => $thing_name, 'url'=> 'usl_hard/coded/'.$id_thing]; //$thing_name;
+            }
         }
 
-        return $this->render('Owner/info_owner.html.twig', ['complete_name' => 'nombre_hc_controller','things' => $array_of_things]);
+        return $this->render('Owner/info_owner.html.twig', ['complete_name' => 'nombre_hc_controller', 'things' => $array_of_things]);
     }
 
 

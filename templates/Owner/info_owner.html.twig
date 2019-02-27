@@ -11,7 +11,13 @@
 <p>Hello, {{ complete_name }}</p>
 <p>This are your actual things (click or details or edition):</p>
 {% for thing in things %}
-    <li><a href="{{ thing.url }}">{{ thing.name }}</a></li>
+    <li>
+    {% if thing.conection == true %}
+        <a href="{{ thing.url }}">{{ thing.name }}</a>
+    {% else %}
+        Please check credentials or conection, found problems with thing with id {{ thing.id }} message: {{ thing.message }}.
+    {% endif %}
+    </li>
 {% endfor %}
 <h1>Add new Thing</h1>
 
