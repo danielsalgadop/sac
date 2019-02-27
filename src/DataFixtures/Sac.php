@@ -51,7 +51,7 @@ class Sac extends Fixture
             // vuelvo a recorrer things para, dar permiso al último frien
             foreach ($things as $thing) {
 
-                $actions = $this->createAndPersistAction($thing, $friend, "action_" . $i, ["GET","POST"], "route/from/fixture" . $i);
+                $actions = $this->createAndPersistAction($thing, $friend, "action_" . $i, ["GET","POST"], "action/route/for/thing/" . $thing->getId());
             }
 
         }
