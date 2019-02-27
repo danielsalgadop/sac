@@ -47,12 +47,12 @@ class Sac extends Fixture
             }
             $this->manager->flush();
 
+            // Action
             // vuelvo a recorrer things para, dar permiso al último frien
             foreach ($things as $thing) {
 
-                $action = $this->createAndPersistAction($thing, $friend, "action_" . $i, "GET", "route/from/fixture" . $i);
+                $actions = $this->createAndPersistAction($thing, $friend, "action_" . $i, ["GET","POST"], "route/from/fixture" . $i);
             }
-            // Action
 
         }
 
@@ -119,17 +119,22 @@ class Sac extends Fixture
     }
 
 
-    public function createAndPersistAction(Thing $thing, Friend $friend, $actionDescription, $httpVerb, $route)
+    public function createAndPersistAction(Thing $thing, Friend $friend, $actionDescription, array $httpVerbs, $route): array
     {
-        $action = new Action();
-        $action->setDescription($actionDescription);
-        $action->setHttpVerb($httpVerb);
-        $action->setRoute($route);
-        $action->setWt($thing);
-        $action->addFriend($friend);
-        $this->manager->persist($action);
-        $this->manager->flush();
-        return $action;
+        $arrayActions = [];
+        foreach ($httpVerbs as $httpVerb){
+
+            $action = new Action();
+            $action->setDescription($actionDescription);
+            $action->setHttpVerb($httpVerb);
+            $action->setRoute($route);
+            $action->setWt($thing);
+            $action->addFriend($friend);
+            $this->manager->persist($action);
+            $this->manager->flush();
+            $arrayActions[] = $action;
+        }
+        return $arrayActions;
     }
 }
 
