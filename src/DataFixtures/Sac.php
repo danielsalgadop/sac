@@ -1,7 +1,10 @@
 <?php
 /*
  * Conventions:
- *  $n => owner has n things
+ *  $n =>
+ *          owner has 1 to n things
+ *          owner has 1 to n friends
+ *          owner shares all actions only to friend LAST friend
  */
 
 namespace App\DataFixtures;
@@ -36,17 +39,20 @@ class Sac extends Fixture
             $this->manager->persist($owner);
             $this->manager->flush();
 
-
             // Friend
-            $friend = $this->createAndPersistFriend($i);
-
-
-            // Owner has Friend
-            $owner->addFriend($friend);
+            $friends = $this->createAndPersistThisNumberOfFriends($i, $owner->getId());
+            foreach ($friends as $friend) {
+                // Owner has Friend
+                $owner->addFriend($friend);
+            }
             $this->manager->flush();
 
+            // vuelvo a recorrer things para, dar permiso al último frien
+            foreach ($things as $thing) {
+
+                $action = $this->createAndPersistAction($thing, $friend, "action_" . $i, "GET", "route/from/fixture" . $i);
+            }
             // Action
-            $action = $this->createAndPersistAction($thing, $friend, "action_" . $i, "GET", "route/from/fixture" . $i);
 
         }
 
@@ -57,18 +63,15 @@ class Sac extends Fixture
 
     }
 
-//    public function createThisNumberOfOwner(int $max){
-//        for($i )
-//    }
-
     public function createAndPersistThisNumberOfThing($i): array
     {
         $arrayThings = [];
-        for ($z = 0;$z < $i;$z++) {
+        for ($z = 0; $z < $i; $z++) {
             $arrayThings[] = $this->createAndPersistThing('/');
         }
         return $arrayThings;
     }
+
     public function createAndPersistThing(string $root)
     {
         $thing = new Thing();
@@ -89,6 +92,17 @@ class Sac extends Fixture
 
     }
 
+    // owner_id is just needed in fixtures, to make unique (and verbose) fbDelegated for friends
+    public function createAndPersistThisNumberOfFriends(int $i, int $owner_id): array
+    {
+        $arrayFriends = [];
+        for ($z = 0; $z < $i; $z++) {
+            $arrayFriends[] = $this->createAndPersistFriend($i . '_ownerId_' . $owner_id);
+        }
+        return $arrayFriends;
+
+    }
+
     public function createAndPersistFriend($fbDelegated)
     {
         $friend = new Friend();
@@ -103,6 +117,7 @@ class Sac extends Fixture
     {
         return new Owner($ownerName, $fbDelegated);
     }
+
 
     public function createAndPersistAction(Thing $thing, Friend $friend, $actionDescription, $httpVerb, $route)
     {
