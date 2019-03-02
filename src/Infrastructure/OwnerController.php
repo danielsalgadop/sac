@@ -20,7 +20,7 @@ use App\Application\CommandHandler\Thing\getThingNameHandler;
 use App\Application\Command\Owner\CreateOwnerCommand;
 use Doctrine\ORM\EntityManager;
 use Symfony\Contracts\Service;
-
+use App\Domain\Repository\ThingConnectorRepository;
 
 /**
  * @Route("/owner", name="owner_")
@@ -60,8 +60,10 @@ class OwnerController extends Controller
 
             $getThingNameCommand = new getThingNameCommand($id_thing, $thing_username, $thing_password);
             $getThingNameHandler = new getThingNameHandler();
+            $ThingConnectorRepository = new ThingConnectorRepository();
+
             try {
-                $thing_name = $getThingNameHandler->handle($getThingNameCommand);
+                $thing_name = $getThingNameHandler->handle($getThingNameCommand, $ThingConnectorRepository);
                 $array_of_things[] = ['id' => $id_thing, 'conection' => true, 'name' => $thing_name, 'url' => 'usl_hard/coded/' . $id_thing]; //$thing_name;
             } catch (\Exception $e) {
                 $array_of_things[] = ['id' => $id_thing, 'conection' => false, 'message' => $e->getMessage(), 'name' => '', 'url' => '']; //something whent wrong;
