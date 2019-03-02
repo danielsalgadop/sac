@@ -35,7 +35,7 @@ class GetThingByThingIdCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $thingId = $input->getArgument('thingId');
-        $json = $this->ThingConnector->sendCurl($thingId, 'user', 'password');
+        $json = $this->ThingConnector->GetThingByIdOrException($thingId, 'user', 'password');
         $thing = json_decode($json);
         dump($thing);
         if (isset($thing->error)) {

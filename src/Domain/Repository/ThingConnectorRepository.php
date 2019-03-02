@@ -2,14 +2,14 @@
 
 namespace App\Domain\Repository;
 
+use App\Domain\Entity\Thing;
 
 class ThingConnectorRepository
 {
     const ENDPOINT = 'localhost';
     const PORT = '8001';
 
-    // Mover a ConnectedThingRepository
-    function sendCurl($id,$thing_user_name,$thing_password)
+    function sendCurl($id, $thing_user_name, $thing_password)
     {
         // Esto q es tan variable, definirlo conf/ en parámetros, o hacerlo en services
         $ch = curl_init(self::ENDPOINT . '/' . $id);
@@ -17,16 +17,27 @@ class ThingConnectorRepository
         curl_setopt($ch, CURLOPT_PORT, 8001);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-                'user: '.$thing_user_name,
-                'password: '.$thing_password
+                'user: ' . $thing_user_name,
+                'password: ' . $thing_password
             )
         );
 
 
         $result = curl_exec($ch);
-//        file_put_contents("/tmp/get_actions." . $time . ".html", __METHOD__ . ' ' . __LINE__ . PHP_EOL . var_export($result, true) . PHP_EOL, FILE_APPEND);
+        // TODO: esto tiene sentido aqui?
+//        if($result == null){
+//            throw new \Exception("Connection Error");
+//        }
+//        if(isset($result->error)){
+//            throw new \Exception($result->error);
+//        }
+
 //        var_dump($result);
         return $result;
     }
 
+    public function GetThingByIdOrException(int $id, string $thing_user_name, string $thing_password)
+    {
+        return $this->sendCurl($id, $thing_user_name, $thing_password);
+    }
 }
