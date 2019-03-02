@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class SearchOwnerByfbDelegatedOrException extends Command
 {
-    protected static $defaultName = "app:searchOwnerByfbDelegatedOrException ";
+    protected static $defaultName = "app:searchOwnerByfbDelegatedOrException";
     private $ownerRepo;
 
     public function __construct(OwnerRepositoryInterface $ownerRepo)
