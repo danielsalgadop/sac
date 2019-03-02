@@ -35,17 +35,7 @@ class GetThingByThingIdCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $thingId = $input->getArgument('thingId');
-        $json = $this->ThingConnector->GetThingByIdOrException($thingId, 'user', 'password');
-        $thing = json_decode($json);
-        dump($thing);
-        if (isset($thing->error)) {
-            $io->error($thing->error);
-        }
-        else if($thing === null){
-            $io->error('No conecction to Thing');
-        }
-        else {
-            $io->success('Info for this ' . $thingId );
-        }
+        $thingInfo = $this->ThingConnector->GetThingByIdOrException($thingId, 'user', 'password');
+        dump($thingInfo);
     }
 }

@@ -23,17 +23,17 @@ class ThingConnectorRepository
         );
 
 
-        $result = curl_exec($ch);
+        $json = curl_exec($ch);
         // TODO: esto tiene sentido aqui?
-//        if($result == null){
-//            throw new \Exception("Connection Error");
-//        }
-//        if(isset($result->error)){
-//            throw new \Exception($result->error);
-//        }
+        if($json == null){
+            throw new \Exception("Connection Error");
+        }
+        if(isset($json->error)){
+            throw new \Exception($json->error);
+        }
 
 //        var_dump($result);
-        return $result;
+        return json_decode($json);
     }
 
     public function GetThingByIdOrException(int $id, string $thing_user_name, string $thing_password)
