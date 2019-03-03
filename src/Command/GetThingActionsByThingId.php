@@ -12,9 +12,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use App\Domain\Repository\ThingConnectorRepository;
 
 
-class GetThingByThingIdCommand extends Command
+class GetThingActionsByThingId extends Command
 {
-    protected static $defaultName = 'app:GetThing';
+    protected static $defaultName = 'app:GetThingActions';
     private $ThingConnector;
 
     public function __construct(ThingConnectorRepository $ThingConnector)
@@ -35,7 +35,7 @@ class GetThingByThingIdCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $thingId = $input->getArgument('thingId');
-        $thingInfo = $this->ThingConnector->GetThingByIdOrException($thingId, 'user', 'password');
-        dump($thingInfo);
+        $actions = $this->ThingConnector->GetThingActionsByIdOrException($thingId, 'user', 'password');
+        dump($actions);
     }
 }

@@ -39,23 +39,37 @@ class ThingConnectorRepository
     public function GetThingByIdOrException(int $id, string $thing_user_name, string $thing_password)
     {
         return $this->sendCurl($id, $thing_user_name, $thing_password);
+        if (isset($thingInfo->error)) {
+            throw new \Exception("Error while connecting to thing " . $thing->error);
+        }
     }
 
     public function GetThingNameByIdOrException(int $id, string $thing_user_name, string $thing_password)
     {
         $thingInfo = $this->GetThingByIdOrException($id, $thing_user_name, $thing_password);
-        if (isset($thingInfo->error)) {
-            throw new \Exception("Error while connecting to thing " . $thing->error);
-        }
         return $thingInfo->name;
     }
 
-    public function GetThingbrandByIdOrException(int $id, string $thing_user_name, string $thing_password)
+    public function GetThingBrandByIdOrException(int $id, string $thing_user_name, string $thing_password)
     {
         $thingInfo = $this->GetThingByIdOrException($id, $thing_user_name, $thing_password);
-        if (isset($thingInfo->error)) {
-            throw new \Exception("Error while connecting to thing " . $thing->error);
-        }
-        return $thingInfo->name;
+        return $thingInfo->brand;
+    }
+    public function GetThingActionsByIdOrException(int $id, string $thing_user_name, string $thing_password)
+    {
+        $thingInfo = $this->GetThingByIdOrException($id, $thing_user_name, $thing_password);
+//        dump($thingInfo->actions->actions);
+        return $thingInfo->actions->actions;
+
+
+
+        // DUDA hacer esta transformacion de obj a array
+        $actions = [];
+
+//        foreach ($thingInfo->actions as $action){
+//            $actions['link'] = $action->link;
+//            $actions['resources'] = $action->resources; // DUDA: si hacemos transformacion obj a array, ¿seguir haciendola dentro de cada ->resources?
+//        }
+        return $actions;
     }
 }
