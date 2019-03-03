@@ -3,7 +3,6 @@
 namespace App\Infrastructure\Owner;
 
 use App\Domain\Entity\Owner;
-use App\Domain\Repository\OwnerRepository;
 use App\Domain\Repository\OwnerRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
