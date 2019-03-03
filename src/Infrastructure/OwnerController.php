@@ -15,8 +15,8 @@ use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Application\Command\Thing\getThingNameCommand;
-use App\Application\CommandHandler\Thing\getThingNameHandler;
+use App\Application\Command\Thing\getThingConnectedInfoCommand;
+use App\Application\CommandHandler\Thing\getThingConnectedNameHandler;
 use App\Application\Command\Owner\CreateOwnerCommand;
 use Doctrine\ORM\EntityManager;
 use Symfony\Contracts\Service;
@@ -58,8 +58,8 @@ class OwnerController extends Controller
             $thing_password = $thing->getPassword();
             // TODO: pasar esto a un servicio
 
-            $getThingNameCommand = new getThingNameCommand($id_thing, $thing_username, $thing_password);
-            $getThingNameHandler = new getThingNameHandler();
+            $getThingNameCommand = new getThingConnectedInfoCommand($id_thing, $thing_username, $thing_password);
+            $getThingNameHandler = new getThingConnectedNameHandler();
             $ThingConnectorRepository = new ThingConnectorRepository();
 
             try {

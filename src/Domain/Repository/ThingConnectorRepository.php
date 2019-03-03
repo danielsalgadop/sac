@@ -40,4 +40,13 @@ class ThingConnectorRepository
     {
         return $this->sendCurl($id, $thing_user_name, $thing_password);
     }
+
+    public function GetThingNameByIdOrException(int $id, string $thing_user_name, string $thing_password)
+    {
+        $thingInfo = $this->GetThingByIdOrException($id, $thing_user_name, $thing_password);
+        if (isset($thingInfo->error)) {
+            throw new \Exception("Error while connecting to thing " . $thing->error);
+        }
+        return $thingInfo->name;
+    }
 }
