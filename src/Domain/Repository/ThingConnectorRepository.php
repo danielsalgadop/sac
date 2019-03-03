@@ -24,15 +24,12 @@ class ThingConnectorRepository
 
 
         $json = curl_exec($ch);
-        // TODO: esto tiene sentido aqui?
         if($json == null){
             throw new \Exception("Connection Error");
         }
         if(isset($json->error)){
             throw new \Exception($json->error);
         }
-
-//        var_dump($result);
         return json_decode($json);
     }
 
