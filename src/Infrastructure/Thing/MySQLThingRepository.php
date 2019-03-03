@@ -3,7 +3,6 @@
 namespace App\Infrastructure\Thing;
 
 use App\Domain\Entity\Thing;
-use App\Domain\Repository\ThingRepository;
 use App\Domain\Repository\ThingRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;

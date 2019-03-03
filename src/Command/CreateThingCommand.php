@@ -2,7 +2,8 @@
 
 namespace App\Command;
 
-use App\Domain\Repository\ThingRepositoryInterface;
+//use App\Domain\Repository\ThingRepositoryInterface;
+use App\Infrastructure\Thing\MySQLThingRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -16,11 +17,13 @@ class CreateThingCommand extends Command
     protected static $defaultName = 'app:CreateThing';
     private $ThingRepo;
 
-    private function __construct()
-    {
+//    private function __construct(ThingRepositoryInterface $ThingRepo)
+//    private function __construct(MySQLThingRepository $ThingRepo)
+//    private function __construct()
+//    {
 //        parent::__construct();
 //        $this->ThingRepo = $ThingRepo;
-    }
+//    }
 
 
     protected function configure()

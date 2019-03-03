@@ -33,7 +33,7 @@ services:
 
 
     app.repository.thing:
-        class: App\Infrastructure\Owner\MySQLThingRepository
+        class: App\Infrastructure\Thing\MySQLThingRepository
         public: true
         arguments:
         - "@doctrine.orm.default_entity_manager"
