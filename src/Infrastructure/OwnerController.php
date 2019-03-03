@@ -16,7 +16,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Application\Command\Thing\getThingConnectedInfoCommand;
-use App\Application\CommandHandler\Thing\getThingConnectedNameHandler;
+use App\Application\CommandHandler\Thing\ThingConnected\getThingConnectedNameHandler;
+use App\Application\CommandHandler\Thing\ThingConnected\getThingConnectedBrandHandler;
 use App\Application\Command\Owner\CreateOwnerCommand;
 use Doctrine\ORM\EntityManager;
 use Symfony\Contracts\Service;
@@ -52,23 +53,42 @@ class OwnerController extends Controller
         }
 
         $array_of_things = [];
+        $i = 0;
         foreach ($owner->getThings() as $thing) {
             $id_thing = $thing->getId();
             $thing_username = $thing->getUser();
             $thing_password = $thing->getPassword();
             // TODO: pasar esto a un servicio
 
-            $getThingNameCommand = new getThingConnectedInfoCommand($id_thing, $thing_username, $thing_password);
+            $getThingConnectedInfoCommand = new getThingConnectedInfoCommand($id_thing, $thing_username, $thing_password);
             $getThingNameHandler = new getThingConnectedNameHandler();
+            $getThingBrandHandler = new getThingConnectedBrandHandler();
+
             $ThingConnectorRepository = new ThingConnectorRepository();
 
-            try {
-                $thing_name = $getThingNameHandler->handle($getThingNameCommand, $ThingConnectorRepository);
-                $array_of_things[] = ['id' => $id_thing, 'conection' => true, 'name' => $thing_name, 'url' => 'usl_hard/coded/' . $id_thing]; //$thing_name;
-            } catch (\Exception $e) {
-                $array_of_things[] = ['id' => $id_thing, 'conection' => false, 'message' => $e->getMessage(), 'name' => '', 'url' => '']; //something whent wrong;
+            $array_of_things[$i] = ['id' => $id_thing,
+                'conection' => false,
+                'name' => '',
+                'url' => '',
+                'brand' => '',
+            ];
 
+
+            // TODO: no definir todo 2 veces, mejorar la manera de llenar array_of_things. se va a necesitar un contador para meter info del actual thing.
+            try {
+                $thing_name = $getThingNameHandler->handle($getThingConnectedInfoCommand, $ThingConnectorRepository);
+                $brandName = $getThingBrandHandler->handle($getThingConnectedInfoCommand, $ThingConnectorRepository);
+                $array_of_things[$i] = [
+                    'id' => $id_thing,
+                    'conection' => true,
+                    'name' => $thing_name,
+                    'url' => 'usl_hard/coded/' . $id_thing,
+                    'brand' => $brandName,
+                ];
+            } catch (\Exception $e) { //something whent wrong;º
+                $array_of_things[$i]['message'] = $e->getMessage();
             }
+            $i++;
         }
 
         return $this->render('Owner/info_owner.html.twig', ['complete_name' => 'nombre_hc_controller', 'things' => $array_of_things]);

@@ -13,7 +13,7 @@
 {% for thing in things %}
     <li>
     {% if thing.conection == true %}
-        <a href="{{ thing.url }}">{{ thing.name }}</a>
+        <a href="{{ thing.url }}">Thing Name = {{ thing.name }} Thing Brand = {{ thing.brand }}</a>
     {% else %}
         Please check credentials or conection, found problems with thing with id {{ thing.id }} message: {{ thing.message }}.
     {% endif %}

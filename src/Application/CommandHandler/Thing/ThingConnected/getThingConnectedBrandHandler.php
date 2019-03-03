@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Application\CommandHandler\Thing;
+namespace App\Application\CommandHandler\Thing\ThingConnected ;
 
 use App\Application\Command\Thing\getThingConnectedInfoCommand;
 use App\Domain\Repository\ThingConnectorRepository;
 
 
-class getThingConnectedNameHandler
+class getThingConnectedBrandHandler
 {
     public function handle(getThingConnectedInfoCommand $getThingConnectedInfoCommand, ThingConnectorRepository $ThingConnectorRepository)
     {
@@ -14,7 +14,7 @@ class getThingConnectedNameHandler
         $thing_user_name = $getThingConnectedInfoCommand->getThingUsername();
         $thing_password = $getThingConnectedInfoCommand->getThingPassword();
 
-        return $ThingConnectorRepository->GetThingNameByIdOrException($id, $thing_user_name, $thing_password);
+        return $ThingConnectorRepository->GetThingBrandByIdOrException($id, $thing_user_name, $thing_password);
     }
 
 }

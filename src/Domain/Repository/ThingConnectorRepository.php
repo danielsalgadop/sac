@@ -49,4 +49,13 @@ class ThingConnectorRepository
         }
         return $thingInfo->name;
     }
+
+    public function GetThingbrandByIdOrException(int $id, string $thing_user_name, string $thing_password)
+    {
+        $thingInfo = $this->GetThingByIdOrException($id, $thing_user_name, $thing_password);
+        if (isset($thingInfo->error)) {
+            throw new \Exception("Error while connecting to thing " . $thing->error);
+        }
+        return $thingInfo->name;
+    }
 }
