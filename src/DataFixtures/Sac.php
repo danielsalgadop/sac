@@ -51,7 +51,7 @@ class Sac extends Fixture
             // vuelvo a recorrer things para, dar permiso al último frien
             foreach ($things as $thing) {
 
-                $actions = $this->createAndPersistAction($thing, $friend, "action_" . $i, ["GET","POST"], "action/route/for/thing/" . $thing->getId());
+                $actions = $this->createAndPersistAction($thing, $friend, "action_" . $i, ["GET", "POST"], "action/route/for/thing/" . $thing->getId());
             }
 
         }
@@ -67,20 +67,35 @@ class Sac extends Fixture
     {
         $arrayThings = [];
         for ($z = 0; $z < $i; $z++) {
-            $arrayThings[] = $this->createAndPersistThing('/');
+            $thing = $this->createAndPersistThing();
+            $this->updateRootOfThingWithSlashAndId($thing);
+            $arrayThings[] = $thing;
         }
         return $arrayThings;
     }
 
-    public function createAndPersistThing(string $root)
+    public function createAndPersistThing()
     {
         $thing = new Thing();
         $thing->setPassword("password");
         $thing->setUser("user");
-        $thing->setRoot($root);
+        $thing->setRoot('will_be_substituted');
         $this->manager->persist($thing);
         $this->manager->flush();
         return $thing;
+    }
+
+    /**
+     * Updates root to /+thingId
+     * Separated from createAndPersistThing because needed to know thing.id (ddbb)
+     * @param Thing $thing
+     */
+    public function updateRootOfThingWithSlashAndId(Thing $thing)
+    {
+        $thingId = $thing->getId();
+        $thing->setRoot('/'.$thingId);
+        $this->manager->persist($thing);
+        $this->manager->flush();
     }
 
     public function createAndPersistOwner(string $user = "user_without_thing", string $fbDelegated = "fb_delegated_without_thing")
@@ -98,10 +113,13 @@ class Sac extends Fixture
         $arrayFriends = [];
         for ($z = 0; $z < $i; $z++) {
             $arrayFriends[] = $this->createAndPersistFriend($i . '_ownerId_' . $owner_id);
+
         }
         return $arrayFriends;
 
     }
+
+
 
     public function createAndPersistFriend($fbDelegated)
     {
@@ -122,7 +140,7 @@ class Sac extends Fixture
     public function createAndPersistAction(Thing $thing, Friend $friend, $actionDescription, array $httpVerbs, $route): array
     {
         $arrayActions = [];
-        foreach ($httpVerbs as $httpVerb){
+        foreach ($httpVerbs as $httpVerb) {
 
             $action = new Action();
             $action->setDescription($actionDescription);
