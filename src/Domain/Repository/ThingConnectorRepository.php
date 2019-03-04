@@ -56,6 +56,8 @@ class ThingConnectorRepository
     {
         $thingInfo = $this->GetThingByIdOrException($id, $thing_user_name, $thing_password);
 //        dump($thingInfo->actions->actions);
+
+        return $thingInfo->actions;
         return $thingInfo->actions->actions;
 
 

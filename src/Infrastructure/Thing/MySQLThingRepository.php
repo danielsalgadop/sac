@@ -16,7 +16,7 @@ class MySQLThingRepository implements ThingRepositoryInterface
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->em = $entityManager;
-        $this->thingRepository = $this->em->getRepository(Thing::class);   // Esto es lo que me ha traido quebradero de cabeza
+//        $this->thingRepository = $this->em->getRepository(Thing::class);   // Esto es lo que me ha traido quebradero de cabeza
     }
 
     public function save(Thing $thing)

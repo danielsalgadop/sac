@@ -2,7 +2,8 @@
 
 namespace App\Command;
 
-//use App\Domain\Repository\ThingRepositoryInterface;
+use App\Domain\Repository\ThingRepositoryInterface;
+use App\Domain\Repository\OwnerRepositoryInterface;
 use App\Infrastructure\Thing\MySQLThingRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -10,20 +11,20 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-
+use App\Domain\Entity\Thing;
 
 class CreateThingCommand extends Command
 {
     protected static $defaultName = 'app:CreateThing';
     private $ThingRepo;
 
-//    private function __construct(ThingRepositoryInterface $ThingRepo)
-//    private function __construct(MySQLThingRepository $ThingRepo)
-//    private function __construct()
-//    {
-//        parent::__construct();
-//        $this->ThingRepo = $ThingRepo;
-//    }
+//    public function __construct()
+//    public function __construct(OwnerRepositoryInterface $ThingRepo)
+    public function __construct(ThingRepositoryInterface $ThingRepo)
+    {
+        parent::__construct();
+        $this->ThingRepo = $ThingRepo;
+    }
 
 
     protected function configure()
@@ -49,7 +50,7 @@ class CreateThingCommand extends Command
         $thing->setPassword($password);
         $thing->setUser($userName);
         $thing->setRoot($rootPath);
-        $thing->ThingRepo->save();
+        $this->ThingRepo->save($thing);
         $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
 //        return $thing;
     }
