@@ -3,6 +3,8 @@
 namespace App\Command;
 
 use App\Domain\Repository\ThingRepositoryInterface;
+use App\Application\Command\Thing\CreateThingCommand as AppsCreateThingCommand;
+use App\Application\CommandHandler\Thing\CreateThingHandler;
 use App\Domain\Repository\OwnerRepositoryInterface;
 use App\Infrastructure\Thing\MySQLThingRepository;
 use Symfony\Component\Console\Command\Command;
@@ -44,15 +46,10 @@ class CreateThingCommand extends Command
 
         $io->note(sprintf('Creating Thing with root [%s] userName [%s] and password [%s]', $rootPath, $userName, $password));
 
-        $thing = new Thing();
-
-
-        $thing->setPassword($password);
-        $thing->setUser($userName);
-        $thing->setRoot($rootPath);
-        $this->ThingRepo->save($thing);
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
-//        return $thing;
+        $createThingCommand = new AppsCreateThingCommand($rootPath, $userName, $password);
+        $handler = new CreateThingHandler($this->ThingRepo);
+        $handler->handle($createThingCommand);
+        $io->success('Created Thing!');
     }
 
     private function DefaultUserNameAndPassword($input)
