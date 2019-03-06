@@ -27,11 +27,9 @@ class ThingController extends Controller
      */
     public function create(Request $request)
     {
-        // TODO get parameters
-        $root = '/ThingController';
-        $userName = 'userName';
-        $password = 'password';
-
+        $root = $request->request->get('root');
+        $userName = $request->request->get('user');
+        $password = $request->request->get('password');
 
         try {
             $mysqlThingRepository = $this->get('app.repository.thing');

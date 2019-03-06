@@ -12,11 +12,11 @@
 <p>This are your actual things (click or details or edition):</p>
 {% for thing in things %}
     <li>
-    {% if thing.conection == true %}
-        <a href="{{ thing.url }}">Thing Name = {{ thing.name }} Thing Brand = {{ thing.brand }}</a>
-    {% else %}
-        Please check credentials or conection, found problems with thing with id {{ thing.id }} message: {{ thing.message }}.
-    {% endif %}
+        {% if thing.conection == true %}
+            <a href="{{ thing.url }}">Thing Name = {{ thing.name }} Thing Brand = {{ thing.brand }}</a>
+        {% else %}
+            Please check credentials or conection, found problems with thing with id {{ thing.id }} message: {{ thing.message }}.
+        {% endif %}
     </li>
 {% endfor %}
 <h1>Add new Thing</h1>
@@ -27,7 +27,7 @@ https://stackoverflow.com/questions/25728172/unable-to-generate-a-url-for-the-na
 #}
 <form action="/thing/create" method="post">
     <p>id (url)</p>
-    <input type="text" name="id">
+    <input type="text" name="root">
     <p>user</p>
     <input type="text" name="user">
     <p>password</p>
