@@ -21,14 +21,18 @@
 {% endfor %}
 <h1>Add new Thing</h1>
 
-<form>
+{#
+TODO not woring<form action="{{ path('thing_create') }}">
+https://stackoverflow.com/questions/25728172/unable-to-generate-a-url-for-the-named-route
+#}
+<form action="/thing/create" method="post">
     <p>id (url)</p>
     <input type="text" name="id">
     <p>user</p>
     <input type="text" name="user">
     <p>password</p>
     <input type="password" name="password">
-    <input type="button" value="Add Thing">
+    <input type="submit" value="Add Thing">
 </form>
 </body>
 </html>
