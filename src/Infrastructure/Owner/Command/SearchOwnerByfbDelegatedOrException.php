@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Command;
+namespace App\Infrastructure\Owner\Command;
 
 
 use App\Domain\Repository\OwnerRepositoryInterface;

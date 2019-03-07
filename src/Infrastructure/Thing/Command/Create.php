@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Command;
+namespace App\Infrastructure\Thing\Command;
 
 use App\Domain\Repository\ThingRepositoryInterface;
 use App\Application\Command\Thing\CreateThingCommand as AppsCreateThingCommand;
@@ -15,7 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use App\Domain\Entity\Thing;
 
-class CreateThingCommand extends Command
+class Create extends Command
 {
     protected static $defaultName = 'app:CreateThing';
     private $ThingRepo;

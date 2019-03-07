@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Command;
+
+namespace App\Infrastructure\ThingConnected\Commands;
 
 use App\Domain\Repository\OwnerRepositoryInterface;
 use Symfony\Component\Console\Command\Command;
@@ -12,9 +13,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use App\Domain\Repository\ThingConnectorRepository;
 
 
-class GetThingNameByThingId extends Command
+class GetName extends Command
 {
-    protected static $defaultName = 'app:GetThingName';
+    protected static $defaultName = 'app:GetThingNameByThingId';
     private $ThingConnector;
 
     public function __construct(ThingConnectorRepository $ThingConnector)
