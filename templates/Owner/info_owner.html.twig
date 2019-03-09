@@ -12,10 +12,10 @@
 <p>This are your actual things (click or details or edition):</p>
 {% for thing in things %}
     <li>
-        {% if thing.conection == true %}
+        {% if thing.connection == true %}
             <a href="{{ thing.url }}">Thing Name = {{ thing.name }} Thing Brand = {{ thing.brand }}</a>
         {% else %}
-            Please check credentials or conection, found problems with thing with id {{ thing.id }} message: {{ thing.message }}.
+            Please check credentials or connection, found problems with thing with id {{ thing.id }} message: {{ thing.message }}.
         {% endif %}
     </li>
 {% endfor %}

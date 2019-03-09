@@ -68,7 +68,7 @@ class OwnerController extends Controller
 
             $things[$i] = [
                 'id' => $thingId,
-                'conection' => false,
+                'connection' => false,
                 'name' => '',
                 'url' => '',
                 'brand' => '',
@@ -81,7 +81,7 @@ class OwnerController extends Controller
                 $brandName = $getThingBrandHandler->handle($getThingConnectedInfoCommand, $thingConnectorRepository);
                 $things[$i] = [
                     'id' => $thingId,
-                    'conection' => true,
+                    'connection' => true,
                     'name' => $thingName,
                     'url' => 'usl_hard/coded/' . $thingId,
                     'brand' => $brandName,
