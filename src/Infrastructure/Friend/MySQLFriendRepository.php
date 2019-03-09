@@ -1,0 +1,65 @@
+<?php
+
+namespace App\Infrastructure\Friend;
+
+use App\Domain\Entity\Friend;
+use App\Domain\Repository\Friend\FriendRepositoryInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\QueryBuilder;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+class MySQLFriendRepository implements FriendRepositoryInterface
+{
+    private $em;
+    private $ownerRepository;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->em = $entityManager;
+        $this->ownerRepository = $this->em->getRepository(Friend::class);   // Esto es lo que me ha traido quebradero de cabeza
+    }
+
+    public function findAll()
+    {
+        return $this->ownerRepository->findAll();
+    }
+
+    public function save(Friend $owner)
+    {
+        try {
+            $this->em->persist($owner);
+            $this->em->flush();   // TODO: mover el flush al Controller
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+
+    public function getIdFromfbDelegated(string $fbDelegated)
+    {
+//        return 1;
+        // usando CreateQuery
+        $query = $this->em->createQuery('SELECT id FROM App\Domain\Entity\Friend o where o.fb_delegated = ":fbDelegated"')->setParameter('fbDelegated', $fbDelegated);
+        // usando QueryBuilder
+//        $ownerRepository = $this->em->getRepository(Friend::class);
+//        $query = $ownerRepository->createQueryBuilder('o')->select('id')->from(Friend::class, 'o')->where('o.fb_delegated = '.$fbDelegated);
+        // comun a CreateQuery (DDL) o QueryBuilder
+        $id = $query->getResult();
+        return $id;
+    }
+
+    public function searchFriendByfbDelegatedOrException(string $fbDelegated)
+    {
+
+        $owner = $this->ownerRepository->findOneBy(['fbDelegated' => $fbDelegated]);
+        if (!$owner) {
+            throw new \Exception("Friend not found by fbDelegated");
+        }
+
+
+
+        if ($owner === null) {
+            throw new \Exception("Non-existing fbDelegated");
+        }
+        return $owner;
+    }
+}

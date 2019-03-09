@@ -19,6 +19,11 @@ class MySQLOwnerRepository implements OwnerRepositoryInterface
         $this->ownerRepository = $this->em->getRepository(Owner::class);   // Esto es lo que me ha traido quebradero de cabeza
     }
 
+    public function findAll()
+    {
+        return $this->ownerRepository->findAll();
+    }
+
     public function save(Owner $owner)
     {
         try {
@@ -85,7 +90,7 @@ class MySQLOwnerRepository implements OwnerRepositoryInterface
         // Intentando obtener repositorio como servicio
 //        $owner_repo = Controller::get('app.repository.owner');
         // ERROR
-//        Call to protected method Symfony\Bundle\FrameworkBundle\Controller\Controller::get() from context 'App\Infrastructure\Owner\MySQLOwnerRepository'
+//        Call to protected method Symfony\Bundle\FrameworkBundle\Controller\Controller::get() from context 'App\Infrastructure\Owner\MySQLFriendRepository'
 
 
         // intentando usar findeOneBy
