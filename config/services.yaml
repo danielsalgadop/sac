@@ -31,8 +31,15 @@ services:
         arguments:
             - "@doctrine.orm.default_entity_manager"
 
-
+    # TODO duda: estoy usando este?
     app.repository.thing:
+        class: App\Infrastructure\Thing\MySQLThingRepository
+        public: true
+        arguments:
+        - "@doctrine.orm.default_entity_manager"
+
+
+    app.repository.friend:
         class: App\Infrastructure\Thing\MySQLThingRepository
         public: true
         arguments:
