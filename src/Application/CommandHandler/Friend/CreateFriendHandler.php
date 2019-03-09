@@ -16,8 +16,12 @@ class CreateFriendHandler
     public function handle(CreateFriendCommand $createFriendCommand)
     {
         $fbDelegated = $createFriendCommand->getFbDelegated();
-        $friend = new Friend();
-        $friend->setFbDelegated($fbDelegated);
-        return $this->friendRepository->save($friend);
+
+        // create Friend if does not exit
+        if(null === $this->friendRepository->searchByfbDelegated($fbDelegated)) {
+            $friend = new Friend();
+            $friend->setFbDelegated($fbDelegated);
+            $this->friendRepository->save($friend);
+        }
     }
 }

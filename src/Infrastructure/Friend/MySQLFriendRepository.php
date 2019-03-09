@@ -11,17 +11,27 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class MySQLFriendRepository implements FriendRepositoryInterface
 {
     private $em;
-    private $ownerRepository;
+    private $friendRepository;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->em = $entityManager;
-        $this->ownerRepository = $this->em->getRepository(Friend::class);   // Esto es lo que me ha traido quebradero de cabeza
+        $this->friendRepository = $this->em->getRepository(Friend::class);   // Esto es lo que me ha traido quebradero de cabeza
     }
 
     public function findAll()
     {
-        return $this->ownerRepository->findAll();
+        return $this->friendRepository->findAll();
+    }
+
+    public function searchByfbDelegated(string $fbDelegated)
+    {
+        return $this->friendRepository->findOneBy(['fbDelegated' =>$fbDelegated]);
+    }
+
+    public function searchById(int $id)
+    {
+        return $this->friendRepository->findOneBy(['id' =>$id]);
     }
 
     public function save(Friend $owner)
@@ -40,8 +50,8 @@ class MySQLFriendRepository implements FriendRepositoryInterface
         // usando CreateQuery
         $query = $this->em->createQuery('SELECT id FROM App\Domain\Entity\Friend o where o.fb_delegated = ":fbDelegated"')->setParameter('fbDelegated', $fbDelegated);
         // usando QueryBuilder
-//        $ownerRepository = $this->em->getRepository(Friend::class);
-//        $query = $ownerRepository->createQueryBuilder('o')->select('id')->from(Friend::class, 'o')->where('o.fb_delegated = '.$fbDelegated);
+//        $friendRepository = $this->em->getRepository(Friend::class);
+//        $query = $friendRepository->createQueryBuilder('o')->select('id')->from(Friend::class, 'o')->where('o.fb_delegated = '.$fbDelegated);
         // comun a CreateQuery (DDL) o QueryBuilder
         $id = $query->getResult();
         return $id;
@@ -50,7 +60,7 @@ class MySQLFriendRepository implements FriendRepositoryInterface
     public function searchFriendByfbDelegatedOrException(string $fbDelegated)
     {
 
-        $owner = $this->ownerRepository->findOneBy(['fbDelegated' => $fbDelegated]);
+        $owner = $this->friendRepository->findOneBy(['fbDelegated' => $fbDelegated]);
         if (!$owner) {
             throw new \Exception("Friend not found by fbDelegated");
         }

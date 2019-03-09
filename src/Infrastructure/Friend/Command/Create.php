@@ -35,6 +35,7 @@ class Create extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+
         $createFriendHandler = new CreateFriendHandler($this->friendRepository);
         $createFriendCommand = new CreateFriendCommand($input->getArgument('fbDelegated'));
         $createFriendHandler->handle($createFriendCommand);
