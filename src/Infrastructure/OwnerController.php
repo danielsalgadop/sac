@@ -52,21 +52,22 @@ class OwnerController extends Controller
             return $this->redirect($this->generateUrl('login'));
         }
 
-        $array_of_things = [];
+        $things = [];
         $i = 0;
         foreach ($owner->getThings() as $thing) {
-            $id_thing = $thing->getId();
-            $thing_username = $thing->getUser();
-            $thing_password = $thing->getPassword();
+            $thingId = $thing->getId();
+            $thingUserName = $thing->getUser();
+            $thingPassword = $thing->getPassword();
             // TODO: pasar esto a un servicio
 
-            $getThingConnectedInfoCommand = new getThingConnectedInfoCommand($id_thing, $thing_username, $thing_password);
+            $getThingConnectedInfoCommand = new getThingConnectedInfoCommand($thingId, $thingUserName, $thingPassword);
             $getThingNameHandler = new getThingConnectedNameHandler();
             $getThingBrandHandler = new getThingConnectedBrandHandler();
 
-            $ThingConnectorRepository = new ThingConnectorRepository();
+            $thingConnectorRepository = new ThingConnectorRepository();
 
-            $array_of_things[$i] = ['id' => $id_thing,
+            $things[$i] = [
+                'id' => $thingId,
                 'conection' => false,
                 'name' => '',
                 'url' => '',
@@ -74,24 +75,25 @@ class OwnerController extends Controller
             ];
 
 
-            // TODO: no definir todo 2 veces, mejorar la manera de llenar array_of_things. se va a necesitar un contador para meter info del actual thing.
+            // TODO: no definir todo 2 veces, mejorar la manera de llenar things. se va a necesitar un contador para meter info del actual thing.
             try {
-                $thing_name = $getThingNameHandler->handle($getThingConnectedInfoCommand, $ThingConnectorRepository);
-                $brandName = $getThingBrandHandler->handle($getThingConnectedInfoCommand, $ThingConnectorRepository);
-                $array_of_things[$i] = [
-                    'id' => $id_thing,
+                $thingName = $getThingNameHandler->handle($getThingConnectedInfoCommand, $thingConnectorRepository);
+                $brandName = $getThingBrandHandler->handle($getThingConnectedInfoCommand, $thingConnectorRepository);
+                $things[$i] = [
+                    'id' => $thingId,
                     'conection' => true,
-                    'name' => $thing_name,
-                    'url' => 'usl_hard/coded/' . $id_thing,
+                    'name' => $thingName,
+                    'url' => 'usl_hard/coded/' . $thingId,
                     'brand' => $brandName,
                 ];
-            } catch (\Exception $e) { //something whent wrong;º
-                $array_of_things[$i]['message'] = $e->getMessage();
+            } catch (\Exception $e) { //something whent wrong
+                $things[$i]['message'] = $e->getMessage();
             }
             $i++;
         }
 
-        return $this->render('Owner/info_owner.html.twig', ['complete_name' => 'nombre_hc_controller', 'things' => $array_of_things]);
+
+        return $this->render('Owner/info_owner.html.twig', ['complete_name' => 'nombre_hc_controller', 'things' => $things]);
     }
 
 
