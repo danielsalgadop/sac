@@ -9,6 +9,15 @@
 {#TODO: meter validacion de usuario logado#}
 {#{% include 'fbSdk.html.twig' %}#}
 <p>Hello, {{ complete_name }}</p>
+<h1>List of Friends</h1>
+{% for friend in friends %}
+    <p>
+        <a href="{{ path('owner_things') }}">
+            {{ friend.getId() }}  {{ friend.fbDelegated }}
+        </a>
+    </p>
+{% endfor %}
+<h1>List of Things</h1>
 <p>This are your actual things (click or details or edition):</p>
 {% for thing in things %}
     <li>
@@ -21,11 +30,7 @@
 {% endfor %}
 <h1>Add new Thing</h1>
 
-{#
-TODO not woring<form action="{{ path('thing_create') }}">
-https://stackoverflow.com/questions/25728172/unable-to-generate-a-url-for-the-named-route
-#}
-<form action="/thing/create" method="post">
+<form action="{{ path('thing_create') }}" method="post">
     <p>id (url)</p>
     <input type="text" name="root">
     <p>user</p>

@@ -91,9 +91,15 @@ class OwnerController extends Controller
             }
             $i++;
         }
-
-
-        return $this->render('Owner/info_owner.html.twig', ['complete_name' => 'nombre_hc_controller', 'things' => $things]);
+        $friends = $owner->getFriends();
+//        dd($friends->getValues());
+        return $this->render(
+            'Owner/info_owner.html.twig', [
+                'complete_name' => 'nombre_hc_controller',
+                'things' => $things,
+                'friends' => $friends,
+            ]
+        );
     }
 
 

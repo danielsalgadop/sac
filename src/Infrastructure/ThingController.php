@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ThingController extends Controller
 {
     /**
-     * @Route("/", name="thing_info", methods={"GET"})
+     * @Route("/", name="info", methods={"GET"})
      */
     public function info()
     {
@@ -23,7 +23,7 @@ class ThingController extends Controller
 
 
     /**
-     * @Route("/create", name="thing_create", methods={"POST"})
+     * @Route("/create", name="create", methods={"POST"})
      */
     public function create(Request $request)
     {
@@ -44,7 +44,7 @@ class ThingController extends Controller
     }
 
     /**
-     * @Route("/friends", name="thing_friends", methods={"GET"})
+     * @Route("/friends", name="friends", methods={"GET"})
      */
     public function friends()
     {

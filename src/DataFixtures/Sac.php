@@ -112,7 +112,7 @@ class Sac extends Fixture
     {
         $arrayFriends = [];
         for ($z = 0; $z < $i; $z++) {
-            $arrayFriends[] = $this->createAndPersistFriend($i . '_ownerId_' . $owner_id);
+            $arrayFriends[] = $this->createAndPersistFriend('fbDelegated_friend_of_this_owner_id' . $owner_id);
 
         }
         return $arrayFriends;
