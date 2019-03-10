@@ -11,12 +11,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 class SearchOwnerByfbDelegatedOrException extends Command
 {
     protected static $defaultName = "app:searchOwnerByfbDelegatedOrException";
-    private $ownerRepo;
+    private $ownerRepository;
 
-    public function __construct(OwnerRepositoryInterface $ownerRepo)
+    public function __construct(OwnerRepositoryInterface $ownerRepository)
     {
         parent::__construct();
-        $this->ownerRepo = $ownerRepo;
+        $this->ownerRepository = $ownerRepository;
     }
 
     protected function configure()
@@ -26,6 +26,7 @@ class SearchOwnerByfbDelegatedOrException extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        dump($this->ownerRepo->searchOwnerByfbDelegatedOrException('fb_delegated_1'));
+        // TODO: use arguments (avoid hardcoding fb_delegated
+        dump($this->ownerRepository->searchOwnerByfbDelegatedOrException('fb_delegated_1'));
     }
 }
