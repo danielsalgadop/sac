@@ -23,6 +23,7 @@ class ThingController extends Controller
      */
     public function info()
     {
+        print "info about thing";
     }
 
 

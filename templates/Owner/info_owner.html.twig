@@ -10,6 +10,8 @@
 {#{% include 'fbSdk.html.twig' %}#}
 <p>Hello, {{ complete_name }}</p>
 <h1>List of Friends</h1>
+<a href="{{ path('owner_friends') }}">List of all friends (+)</a>
+<p>Added friends in SAC</p>
 {% for friend in friends %}
     <p>
         <a href="{{ path('owner_things') }}">
@@ -17,6 +19,7 @@
         </a>
     </p>
 {% endfor %}
+
 <h1>List of Things</h1>
 <p>This are your actual things (click or details or edition):</p>
 {% for thing in things %}
