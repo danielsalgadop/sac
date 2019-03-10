@@ -3,11 +3,15 @@
 namespace App\Infrastructure;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use App\Application\CommandHandler\Thing\CreateThingHandler;
-use App\Application\Command\Thing\CreateThingCommand;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
+use App\Application\Command\Thing\CreateThingCommand;
+use App\Application\CommandHandler\Thing\CreateThingHandler;
+
+use App\Application\Command\Owner\AddThingCommand;
+use App\Application\CommandHandler\Owner\AddThingHandler;
 
 /**
  * @Route("/thing", name="thing_")
@@ -35,7 +39,16 @@ class ThingController extends Controller
             $mysqlThingRepository = $this->get('app.repository.thing');
             $createThingHandler = new CreateThingHandler($mysqlThingRepository);
             $createThingCommand = new CreateThingCommand($root,$userName,$password);
-            $createThingHandler->handle($createThingCommand);
+            $thing = $createThingHandler->handle($createThingCommand);
+
+            $ownerRepository = $this->get('app.repository.owner');
+            $owner = $ownerRepository->searchOwnerByfbDelegatedOrException(getenv('HC_FB_DELEGATED_OF_OWNER'));
+
+            // add thing to owner
+            $addThingCommand = new AddThingCommand($thing, $owner);
+            $addThingHandler = new AddThingHandler($ownerRepository);
+
+            $addThingHandler->handle($addThingCommand);
 
         } catch (\Exception $e) {
             return new Response($e->getMessage());

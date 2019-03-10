@@ -22,8 +22,6 @@ class SearchFriendByFbDelegatedHandler
         $fbDelegated = $command->getFbDelegated();
         $friend = $this->friendRepository->searchFriendByfbDelegatedOrException($fbDelegated);
 
-        //        $user = $friend->getUser();
-//        $user->correctCredentialsOrException($command->getUser(),$command->getPassword());
         return $friend;
     }
 }

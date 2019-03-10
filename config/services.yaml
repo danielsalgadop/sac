@@ -40,7 +40,7 @@ services:
 
 
     app.repository.friend:
-        class: App\Infrastructure\Thing\MySQLThingRepository
+        class: App\Infrastructure\Thing\MySQLFriendRepository
         public: true
         arguments:
         - "@doctrine.orm.default_entity_manager"

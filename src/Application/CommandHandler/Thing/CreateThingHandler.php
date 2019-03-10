@@ -13,7 +13,7 @@ class CreateThingHandler
         $this->thingRepository = $thingRepository;
     }
 
-    public function handle(CreateThingCommand $createThingCommand)
+    public function handle(CreateThingCommand $createThingCommand):Thing
     {
         $root = $createThingCommand->getRoot();
         $userName = $createThingCommand->getUserName();
@@ -24,7 +24,9 @@ class CreateThingHandler
         $thing->setUser($userName);
         $thing->setPassword($password);
 
-        return $this->thingRepository->save($thing);
+        $this->thingRepository->save($thing);
+        return $thing;
+
 
     }
 }
