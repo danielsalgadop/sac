@@ -34,16 +34,16 @@ class OwnerController extends Controller
     public function info_owner()
     {
         // voy a recibir un fb_delegated: TODO no usar este HC_FB_DELEGATED_OF_OWNER
-        $hc_fb_delegated = getenv('HC_FB_DELEGATED_OF_OWNER');
+        $fbDelegatedInSession= getenv('HC_FB_DELEGATED_OF_OWNER');
         // Intentando usar el Repo desde aqui, el controller
 //        $ownerRepo = $this->getDoctrine()->getRepository(Owner::class);
-//        $owner = $ownerRepo->findOneBy(['fbDelegated' => $hc_fb_delegated]);
+//        $owner = $ownerRepo->findOneBy(['fbDelegated' => $fbDelegatedInSession]);
 
 //        TODO: no consigo buscar algo distinto al id
         // TODO: pasar esto como servicio, sirve para identificar fbDelegated válidos (para autenticar)
         $mysqlOwnerRepository = $this->get('app.repository.owner');
         $searchOwnerByFbDelegatedHandler = new SearchOwnerByFbDelegatedHandler($mysqlOwnerRepository);
-        $searchOwnerByFbDelegatedCommand = new SearchOwnerByFbDelegatedCommand($hc_fb_delegated);
+        $searchOwnerByFbDelegatedCommand = new SearchOwnerByFbDelegatedCommand($fbDelegatedInSession);
         try {
             $owner = $searchOwnerByFbDelegatedHandler->handle($searchOwnerByFbDelegatedCommand);
         } catch (\Exception $e) {
@@ -136,8 +136,54 @@ class OwnerController extends Controller
      */
     public function friends()
     {
-        return new Response('list of friends and delegated actions');
+        $fbDelegatedInSession= getenv('HC_FB_DELEGATED_OF_OWNER');
+        $mysqlOwnerRepository = $this->get('app.repository.owner');
+        $searchOwnerByFbDelegatedHandler = new SearchOwnerByFbDelegatedHandler($mysqlOwnerRepository);
+        $searchOwnerByFbDelegatedCommand = new SearchOwnerByFbDelegatedCommand($fbDelegatedInSession);
+        try {
+            $owner = $searchOwnerByFbDelegatedHandler->handle($searchOwnerByFbDelegatedCommand);
+        } catch (\Exception $e) {
+            // TODO se podría recoger el valor del error y pasarlo como mensaje al login
+            return $this->redirect($this->generateUrl('login'));
+        }
+
+        $friends = $owner->getFriends()->toArray();
+        
+        $toe = $this->hardcodedFbFriend($fbDelegatedInSession);
+        $n = array_merge($toe, $friends);
+        
+        return $this->render(
+            'Owner/friends.html.twig', [
+                'friends' => $n,
+            ]
+        );
+    }
+
+    // TODO: thins info will be fetched from facebook
+    private function hardcodedFbFriend(string $fbDelegated): array
+    {
+        foreach ([1,2,3] as $i) {
+            $hardcodedFbFriend = new hardcodedFbFriend(100 + $i,"hard_coded_exclusiveFbFriend_".$i."_".$fbDelegated);
+            $exclusiveFbFriends[] = $hardcodedFbFriend;
+        }
+        return $exclusiveFbFriends;
     }
 }
 
 
+class hardcodedFbFriend
+{
+    public $id = null;
+    public $fbDelegated = null;
+    function __construct(int $id, $fbDelegated)
+    {
+        $this->id = $id;
+        $this->fbDelegated = $fbDelegated;
+    }
+    function getId(){
+        return $this->id;
+    }
+    function getFbDelegated(){
+        return $this->fbDelegated;
+    }
+}

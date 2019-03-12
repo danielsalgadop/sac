@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Friends{% endblock %}</title>
+</head>
+<body>
+<h1>Friends</h1>
+{#TODO: meter validacion de usuario logado#}
+{#{% include 'fbSdk.html.twig' %}#}
+<h1>List of Friends</h1>
+<p>Added friends in SAC</p>
+{% for friend in friends %}
+    <p>
+        <a href="{{ path('owner_things') }}">
+            {{ friend.getId() }}  {{ friend.fbDelegated }}
+        </a>
+    </p>
+{% endfor %}
+</body>
+</html>
