@@ -147,14 +147,11 @@ class OwnerController extends Controller
             return $this->redirect($this->generateUrl('login'));
         }
 
-        $friends = $owner->getFriends()->toArray();
-        
-        $toe = $this->hardcodedFbFriend($fbDelegatedInSession);
-        $n = array_merge($toe, $friends);
+        $totalFriends = array_merge($this->hardcodedFbFriend($fbDelegatedInSession), $owner->getFriends()->toArray());
         
         return $this->render(
             'Owner/friends.html.twig', [
-                'friends' => $n,
+                'friends' => $totalFriends,
             ]
         );
     }
