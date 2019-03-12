@@ -13,13 +13,31 @@ use App\Application\CommandHandler\Thing\CreateThingHandler;
 use App\Application\Command\Owner\AddThingCommand;
 use App\Application\CommandHandler\Owner\AddThingHandler;
 
+use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
+use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
+
 /**
  * @Route("/thing", name="thing_")
  */
 class ThingController extends Controller
 {
     /**
-     * @Route("/", name="info", methods={"GET"})
+     * @Route("/all", name="all", methods={"GET"})
+     */
+    public function all()
+    {
+        // TODO searchOwnerByFbDelegated as a service
+        $ownerRepository = $this->get('app.repository.owner');
+        $searchOwnerByFbDelegatedCommand = new SearchOwnerByFbDelegatedCommand(getenv('HC_FB_DELEGATED_OF_OWNER'));
+        $searchOwnerByFbDelegatedHandler = new SearchOwnerByFbDelegatedHandler($ownerRepository);
+        $owner = $searchOwnerByFbDelegatedHandler->handle($searchOwnerByFbDelegatedCommand);
+        return new Response(dd($owner));
+        print "all";
+    }
+
+
+    /**
+     * @Route("/{id}", name="info", methods={"GET"})
      */
     public function info()
     {
