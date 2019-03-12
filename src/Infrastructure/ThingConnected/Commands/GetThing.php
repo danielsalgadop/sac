@@ -14,7 +14,7 @@ use App\Domain\Repository\ThingConnectorRepository;
 
 class GetThing extends Command
 {
-    protected static $defaultName = 'app:GetThingByThingId';
+    protected static $defaultName = 'app:ThingConnected:GetThingByThingId';
     private $ThingConnector;
 
     public function __construct(ThingConnectorRepository $ThingConnector)

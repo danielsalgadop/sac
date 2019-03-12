@@ -14,7 +14,7 @@ use App\Domain\Repository\ThingConnectorRepository;
 
 class GetActions extends Command
 {
-    protected static $defaultName = 'app:GetThingActionsByThingId';
+    protected static $defaultName = 'app:ThingConnected:GetThingActionsByThingId';
     private $ThingConnector;
 
     public function __construct(ThingConnectorRepository $ThingConnector)
