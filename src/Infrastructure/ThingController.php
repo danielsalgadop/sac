@@ -22,26 +22,26 @@ use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
 class ThingController extends Controller
 {
     /**
-     * @Route("/all", name="all", methods={"GET"})
+     * @Route("/{thingId}", name="info", methods={"GET"})
      */
-    public function all()
+    public function info($thingId)
     {
+//        dd($thingId);
         // TODO searchOwnerByFbDelegated as a service
         $ownerRepository = $this->get('app.repository.owner');
         $searchOwnerByFbDelegatedCommand = new SearchOwnerByFbDelegatedCommand(getenv('HC_FB_DELEGATED_OF_OWNER'));
         $searchOwnerByFbDelegatedHandler = new SearchOwnerByFbDelegatedHandler($ownerRepository);
         $owner = $searchOwnerByFbDelegatedHandler->handle($searchOwnerByFbDelegatedCommand);
-        return new Response(dd($owner));
-        print "all";
-    }
 
 
-    /**
-     * @Route("/{id}", name="info", methods={"GET"})
-     */
-    public function info()
-    {
-        print "info about thing";
+        // TODO: pensar si pasar esto a Command-CommandHandler
+        // given thingId belongs to Owner?
+        try {
+            $thing = $owner->getThingByIdOrException($thingId);
+        } catch (\Exception $e) {
+            return new Response($e->getMessage());
+        }
+        return $this->render('Thing/info.html.twig', ['thing' => $thing]);
     }
 
 
@@ -57,7 +57,7 @@ class ThingController extends Controller
         try {
             $mysqlThingRepository = $this->get('app.repository.thing');
             $createThingHandler = new CreateThingHandler($mysqlThingRepository);
-            $createThingCommand = new CreateThingCommand($root,$userName,$password);
+            $createThingCommand = new CreateThingCommand($root, $userName, $password);
             $thing = $createThingHandler->handle($createThingCommand);
 
             $ownerRepository = $this->get('app.repository.owner');

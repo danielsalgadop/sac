@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Thing{% endblock %}</title>
+</head>
+<body>
+<h1>Thing</h1>
+{#TODO: meter validacion de usuario logado#}
+{#{% include 'fbSdk.html.twig' %}#}
+<h1>List of Action for Thing {{ thing.root }}</h1>
+{% for action in thing.getActions() %}
+    <p>
+            HTTP: {{ action.getHttpVerb() }} | ROUTE: {{ action.getRoute() }} | Desciption: {{ action.getDescription() }}
+        <a href="{{ path('owner_things') }}">Share</a>
+    </p>
+{% endfor %}
+</body>
+</html>

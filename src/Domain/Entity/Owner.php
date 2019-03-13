@@ -127,4 +127,15 @@ class Owner
 
         return $this;
     }
+
+    public function getThingByIdOrException(int $thingId): Thing
+    {
+        foreach ($this->getThings() as $thing) {
+            if($thing->getId() === $thingId){
+                return $thing;
+            }
+        }
+        throw new \Exception("Thing does not belong to user");
+    }
+
 }

@@ -148,4 +148,5 @@ class Thing
 
         return $this;
     }
+
 }
