@@ -20,6 +20,14 @@ use Symfony\Contracts\Service;
 class SacController extends Controller
 {
 
+    /**
+     * @Route("/test", name="test", methods={"GET"})
+     */
+    public function test()
+    {
+        return $this->render('test.html.twig');
+    }
+
     // TODO: cambiar nombre de este controlador, algo estilo CredentialsController
 //appId      : '361174884467644',
 

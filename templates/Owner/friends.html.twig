@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Friends{% endblock %}</title>
-</head>
-<body>
+{% extends('base.html.twig') %}
+{%  block title %}
+    List of Friends
+{% endblock %}
+{% block body %}
+
 <h1>Friends</h1>
 {#TODO: meter validacion de usuario logado#}
 {#{% include 'fbSdk.html.twig' %}#}
@@ -17,5 +16,4 @@
         </a>
     </p>
 {% endfor %}
-</body>
-</html>
+{% endblock %}

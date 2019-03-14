@@ -41,7 +41,11 @@ class ThingController extends Controller
         } catch (\Exception $e) {
             return new Response($e->getMessage());
         }
-        return $this->render('Thing/info.html.twig', ['thing' => $thing]);
+
+        // TODO: get real facebook friends
+        $friends= [['name' => 'name1'],['name'=>'name2']];
+
+        return $this->render('Thing/info.html.twig', ['thing' => $thing, 'friends' => $friends]);
     }
 
 

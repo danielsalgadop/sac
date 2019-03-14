@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Info Owner{% endblock %}</title>
-</head>
-<body>
+{% extends('base.html.twig') %}
+{%  block title %}
+    Info Owner
+{% endblock %}
+{% block body %}
 <h1>General INFO</h1>
 {#TODO: meter validacion de usuario logado#}
 {#{% include 'fbSdk.html.twig' %}#}
@@ -42,5 +40,4 @@
     <input type="password" name="password">
     <input type="submit" value="Add Thing">
 </form>
-</body>
-</html>
+{% endblock %}
