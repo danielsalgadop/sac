@@ -11,28 +11,39 @@
         <p>
             HTTP: {{ action.getHttpVerb() }} | ROUTE: {{ action.getRoute() }} |
             Desciption: {{ action.getDescription() }}
-            <button onclick="openFriendDialog({{ action.getId }})">Share with friend</button>
+            <button onclick="openFriendDialog({{ action.getId() }})">Share with friend</button>
         </p>
     {% endfor %}
 
-    <div id="dialog" title="Basic dialog">
+    <div id="dialog" title="List of friends">
         <ul>
             {% for friend in friends %}
-                <li>{{ friend.name }}</li>
+                <li>{{ friend.name }}
+                    {#{%  if friend.action %}#}
+                </li>
             {% endfor %}
-        </ul>
 
-        <p>This is the default dialog which is useful for displaying information. The dialog window can be moved,
-            resized
-            and closed with the 'x' icon.</p>
+        </ul>
     </div>
 
     <script>
-        $(function () {
-            $("#dialog").dialog();
-        });
-        function openFriendDialog(id){
-            console.log("clicked this action id "+id);
+        hideFriendDialog();
+
+
+        function hideFriendDialog(){
+            $('#dialog').hide();
+        }
+
+        function showFriendDialog(){
+            $('#dialog').show();
+        }
+
+        function openFriendDialog(actionId){
+            showFriendDialog();
+            console.log("clicked this action id "+actionId);
+            $("#dialog").dialog({
+                modal:true
+            });
         }
     </script>
 
