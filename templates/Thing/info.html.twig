@@ -11,14 +11,9 @@
         <p>
             HTTP: {{ action.getHttpVerb() }} | ROUTE: {{ action.getRoute() }} |
             Desciption: {{ action.getDescription() }}
-            <a href="{{ path('owner_things') }}" onclick="openFriendDialog(1)">Share with friend</a>
+            <button onclick="openFriendDialog({{ action.getId }})">Share with friend</button>
         </p>
     {% endfor %}
-    <script>
-        $(function () {
-            $("#dialog").dialog();
-        });
-    </script>
 
     <div id="dialog" title="Basic dialog">
         <ul>
@@ -32,5 +27,13 @@
             and closed with the 'x' icon.</p>
     </div>
 
+    <script>
+        $(function () {
+            $("#dialog").dialog();
+        });
+        function openFriendDialog(id){
+            console.log("clicked this action id "+id);
+        }
+    </script>
 
 {% endblock %}
