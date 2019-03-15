@@ -1,16 +1,36 @@
 {% extends('base.html.twig') %}
-{%  block title %}
+{% block title %}
     List of Actions
 {% endblock %}
 {% block body %}
     <h1>Thing</h1>
-{#TODO: meter validacion de usuario logado#}
-{#{% include 'fbSdk.html.twig' %}#}
-<h1>List of Action for Thing {{ thing.root }}</h1>
-{% for action in thing.getActions() %}
-    <p>
-            HTTP: {{ action.getHttpVerb() }} | ROUTE: {{ action.getRoute() }} | Desciption: {{ action.getDescription() }}
-        <a href="{{ path('owner_things') }}">Share with friend</a>
-    </p>
-{% endfor %}
+    {#TODO: meter validacion de usuario logado#}
+    {#{% include 'fbSdk.html.twig' %}#}
+    <h1>List of Action for Thing {{ thing.root }}</h1>
+    {% for action in thing.getActions() %}
+        <p>
+            HTTP: {{ action.getHttpVerb() }} | ROUTE: {{ action.getRoute() }} |
+            Desciption: {{ action.getDescription() }}
+            <a href="{{ path('owner_things') }}" onclick="openFriendDialog(1)">Share with friend</a>
+        </p>
+    {% endfor %}
+    <script>
+        $(function () {
+            $("#dialog").dialog();
+        });
+    </script>
+
+    <div id="dialog" title="Basic dialog">
+        <ul>
+            {% for friend in friends %}
+                <li>{{ friend.name }}</li>
+            {% endfor %}
+        </ul>
+
+        <p>This is the default dialog which is useful for displaying information. The dialog window can be moved,
+            resized
+            and closed with the 'x' icon.</p>
+    </div>
+
+
 {% endblock %}

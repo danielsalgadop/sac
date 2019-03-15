@@ -43,7 +43,7 @@ class ThingController extends Controller
         }
 
         // TODO: get real facebook friends
-        $friends= [['name' => 'name1'],['name'=>'name2']];
+        $friends= [['name' => 'name1_hc_in_controller'],['name'=>'name2_hc_in_controller']];
 
         return $this->render('Thing/info.html.twig', ['thing' => $thing, 'friends' => $friends]);
     }
