@@ -21,7 +21,7 @@
 <h1>List of Things</h1>
 <p>This are your actual things (click or details or edition):</p>
 {% for thing in things %}
-    <li>
+    <li>x
         {% if thing.connection == true %}
             <a href="{{ thing.url }}">Thing Name = {{ thing.name }} Thing Brand = {{ thing.brand }}</a>
         {% else %}
