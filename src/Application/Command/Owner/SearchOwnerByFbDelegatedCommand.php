@@ -12,7 +12,7 @@ class SearchOwnerByFbDelegatedCommand
         $this->fb_delegated = $fb_delegated;
     }
 
-    public function getFbDelegated()
+    public function getFbDelegated():string
     {
         return $this->fb_delegated;
     }

@@ -7,12 +7,10 @@ use App\Domain\Repository\OwnerRepositoryInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
 
-
-class SearchOwnerByfbDelegatedOrException extends Command
+class GetFbSharingStatusByOwner extends Command
 {
-    protected static $defaultName = "app:Owner:searchByfbDelegatedOrException";
+    protected static $defaultName = "app:GetFbSharingStatusByOwner";
     private $ownerRepository;
 
     public function __construct(OwnerRepositoryInterface $ownerRepository)
@@ -21,18 +19,14 @@ class SearchOwnerByfbDelegatedOrException extends Command
         $this->ownerRepository = $ownerRepository;
     }
 
-
-    protected function configure(){
-        $this
-            ->setDescription("Test")
-            ->addArgument('OwnerFbDelegated', InputArgument::REQUIRED, 'fb_delegated of Owner (must exist)');
+    protected function configure()
+    {
+        $this->setDescription("Test");
     }
-
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $ownerFbDelegated = $input->getArgument("OwnerFbDelegated");
         // TODO: use arguments (avoid hardcoding fb_delegated
-        dump($this->ownerRepository->searchOwnerByfbDelegatedOrException($ownerFbDelegated));
+        dump($this->ownerRepository->searchOwnerByfbDelegatedOrException('fb_delegated_1'));
     }
 }

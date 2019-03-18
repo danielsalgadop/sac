@@ -33,7 +33,7 @@ class AddFriendToOwner extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Add a short description for your command')
+            ->setDescription('Given fbDelegated of Owner and fbDelegated of Friend will create a relationshing in owner_friend table')
             ->addArgument('OwnerFbDelegated', InputArgument::REQUIRED, 'fb_delegated of Owner (must exist)')
             ->addArgument('FriendFbDelegated', InputArgument::REQUIRED, 'fb_delegated of Friend (must exist)')
         ;
