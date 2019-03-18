@@ -1,6 +1,6 @@
 {% extends('base.html.twig') %}
 {% block title %}
-    List of Actions
+    Thing
 {% endblock %}
 {% block body %}
     <h1>Thing</h1>
@@ -11,7 +11,7 @@
         <p>
             HTTP: {{ action.getHttpVerb() }} | ROUTE: {{ action.getRoute() }} |
             Desciption: {{ action.getDescription() }}
-            <button onclick="openFriendDialog({{ action.getId() }})">Share with friend</button>
+            <button onclick="openFriendDialog({{ action.getId() }})">Manage</button>
         </p>
     {% endfor %}
 
