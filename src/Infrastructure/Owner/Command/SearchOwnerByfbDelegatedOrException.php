@@ -24,7 +24,7 @@ class SearchOwnerByfbDelegatedOrException extends Command
 
     protected function configure(){
         $this
-            ->setDescription("Test")
+            ->setDescription("Given a fbDelegated gets Owner")
             ->addArgument('OwnerFbDelegated', InputArgument::REQUIRED, 'fb_delegated of Owner (must exist)');
     }
 
@@ -32,7 +32,6 @@ class SearchOwnerByfbDelegatedOrException extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $ownerFbDelegated = $input->getArgument("OwnerFbDelegated");
-        // TODO: use arguments (avoid hardcoding fb_delegated
         dump($this->ownerRepository->searchOwnerByfbDelegatedOrException($ownerFbDelegated));
     }
 }
