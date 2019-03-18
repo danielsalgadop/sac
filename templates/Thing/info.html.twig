@@ -16,17 +16,25 @@
     {% endfor %}
 
     <div id="dialog" title="List of friends">
-        <ul>
-            {% for friend in friends %}
-                <li>{{ friend.name }}
-                    {#{%  if friend.action %}#}
-                </li>
-            {% endfor %}
+        {#<ul>#}
+            {#{% for friend in friends %}#}
+                {#<li>#}
+                    {#{{ friend.name }}#}
+                    {#{{ friend. }}#}
+                    {#{% if friend.getF%}#}
+                {#</li>#}
+            {#{% endfor %}#}
 
-        </ul>
+        {#</ul>#}
     </div>
 
     <script>
+        var shargingStatus = {{ sharingStatus|json_encode|raw}};
+        var thingId = '{{ thing.getId() }}';
+        let friends = {{ friends|json_encode|raw }};
+
+    // alert(shargingStatus);
+
         hideFriendDialog();
 
 
@@ -38,11 +46,32 @@
             $('#dialog').show();
         }
 
+        function returnProperTypeOfFriend(friend){
+            if(friend.)
+            return friend.name+setShareButton();
+        }
+
+        function setShareButton(){
+            return '<button> Share </button>';
+        }
+        function denyShareButton(){
+            return '<button>Deny</button>';
+        }
+
         function openFriendDialog(actionId){
             showFriendDialog();
-            console.log("clicked this action id "+actionId);
+            console.log("In thing thingId["+thingId+"] clicked this action id["+actionId+"]");
+            var html = '<ul>';
+            // console.log(friends);
+            for(i=0; i<friends.length; i++){
+                html += '<li>'+returnProperTypeOfFriend(friends[i])+'</li>';
+            }
+            html +='</ul>';
+
+            $('#dialog').html(html);
             $("#dialog").dialog({
-                modal:true
+                modal:true,
+                width:600
             });
         }
     </script>
