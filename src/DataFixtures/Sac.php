@@ -4,7 +4,7 @@
  *  $n =>
  *          owner has 1 to n things
  *          owner has 1 to n friends
- *          owner shares all actions only to friend LAST friend
+ *          owner shares all actions only to LAST friend
  */
 
 namespace App\DataFixtures;
@@ -112,7 +112,7 @@ class Sac extends Fixture
     {
         $arrayFriends = [];
         for ($z = 0; $z < $i; $z++) {
-            $arrayFriends[] = $this->createAndPersistFriend('fbDelegated_friend_of_this_owner_id' . $owner_id);
+            $arrayFriends[] = $this->createAndPersistFriend($z.'_fbDelegated_friend_of_this_owner_id' . $owner_id);
 
         }
         return $arrayFriends;
