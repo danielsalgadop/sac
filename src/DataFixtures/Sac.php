@@ -1,10 +1,22 @@
 <?php
 /*
  * Conventions:
+ *  'PROGRAMMATIC (SCALABLE) Owners'
  *  $n =>
  *          owner has 1 to n things
  *          owner has 1 to n friends
  *          owner shares all actions only to LAST friend
+ *  'superfriend' fb_delegated_superfriend friend of all programatic owners
+ *
+ * SPECIAL THINGS
+ * 'omnipresent_thing' Thing present in all Programmatic owners
+ * 'without_owner_thing'  will be owned by nobody
+ *
+ * SPECIAL owners
+ * fb_delegated =
+ *         'no_things_no_friends' will have NO things NO friends. "pure" just created owner
+ *
+ *
  */
 
 namespace App\DataFixtures;
@@ -36,6 +48,18 @@ class Sac extends Fixture
             foreach ($things as $thing) {
                 $owner->addThing($thing); // Owner has thing  owner_thing
             }
+
+            // create omni present thing
+            $omnipresentThing = new Thing();
+            $omnipresentThing->setPassword("password");
+            $omnipresentThing->setUser("user");
+            $omnipresentThing->setRoot('/omnipresent_thing');
+            $this->manager->persist($omnipresentThing);
+            $this->manager->flush();
+
+            $owner->addThing($omnipresentThing);
+
+
             $this->manager->persist($owner);
             $this->manager->flush();
 
@@ -45,10 +69,19 @@ class Sac extends Fixture
                 // Owner has Friend
                 $owner->addFriend($friend);
             }
+
+            // create superfriend
+            $superfriend = new Friend();
+            $superfriend->setFbDelegated('fb_delegated_super_friend');
+            $this->manager->persist($superfriend);
+//            $this->manager->flush();
+
+            $owner->addFriend($superfriend);
+
             $this->manager->flush();
 
             // Action
-            // vuelvo a recorrer things para, dar permiso al último frien
+            // vuelvo a recorrer things para, dar permiso al último friend
             foreach ($things as $thing) {
 
                 $actions = $this->createAndPersistAction($thing, $friend, "action_" . $i, ["GET", "POST"], "action/route/for/thing/" . $thing->getId());
@@ -57,9 +90,16 @@ class Sac extends Fixture
         }
 
         // Creating things alone "without owner"
-        $this->createAndPersistThing("/without_owner");
+        // could not use createAndPersistThing because setRoot remains with temporal value will_be_substituted
+        $thing = new Thing();
+        $thing->setPassword("password");
+        $thing->setUser("user");
+        $thing->setRoot('/without_owner_thing');
+        $this->manager->persist($thing);
+        $this->manager->flush();
+
         // Creating Owners alone "without things"
-        $this->createAndPersistOwner();
+        $this->createAndPersistOwner("no_friend_no_things", "fb_delegated_no_friend_no_things");
 
     }
 
@@ -93,12 +133,12 @@ class Sac extends Fixture
     public function updateRootOfThingWithSlashAndId(Thing $thing)
     {
         $thingId = $thing->getId();
-        $thing->setRoot('/'.$thingId);
+        $thing->setRoot('/' . $thingId);
         $this->manager->persist($thing);
         $this->manager->flush();
     }
 
-    public function createAndPersistOwner(string $user = "user_without_thing", string $fbDelegated = "fb_delegated_without_thing")
+    public function createAndPersistOwner(string $user, string $fbDelegated)
     {
         $owner = $this->createOwner($user, $fbDelegated);
         $this->manager->persist($owner);
@@ -112,13 +152,10 @@ class Sac extends Fixture
     {
         $arrayFriends = [];
         for ($z = 0; $z < $i; $z++) {
-            $arrayFriends[] = $this->createAndPersistFriend($z.'_fbDelegated_friend_of_this_owner_id' . $owner_id);
-
+            $arrayFriends[] = $this->createAndPersistFriend($z . '_fbDelegated_friend_of_this_owner_id' . $owner_id);
         }
         return $arrayFriends;
-
     }
-
 
 
     public function createAndPersistFriend($fbDelegated)

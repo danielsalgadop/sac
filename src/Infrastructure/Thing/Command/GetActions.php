@@ -40,7 +40,8 @@ class GetActions extends Command
         $id = $input->getArgument('thingId');
 
         $thing = $this->thingRepository->find($id);
-        dd($thing->getActions());
+        print $thing->getRoot().PHP_EOL;
+        dd($thing->getActions()->toArray());
 
         $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
     }

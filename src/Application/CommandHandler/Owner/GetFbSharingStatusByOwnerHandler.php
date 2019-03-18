@@ -20,6 +20,7 @@ class GetFbSharingStatusByOwnerHandler
 
         $owner = $command->getOwner();
         // build $sharingStatus
+        $sharingStatus = [];
         foreach ($owner->getThings()  as $thing){
             $sharingStatus[$thing->getId()] = [];
             foreach ($thing->getActions() as $thingAction){
