@@ -12,7 +12,7 @@ class GetFbSharingStatusByOwnerCommand
         $this->owner = $owner;
     }
 
-    public function getFbDelegated()
+    public function getOwner()
     {
         return $this->owner;
     }
