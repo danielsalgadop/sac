@@ -3,7 +3,7 @@
 namespace App\Application\CommandHandler\Owner;
 
 
-use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
+use App\Application\Command\Owner\GetFbSharingStatusByOwnerCommand;
 use App\Domain\Entity\Owner;
 use App\Domain\Repository\OwnerRepositoryInterface;
 
@@ -15,19 +15,25 @@ class GetFbSharingStatusByOwnerHandler
         $this->ownerRepository = $ownerRepository;
     }
 
-
-
-
-    public function handle(SearchOwnerByFbDelegatedCommand $command): Owner
+    public function handle(GetFbSharingStatusByOwnerCommand $command): array
     {
 
-        $fbDelegated = $command->getFbDelegated();
-        $owner = $this->ownerRepository->searchOwnerByfbDelegatedOrException($fbDelegated);
+        $owner = $command->getOwner();
+        // build $sharingStatus
+        foreach ($owner->getThings()  as $thing){
+            $sharingStatus[$thing->getId()] = [];
+            foreach ($thing->getActions() as $thingAction){
+                foreach ($owner->getFriends() as $friend) {
+                    foreach ($friend->getActions() as $friendAction) {
+                        if($thingAction->getId() === $friendAction->getId()){
+                            $sharingStatus[$thing->getId()][$thingAction->getId()][] = $friend->getFbDelegated();
+                        }
+                    }
+                }
+            }
+        }
 
 
-
-        //        $user = $owner->getUser();
-//        $user->correctCredentialsOrException($command->getUser(),$command->getPassword());
-        return $owner;
+        return $sharingStatus;
     }
 }
