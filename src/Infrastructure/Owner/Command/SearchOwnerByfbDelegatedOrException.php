@@ -12,7 +12,7 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class SearchOwnerByfbDelegatedOrException extends Command
 {
-    protected static $defaultName = "app:Owner:searchByfbDelegatedOrException";
+    protected static $defaultName = "app:Owner:SearchByfbDelegatedOrException";
     private $ownerRepository;
 
     public function __construct(OwnerRepositoryInterface $ownerRepository)
