@@ -3,20 +3,12 @@
 namespace App\Domain\Repository;
 
 use App\Domain\Entity\Owner;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
 
-/**
- * @method Owner|null find($id, $lockMode = null, $lockVersion = null)
- * @method Owner|null findOneBy(array $criteria, array $orderBy = null)
- * @method Owner[]    findAll()
- * @method Owner[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-class OwnerRepository extends ServiceEntityRepository
+
+interface OwnerRepository
 {
-    public function __construct(RegistryInterface $registry)
-    {
-        parent::__construct($registry, Owner::class);
-    }
-
+    public function save(Owner $owner);
+    public function searchOwnerByfbDelegatedOrException(string $fbDelegated);
+    public function getIdFromfbDelegated(string $fbDelegated);
+    public function findAll();
 }
