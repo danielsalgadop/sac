@@ -3,25 +3,24 @@
 namespace App\Infrastructure\Owner;
 
 use App\Domain\Entity\Owner;
-use App\Domain\Repository\OwnerRepositoryInterface;
+//use App\Domain\Repository\OwnerRepositoryInterface;
+use App\Domain\Repository\OwnerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class MySQLOwnerRepository implements OwnerRepositoryInterface
+class MySQLOwnerRepository implements OwnerRepository
 {
     private $em;
-    private $ownerRepository;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->em = $entityManager;
-        $this->ownerRepository = $this->em->getRepository(Owner::class);   // Esto es lo que me ha traido quebradero de cabeza
     }
 
     public function findAll()
     {
-        return $this->ownerRepository->findAll();
+//        return $this->ownerRepository->findAll();
     }
 
     public function save(Owner $owner)
@@ -50,7 +49,10 @@ class MySQLOwnerRepository implements OwnerRepositoryInterface
     public function searchOwnerByfbDelegatedOrException(string $fbDelegated)
     {
 
-        $owner = $this->ownerRepository->findOneBy(['fbDelegated' => $fbDelegated]);
+        $owner = $this->em
+            ->getRepository(Owner::class)
+            ->findOneBy(['fbDelegated' => $fbDelegated]);
+
         if (!$owner) {
             throw new \Exception("Owner not found by fbDelegated");
         }
