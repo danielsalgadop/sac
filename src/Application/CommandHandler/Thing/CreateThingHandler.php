@@ -4,11 +4,11 @@ namespace App\Application\CommandHandler\Thing;
 
 use App\Application\Command\Thing\CreateThingCommand;
 use App\Domain\Entity\Thing;
-use App\Domain\Repository\ThingRepositoryInterface;
+use App\Domain\Repository\ThingRepository;
 
 class CreateThingHandler
 {
-    public function __construct(ThingRepositoryInterface $thingRepository)
+    public function __construct(ThingRepository $thingRepository)
     {
         $this->thingRepository = $thingRepository;
     }

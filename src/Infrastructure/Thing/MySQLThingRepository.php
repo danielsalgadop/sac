@@ -3,12 +3,12 @@
 namespace App\Infrastructure\Thing;
 
 use App\Domain\Entity\Thing;
-use App\Domain\Repository\ThingRepositoryInterface;
+use App\Domain\Repository\ThingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class MySQLThingRepository implements ThingRepositoryInterface
+class MySQLThingRepository implements ThingRepository
 {
     private $em;
     private $thingRepository;

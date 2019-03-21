@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Thing\Command;
 
-use App\Domain\Repository\ThingRepositoryInterface;
+use App\Domain\Repository\ThingRepository;
 use App\Application\Command\Thing\CreateThingCommand as AppsCreateThingCommand;
 use App\Application\CommandHandler\Thing\CreateThingHandler;
 use App\Domain\Repository\OwnerRepositoryInterface;
@@ -18,14 +18,14 @@ use App\Domain\Entity\Thing;
 class Create extends Command
 {
     protected static $defaultName = 'app:CreateThing';
-    private $ThingRepo;
+    private $thingRepository;
 
 //    public function __construct()
-//    public function __construct(OwnerRepositoryInterface $ThingRepo)
-    public function __construct(ThingRepositoryInterface $ThingRepo)
+//    public function __construct(OwnerRepositoryInterface $thingRepository)
+    public function __construct(ThingRepository $thingRepository)
     {
         parent::__construct();
-        $this->ThingRepo = $ThingRepo;
+        $this->ThingRepo = $thingRepository;
     }
 
 
