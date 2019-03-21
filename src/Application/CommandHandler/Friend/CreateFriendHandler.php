@@ -4,11 +4,11 @@ namespace App\Application\CommandHandler\Friend;
 
 use App\Application\Command\Friend\CreateFriendCommand;
 use App\Domain\Entity\Friend;
-use App\Domain\Repository\Friend\FriendRepositoryInterface;
+use App\Domain\Repository\Friend\FriendRepository;
 
 class CreateFriendHandler
 {
-    public function __construct(FriendRepositoryInterface $friendRepository)
+    public function __construct(FriendRepository $friendRepository)
     {
         $this->friendRepository = $friendRepository;
     }

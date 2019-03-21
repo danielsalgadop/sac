@@ -4,7 +4,7 @@ namespace App\Infrastructure\Friend\Command;
 
 
 use App\Domain\Entity\Friend;
-use App\Domain\Repository\Friend\FriendRepositoryInterface;
+use App\Domain\Repository\Friend\FriendRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -19,7 +19,7 @@ class Create extends Command
     protected static $defaultName = "app:CreateFriend";
     private $friendRepository;
 
-    public function __construct(FriendRepositoryInterface $friendRepository)
+    public function __construct(FriendRepository $friendRepository)
     {
         parent::__construct();
         $this->friendRepository = $friendRepository;

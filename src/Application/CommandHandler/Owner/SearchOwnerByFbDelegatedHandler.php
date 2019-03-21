@@ -5,12 +5,14 @@ namespace App\Application\CommandHandler\Owner;
 
 use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
 use App\Domain\Entity\Owner;
-use App\Domain\Repository\OwnerRepositoryInterface;
+use App\Domain\Repository\OwnerRepository;
 
 class SearchOwnerByFbDelegatedHandler
 {
 
-    public function __construct(OwnerRepositoryInterface $ownerRepository)
+    private $ownerRepository;
+
+    public function __construct(OwnerRepository $ownerRepository)
     {
         $this->ownerRepository = $ownerRepository;
     }

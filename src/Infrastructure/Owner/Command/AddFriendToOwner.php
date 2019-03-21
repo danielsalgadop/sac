@@ -2,14 +2,14 @@
 
 namespace App\Infrastructure\Owner\Command;
 
-use App\Domain\Repository\Friend\FriendRepositoryInterface;
+use App\Domain\Repository\Friend\FriendRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use App\Domain\Repository\OwnerRepositoryInterface;
+use App\Domain\Repository\OwnerRepository;
 
 use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
 use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
@@ -22,7 +22,7 @@ class AddFriendToOwner extends Command
     private $ownerRepository;
     private $friendRepository;
 
-    public function __construct(OwnerRepositoryInterface $ownerRepository, FriendRepositoryInterface $friendRepository)
+    public function __construct(OwnerRepository $ownerRepository, FriendRepository $friendRepository)
     {
         parent::__construct();
         $this->ownerRepository = $ownerRepository;

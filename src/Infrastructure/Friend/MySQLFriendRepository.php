@@ -3,12 +3,12 @@
 namespace App\Infrastructure\Friend;
 
 use App\Domain\Entity\Friend;
-use App\Domain\Repository\Friend\FriendRepositoryInterface;
+use App\Domain\Repository\Friend\FriendRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class MySQLFriendRepository implements FriendRepositoryInterface
+class MySQLFriendRepository implements FriendRepository
 {
     private $em;
     private $friendRepository;

@@ -12,7 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use App\Domain\Repository\Friend\FriendRepositoryInterface;
+use App\Domain\Repository\Friend\FriendRepository;
 
 use App\Application\Command\Thing\GetActionsByThingIdCommand;
 use App\Application\CommandHandler\Thing\GetActionsByThingIdHandler;
