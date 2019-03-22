@@ -30,8 +30,9 @@ class Create extends ContainerAwareCommand
         // HC will be Command Arguments
         
         $thingId = $input->getArgument("thingId");
-//        $actionDescription = "hc from Symfony Command";
-//        $httpVerb = "POST";
+
+        $actionDescription = "hc from Symfony Command";
+        $httpVerb = "POST";
 //        $route = "/hc/route";
 
         $thingRepository = $this->getContainer()->get('app.repository.thing');
@@ -39,20 +40,21 @@ class Create extends ContainerAwareCommand
         $findByIdHandler = new FindByIdHandler($thingRepository);
 
         $thing = $findByIdHandler->handle($findByIdCommand);
+
+        $action = new Action();
+        $action->setDescription($actionDescription);
+        $action->setHttpVerb($httpVerb);
+        $action->setRoute($route);
+        $action->setWt($thing);
+//        $action->addFriend($friend);
+//        $this->manager->persist($action);
+//        $this->manager->flush();
         dd($thing);
 
         //        $arg1 = $input->getArgument('arg1');
 
 
 
-//        $action = new Action();
-//        $action->setDescription($actionDescription);
-//        $action->setHttpVerb($httpVerb);
-//        $action->setRoute($route);
-//        $action->setWt($thing);
-//        $action->addFriend($friend);
-//        $this->manager->persist($action);
-//        $this->manager->flush();
 
 
 
