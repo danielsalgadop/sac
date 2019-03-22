@@ -6,6 +6,7 @@ namespace App\Infrastructure\Action
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use App\Application\Command\Thing\FindByIdCommand;
 use App\Application\CommandHandler\Thing\FindByIdHandler;
@@ -18,8 +19,7 @@ class Create extends ContainerAwareCommand
     {
         $this
             ->setDescription('Creates an Action')
-
-//            ->addArgument('', InputArgument::REQUIRED, 'Argument description')
+            ->addArgument('thingId', InputArgument::REQUIRED, '(int) thing id')
 //            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
         ;
     }
@@ -28,7 +28,8 @@ class Create extends ContainerAwareCommand
     {
         $io = new SymfonyStyle($input, $output);
         // HC will be Command Arguments
-        $thingId = 1;
+        
+        $thingId = $input->getArgument("thingId");
 //        $actionDescription = "hc from Symfony Command";
 //        $httpVerb = "POST";
 //        $route = "/hc/route";
