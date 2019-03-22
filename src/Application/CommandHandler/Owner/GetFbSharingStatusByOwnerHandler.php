@@ -5,12 +5,12 @@ namespace App\Application\CommandHandler\Owner;
 
 use App\Application\Command\Owner\GetFbSharingStatusByOwnerCommand;
 use App\Domain\Entity\Owner;
-use App\Domain\Repository\OwnerRepositoryInterface;
+use App\Domain\Repository\OwnerRepository;
 
 class GetFbSharingStatusByOwnerHandler
 {
 
-    public function __construct(OwnerRepositoryInterface $ownerRepository)
+    public function __construct(OwnerRepository $ownerRepository)
     {
         $this->ownerRepository = $ownerRepository;
     }
