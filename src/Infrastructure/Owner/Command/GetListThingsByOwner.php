@@ -4,7 +4,7 @@ namespace App\Infrastructure\Owner\Command;
 
 use App\Application\Command\Owner\GetListThingsByOwnerCommand;
 use App\Application\CommandHandler\Owner\GetListThingsByOwnerHandler;
-use App\Domain\Repository\OwnerRepositoryInterface;
+use App\Domain\Repository\OwnerRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,7 +19,7 @@ class GetListThingsByOwner extends Command
     protected static $defaultName = 'app:Owner:GetListThingsByOwner';
     private $ownerRepository;
 
-    public function __construct(OwnerRepositoryInterface $ownerRepository)
+    public function __construct(OwnerRepository $ownerRepository)
     {
         parent::__construct();
         $this->ownerRepository = $ownerRepository;
@@ -43,10 +43,9 @@ class GetListThingsByOwner extends Command
 
         $owner = $searchOwnerByFbDelegatedHandler->handle($searchOwnerByFbDelegatedCommand);
 
-        dd($owner->getThings());
-        // TODO fix: Doctrine and Repository scaffold. Lo de aqui abajo espera ownerRepository, lo de arriba OwnerRepositoryInterface
         $getListThingsByOwnerCommand = new GetListThingsByOwnerCommand($owner);
-        $getListThingsByOwnerHandler = new GetListThingsByOwnerHandler($this->ownerRepository);
+        $getListThingsByOwnerHandler = new GetListThingsByOwnerHandler();
+
 
         $things = $getListThingsByOwnerHandler->handle($getListThingsByOwnerCommand);
         dd($things);

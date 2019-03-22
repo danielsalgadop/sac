@@ -2,18 +2,19 @@
 
 namespace App\Application\CommandHandler\Owner;
 
-use App\Application\Command\Thing\GetListThingsByOwnerCommand;
+use App\Application\Command\Owner\GetListThingsByOwnerCommand;
 use App\Domain\Entity\Thing;
 use App\Domain\Repository\OwnerRepository;
 
 class GetListThingsByOwnerHandler
 {
-    public function __construct(OwnerRepository $ownerRepository)
-    {
-        $this->ownerRepository = $ownerRepository;
-    }
+//    public function __construct(OwnerRepository $ownerRepository)
+//    {
+//        $this->ownerRepository = $ownerRepository;
+//    }
 
-    public function handle(GetListThingsByOwnerCommand $getListThingsByOwnerCommand):Thing
+    // TODO: determine return type
+    public function handle(GetListThingsByOwnerCommand $getListThingsByOwnerCommand):array
     {
         $owner = $getListThingsByOwnerCommand->getOwner();
 
