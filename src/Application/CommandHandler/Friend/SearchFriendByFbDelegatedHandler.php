@@ -16,10 +16,10 @@ class SearchFriendByFbDelegatedHandler
     }
 
 
-    public function handle(SearchFriendByFbDelegatedCommand $command): Friend
+    public function handle(SearchFriendByFbDelegatedCommand $searchFriendByFbDelegatedCommand): Friend
     {
 
-        $fbDelegated = $command->getFbDelegated();
+        $fbDelegated = $searchFriendByFbDelegatedCommand->getFbDelegated();
         $friend = $this->friendRepository->searchFriendByfbDelegatedOrException($fbDelegated);
 
         return $friend;
