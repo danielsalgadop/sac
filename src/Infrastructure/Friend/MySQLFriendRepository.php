@@ -62,7 +62,7 @@ class MySQLFriendRepository implements FriendRepository
 
         $owner = $this->friendRepository->findOneBy(['fbDelegated' => $fbDelegated]);
         if (!$owner) {
-            throw new \Exception("Friend not found by fbDelegated");
+            throw new \Exception("Friend not found by firendFbDelegated [".$fbDelegated."]");
         }
 
 

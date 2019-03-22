@@ -5,16 +5,16 @@ namespace App\Application\Command\Friend;
 
 class SearchFriendByFbDelegatedCommand
 {
-    private $fbDelegated;
+    private $frienFbDelegated;
 
-    public function __construct(string $fbDelegated)
+    public function __construct(string $frienFbDelegated)
     {
-        $this->fbDelegated = $fbDelegated;
+        $this->frienFbDelegated = $frienFbDelegated;
     }
 
     public function getFbDelegated()
     {
-        return $this->fbDelegated;
+        return $this->frienFbDelegated;
     }
 }
 

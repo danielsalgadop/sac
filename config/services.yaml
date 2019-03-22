@@ -37,7 +37,6 @@ services:
         arguments:
         - "@doctrine.orm.default_entity_manager"
 
-
     app.repository.friend:
         class: App\Infrastructure\Friend\MySQLFriendRepository
         public: true
