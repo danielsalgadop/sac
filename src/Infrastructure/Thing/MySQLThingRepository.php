@@ -16,6 +16,7 @@ class MySQLThingRepository implements ThingRepository
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->em = $entityManager;
+        // TODO: !!! esto sigue aqui, hay que quitarlo
         $this->thingRepository = $this->em->getRepository(Thing::class);   // Esto es lo que me ha traido quebradero de cabeza
     }
 
@@ -34,4 +35,12 @@ class MySQLThingRepository implements ThingRepository
         return $this->thingRepository->find($id);
     }
 
+    public function findByIdOrException(int $id): Thing
+    {
+        $thing = $this->find($id);
+        if($thing === null){
+            throw new \Exception("Unknown thing id [".$id."]");
+        }
+        return $thing;
+    }
 }
