@@ -1,0 +1,52 @@
+App\Domain\Entity\Friend:
+    type: entity
+    table: friend
+    id:
+        id:
+            type: integer
+            scale: 0
+            length: null
+            unique: false
+            nullable: false
+            precision: 0
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        fbDelegated:
+            type: string
+            scale: 0
+            length: 255
+            unique: false
+            nullable: false
+            precision: 0
+            column: fb_delegated
+    manyToMany:
+        actions:
+            targetEntity: App\Domain\Entity\Action
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: friends
+            joinTable:
+                name: friend_action
+                joinColumns:
+                    -
+                        name: friend_id
+                        referencedColumnName: id
+                        onDelete: CASCADE
+                inverseJoinColumns:
+                    -
+                        name: action_id
+                        referencedColumnName: id
+                        onDelete: CASCADE
+            orderBy: null
+        owners:
+            targetEntity: App\Domain\Entity\Owner
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: friends
+            inversedBy: null
+            joinTable: {  }
+            orderBy: null
+    lifecycleCallbacks: {  }

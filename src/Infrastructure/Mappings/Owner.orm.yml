@@ -1,0 +1,70 @@
+App\Domain\Entity\Owner:
+    type: entity
+    table: owner
+    id:
+        id:
+            type: integer
+            scale: 0
+            length: null
+            unique: false
+            nullable: false
+            precision: 0
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            scale: 0
+            length: 255
+            unique: false
+            nullable: false
+            precision: 0
+        fbDelegated:
+            type: string
+            scale: 0
+            length: 255
+            unique: false
+            nullable: false
+            precision: 0
+            column: fb_delegated
+    manyToMany:
+        things:
+            targetEntity: App\Domain\Entity\Thing
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: owners
+            joinTable:
+                name: owner_thing
+                joinColumns:
+                    -
+                        name: owner_id
+                        referencedColumnName: id
+                        onDelete: CASCADE
+                inverseJoinColumns:
+                    -
+                        name: thing_id
+                        referencedColumnName: id
+                        onDelete: CASCADE
+            orderBy: null
+        friends:
+            targetEntity: App\Domain\Entity\Friend
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: owners
+            joinTable:
+                name: owner_friend
+                joinColumns:
+                    -
+                        name: owner_id
+                        referencedColumnName: id
+                        onDelete: CASCADE
+                inverseJoinColumns:
+                    -
+                        name: friend_id
+                        referencedColumnName: id
+                        onDelete: CASCADE
+            orderBy: null
+    lifecycleCallbacks: {  }

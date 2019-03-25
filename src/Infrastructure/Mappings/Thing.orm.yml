@@ -1,0 +1,56 @@
+App\Domain\Entity\Thing:
+    type: entity
+    table: thing
+    id:
+        id:
+            type: integer
+            scale: 0
+            length: null
+            unique: false
+            nullable: false
+            precision: 0
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        root:
+            type: string
+            scale: 0
+            length: 255
+            unique: false
+            nullable: false
+            precision: 0
+        user:
+            type: string
+            scale: 0
+            length: 255
+            unique: false
+            nullable: false
+            precision: 0
+        password:
+            type: string
+            scale: 0
+            length: 255
+            unique: false
+            nullable: false
+            precision: 0
+    oneToMany:
+        actions:
+            targetEntity: App\Domain\Entity\Action
+            cascade:
+                - remove
+            fetch: LAZY
+            mappedBy: wt
+            inversedBy: null
+            orphanRemoval: true
+            orderBy: null
+    manyToMany:
+        owners:
+            targetEntity: App\Domain\Entity\Owner
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: things
+            inversedBy: null
+            joinTable: {  }
+            orderBy: null
+    lifecycleCallbacks: {  }
