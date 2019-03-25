@@ -17,25 +17,17 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Contracts\Service;
 
 
-class SacController extends Controller
+class CredentialsController extends Controller
 {
 
-    /**
-     * @Route("/test", name="test", methods={"GET"})
-     */
     public function test()
     {
         return $this->render('test.html.twig');
     }
 
-    // TODO: cambiar nombre de este controlador, algo estilo CredentialsController
-//appId      : '361174884467644',
+    //appId      : '361174884467644',
+    //version    : 'v3.2'
 
-//version    : 'v3.2'
-
-    /**
-     * @Route("/", name="login", methods={"GET"})
-     */
     public function login()
     {
         // return new Response($cookie);
@@ -43,13 +35,8 @@ class SacController extends Controller
         return $this->render('login.html.twig', ['login_ok_url' => $this->generateUrl('loginOk'), 'login_ko_url' => $this->generateUrl('login')]);
     }
 
-    /**
-     * @Route("/loginOk", name="loginOk", methods={"GET"})
-     */
     public function loginOk(Request $request)
     {
-
-
         // meter en bbdd ID
 
         // $request->headers;
@@ -59,27 +46,18 @@ class SacController extends Controller
     }
 
 
-    /**
-     * @Route("/loginStatus", name="loginStatus", methods={"GET"})
-     */
     public function loginStatus()
     {
         return $this->render('loginStatus.html.twig');
     }
 
 
-    /**
-     * @Route("/privacy", name="privacy", methods={"GET"})
-     */
     public function privacy()
     {
         return new Response("FB privacy");
 
     }
 
-    /**
-     * @Route("/conditions", name="conditions", methods={"GET"})
-     */
     public function conditions()
     {
         return new Response("FB conditions");
