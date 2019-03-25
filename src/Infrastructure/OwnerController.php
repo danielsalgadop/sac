@@ -118,9 +118,6 @@ class OwnerController extends Controller
     }
 
 
-    /*
-     * @Route("/friends", name="friends", methods={"GET"})
-     */
     public function friends()
     {
         $fbDelegatedInSession= getenv('HC_FB_DELEGATED_OF_OWNER');
