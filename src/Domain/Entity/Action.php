@@ -6,42 +6,17 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity
- */
+
 class Action
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
     private $id;
-
-    /**
-     * @ORM\Column(type="string", length=10)
-     */
     private $http_verb;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $route;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $description;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Entity\Thing", inversedBy="actions")
-     * @ORM\JoinColumn(nullable=false)
-     */
     private $wt;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Domain\Entity\Friend", mappedBy="actions")
-     */
+
     private $friends;
 
     public function __construct()
@@ -102,9 +77,6 @@ class Action
         return $this;
     }
 
-    /**
-     * @return Collection|Friend[]
-     */
     public function getFriends(): Collection
     {
         return $this->friends;

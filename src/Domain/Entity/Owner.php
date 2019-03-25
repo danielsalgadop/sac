@@ -6,36 +6,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity
- */
 class Owner
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
     private $id;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $name;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
     private $fbDelegated;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Domain\Entity\Thing", inversedBy="owners")
-     */
     private $things;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Domain\Entity\Friend", inversedBy="owners")
-     */
     private $friends;
 
     public function __construct(string $name, string $fbDelegated)
@@ -76,9 +52,7 @@ class Owner
         return $this;
     }
 
-    /**
-     * @return Collection|Thing[]
-     */
+
     public function getThings(): Collection
     {
         return $this->things;
@@ -102,9 +76,7 @@ class Owner
         return $this;
     }
 
-    /**
-     * @return Collection|Friend[]
-     */
+
     public function getFriends(): Collection
     {
         return $this->friends;
