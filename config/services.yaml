@@ -42,3 +42,9 @@ services:
         public: true
         arguments:
         - "@doctrine.orm.default_entity_manager"
+
+    app.repository.action:
+        class: App\Infrastructure\Action\MySQLActionRepository
+        public: true
+        arguments:
+        - "@doctrine.orm.default_entity_manager"

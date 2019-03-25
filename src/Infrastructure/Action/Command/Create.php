@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Action
-;
+namespace App\Infrastructure\Action\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -20,11 +19,14 @@ class Create extends ContainerAwareCommand
 
     protected function configure()
     {
+        // TODO: actionDescription as a Phrase (not a word)
         $this
             ->setDescription('Creates an Action')
             ->addArgument('thingId', InputArgument::REQUIRED, '(int) thing id')
             ->addArgument('friendFbDelegated', InputArgument::REQUIRED, '(string) friends fb_delegated')
-//            ->addOption('option1', null, InputOption::VALUE_NONE, 'Option description')
+            ->addArgument('httpVerb', InputArgument::REQUIRED, 'GET | POST')
+            ->addArgument('route', InputArgument::REQUIRED, '(strint) /this/is/a/route')
+            ->addArgument('actionDescription', InputArgument::REQUIRED, '(xxx) Action Description')
         ;
     }
 
@@ -36,9 +38,9 @@ class Create extends ContainerAwareCommand
         $thingId = $input->getArgument("thingId");
         $friendFbDelegated = $input->getArgument("friendFbDelegated");
 
-        $actionDescription = "hc from Symfony Command";
-        $httpVerb = "POST";
-//        $route = "/hc/route";
+        $httpVerb = $input->getArgument("httpVerb");;
+        $route = $input->getArgument("route");
+        $actionDescription = $input->getArgument("actionDescription");
 
         // Thing
         $thingRepository = $this->getContainer()->get('app.repository.thing');
@@ -53,26 +55,9 @@ class Create extends ContainerAwareCommand
         $searchFriendByFbDelegatedHandler = new SearchFriendByFbDelegatedHandler($friendRepository);
         $friend = $searchFriendByFbDelegatedHandler->handle($searchFriendByFbDelegatedCommand);
 
-        dd($friend);
+        $actionRepository = $this->getContainer()->get('app.repository.action');
+        $actionRepository->save($httpVerb, $route,$thing, $friend, $actionDescription);
 
-        // TODO command-handler way
-//        $actionRepository = $this->getContainer()->get('app.')
-        $action = new Action();
-        $action->setDescription($actionDescription);
-        $action->setHttpVerb($httpVerb);
-        $action->setRoute($route);
-        $action->setWt($thing);
-        $action->addFriend($friend);
-//        $this->manager->persist($action);
-//        $this->manager->flush();
-
-        //        $arg1 = $input->getArgument('arg1');
-
-
-
-
-
-
-        $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+        $io->success('Created Action ['.$httpVerb.' '.$route.'] with description "'.$actionDescription.'" for ThingId ['.$thingId.']');
     }
 }
