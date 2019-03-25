@@ -6,12 +6,12 @@ namespace App\Application\Command\Owner;
 class CreateOwnerCommand
 {
     private $name;
-    private $fb_delegated;
+    private $fbDelgated;
 
-    public function __construct(string $name, string $fb_delegated)
+    public function __construct(string $name, string $fbDelgated)
     {
         $this->name = $name;
-        $this->fb_delegated = $fb_delegated;
+        $this->fbDelgated = $fbDelgated;
     }
     public function getName()
     {
@@ -20,7 +20,7 @@ class CreateOwnerCommand
 
     public function getFbDelegated()
     {
-        return $this->fb_delegated;
+        return $this->fbDelgated;
     }
 }
 
