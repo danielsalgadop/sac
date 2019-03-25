@@ -5,11 +5,11 @@ test:
 
 #    TODO: use @App notation, (but bundle must be "correctly registered and loaded in the application kernel class"
 credential_routes:
-    resource: '../src/Infrastructure/Routes/credentials.yaml'
+    resource: '../src/Infrastructure/Routes/credentials.yml'
 owner_routes:
-    resource: '../src/Infrastructure/Routes/owner.yaml'
+    resource: '../src/Infrastructure/Routes/owner.yml'
 
 thing_routes:
-    resource: '../src/Infrastructure/Routes/thing.yaml'
+    resource: '../src/Infrastructure/Routes/thing.yml'
 
 
