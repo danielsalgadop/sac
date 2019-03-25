@@ -19,14 +19,8 @@ use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
 use App\Application\Command\Owner\GetFbSharingStatusByOwnerCommand;
 use App\Application\CommandHandler\Owner\GetFbSharingStatusByOwnerHandler;
 
-/**
- * @Route("/thing", name="thing_")
- */
 class ThingController extends Controller
 {
-    /**
-     * @Route("/{thingId}", name="info", methods={"GET"})
-     */
     public function info($thingId)
     {
 //        dd($thingId);
@@ -65,9 +59,6 @@ class ThingController extends Controller
     }
 
 
-    /**
-     * @Route("/create", name="create", methods={"POST"})
-     */
     public function create(Request $request)
     {
         $root = $request->request->get('root');
@@ -95,7 +86,7 @@ class ThingController extends Controller
         return new Response("HC thing created");
     }
 
-    /**
+    /*
      * @Route("/friends", name="friends", methods={"GET"})
      */
     public function friends()

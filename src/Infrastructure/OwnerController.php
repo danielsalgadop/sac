@@ -23,15 +23,9 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Contracts\Service;
 use App\Domain\Repository\ThingConnectorRepository;
 
-/**
- * @Route("/owner", name="owner_")
- */
 class OwnerController extends Controller
 {
-    /**
-     * @Route("/", name="info_owner", methods={"GET"})
-     */
-    public function info_owner()
+    public function index()
     {
         // voy a recibir un fb_delegated: TODO no usar este HC_FB_DELEGATED_OF_OWNER
         $fbDelegatedInSession= getenv('HC_FB_DELEGATED_OF_OWNER');
@@ -102,10 +96,6 @@ class OwnerController extends Controller
     }
 
 
-    /**
-     * @Route("/create", name="create", methods={"GET"})
-     * TODO: POST (not GET)
-     */
     public function create()
     {
         // TODO get parameters
@@ -122,16 +112,13 @@ class OwnerController extends Controller
     }
 
 
-    /**
-     * @Route("/things", name="things", methods={"GET"})
-     */
     public function things()
     {
         return new Response('list of things owned by user');
     }
 
 
-    /**
+    /*
      * @Route("/friends", name="friends", methods={"GET"})
      */
     public function friends()
