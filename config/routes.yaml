@@ -1,24 +1,5 @@
-index:
-    path: /owner
-    controller: App\Infrastructure\OwnerController::index
-    methods: [GET]
+owner_routes:
+    resource: '../src/Infrastructure/Routes/owner.yaml'
 
-owner_friends:
-    path: /owner/friends
-    controller: App\Infrastructure\OwnerController::friends
-    methods: [GET]
-
-owner_things:
-    path: /owner/things
-    controller: App\Infrastructure\OwnerController::things
-    methods: [GET]
-
-thing_create:
-    path: /thing/create
-    controller: App\Infrastructure\ThingController::create
-    methods: [POST]
-
-thing_info:
-    path: /thing/{thingId}
-    controller: App\Infrastructure\ThingController::info
-    methods: [GET]
+thing_routes:
+    resource: '../src/Infrastructure/Routes/thing.yaml'
