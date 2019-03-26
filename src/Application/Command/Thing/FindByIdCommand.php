@@ -3,6 +3,7 @@
 namespace App\Application\Command\Thing;
 
 
+// TODO: Rename as SearchThingByIdCommand
 class FindByIdCommand
 {
     private $thingId;
