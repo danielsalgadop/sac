@@ -93,10 +93,10 @@ class OwnerController extends Controller
     public function create()
     {
         // TODO get parameters
+        // TODO esta parte no esta probada
         try {
-            $mysqlOwnerRepository = $this->get('app.repository.owner');
-            $createOwnerHandler = new CreateOwnerHandler($mysqlOwnerRepository);
             $createOwnerCommand = new CreateOwnerCommand("hardcoded", "fb_delegated_hardcoded");
+            $createOwnerHandler = $this->get('app.command_handler.owner.create');
             $createOwnerHandler->handle($createOwnerCommand);
 
         } catch (\Exception $e) {
