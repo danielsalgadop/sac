@@ -2,7 +2,7 @@
 
 namespace App\Application\Command\Thing;
 
-class getThingConnectedInfoCommand
+class GetThingConnectedInfoCommand
 {
     private $id;
     private $thingUsername;
