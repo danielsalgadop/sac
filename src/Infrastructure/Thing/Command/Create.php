@@ -25,7 +25,7 @@ class Create extends Command
     public function __construct(ThingRepository $thingRepository)
     {
         parent::__construct();
-        $this->ThingRepo = $thingRepository;
+        $this->thingRepository = $thingRepository;
     }
 
 
@@ -47,7 +47,7 @@ class Create extends Command
         $io->note(sprintf('Creating Thing with root [%s] userName [%s] and password [%s]', $rootPath, $userName, $password));
 
         $createThingCommand = new AppsCreateThingCommand($rootPath, $userName, $password);
-        $handler = new CreateThingHandler($this->ThingRepo);
+        $handler = new CreateThingHandler($this->thingRepository);
         $handler->handle($createThingCommand);
         $io->success('Created Thing!');
     }
