@@ -1,3 +1,4 @@
+# TODO: remove this test route (front development purpose only)
 test:
     path: /test
     controller: App\Infrastructure\CredentialsController::test
@@ -5,11 +6,12 @@ test:
 
 #    TODO: use @App notation, (but bundle must be "correctly registered and loaded in the application kernel class"
 credential_routes:
-    resource: '../src/Infrastructure/Routes/credentials.yaml'
+    resource: '../src/Infrastructure/Resources/config/routes/credentials.yaml'
+
 owner_routes:
-    resource: '../src/Infrastructure/Routes/owner.yaml'
+    resource: '../src/Infrastructure/Resources/config/routes/owner.yaml'
 
 thing_routes:
-    resource: '../src/Infrastructure/Routes/thing.yaml'
+    resource: '../src/Infrastructure/Resources/config/routes/thing.yaml'
 
 
