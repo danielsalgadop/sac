@@ -32,11 +32,9 @@ class Create extends ContainerAwareCommand
         $fbDelegated = $input->getArgument('fbDelegated');
         $name = $input->getArgument('name');
 
-        $ownerRepository = $this->getContainer()->get('app.repository.owner');
         $createOwnerCommand = new CreateOwnerCommand($name, $fbDelegated);
-        $createOwnerHandler = new CreateOwnerHandler($ownerRepository);
+        $createOwnerHandler = $this->getContainer()->get('app.command_handler.owner.create');
         $createOwnerHandler->handle($createOwnerCommand);
-
 
         $io->success('Owner Created with name ['.$name.'] identified by fbDelegated ['.$fbDelegated.']');
     }

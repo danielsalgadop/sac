@@ -31,8 +31,11 @@ services:
     arguments:
     - "@doctrine.orm.default_entity_manager"
 
-#  app.command_handler.owner.create:
-#    class
+  app.command_handler.owner.create:
+    class: App\Application\CommandHandler\Owner\CreateOwnerHandler
+    public: true
+    arguments:
+    - "@app.repository.owner"
 
 
   app.repository.thing:
