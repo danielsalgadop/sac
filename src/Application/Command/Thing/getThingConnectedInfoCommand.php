@@ -5,25 +5,25 @@ namespace App\Application\Command\Thing;
 class getThingConnectedInfoCommand
 {
     private $id;
-    private $thing_username;
-    private $thing_password;
+    private $thingUsername;
+    private $thingPassword;
 
     // TODO: PSR
-    public function __construct(int $id, string $thing_username, string $thing_password)
+    public function __construct(int $id, string $thingUsername, string $thingPassword)
     {
         $this->id = $id;
-        $this->thing_username = $thing_username;
-        $this->thing_password = $thing_password;
+        $this->thingUsername = $thingUsername;
+        $this->thingPassword = $thingPassword;
     }
 
     public function getThingUsername()
     {
-        return $this->thing_username;
+        return $this->thingUsername;
     }
 
     public function getThingPassword()
     {
-        return $this->thing_password;
+        return $this->thingPassword;
     }
 
     public function getId()
