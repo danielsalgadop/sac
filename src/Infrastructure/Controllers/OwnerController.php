@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure;
+namespace App\Infrastructure\Controllers;
 
 use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
 use App\Application\Command\Thing\CreateThingCommand;

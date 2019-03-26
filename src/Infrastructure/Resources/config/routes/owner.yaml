@@ -1,14 +1,14 @@
 index:
   path: /owner
-  controller: App\Infrastructure\OwnerController::index
+  controller: App\Infrastructure\Controllers\OwnerController::index
   methods: [GET]
 
 owner_friends:
   path: /owner/friends
-  controller: App\Infrastructure\OwnerController::friends
+  controller: App\Infrastructure\Controllers\OwnerController::friends
   methods: [GET]
 
 owner_things:
   path: /owner/things
-  controller: App\Infrastructure\OwnerController::things
+  controller: App\Infrastructure\Controllers\OwnerController::things
   methods: [GET]

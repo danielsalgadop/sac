@@ -1,7 +1,7 @@
 # TODO: remove this test route (front development purpose only)
 test:
     path: /test
-    controller: App\Infrastructure\CredentialsController::test
+    controller: App\Infrastructure\Controllers\CredentialsController::test
 
 
 #    TODO: use @App notation, (but bundle must be "correctly registered and loaded in the application kernel class"

@@ -1,11 +1,11 @@
 thing_create:
   path: /thing/create
-  controller: App\Infrastructure\ThingController::create
+  controller: App\Infrastructure\Controllers\ThingController::create
   methods: [POST]
 
 thing_info:
   path: /thing/{thingId}
-  controller: App\Infrastructure\ThingController::info
+  controller: App\Infrastructure\Controllers\ThingController::info
   requirements:
     thingId: '\d+'
   methods: [GET]
