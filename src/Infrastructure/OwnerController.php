@@ -115,9 +115,8 @@ class OwnerController extends Controller
     public function friends()
     {
         $fbDelegatedInSession= getenv('HC_FB_DELEGATED_OF_OWNER');
-        $mysqlOwnerRepository = $this->get('app.repository.owner');
-        $searchOwnerByFbDelegatedHandler = new SearchOwnerByFbDelegatedHandler($mysqlOwnerRepository);
         $searchOwnerByFbDelegatedCommand = new SearchOwnerByFbDelegatedCommand($fbDelegatedInSession);
+        $searchOwnerByFbDelegatedHandler = $this->get('app.command_handler.owner.search.by_fb_delegated');
         try {
             $owner = $searchOwnerByFbDelegatedHandler->handle($searchOwnerByFbDelegatedCommand);
         } catch (\Exception $e) {
