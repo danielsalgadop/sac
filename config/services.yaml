@@ -37,19 +37,27 @@ services:
     arguments:
     - "@app.repository.owner"
 
+  app.command_handler.owner.search.by_fb_delegated:
+    class: App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler
+    public: true
+    arguments:
+    - "@app.repository.owner"
 
+# THING
   app.repository.thing:
     class: App\Infrastructure\Thing\MySQLThingRepository
     public: true
     arguments:
     - "@doctrine.orm.default_entity_manager"
 
+# FRIEND
   app.repository.friend:
     class: App\Infrastructure\Friend\MySQLFriendRepository
     public: true
     arguments:
     - "@doctrine.orm.default_entity_manager"
 
+# ACTION
   app.repository.action:
     class: App\Infrastructure\Action\MySQLActionRepository
     public: true

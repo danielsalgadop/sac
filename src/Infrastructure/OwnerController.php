@@ -29,15 +29,9 @@ class OwnerController extends Controller
     {
         // voy a recibir un fb_delegated: TODO no usar este HC_FB_DELEGATED_OF_OWNER
         $fbDelegatedInSession= getenv('HC_FB_DELEGATED_OF_OWNER');
-        // Intentando usar el Repo desde aqui, el controller
-//        $ownerRepo = $this->getDoctrine()->getRepository(Owner::class);
-//        $owner = $ownerRepo->findOneBy(['fbDelegated' => $fbDelegatedInSession]);
 
-//        TODO: no consigo buscar algo distinto al id
-        // TODO: pasar esto como servicio, sirve para identificar fbDelegated válidos (para autenticar)
-        $mysqlOwnerRepository = $this->get('app.repository.owner');
-        $searchOwnerByFbDelegatedHandler = new SearchOwnerByFbDelegatedHandler($mysqlOwnerRepository);
         $searchOwnerByFbDelegatedCommand = new SearchOwnerByFbDelegatedCommand($fbDelegatedInSession);
+        $searchOwnerByFbDelegatedHandler = $this->get("app.command_handler.owner.search.by_fb_delegated");
         try {
             $owner = $searchOwnerByFbDelegatedHandler->handle($searchOwnerByFbDelegatedCommand);
         } catch (\Exception $e) {
