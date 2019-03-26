@@ -2,13 +2,13 @@
 
 namespace App\Application\CommandHandler\Owner;
 
-use App\Application\Command\Owner\AddThingCommand;
+use App\Application\Command\Owner\AddThingToOwnerCommand;
 use App\Domain\Entity\Owner;
 use App\Domain\Entity\Thing;
 //use App\Domain\Repository\OwnerRepository;
 use App\Infrastructure\Owner\MySQLOwnerRepository;
 
-class AddThingHandler
+class AddThingToOwnerHandler
 {
     // TODO: fix. No deberia para aqui MySQLOwnerRepository sino OwnerRepository. Creo
     // que está relacionado con la manera de montar Interfaces y Repositories en este proyecto
@@ -17,7 +17,7 @@ class AddThingHandler
         $this->ownerRepository = $ownerRepository;
     }
 
-    public function handle(AddThingCommand $addThingCommand)
+    public function handle(AddThingToOwnerCommand $addThingCommand)
     {
         $thing = $addThingCommand->getThing();
         $owner = $addThingCommand->getOwner();

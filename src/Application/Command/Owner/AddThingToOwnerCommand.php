@@ -5,7 +5,7 @@ namespace App\Application\Command\Owner;
 use App\Domain\Entity\Thing;
 use App\Domain\Entity\Owner;
 
-class AddThingCommand
+class AddThingToOwnerCommand
 {
     private $thing;
     private $owner;
