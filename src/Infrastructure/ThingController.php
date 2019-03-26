@@ -5,7 +5,6 @@ namespace App\Infrastructure;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
 use App\Application\Command\Thing\CreateThingCommand;
 use App\Application\CommandHandler\Thing\CreateThingHandler;
@@ -21,19 +20,25 @@ use App\Application\CommandHandler\Owner\GetFbSharingStatusByOwnerHandler;
 
 class ThingController extends Controller
 {
+    private $searchOwnerByFbDelegatedHandler;
+    private $getFbSharingStatusByOwnerHandler;
+    private $createThingHandler;
+    private $addThingToOwnerHandler;
+
+    public function __construct(SearchOwnerByFbDelegatedHandler $searchOwnerByFbDelegatedHandler, GetFbSharingStatusByOwnerHandler $getFbSharingStatusByOwnerHandler, CreateThingHandler $createThingHandler, AddThingToOwnerHandler $addThingToOwnerHandler)
+    {
+        $this->searchOwnerByFbDelegatedHandler = $searchOwnerByFbDelegatedHandler;
+        $this->getFbSharingStatusByOwnerHandler = $getFbSharingStatusByOwnerHandler;
+        $this->createThingHandler = $createThingHandler;
+        $this->addThingToOwnerHandler = $addThingToOwnerHandler;
+    }
+
     public function info($thingId)
     {
-        $searchOwnerByFbDelegatedCommand = new SearchOwnerByFbDelegatedCommand(getenv('HC_FB_DELEGATED_OF_OWNER'));
-        $searchOwnerByFbDelegatedHandler = $this->get('app.command_handler.owner.search.by_fb_delegated');
-        $owner = $searchOwnerByFbDelegatedHandler->handle($searchOwnerByFbDelegatedCommand);
 
-        $getFbSharingStatusByOwnerCommand = new GetFbSharingStatusByOwnerCommand($owner);
-        $getFbSharingStatusByOwnerHandler = $this->get('app.command_handler.owner.get_fb_sharing_status.by_owner');
+        $owner = $this->searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand(getenv('HC_FB_DELEGATED_OF_OWNER')));
 
-        $sharingStatus = $getFbSharingStatusByOwnerHandler->handle($getFbSharingStatusByOwnerCommand);
-
-        // actual sharingStatus
-//        {"1":{"1":["0_fbDelegated_friend_of_this_owner_id1"],"2":["0_fbDelegated_friend_of_this_owner_id1"]},"2":[]}
+        $sharingStatus = $this->getFbSharingStatusByOwnerHandler->handle(new GetFbSharingStatusByOwnerCommand($owner));
 
         // TODO: pensar si pasar esto a Command-CommandHandler
         // given thingId belongs to Owner?
@@ -46,7 +51,7 @@ class ThingController extends Controller
         // TODO: get real facebook friends
         $friends = [
             ['name' => 'name1_hc_in_controller',
-             'actions' => [1, 2],
+                'actions' => [1, 2],
                 'fdbDelegated' => '0_fbDelegated_friend_of_this_owner_id1'
             ],
             ['name' => 'name2_hc_in_controller', 'actions' => []]
@@ -63,23 +68,10 @@ class ThingController extends Controller
         $password = $request->request->get('password');
 
         try {
-            $mysqlThingRepository = $this->get('app.repository.thing');
-            $createThingHandler = new CreateThingHandler($mysqlThingRepository);
-            $createThingCommand = new CreateThingCommand($root, $userName, $password);
-            $thing = $createThingHandler->handle($createThingCommand);
+            $thing = $this->createThingHandler->handle(new CreateThingCommand($root, $userName, $password));
 
-
-
-            $searchOwnerByFbDelegatedCommand = new SearchOwnerByFbDelegatedCommand(getenv('HC_FB_DELEGATED_OF_OWNER'));
-            $searchOwnerByFbDelegatedHandler = $this->get('app.command_handler.owner.search.by_fb_delegated');
-            $owner = $searchOwnerByFbDelegatedHandler->handle($searchOwnerByFbDelegatedCommand);
-
-            // add thing to owner
-            $addThingCommand = new AddThingToOwnerCommand($thing, $owner);
-            // TODO AddThingToOwnerHandler as a service
-            $addThingHandler = new AddThingToOwnerHandler($this->get('app.repository.owner'));
-
-            $addThingHandler->handle($addThingCommand);
+            $owner = $this->searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand(getenv('HC_FB_DELEGATED_OF_OWNER')));
+            $this->addThingToOwnerHandler->handle(new AddThingToOwnerCommand($thing, $owner));
 
         } catch (\Exception $e) {
             return new Response($e->getMessage());
