@@ -1,3 +1,8 @@
+# httpie
+# http -f POST localhost:8000/thing/create  root=root user=from password=httpPhpStormClient
 POST localhost:8000/thing/create
+Content-Type: application/x-www-form-urlencoded
+
+root=root&user=from&password=httpPhpStormClient
 
 ###

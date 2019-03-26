@@ -24,10 +24,11 @@ class ThingController extends Controller
     public function info($thingId)
     {
 //        dd($thingId);
-        // TODO searchOwnerByFbDelegated as a service
+        // TODO quitar este app.repository.owner cuando GetFbSharingStatusByOwnerHandler as as service
         $ownerRepository = $this->get('app.repository.owner');
+
         $searchOwnerByFbDelegatedCommand = new SearchOwnerByFbDelegatedCommand(getenv('HC_FB_DELEGATED_OF_OWNER'));
-        $searchOwnerByFbDelegatedHandler = new SearchOwnerByFbDelegatedHandler($ownerRepository);
+        $searchOwnerByFbDelegatedHandler = $this->get('app.command_handler.owner.search.by_fb_delegated');
         $owner = $searchOwnerByFbDelegatedHandler->handle($searchOwnerByFbDelegatedCommand);
 
         $getFbSharingStatusByOwnerCommand = new GetFbSharingStatusByOwnerCommand($owner);
@@ -71,12 +72,16 @@ class ThingController extends Controller
             $createThingCommand = new CreateThingCommand($root, $userName, $password);
             $thing = $createThingHandler->handle($createThingCommand);
 
-            $ownerRepository = $this->get('app.repository.owner');
-            $owner = $ownerRepository->searchOwnerByfbDelegatedOrException(getenv('HC_FB_DELEGATED_OF_OWNER'));
+
+
+            $searchOwnerByFbDelegatedCommand = new SearchOwnerByFbDelegatedCommand(getenv('HC_FB_DELEGATED_OF_OWNER'));
+            $searchOwnerByFbDelegatedHandler = $this->get('app.command_handler.owner.search.by_fb_delegated');
+            $owner = $searchOwnerByFbDelegatedHandler->handle($searchOwnerByFbDelegatedCommand);
 
             // add thing to owner
             $addThingCommand = new AddThingCommand($thing, $owner);
-            $addThingHandler = new AddThingHandler($ownerRepository);
+            // TODO AddThingHandler as a service
+            $addThingHandler = new AddThingHandler($this->get('app.repository.owner'));
 
             $addThingHandler->handle($addThingCommand);
 
