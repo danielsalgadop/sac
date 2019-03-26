@@ -43,6 +43,19 @@ services:
     arguments:
     - "@app.repository.owner"
 
+  app.command_handler.owner.get_fb_sharing_status.by_owner:
+    class: App\Application\CommandHandler\Owner\GetFbSharingStatusByOwnerHandler
+    public: true
+    arguments:
+    - "@app.repository.owner"
+
+#  app.command_hanlderl.owner.add_thing_to_owner:
+#    class: App\Application\CommandHandler\Owner\AddThingToOwnerHandler
+#    public: true
+#    arguments:
+#    - "@app.repository.owner"
+
+
 # THING
   app.repository.thing:
     class: App\Infrastructure\Thing\MySQLThingRepository

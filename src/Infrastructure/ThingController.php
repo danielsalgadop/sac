@@ -10,8 +10,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Application\Command\Thing\CreateThingCommand;
 use App\Application\CommandHandler\Thing\CreateThingHandler;
 
-use App\Application\Command\Owner\AddThingCommand;
-use App\Application\CommandHandler\Owner\AddThingHandler;
+use App\Application\Command\Owner\AddThingToOwnerCommand;
+use App\Application\CommandHandler\Owner\AddThingToOwnerHandler;
 
 use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
 use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
@@ -23,16 +23,12 @@ class ThingController extends Controller
 {
     public function info($thingId)
     {
-//        dd($thingId);
-        // TODO quitar este app.repository.owner cuando GetFbSharingStatusByOwnerHandler as as service
-        $ownerRepository = $this->get('app.repository.owner');
-
         $searchOwnerByFbDelegatedCommand = new SearchOwnerByFbDelegatedCommand(getenv('HC_FB_DELEGATED_OF_OWNER'));
         $searchOwnerByFbDelegatedHandler = $this->get('app.command_handler.owner.search.by_fb_delegated');
         $owner = $searchOwnerByFbDelegatedHandler->handle($searchOwnerByFbDelegatedCommand);
 
         $getFbSharingStatusByOwnerCommand = new GetFbSharingStatusByOwnerCommand($owner);
-        $getFbSharingStatusByOwnerHandler = new GetFbSharingStatusByOwnerHandler($ownerRepository);
+        $getFbSharingStatusByOwnerHandler = $this->get('app.command_handler.owner.get_fb_sharing_status.by_owner');
 
         $sharingStatus = $getFbSharingStatusByOwnerHandler->handle($getFbSharingStatusByOwnerCommand);
 
@@ -79,9 +75,9 @@ class ThingController extends Controller
             $owner = $searchOwnerByFbDelegatedHandler->handle($searchOwnerByFbDelegatedCommand);
 
             // add thing to owner
-            $addThingCommand = new AddThingCommand($thing, $owner);
-            // TODO AddThingHandler as a service
-            $addThingHandler = new AddThingHandler($this->get('app.repository.owner'));
+            $addThingCommand = new AddThingToOwnerCommand($thing, $owner);
+            // TODO AddThingToOwnerHandler as a service
+            $addThingHandler = new AddThingToOwnerHandler($this->get('app.repository.owner'));
 
             $addThingHandler->handle($addThingCommand);
 

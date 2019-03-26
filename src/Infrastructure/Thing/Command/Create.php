@@ -17,11 +17,9 @@ use App\Domain\Entity\Thing;
 
 class Create extends Command
 {
-    protected static $defaultName = 'app:CreateThing';
+    protected static $defaultName = 'app:Thing:Create';
     private $thingRepository;
 
-//    public function __construct()
-//    public function __construct(OwnerRepositoryInterface $thingRepository)
     public function __construct(ThingRepository $thingRepository)
     {
         parent::__construct();
@@ -56,7 +54,7 @@ class Create extends Command
     {
         $userName = $input->getArgument('userName');
         $password = $input->getArgument('password');
-        // userName and password defautl values (if necessary)
+        // userName and password default values (if necessary)
         if (!$userName) {
             $userName = "user";
         }
