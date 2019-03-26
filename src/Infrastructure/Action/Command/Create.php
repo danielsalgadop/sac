@@ -25,7 +25,7 @@ class Create extends ContainerAwareCommand
             ->addArgument('thingId', InputArgument::REQUIRED, '(int) thing id')
             ->addArgument('friendFbDelegated', InputArgument::REQUIRED, '(string) friends fb_delegated')
             ->addArgument('httpVerb', InputArgument::REQUIRED, 'GET | POST')
-            ->addArgument('route', InputArgument::REQUIRED, '(strint) /this/is/a/route')
+            ->addArgument('route', InputArgument::REQUIRED, '(string) /this/is/a/route')
             ->addArgument('actionDescription', InputArgument::REQUIRED, '(xxx) Action Description')
         ;
     }
