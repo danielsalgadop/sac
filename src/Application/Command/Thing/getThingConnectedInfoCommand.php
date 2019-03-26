@@ -8,7 +8,6 @@ class getThingConnectedInfoCommand
     private $thingUsername;
     private $thingPassword;
 
-    // TODO: PSR
     public function __construct(int $id, string $thingUsername, string $thingPassword)
     {
         $this->id = $id;
