@@ -11,11 +11,20 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use App\Application\Command\Owner\CreateOwnerCommand;
 use App\Application\CommandHandler\Owner\CreateOwnerHandler;
+use Symfony\Component\DependencyInjection\Container;
 
 
 class Create extends ContainerAwareCommand
 {
     protected static $defaultName = 'app:Owner:Create';
+    private $createOwnerHandler;
+
+    public function __construct(CreateOwnerHandler $createOwnerHandler)
+    {
+        parent::__construct();
+        $this->createOwnerHandler = $createOwnerHandler;
+    }
+
 
     protected function configure()
     {
@@ -33,8 +42,9 @@ class Create extends ContainerAwareCommand
         $name = $input->getArgument('name');
 
         $createOwnerCommand = new CreateOwnerCommand($name, $fbDelegated);
-        $createOwnerHandler = $this->getContainer()->get('app.command_handler.owner.create');
-        $createOwnerHandler->handle($createOwnerCommand);
+//        $createOwnerHandler = $this->getContainer()->get('app.command_handler.owner.create');
+//        $createOwnerHandler->handle($createOwnerCommand);
+        $this->createOwnerHandler->handle($createOwnerCommand);
 
         $io->success('Owner Created with name ['.$name.'] identified by fbDelegated ['.$fbDelegated.']');
     }

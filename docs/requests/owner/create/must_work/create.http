@@ -1,4 +1,9 @@
-# TODO must be a POST
-GET localhost:8000/owner/create
+# httpie
+# http -f POST localhost:8000/owner/create name=name fbDelegated=fb_delegated_httpie
+POST localhost:8000/owner/create
+Content-Type: application/x-www-form-urlencoded
+
+name=name&fbDelegated=fb_delegated_http
+
 
 ###

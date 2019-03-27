@@ -12,3 +12,8 @@ owner_things:
   path: /owner/things
   controller: App\Infrastructure\Controllers\OwnerController::things
   methods: [GET]
+
+owner_create:
+  path: /owner/create
+  controller: App\Infrastructure\Controllers\OwnerController::create
+  methods: [POST]

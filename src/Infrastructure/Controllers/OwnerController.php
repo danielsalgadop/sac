@@ -90,12 +90,13 @@ class OwnerController extends Controller
     }
 
 
-    public function create()
+    public function create(Request $request)
     {
-        // TODO get parameters
+        $name = $request->request->get('name');
+        $fbDelegated = $request->request->get('fbDelegated');
         // TODO esta parte no esta probada
         try {
-            $createOwnerCommand = new CreateOwnerCommand("hardcoded", "fb_delegated_hardcoded");
+            $createOwnerCommand = new CreateOwnerCommand($name, $fbDelegated);
             $createOwnerHandler = $this->get('app.command_handler.owner.create');
             $createOwnerHandler->handle($createOwnerCommand);
 
