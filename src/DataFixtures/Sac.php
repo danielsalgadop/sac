@@ -44,7 +44,7 @@ class Sac extends Fixture
             $things = $this->createAndPersistThisNumberOfThing($i);
 
             // Owner
-            $owner = $this->createOwner("owner_name_" . $i, "fb_delegated_" . $i);
+            $owner = $this->createOwner("owner_name" , "fb_delegated_" . $i);
             foreach ($things as $thing) {
                 $owner->addThing($thing); // Owner has thing  owner_thing
             }
