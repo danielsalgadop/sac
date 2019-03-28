@@ -78,6 +78,13 @@ services:
     arguments:
     - "@app.repository.thing"
 
+  # TODO test this
+  app.command_handler.thing.get_actions:
+    class: App\Application\CommandHandler\Thing\GetActionsByThingIdHandler
+    public: true
+    arguments:
+    - "@app.repository.thing"
+
 
 # FRIEND
   app.repository.friend:
