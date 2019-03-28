@@ -21,7 +21,7 @@ use App\Application\CommandHandler\Thing\GetActionsByThingIdHandler;
 use App\Domain\Entity\Thing;
 use Symfony\Component\DependencyInjection\Container;
 
-class GetActions extends ContainerAwareCommand
+class GetActions extends Command
 {
     protected static $defaultName = 'app:Thing:GetActions';
     private $getActionsByThingIdHandler;
