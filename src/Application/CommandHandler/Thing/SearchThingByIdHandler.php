@@ -6,7 +6,6 @@ use App\Application\Command\Thing\FindByIdCommand;
 use App\Domain\Entity\Thing;
 use App\Domain\Repository\ThingRepository;
 
-// TODO: Rename SearchThingByIdHandler
 class SearchThingByIdHandler
 {
     public function __construct(ThingRepository $thingRepository)
