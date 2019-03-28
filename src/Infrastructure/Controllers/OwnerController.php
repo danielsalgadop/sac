@@ -25,6 +25,12 @@ use App\Domain\Repository\ThingConnectorRepository;
 
 class OwnerController extends Controller
 {
+    private $createOwnerHandler;
+    public function __construct(CreateOwnerHandler $createOwnerHandler)
+    {
+        $this->createOwnerHandler = $createOwnerHandler;
+    }
+
     public function index()
     {
         // voy a recibir un fb_delegated: TODO no usar este HC_FB_DELEGATED_OF_OWNER
@@ -94,11 +100,11 @@ class OwnerController extends Controller
     {
         $name = $request->request->get('name');
         $fbDelegated = $request->request->get('fbDelegated');
-        // TODO esta parte no esta probada
+
+        $name = filter_var($name ?? '', FILTER_SANITIZE_STRING);
+
         try {
-            $createOwnerCommand = new CreateOwnerCommand($name, $fbDelegated);
-            $createOwnerHandler = $this->get('app.command_handler.owner.create');
-            $createOwnerHandler->handle($createOwnerCommand);
+            $this->createOwnerHandler->handle(new CreateOwnerCommand($name, $fbDelegated));
 
         } catch (\Exception $e) {
             return new Response($e->getMessage());

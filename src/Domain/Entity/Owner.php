@@ -17,6 +17,7 @@ class Owner
     public function __construct(string $name, string $fbDelegated)
     {
         // DUDA, tiene sentido setear estos params (name, fbDelegated usando métodos set*)? (asi podría validarlos)
+        $this->validateName($name);
         $this->name = $name;
         $this->fbDelegated = $fbDelegated;
         $this->things = new ArrayCollection();
@@ -103,11 +104,18 @@ class Owner
     public function getThingByIdOrException(int $thingId): Thing
     {
         foreach ($this->getThings() as $thing) {
-            if($thing->getId() === $thingId){
+            if ($thing->getId() === $thingId) {
                 return $thing;
             }
         }
         throw new \Exception("Thing does not belong to user");
     }
 
+    private function validateName(string $name)
+    {
+        // TODO: ahora esta entrando (via POST) name=' '. Esto no debería pasar
+        if ($name == '' || preg_match('/[0-9]/', $name)) {
+            Throw new \Exception("Invalid Name for Owner");
+        }
+    }
 }

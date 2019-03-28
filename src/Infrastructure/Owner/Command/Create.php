@@ -2,19 +2,16 @@
 
 namespace App\Infrastructure\Owner\Command;
 
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use App\Application\Command\Owner\CreateOwnerCommand;
 use App\Application\CommandHandler\Owner\CreateOwnerHandler;
-use Symfony\Component\DependencyInjection\Container;
 
 
-class Create extends ContainerAwareCommand
+class Create extends Command
 {
     protected static $defaultName = 'app:Owner:Create';
     private $createOwnerHandler;
@@ -38,14 +35,9 @@ class Create extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $fbDelegated = $input->getArgument('fbDelegated');
-        $name = $input->getArgument('name');
 
-        $createOwnerCommand = new CreateOwnerCommand($name, $fbDelegated);
-//        $createOwnerHandler = $this->getContainer()->get('app.command_handler.owner.create');
-//        $createOwnerHandler->handle($createOwnerCommand);
-        $this->createOwnerHandler->handle($createOwnerCommand);
+        $owner = $this->createOwnerHandler->handle(new CreateOwnerCommand($input->getArgument('name'), $input->getArgument('fbDelegated')));
 
-        $io->success('Owner Created with name ['.$name.'] identified by fbDelegated ['.$fbDelegated.']');
+        $io->success('Owner Created with name ['.$owner->getName().'] identified by fbDelegated ['.$owner->getFbDelegated().']');
     }
 }

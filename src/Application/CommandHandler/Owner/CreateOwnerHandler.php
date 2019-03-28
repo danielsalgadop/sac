@@ -8,6 +8,8 @@ use App\Domain\Repository\OwnerRepository;
 
 class CreateOwnerHandler
 {
+    private $ownerRepository;
+
     public function __construct(OwnerRepository $ownerRepository)
     {
         $this->ownerRepository = $ownerRepository;
@@ -20,6 +22,7 @@ class CreateOwnerHandler
         // TODO: avoid creating owner if fb_delegated already exists
         $owner = new Owner($name, $fb_delegated);
         $this->ownerRepository->save($owner);
+        return $owner;
 
     }
 }

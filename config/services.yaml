@@ -8,8 +8,7 @@ parameters:
 services:
   # default configuration for services in *this* file
   _defaults:
-#    autowire: true      # Automatically injects dependencies in your services.
-    autowire: false      # Automatically injects dependencies in your services.
+    autowire: true      # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
   # makes classes in src/ available to be used as services
@@ -32,11 +31,11 @@ services:
     arguments:
     - "@doctrine.orm.default_entity_manager"
 
-#  app.command_handler.owner.create:
-#    class: App\Application\CommandHandler\Owner\CreateOwnerHandler
-#    public: true
-#    arguments:
-#    - "@app.repository.owner"
+  app.command_handler.owner.create:
+    class: App\Application\CommandHandler\Owner\CreateOwnerHandler
+    public: true
+    arguments:
+    - "@app.repository.owner"
 
   app.command_handler.owner.search.by_fb_delegated:
     class: App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler
