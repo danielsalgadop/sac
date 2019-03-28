@@ -2,28 +2,23 @@
 
 namespace App\Infrastructure\Thing\Command;
 
-use App\Domain\Repository\ThingRepository;
-use App\Application\Command\Thing\CreateThingCommand as AppsCreateThingCommand;
+use App\Application\Command\Thing\CreateThingCommand;
 use App\Application\CommandHandler\Thing\CreateThingHandler;
-use App\Domain\Repository\OwnerRepositoryInterface;
-use App\Infrastructure\Thing\MySQLThingRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use App\Domain\Entity\Thing;
 
 class Create extends Command
 {
     protected static $defaultName = 'app:Thing:Create';
-    private $thingRepository;
+    private $createThingHandler;
 
-    public function __construct(ThingRepository $thingRepository)
+    public function __construct(CreateThingHandler $createThingHandler)
     {
         parent::__construct();
-        $this->thingRepository = $thingRepository;
+        $this->createThingHandler = $createThingHandler;
     }
 
 
@@ -39,15 +34,11 @@ class Create extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $rootPath = $input->getArgument('rootPath');
         list($userName, $password) = $this->DefaultUserNameAndPassword($input);
 
-        $io->note(sprintf('Creating Thing with root [%s] userName [%s] and password [%s]', $rootPath, $userName, $password));
-
-        $createThingCommand = new AppsCreateThingCommand($rootPath, $userName, $password);
-        $handler = new CreateThingHandler($this->thingRepository);
-        $handler->handle($createThingCommand);
-        $io->success('Created Thing!');
+        $createThingCommand = new CreateThingCommand($input->getArgument('rootPath'), $userName, $password);
+        $thing = $this->createThingHandler->handle($createThingCommand);
+        $io->success('Created Thing! id['.$thing->getId().'] root['.$thing->getRoot().'] userName ['.$thing->getUser().']');
     }
 
     private function DefaultUserNameAndPassword($input)

@@ -24,14 +24,12 @@ use Symfony\Component\DependencyInjection\Container;
 class GetActions extends ContainerAwareCommand
 {
     protected static $defaultName = 'app:Thing:GetActions';
-    private $em;
-//    private $thingRepository;
+    private $getActionsByThingIdHandler;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(GetActionsByThingIdHandler $getActionsByThingIdHandler)
     {
         parent::__construct();
-        $this->em = $em;
-//        $this->thingRepository = $thingRepository;
+        $this->getActionsByThingIdHandler = $getActionsByThingIdHandler;
     }
 
 
@@ -39,21 +37,11 @@ class GetActions extends ContainerAwareCommand
     {
         $this
             ->setDescription('Given an thing.id returns Actions')
-            ->addArgument('thingId', InputArgument::REQUIRED, '(int) Thing id')
-            ;
+            ->addArgument('thingId', InputArgument::REQUIRED, '(int) Thing id');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $io = new SymfonyStyle($input, $output);
-        $thingId = $input->getArgument('thingId');
-
-
-        $getActionsByThingIdCommand = new GetActionsByThingIdCommand($thingId);
-        $thingRepository = $this->getContainer()->get('app.repository.thing');
-        $searchActionsHandler = new GetActionsByThingIdHandler($thingRepository);
-
-        $actions = $searchActionsHandler->handle($getActionsByThingIdCommand);
-        dump($actions);
+        dump($this->getActionsByThingIdHandler->handle(new GetActionsByThingIdCommand($input->getArgument('thingId'))));
     }
 }
