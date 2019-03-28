@@ -2,14 +2,13 @@
 
 namespace App\Infrastructure\Owner\Command;
 
-use App\Domain\Repository\Friend\FriendRepository;
+use App\Application\Command\Owner\AddFriendToOwnerCommand;
+use App\Application\CommandHandler\Owner\AddFriendToOwnerHandler;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use App\Domain\Repository\OwnerRepository;
 
 use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
 use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
@@ -19,14 +18,16 @@ use App\Application\CommandHandler\Friend\SearchFriendByFbDelegatedHandler;
 class AddFriendToOwner extends Command
 {
     protected static $defaultName = 'app:Owner:AddFriendToOwner';
-    private $ownerRepository;
-    private $friendRepository;
+    private $searchOwnerByFbDelegatedHandler;
+    private $searchFriendByFbDelegatedHandler;
+    private $addFriendToOwnerHandler;
 
-    public function __construct(OwnerRepository $ownerRepository, FriendRepository $friendRepository)
+    public function __construct (SearchOwnerByFbDelegatedHandler $searchOwnerByFbDelegatedHandler, SearchFriendByFbDelegatedHandler $searchFriendByFbDelegatedHandler, AddFriendToOwnerHandler $addFriendToOwnerHandler)
     {
         parent::__construct();
-        $this->ownerRepository = $ownerRepository;
-        $this->friendRepository = $friendRepository;
+        $this->searchOwnerByFbDelegatedHandler = $searchOwnerByFbDelegatedHandler;
+        $this->searchFriendByFbDelegatedHandler = $searchFriendByFbDelegatedHandler;
+        $this->addFriendToOwnerHandler = $addFriendToOwnerHandler;
     }
 
 
@@ -42,23 +43,13 @@ class AddFriendToOwner extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $ownerFbDelegated = $input->getArgument('OwnerFbDelegated');
-        $friendFbDelegated = $input->getArgument('FriendFbDelegated');
 
-        $searchOwnerByFbDelegatedCommand = new SearchOwnerByFbDelegatedCommand($ownerFbDelegated);
-        $searchOwnerByFbDelegatedHandler = new SearchOwnerByFbDelegatedHandler($this->ownerRepository);
-        $owner = $searchOwnerByFbDelegatedHandler->handle($searchOwnerByFbDelegatedCommand);
+        $owner = $this->searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand($input->getArgument('OwnerFbDelegated')));
 
-        $searchFriendByFbDelegatedCommand = new SearchFriendByFbDelegatedCommand($friendFbDelegated);
-        $searchFriendByFbDelegatedHandler = new SearchFriendByFbDelegatedHandler($this->friendRepository);
-        $friend = $searchFriendByFbDelegatedHandler->handle($searchFriendByFbDelegatedCommand);
+        $friend = $this->searchFriendByFbDelegatedHandler->handle(new SearchFriendByFbDelegatedCommand($input->getArgument('FriendFbDelegated')));
 
+        $owner = $this->addFriendToOwnerHandler->handle(new AddFriendToOwnerCommand($friend, $owner));
 
-        $owner->addFriend($friend);
-        $this->ownerRepository->save($owner);
-        // TODO: ct if owner has already friend
-
-
-        $io->success('');
+        $io->success('Friend ['.$friend->getFbDelegated().'] added to Owner ['.$owner->getName().']');
     }
 }

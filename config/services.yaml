@@ -49,6 +49,13 @@ services:
     arguments:
     - "@app.repository.owner"
 
+#  app.command_handler.owner.add_friend:
+#    class: App\Application\CommandHandler\Owner\AddFriendToOwner
+#    public: true
+#    arguments:
+#    - "@app.repository.owner"
+
+
 #  app.command_handler.owner.add_thing_to_owner:
 #    class: App\Application\CommandHandler\Owner\AddThingToOwnerHandler
 #    public: true
