@@ -49,19 +49,19 @@ services:
     arguments:
     - "@app.repository.owner"
 
-# TODO test this
+# TODO try this
   app.command_handler.owner.add_friend:
     class: App\Application\CommandHandler\Owner\AddFriendToOwner
     public: true
     arguments:
     - "@app.repository.owner"
 
-
-#  app.command_handler.owner.add_thing_to_owner:
-#    class: App\Application\CommandHandler\Owner\AddThingToOwnerHandler
-#    public: true
-#    arguments:
-#    - "@app.repository.owner"
+# TODO test this
+  app.command_handler.owner.add_thing:
+    class: App\Application\CommandHandler\Owner\AddThingToOwnerHandler
+    public: true
+    arguments:
+    - "@app.repository.owner"
 
 
 # THING
