@@ -5,16 +5,16 @@ namespace App\Application\Command\Owner;
 
 class SearchOwnerByFbDelegatedCommand
 {
-    private $fbDelegated;
+    private $ownerFbDelegated;
 
-    public function __construct(string $fbDelegated)
+    public function __construct(string $ownerFbDelegated)
     {
-        $this->fbDelegated = $fbDelegated;
+        $this->ownerFbDelegated = $ownerFbDelegated;
     }
 
     public function getFbDelegated():string
     {
-        return $this->fbDelegated;
+        return $this->ownerFbDelegated;
     }
 }
 

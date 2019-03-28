@@ -17,15 +17,8 @@ class SearchOwnerByFbDelegatedHandler
         $this->ownerRepository = $ownerRepository;
     }
 
-
-    public function handle(SearchOwnerByFbDelegatedCommand $command): Owner
+    public function handle(SearchOwnerByFbDelegatedCommand $searchOwnerByFbDelegatedCommand): Owner
     {
-
-        $fbDelegated = $command->getFbDelegated();
-        $owner = $this->ownerRepository->searchOwnerByfbDelegatedOrException($fbDelegated);
-
-        //        $user = $owner->getUser();
-//        $user->correctCredentialsOrException($command->getUser(),$command->getPassword());
-        return $owner;
+        return $this->ownerRepository->searchOwnerByfbDelegatedOrException($searchOwnerByFbDelegatedCommand->getFbDelegated());
     }
 }
