@@ -49,7 +49,7 @@ services:
     arguments:
     - "@app.repository.owner"
 
-#  app.command_hanlderl.owner.add_thing_to_owner:
+#  app.command_handler.owner.add_thing_to_owner:
 #    class: App\Application\CommandHandler\Owner\AddThingToOwnerHandler
 #    public: true
 #    arguments:

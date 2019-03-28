@@ -3,6 +3,8 @@
 namespace App\Infrastructure\Owner\Command;
 
 
+use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
+use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
 use App\Domain\Repository\OwnerRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -16,12 +18,15 @@ use App\Application\CommandHandler\Owner\GetFbSharingStatusByOwnerHandler;
 class GetFbSharingStatusByOwner extends Command
 {
     protected static $defaultName = "app:Owner:GetFbSharingStatus";
-    private $ownerRepository;
+    // TODO: decidir semántica: get o Search
+    private $getFbSharingStatusByOwnerHandler;
+    private $searchOwnerByFbDelegatedHandler;
 
-    public function __construct(OwnerRepository $ownerRepository)
+    public function __construct(SearchOwnerByFbDelegatedHandler $searchOwnerByFbDelegatedHandler, GetFbSharingStatusByOwnerHandler $getFbSharingStatusByOwnerHandler)
     {
         parent::__construct();
-        $this->ownerRepository = $ownerRepository;
+        $this->getFbSharingStatusByOwnerHandler = $getFbSharingStatusByOwnerHandler;
+        $this->searchOwnerByFbDelegatedHandler = $searchOwnerByFbDelegatedHandler;
     }
 
     protected function configure()
@@ -33,14 +38,10 @@ class GetFbSharingStatusByOwner extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $ownerFbDelegated = $input->getArgument("OwnerFbDelegated");
-        // TODO: existe un command-handler para esto, no?
-        $owner = $this->ownerRepository->searchOwnerByfbDelegatedOrException($ownerFbDelegated);
 
-        $getFbSharingStatusByOwnerCommand = new GetFbSharingStatusByOwnerCommand($owner);
-        $getFbSharingStatusByOwnerHandler = new GetFbSharingStatusByOwnerHandler($this->ownerRepository);
+        $owner = $this->searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand($input->getArgument("OwnerFbDelegated")));
 
-        $fbSharingStatus = $getFbSharingStatusByOwnerHandler->handle($getFbSharingStatusByOwnerCommand);
+        $fbSharingStatus = $this->getFbSharingStatusByOwnerHandler->handle(new GetFbSharingStatusByOwnerCommand($owner));
 
         dd($fbSharingStatus);
 
