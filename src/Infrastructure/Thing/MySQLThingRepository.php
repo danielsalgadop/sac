@@ -35,7 +35,7 @@ class MySQLThingRepository implements ThingRepository
         return $this->thingRepository->find($id);
     }
 
-    public function findByIdOrException(int $id): Thing
+    public function searchThingByIdOrException(int $id): Thing
     {
         $thing = $this->find($id);
         if($thing === null){

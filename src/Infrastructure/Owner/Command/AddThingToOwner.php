@@ -10,7 +10,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
 use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
-use App\Application\Command\Thing\FindByIdCommand;
+use App\Application\Command\Thing\SearchThingByIdCommand;
 use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
 use App\Application\Command\Owner\AddThingToOwnerCommand;
 use App\Application\CommandHandler\Owner\AddThingToOwnerHandler;
@@ -46,7 +46,7 @@ class AddThingToOwner extends Command
         $io = new SymfonyStyle($input, $output);
 
         $owner = $this->searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand($input->getArgument('OwnerFbDelegated')));
-        $thing = $this->searchThingByIdHandler->handle(new FindByIdCommand($input->getArgument('thingId')));
+        $thing = $this->searchThingByIdHandler->handle(new SearchThingByIdCommand($input->getArgument('thingId')));
         $this->addThingToOwnerHandler->handle(new AddThingToOwnerCommand($thing, $owner));
 
         $io->success('Thing ['.$thing->getId().'] added to Owner ['.$owner->getName().']');

@@ -2,7 +2,7 @@
 
 namespace App\Application\CommandHandler\Thing;
 
-use App\Application\Command\Thing\FindByIdCommand;
+use App\Application\Command\Thing\SearchThingByIdCommand;
 use App\Domain\Entity\Thing;
 use App\Domain\Repository\ThingRepository;
 
@@ -13,11 +13,8 @@ class SearchThingByIdHandler
         $this->thingRepository = $thingRepository;
     }
 
-    public function handle(FindByIdCommand $findByIdCommand):Thing
+    public function handle(SearchThingByIdCommand $searchThingByIdCommand):Thing
     {
-        $thingId = $findByIdCommand->getThingId();
-
-        $thing = $this->thingRepository->findByIdOrException($thingId);
-        return $thing;
+        return $this->thingRepository->searchThingByIdOrException($searchThingByIdCommand->getThingId());
     }
 }

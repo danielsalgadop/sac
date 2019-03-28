@@ -15,7 +15,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use App\Domain\Entity\Thing;
-use App\Application\Command\Thing\FindByIdCommand;
+use App\Application\Command\Thing\SearchThingByIdCommand;
 use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
 
 
@@ -42,7 +42,7 @@ class FindById extends Command
     {
         $thingId = $input->getArgument('thingId');
 
-        $findByIdCommand = new FindByIdCommand($thingId);
+        $findByIdCommand = new SearchThingByIdCommand($thingId);
         $findByIdHandler = new SearchThingByIdHandler($this->thingRepository);
 
         $thing = $findByIdHandler->handle($findByIdCommand);
