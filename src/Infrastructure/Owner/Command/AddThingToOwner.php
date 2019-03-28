@@ -11,7 +11,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
 use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
 use App\Application\Command\Thing\FindByIdCommand;
-use App\Application\CommandHandler\Thing\FindByIdHandler;
+use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
 use App\Application\Command\Owner\AddThingToOwnerCommand;
 use App\Application\CommandHandler\Owner\AddThingToOwnerHandler;
 
@@ -22,7 +22,7 @@ class AddThingToOwner extends Command
     private $addThingToOwnerHandler;
     private $searchThingByIdHandler;
 
-    public function __construct(SearchOwnerByFbDelegatedHandler $searchOwnerByFbDelegatedHandler, AddThingToOwnerHandler $addThingToOwnerHandler, FindByIdHandler $searchThingByIdHandler)
+    public function __construct(SearchOwnerByFbDelegatedHandler $searchOwnerByFbDelegatedHandler, SearchThingByIdHandler $searchThingByIdHandler, AddThingToOwnerHandler $addThingToOwnerHandler)
     {
         parent::__construct();
 

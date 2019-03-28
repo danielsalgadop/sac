@@ -49,6 +49,7 @@ services:
     arguments:
     - "@app.repository.owner"
 
+# TODO test this
   app.command_handler.owner.add_friend:
     class: App\Application\CommandHandler\Owner\AddFriendToOwner
     public: true

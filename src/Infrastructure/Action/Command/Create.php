@@ -8,7 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use App\Application\Command\Thing\FindByIdCommand;
-use App\Application\CommandHandler\Thing\FindByIdHandler;
+use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
 use App\Application\Command\Friend\SearchFriendByFbDelegatedCommand;
 use App\Application\CommandHandler\Friend\SearchFriendByFbDelegatedHandler;
 
@@ -45,7 +45,7 @@ class Create extends ContainerAwareCommand
         // Thing
         $thingRepository = $this->getContainer()->get('app.repository.thing');
         $findByIdCommand = new FindByIdCommand($thingId);
-        $findByIdHandler = new FindByIdHandler($thingRepository);
+        $findByIdHandler = new SearchThingByIdHandler($thingRepository);
         $thing = $findByIdHandler->handle($findByIdCommand);
 //        dd($thing);
 
