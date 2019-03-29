@@ -86,15 +86,19 @@ services:
     - "@app.repository.thing"
 
 # THINGCONNECTED
-#  app.repository.thing_connected:
-#    class: App\Infrastucture\
-#
-#
-#  app.command_handler.thing_connected:
-#    class: App\Application\CommandHandler\Thing\ThingConnected\GetThingConnectedActionsHandler
-#    public: true
+  app.repository.thing_connected:
+    class: App\Infrastructure\ThingConnected\CurlThingConnectedRepository
+    public: true
 #    arguments:
-#    -
+#    - "@doctrine.orm.default_entity_manager"
+
+  #
+#
+  app.command_handler.thing_connected.get_actions:
+    class: App\Application\CommandHandler\Thing\ThingConnected\GetThingConnectedActionsHandler
+    public: true
+    arguments:
+    - "@app.repository.thing_connected"
 
 
 # FRIEND

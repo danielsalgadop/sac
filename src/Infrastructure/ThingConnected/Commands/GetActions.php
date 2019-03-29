@@ -2,23 +2,30 @@
 
 namespace App\Infrastructure\ThingConnected\Commands;
 
-use App\Domain\Repository\OwnerRepositoryInterface;
+use App\Application\Command\Thing\GetThingConnectedInfoCommand;
+use App\Application\Command\Thing\SearchThingByIdCommand;
+use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
+use App\Application\CommandHandler\Thing\ThingConnected\SearchThingConnectedActionsHandler;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
-use App\Domain\Repository\ThingConnectedRepository;
 
 class GetActions extends Command
 {
     protected static $defaultName = 'app:ThingConnected:GetThingActionsByThingId';
-    private $thingConnectedRepository;
 
-    public function __construct(ThingConnectedRepository $thingConnectedRepository)
+    private $searchThingByIdHandler;
+    /**
+     * @var SearchThingConnectedActionsHandler
+     */
+    private $searchThingConnectedActionsHandler;
+
+    public function __construct(SearchThingByIdHandler $searchThingByIdHandler, SearchThingConnectedActionsHandler $searchThingConnectedActionsHandler)
     {
         parent::__construct();
-        $this->thingConnectedRepository = $thingConnectedRepository;
+        $this->searchThingByIdHandler = $searchThingByIdHandler;
+        $this->searchThingConnectedActionsHandler = $searchThingConnectedActionsHandler;
     }
 
 
@@ -31,9 +38,7 @@ class GetActions extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $io = new SymfonyStyle($input, $output);
-        $thingId = $input->getArgument('thingId');
-        $actions = $this->thingConnectedRepository->searchThingActionsByIdOrException($thingId, 'user', 'password');
-        dump($actions);
+        $thing = $this->searchThingByIdHandler->handle(new SearchThingByIdCommand($input->getArgument('thingId')));
+        dd($this->searchThingConnectedActionsHandler->handle(new GetThingConnectedInfoCommand($thing->getId(), $thing->getUser(), $thing->getPassword())));
     }
 }
