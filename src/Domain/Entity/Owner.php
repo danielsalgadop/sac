@@ -118,4 +118,9 @@ class Owner
             Throw new \Exception("Invalid Name for Owner");
         }
     }
+    public function toArray()
+    {
+        // TODO: duda Victor (este serilizer, ¿esta bien?)
+        return ['name' => $this->getName()];
+    }
 }
