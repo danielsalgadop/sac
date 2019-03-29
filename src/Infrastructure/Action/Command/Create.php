@@ -16,6 +16,15 @@ use App\Application\CommandHandler\Friend\SearchFriendByFbDelegatedHandler;
 class Create extends ContainerAwareCommand
 {
     protected static $defaultName = 'app:Action:Create';
+    private $searchThingByIdHandler;
+    private $searchFriendByFbDelegatedHandler;
+
+    public function __construct(SearchThingByIdHandler $searchThingByIdHandler, SearchFriendByFbDelegatedHandler $searchFriendByFbDelegatedHandler)
+    {
+        parent::__construct();
+        $this->searchThingByIdHandler = $searchThingByIdHandler;
+        $this->searchFriendByFbDelegatedHandler = $searchFriendByFbDelegatedHandler;
+    }
 
     protected function configure()
     {
@@ -43,17 +52,12 @@ class Create extends ContainerAwareCommand
         $actionDescription = $input->getArgument("actionDescription");
 
         // Thing
-        $thingRepository = $this->getContainer()->get('app.repository.thing');
-        $findByIdCommand = new SearchThingByIdCommand($thingId);
-        $findByIdHandler = new SearchThingByIdHandler($thingRepository);
-        $thing = $findByIdHandler->handle($findByIdCommand);
+        $thing = $this->searchThingByIdHandler->handle(new SearchThingByIdCommand($thingId));
 //        dd($thing);
 
         // Friend
-        $friendRepository = $this->getContainer()->get('app.repository.friend');
-        $searchFriendByFbDelegatedCommand = new SearchFriendByFbDelegatedCommand($friendFbDelegated);
-        $searchFriendByFbDelegatedHandler = new SearchFriendByFbDelegatedHandler($friendRepository);
-        $friend = $searchFriendByFbDelegatedHandler->handle($searchFriendByFbDelegatedCommand);
+        $friend = $this->searchFriendByFbDelegatedHandler->handle(new SearchFriendByFbDelegatedCommand($friendFbDelegated));
+        dd($friend);
 
         $actionRepository = $this->getContainer()->get('app.repository.action');
         $actionRepository->save($httpVerb, $route,$thing, $friend, $actionDescription);
