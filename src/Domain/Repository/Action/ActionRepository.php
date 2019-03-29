@@ -9,7 +9,7 @@ namespace App\Domain\Repository\Action;
 use App\Domain\Entity\Friend;
 use App\Domain\Entity\Thing;
 
-interface ActionRespository
+interface ActionRepository
 {
 
 
