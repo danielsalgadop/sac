@@ -1,0 +1,3 @@
+owner_basic_info:
+  path: /api/owner
+  controller: App\Infrastructure\Controllers\Api\Owner\GetBasicInfo::do
