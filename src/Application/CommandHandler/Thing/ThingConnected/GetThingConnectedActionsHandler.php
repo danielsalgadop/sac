@@ -8,11 +8,11 @@ use App\Domain\Repository\ThingConnectorRepository;
 
 class GetThingConnectedActionsHandler
 {
-    public function handle(GetThingConnectedInfoCommand $GetThingConnectedInfoCommand, ThingConnectorRepository $ThingConnectorRepository)
+    public function handle(GetThingConnectedInfoCommand $getThingConnectedInfoCommand, ThingConnectorRepository $ThingConnectorRepository)
     {
-        $id = $GetThingConnectedInfoCommand->getId();
-        $thing_user_name = $GetThingConnectedInfoCommand->getThingUsername();
-        $thing_password = $GetThingConnectedInfoCommand->getThingPassword();
+        $id = $getThingConnectedInfoCommand->getId();
+        $thing_user_name = $getThingConnectedInfoCommand->getThingUsername();
+        $thing_password = $getThingConnectedInfoCommand->getThingPassword();
 
         return $ThingConnectorRepository->GetThingActionsByIdOrException($id, $thing_user_name, $thing_password);
     }
