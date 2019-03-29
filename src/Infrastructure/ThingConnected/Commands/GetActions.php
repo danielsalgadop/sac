@@ -6,21 +6,19 @@ use App\Domain\Repository\OwnerRepositoryInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use App\Domain\Repository\ThingConnectorRepository;
-
+use App\Domain\Repository\ThingConnectedRepository;
 
 class GetActions extends Command
 {
     protected static $defaultName = 'app:ThingConnected:GetThingActionsByThingId';
-    private $ThingConnector;
+    private $thingConnectedRepository;
 
-    public function __construct(ThingConnectorRepository $ThingConnector)
+    public function __construct(ThingConnectedRepository $thingConnectedRepository)
     {
         parent::__construct();
-        $this->ThingConnector = $ThingConnector;
+        $this->thingConnectedRepository = $thingConnectedRepository;
     }
 
 
@@ -35,7 +33,7 @@ class GetActions extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $thingId = $input->getArgument('thingId');
-        $actions = $this->ThingConnector->GetThingActionsByIdOrException($thingId, 'user', 'password');
+        $actions = $this->thingConnectedRepository->searchThingActionsByIdOrException($thingId, 'user', 'password');
         dump($actions);
     }
 }

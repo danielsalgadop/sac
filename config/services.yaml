@@ -85,6 +85,17 @@ services:
     arguments:
     - "@app.repository.thing"
 
+# THINGCONNECTED
+#  app.repository.thing_connected:
+#    class: App\Infrastucture\
+#
+#
+#  app.command_handler.thing_connected:
+#    class: App\Application\CommandHandler\Thing\ThingConnected\GetThingConnectedActionsHandler
+#    public: true
+#    arguments:
+#    -
+
 
 # FRIEND
   app.repository.friend:
