@@ -1,27 +1,28 @@
 <?php
 
-
 namespace App\Infrastructure\ThingConnected\Commands;
 
-use App\Domain\Repository\OwnerRepositoryInterface;
+use App\Application\Command\Thing\GetThingConnectedInfoCommand;
+use App\Application\Command\Thing\SearchThingByIdCommand;
+use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
+use App\Application\CommandHandler\Thing\ThingConnected\SearchThingConnectedNameHandler;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
-use App\Domain\Repository\ThingConnectorRepository;
-
 
 class GetName extends Command
 {
     protected static $defaultName = 'app:ThingConnected:GetThingNameByThingId';
-    private $ThingConnector;
 
-    public function __construct(ThingConnectorRepository $ThingConnector)
+    private $searchThingByIdHandler;
+    private $searchThingConnectedNameHandler;
+
+    public function __construct(SearchThingByIdHandler $searchThingByIdHandler, SearchThingConnectedNameHandler $searchThingConnectedNameHandler)
     {
         parent::__construct();
-        $this->ThingConnector = $ThingConnector;
+        $this->searchThingByIdHandler = $searchThingByIdHandler;
+        $this->searchThingConnectedNameHandler = $searchThingConnectedNameHandler;
     }
 
 
@@ -34,9 +35,7 @@ class GetName extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $io = new SymfonyStyle($input, $output);
-        $thingId = $input->getArgument('thingId');
-        $thingName = $this->ThingConnector->GetThingNameByIdOrException($thingId, 'user', 'password');
-        dump($thingName);
+        $thing = $this->searchThingByIdHandler->handle(new SearchThingByIdCommand($input->getArgument('thingId')));
+        dd($this->searchThingConnectedNameHandler->handle(new GetThingConnectedInfoCommand($thing->getId(), $thing->getUser(), $thing->getPassword())));
     }
 }

@@ -5,24 +5,24 @@ namespace App\Infrastructure\ThingConnected\Commands;
 use App\Application\Command\Thing\GetThingConnectedInfoCommand;
 use App\Application\Command\Thing\SearchThingByIdCommand;
 use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
-use App\Application\CommandHandler\Thing\ThingConnected\SearchThingConnectedActionsHandler;
+use App\Application\CommandHandler\Thing\ThingConnected\SearchThingConnectedBrandHandler;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class GetActions extends Command
+class GetBrand extends Command
 {
-    protected static $defaultName = 'app:ThingConnected:GetThingActionsByThingId';
+    protected static $defaultName = 'app:ThingConnected:GetThingBrandyThingId';
 
     private $searchThingByIdHandler;
-    private $searchThingConnectedActionsHandler;
+    private $searchThingConnectedBrandHandler;
 
-    public function __construct(SearchThingByIdHandler $searchThingByIdHandler, SearchThingConnectedActionsHandler $searchThingConnectedActionsHandler)
+    public function __construct(SearchThingByIdHandler $searchThingByIdHandler, SearchThingConnectedBrandHandler $searchThingConnectedBrandHandler)
     {
         parent::__construct();
         $this->searchThingByIdHandler = $searchThingByIdHandler;
-        $this->searchThingConnectedActionsHandler = $searchThingConnectedActionsHandler;
+        $this->searchThingConnectedBrandHandler = $searchThingConnectedBrandHandler;
     }
 
 
@@ -36,6 +36,6 @@ class GetActions extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $thing = $this->searchThingByIdHandler->handle(new SearchThingByIdCommand($input->getArgument('thingId')));
-        dd($this->searchThingConnectedActionsHandler->handle(new GetThingConnectedInfoCommand($thing->getId(), $thing->getUser(), $thing->getPassword())));
+        dd($this->searchThingConnectedBrandHandler->handle(new GetThingConnectedInfoCommand($thing->getId(), $thing->getUser(), $thing->getPassword())));
     }
 }

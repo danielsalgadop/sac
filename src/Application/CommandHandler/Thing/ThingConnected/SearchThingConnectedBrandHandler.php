@@ -6,7 +6,7 @@ use App\Application\Command\Thing\GetThingConnectedInfoCommand;
 use App\Domain\Repository\ThingConnectedRepository;
 
 
-class SearchThingConnectedActionsHandler
+class SearchThingConnectedBrandHandler
 {
 
     private $thingConnectedRepository;
@@ -18,7 +18,7 @@ class SearchThingConnectedActionsHandler
 
     public function handle(GetThingConnectedInfoCommand $getThingConnectedInfoCommand)
     {
-        return $this->thingConnectedRepository->searchThingActionsByIdOrException(
+        return $this->thingConnectedRepository->searchThingBrandByIdOrException(
             $getThingConnectedInfoCommand->getId(),
             $getThingConnectedInfoCommand->getThingUsername(),
             $getThingConnectedInfoCommand->getThingPassword()
