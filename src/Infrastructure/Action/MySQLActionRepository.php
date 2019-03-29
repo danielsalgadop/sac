@@ -12,12 +12,10 @@ use Doctrine\ORM\EntityManagerInterface;
 class MySQLActionRepository implements ActionRepository
 {
     private $em;
-//    private $friendRepository;
 
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->em = $entityManager;
-//        $this->friendRepository = $this->em->getRepository(Friend::class);   // Esto es lo que me ha traido quebradero de cabeza
     }
 
 
@@ -35,6 +33,7 @@ class MySQLActionRepository implements ActionRepository
         } catch (Exception $e) {
             return $e->getMessage();
         }
+        return $action;
     }
 
 }
