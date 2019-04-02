@@ -4,6 +4,8 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+  # TODO borrar esta línea si no se usa en constructor de CurlThingConnectedRepository
+  endpoint: 'localhost'
 
 services:
   # default configuration for services in *this* file
@@ -90,10 +92,10 @@ services:
     class: App\Infrastructure\ThingConnected\CurlThingConnectedRepository
     public: true
 #    arguments:
-#    - "@doctrine.orm.default_entity_manager"
-
-  #
+#      $endpoint: "localhost"
+#       $port: 8001
 #
+
   app.command_handler.thing_connected.get_actions:
     class: App\Application\CommandHandler\Thing\ThingConnected\GetThingConnectedActionsHandler
     public: true
