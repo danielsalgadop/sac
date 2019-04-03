@@ -1,4 +1,4 @@
-owner_basic_info:
+api_owner:
   path: /api/owner
   controller: App\Infrastructure\Controllers\Api\Owner\Owner::info
 

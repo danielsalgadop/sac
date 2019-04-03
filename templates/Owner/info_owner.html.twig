@@ -6,38 +6,54 @@
 <h1>General INFO</h1>
 {#TODO: meter validacion de usuario logado#}
 {#{% include 'fbSdk.html.twig' %}#}
-<p>Hello, {{ complete_name }}</p>
-<h1>List of Friends</h1>
-<a href="{{ path('owner_friends') }}">List of all friends (+)</a>
-<p>Added friends in SAC</p>
-{% for friend in friends %}
-    <p>
-        <a href="{{ path('owner_things') }}">
-            {{ friend.getId() }}  {{ friend.fbDelegated }}
-        </a>
-    </p>
-{% endfor %}
+<p>Hello, <span id="owner_name"> </span></p>
+{#<h1>List of Friends</h1>#}
+{#<a href="{{ path('owner_friends') }}">List of all friends (+)</a>#}
+{#<p>Added friends in SAC</p>#}
+{#{% for friend in friends %}#}
+    {#<p>#}
+        {#<a href="{{ path('owner_things') }}">#}
+            {#{{ friend.getId() }}  {{ friend.fbDelegated }}#}
+        {#</a>#}
+    {#</p>#}
+{#{% endfor %}#}
 
-<h1>List of Things</h1>
-<p>This are your actual things (click or details or edition):</p>
-{% for thing in things %}
-    <li>x
-        {% if thing.connection == true %}
-            <a href="{{ thing.url }}">Thing Name = {{ thing.name }} Thing Brand = {{ thing.brand }}</a>
-        {% else %}
-            Please check credentials or connection, found problems with thing with id {{ thing.id }} message: {{ thing.message }}.
-        {% endif %}
-    </li>
-{% endfor %}
-<h1>Add new Thing</h1>
+{#<h1>List of Things</h1>#}
+{#<p>This are your actual things (click or details or edition):</p>#}
+{#{% for thing in things %}#}
+    {#<li>x#}
+        {#{% if thing.connection == true %}#}
+            {#<a href="{{ thing.url }}">Thing Name = {{ thing.name }} Thing Brand = {{ thing.brand }}</a>#}
+        {#{% else %}#}
+            {#Please check credentials or connection, found problems with thing with id {{ thing.id }} message: {{ thing.message }}.#}
+        {#{% endif %}#}
+    {#</li>#}
+{#{% endfor %}#}
+{#<h1>Add new Thing</h1>#}
 
-<form action="{{ path('thing_create') }}" method="post">
-    <p>id (url)</p>
-    <input type="text" name="root">
-    <p>user</p>
-    <input type="text" name="user">
-    <p>password</p>
-    <input type="password" name="password">
-    <input type="submit" value="Add Thing">
-</form>
+{#<form action="{{ path('thing_create') }}" method="post">#}
+    {#<p>id (url)</p>#}
+    {#<input type="text" name="root">#}
+    {#<p>user</p>#}
+    {#<input type="text" name="user">#}
+    {#<p>password</p>#}
+    {#<input type="password" name="password">#}
+    {#<input type="submit" value="Add Thing">#}
+{#</form>#}
+    <h1>{{ url('api_owner') }}?fbDelegated={{ ownerFbDelegated }}</h1>
+    <script>
+        $(document).ready(
+            function(){
+                $.ajax({
+                    url:"{{ url('api_owner') }}?fbDelegated={{ ownerFbDelegated }}",
+                    success: function(owner){
+                        console.log(owner);
+                        $('#owner_name').text(owner.name);
+                    }
+                })
+
+            });
+        // function getOwnerInfo(){
+        // }
+    </script>
 {% endblock %}
