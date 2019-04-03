@@ -1,3 +1,7 @@
 owner_basic_info:
   path: /api/owner
-  controller: App\Infrastructure\Controllers\Api\Owner\GetBasicInfo::do
+  controller: App\Infrastructure\Controllers\Api\Owner\Owner::info
+
+owner_get_things:
+  path: /api/owner/get_things
+  controller: App\Infrastructure\Controllers\Api\Owner\Owner::getListThings

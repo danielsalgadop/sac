@@ -118,9 +118,22 @@ class Owner
             Throw new \Exception("Invalid Name for Owner");
         }
     }
-    public function toArray()
+//    public function toArray()
+//    {
+//         TODO: duda Victor (este serilizer, ¿esta bien?)
+//         toArray aún. Lo que hay dentro de Dominio son estructuras "puras". Pero toJson, toXML, toHtml van a Infrastructura
+//        return [
+//            'name' => $this->getName(),
+//            'id' => $this->getId()
+//        ];
+//    }
+
+    public function getArrayFiendsIds(): array
     {
-        // TODO: duda Victor (este serilizer, ¿esta bien?)
-        return ['name' => $this->getName()];
+        $friendIds = [];
+        foreach ($this->getFriends() as $friend) {
+            $friendIds[] = $friend->getId();
+        }
+        return $friendIds;
     }
 }
