@@ -1,0 +1,33 @@
+{
+  "name": "sac",
+  "version": "1.0.0",
+  "description": "Daniel Salgado TFM for MPWAR",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielsalgadop/sac.git"
+  },
+  "keywords": [
+    "tfm",
+    "iot",
+    "sac",
+    "social",
+    "access",
+    "manager"
+  ],
+  "author": "Daniel Salgado",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danielsalgadop/sac/issues"
+  },
+  "homepage": "https://github.com/danielsalgadop/sac#readme",
+  "dependencies": {
+    "handlebars": "^4.1.1"
+  }
+}
