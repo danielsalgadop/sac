@@ -11,14 +11,13 @@
         </script>
     {% endverbatim %}
 
+    <div id="result"></div>
+
     <script>
         var source = document.getElementById("entry").innerHTML;
         var template = Handlebars.compile(source);
         var data = {thingName: "handlebars mola"};
         var html = template(data);
-        $('body').append(html)
-        // document.getElementsByName('body').append = html;
-
-        // Usando un <span> o <id> document.getElementById("result").innerHTML = html;
+        document.getElementById("result").innerHTML = html;
     </script>
 {% endblock %}
