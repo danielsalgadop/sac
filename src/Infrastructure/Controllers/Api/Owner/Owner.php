@@ -22,9 +22,10 @@ class Owner extends Controller
         $this->searchOwnerByFbDelegatedHandler = $searchOwnerByFbDelegatedHandler;
     }
 
-    public function info(Request $request)
+    public function info($fbDelegated)
     {
-        $fbDelegated = $request->query->get('fbDelegated') ?? ''; // TODO, revisar como recibir este fbDelegated
+        // TODO, securizar este fbDelegated, ahora mismo con que exita en mi bbdd ya lo daré por bueno. Lo ideas sería
+        // asegurar que la persona que me lo manda en realidad ES quien fb ha asignado ese fbDelegated
 
         try {
             $owner = $this->searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand($fbDelegated));

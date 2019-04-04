@@ -1,12 +1,5 @@
-# http GET localhost:8000/api/owner?fbDelegated=fb_delegated_1
-GET localhost:8000/api/owner?fbDelegated=fb_delegated_1
+# http GET localhost:8000/api/owner/fb_delegated_1
+GET localhost:8000/api/owner/fb_delegated_1
 Accept: application/json
-
-
-###
-# http GET localhost:8000/api/owner/get_things?fbDelegated=fb_delegated_1
-GET localhost:8000/api/owner/get_things?fbDelegated=fb_delegated_1
-Accept: application/json
-
 
 ###
