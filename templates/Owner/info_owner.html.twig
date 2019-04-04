@@ -56,6 +56,10 @@
                         var html = template(data);
                         document.getElementById("owner_info").innerHTML = html;
 
+                        // Fill Things with ConnectedThings
+                        filledData = getThingConnectedInfo(owner.things);
+                        console.log(filledData);
+
                         // Things
                         var source = document.getElementById("things_template").innerHTML;
                         var template = Handlebars.compile(source);
@@ -66,7 +70,18 @@
                 })
 
             });
-        // function getOwnerInfo(){
-        // }
+
+        function getThingConnectedInfo(things){
+            arrayReturn = [];
+            things.forEach(function(thing){
+                arrayReturn.push(getOneThingConnectedInfo(thing.id));
+            });
+            return arrayReturn;
+        }
+        function getOneThingConnectedInfo(id) {
+            // TODO: api call to fill ThingConnectedInfo
+            return {"brand":"hc_brand"+id,"name":"hc_name"+id};
+        }
+
     </script>
 {% endblock %}
