@@ -25,6 +25,10 @@ class CredentialsController extends Controller
         return $this->render('test.html.twig');
     }
 
+    public function handlebars()
+    {
+        return $this->render('test/handlebars.html.twig');
+    }
     //appId      : '361174884467644',
     //version    : 'v3.2'
 

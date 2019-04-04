@@ -3,6 +3,10 @@ test:
     path: /test
     controller: App\Infrastructure\Controllers\CredentialsController::test
 
+handlebars:
+    path: /handlebars
+    controller: App\Infrastructure\Controllers\CredentialsController::handlebars
+
 
 #    TODO: use @App notation, (but bundle must be "correctly registered and loaded in the application kernel class"
 credential_routes:

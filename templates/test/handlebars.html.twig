@@ -1,0 +1,24 @@
+{% extends('base.html.twig') %}
+{% block title %}
+    handlebars
+{% endblock %}
+{% block body %}
+    test Handlebars
+
+    {% verbatim %}
+        <script id="entry" type="text/x-handlebars-template">
+            <h1>{{ thingName }}</h1>
+        </script>
+    {% endverbatim %}
+
+    <script>
+        var source = document.getElementById("entry").innerHTML;
+        var template = Handlebars.compile(source);
+        var data = {thingName: "handlebars mola"};
+        var html = template(data);
+        $('body').append(html)
+        // document.getElementsByName('body').append = html;
+
+        // Usando un <span> o <id> document.getElementById("result").innerHTML = html;
+    </script>
+{% endblock %}
