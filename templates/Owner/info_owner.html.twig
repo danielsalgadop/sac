@@ -18,7 +18,8 @@
     {#</p>#}
 {#{% endfor %}#}
 
-{#<h1>List of Things</h1>#}
+<h1>List of Things</h1>
+    <div id="things"></div>
 {#<p>This are your actual things (click or details or edition):</p>#}
 {#{% for thing in things %}#}
     {#<li>x#}
@@ -40,7 +41,7 @@
     {#<input type="password" name="password">#}
     {#<input type="submit" value="Add Thing">#}
 {#</form>#}
-    <h1>{{ url('api_owner') }}?fbDelegated={{ ownerFbDelegated }}</h1>
+    {#<h1>{{ url('api_owner') }}?fbDelegated={{ ownerFbDelegated }}</h1>#}
     <script>
         $(document).ready(
             function(){
@@ -48,7 +49,17 @@
                     url:"{{ url('api_owner') }}?fbDelegated={{ ownerFbDelegated }}",
                     success: function(owner){
                         console.log(owner);
+                        // fill owner info
                         $('#owner_name').text(owner.name);
+                        var arrayThings = [];
+                        owner.things.forEach(function(thing){
+                            arrayThings.push(thing.id);
+                            // arrayThings[] = thing.id;
+                        });
+                        console.log(owner.things);
+                        console.log(arrayThings);
+                        $('#things').text(arrayThings);
+                        // fille thing info
                     }
                 })
 
