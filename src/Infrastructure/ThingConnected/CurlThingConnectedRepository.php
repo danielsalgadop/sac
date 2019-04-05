@@ -73,15 +73,6 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
 
     public function searchThingActionsByIdOrException(int $id, string $thingUserName, string $thingPassword)
     {
-        $thingConnected = $this->searchThingByIdOrException($id, $thingUserName, $thingPassword);
-        return $thingConnected->actions;
-        return $thingConnected->actions->actions;
-        // DUDA hacer esta transformacion de obj a array
-        $actions = [];
-//        foreach ($thingConnected->actions as $action){
-//            $actions['link'] = $action->link;
-//            $actions['resources'] = $action->resources; // DUDA: si hacemos transformacion obj a array, ¿seguir haciendola dentro de cada ->resources?
-//        }
-        return $actions;
+        return $this->searchThingByIdOrException($id, $thingUserName, $thingPassword);
     }
 }
