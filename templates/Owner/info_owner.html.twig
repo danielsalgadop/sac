@@ -45,7 +45,7 @@
         $(document).ready(
             function () {
                 $.ajax({
-                    url: "{{ url('api_owner') }}?fbDelegated={{ ownerFbDelegated }}",
+                    url: "{{ url('api_owner', {fbDelegated :  ownerFbDelegated } ) }}",
                     success: function (owner) {
                         console.log(owner);
 
@@ -71,16 +71,17 @@
 
             });
 
-        function getThingConnectedInfo(things){
+        function getThingConnectedInfo(things) {
             arrayReturn = [];
-            things.forEach(function(thing){
+            things.forEach(function (thing) {
                 arrayReturn.push(getOneThingConnectedInfo(thing.id));
             });
             return arrayReturn;
         }
+
         function getOneThingConnectedInfo(id) {
             // TODO: api call to fill ThingConnectedInfo
-            return {"brand":"hc_brand"+id,"name":"hc_name"+id};
+            return {"brand": "hc_brand" + id, "name": "hc_name" + id};
         }
 
     </script>

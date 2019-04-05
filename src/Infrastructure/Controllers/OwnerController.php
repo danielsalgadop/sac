@@ -35,6 +35,7 @@ class OwnerController extends Controller
     public function index()
     {
         // voy a recibir un fb_delegated: TODO no usar este HC_FB_DELEGATED_OF_OWNER
+        // TODO: ver si existe es fbDelegated
         $ownerFbDelegated = getenv('HC_FB_DELEGATED_OF_OWNER');
 
 //        $searchOwnerByFbDelegatedCommand = new SearchOwnerByFbDelegatedCommand($ownerFbDelegated);
