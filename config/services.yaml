@@ -87,6 +87,13 @@ services:
     arguments:
     - "@app.repository.thing"
 
+  app.command_handler.thing.merge_thing_with_thing_connected:
+    class: App\Application\CommandHandler\Thing\MergeThingWithThingConnectedByIdHandler
+    public: true
+    arguments:
+    - "@app.command_handler.thing.search_by_id"
+    - "@app.command_handler.thing_connected.get_complete"
+
 # THINGCONNECTED
   app.repository.thing_connected:
     class: App\Infrastructure\ThingConnected\CurlThingConnectedRepository
@@ -101,6 +108,18 @@ services:
     public: true
     arguments:
     - "@app.repository.thing_connected"
+
+  app.command_handler.thing_connected.get_complete:
+    class: App\Application\CommandHandler\Thing\ThingConnected\SearchThingConnectedCompleteHandler
+    public: true
+    arguments:
+    - "@app.repository.thing_connected"
+
+# TODO faltan de ThingConnected get_name, get_brand
+
+
+
+
 
 
 # FRIEND

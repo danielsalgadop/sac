@@ -2,3 +2,8 @@ api_owner:
   path: /api/owner/{fbDelegated}
   controller: App\Infrastructure\Controllers\Api\Owner\Owner::info
   methods: [GET]
+
+api_thing:
+  path: /api/thing/{id}
+  controller: App\Infrastructure\Controllers\Api\Thing\Thing::info
+    methods: [GET]

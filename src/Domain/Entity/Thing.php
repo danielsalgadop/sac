@@ -15,6 +15,7 @@ class Thing
     private $password;
     private $actions;
     private $owners;
+    private $thingConnected;
 
     public function __construct()
     {
@@ -116,4 +117,12 @@ class Thing
         return $this;
     }
 
+    public function setThingConnected($thingConnected)
+    {
+        $this->thingConnected = $thingConnected;
+    }
+    public function getThingConnected()
+    {
+        return $this->thingConnected;
+    }
 }
