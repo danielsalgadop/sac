@@ -6,4 +6,4 @@ api_owner:
 api_thing:
   path: /api/thing/{id}
   controller: App\Infrastructure\Controllers\Api\Thing\Thing::info
-    methods: [GET]
+  methods: [GET]

@@ -117,6 +117,7 @@ class Thing
         return $this;
     }
 
+    // DUDA Victor, ¿esta bien relacionar Thing y thingConnected, asi? como una propiedad de clase
     public function setThingConnected($thingConnected)
     {
         $this->thingConnected = $thingConnected;
