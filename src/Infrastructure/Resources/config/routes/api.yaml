@@ -1,6 +1,6 @@
 api_owner:
   path: /api/owner/{fbDelegated}
-  controller: App\Infrastructure\Controllers\Api\Owner\Owner::info
+  controller: App\Infrastructure\Controllers\Api\OwnerApiController::info
   methods: [GET]
 
 api_thing:

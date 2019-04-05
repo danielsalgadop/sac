@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Infrastructure\Controllers\Api\Owner;
+namespace App\Infrastructure\Controllers\Api;
 
 
 use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Infrastructure\Owner\Serializer\JsonSerializer;
 
 
-class Owner extends Controller
+class OwnerApiController extends Controller
 {
     private $searchOwnerByFbDelegatedHandler;
 
