@@ -1,0 +1,2 @@
+# http GET localhost:8000/api/thing/1
+GET localhost:8000/api/thing/1

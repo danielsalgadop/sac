@@ -9,7 +9,6 @@ use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
 use App\Infrastructure\Owner\Serializer\OwnerArraySeralizer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use App\Infrastructure\Owner\Serializer\JsonSerializer;
 
 
