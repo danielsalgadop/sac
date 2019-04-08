@@ -12,7 +12,7 @@ use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
 
 class SearchById extends Command
 {
-    protected static $defaultName = 'app:Thing:SearchById';
+    protected static $defaultName = 'app:Thing:SearchByThingId';
     private $searchThingByIdHandler;
 
     public function __construct(SearchThingByIdHandler $searchThingByIdHandler)

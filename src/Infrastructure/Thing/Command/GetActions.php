@@ -23,7 +23,7 @@ use Symfony\Component\DependencyInjection\Container;
 
 class GetActions extends Command
 {
-    protected static $defaultName = 'app:Thing:GetActions';
+    protected static $defaultName = 'app:Thing:GetActionsByThingId';
     private $getActionsByThingIdHandler;
 
     public function __construct(GetActionsByThingIdHandler $getActionsByThingIdHandler)
