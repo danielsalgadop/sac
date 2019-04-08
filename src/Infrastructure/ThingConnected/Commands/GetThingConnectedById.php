@@ -2,7 +2,6 @@
 
 namespace App\Infrastructure\ThingConnected\Commands;
 
-use App\Application\Command\Thing\ThingConnected\GetThingConnectedCompleteByIdCommand;
 use App\Application\Command\Thing\GetThingConnectedInfoCommand;
 use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
 use App\Application\CommandHandler\Thing\ThingConnected\GetThingConnectedCompleteHandler;
@@ -10,6 +9,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use App\Application\Command\Thing\SearchThingByIdCommand;
 
 class GetThingConnectedById extends Command
 {
@@ -36,7 +36,7 @@ class GetThingConnectedById extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $thing = $this->searchThingByIdHandler->handle(
-            new GetThingConnectedCompleteByIdCommand(
+            new SearchThingByIdCommand(
                 $input->getArgument('thingId')
             )
         );
