@@ -27,9 +27,9 @@ class ThingApiController extends Controller
         // TODO, securizar esto para que solo obtenga esta info un owner autorizado (que posea el thing)
         $thingWithThingConnected = $this->mergeThingWithThingConnectedByIdHandler->handle(new MergeThingWithThingConnectedByIdCommand($thingId));
 
-        try{
+        try {
             return new JsonResponse(ThingWithThingConnectedArraySerializer::serialize($thingWithThingConnected));
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
             return new JsonResponse($e->getMessage(), 500);
         }
 

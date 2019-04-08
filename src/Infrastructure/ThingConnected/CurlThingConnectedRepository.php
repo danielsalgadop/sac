@@ -52,9 +52,16 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
 
     public function searchThingByIdOrException(int $id, string $thingUserName, string $thingPassword)
     {
-        $thingConnected = $this->sendCurl($id, $thingUserName, $thingPassword);
-        if (isset($thingConnected->error)) {
-            throw new \Exception("Error while connecting to thing " . $thingConnected->error);
+        $thingConnected = new \StdClass();
+        $thingConnected->message = '';
+        try {
+            $curlResponse = $this->sendCurl($id, $thingUserName, $thingPassword);
+            $thingConnected->status = true;
+            $thingConnected->data = $curlResponse;
+        } catch (\Exception $e) {
+            $thingConnected->status = false;
+            $thingConnected->data = null;
+            $thingConnected->message = $e->getMessage();
         }
         return $thingConnected;
     }
@@ -62,13 +69,14 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
     public function searchThingNameByIdOrException(int $id, string $thingUserName, string $thingPassword)
     {
         $thingConnected = $this->searchThingByIdOrException($id, $thingUserName, $thingPassword);
-        return $thingConnected->name;
+//        dd($thingConnected);
+        return $thingConnected->data->name;
     }
 
     public function searchThingBrandByIdOrException(int $id, string $thingUserName, string $thingPassword)
     {
         $thingConnected = $this->searchThingByIdOrException($id, $thingUserName, $thingPassword);
-        return $thingConnected->brand;
+        return $thingConnected->data->brand;
     }
 
     public function searchThingActionsByIdOrException(int $id, string $thingUserName, string $thingPassword)
