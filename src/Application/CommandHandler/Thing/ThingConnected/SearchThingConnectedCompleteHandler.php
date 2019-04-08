@@ -18,7 +18,7 @@ class SearchThingConnectedCompleteHandler
 
     public function handle(GetThingConnectedInfoCommand $getThingConnectedInfoCommand)
     {
-        return $this->thingConnectedRepository->searchThingByIdOrException(
+        return $this->thingConnectedRepository->getThingConnectedById(
             $getThingConnectedInfoCommand->getId(),
             $getThingConnectedInfoCommand->getThingUsername(),
             $getThingConnectedInfoCommand->getThingPassword()

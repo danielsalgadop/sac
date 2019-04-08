@@ -13,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class SearchThingConnectedById extends Command
 {
-    protected static $defaultName = 'app:ThingConnected:SearchThingConnectedById';
+    protected static $defaultName = 'app:ThingConnected:GetThingConnectedById';
 
     private $searchThingByIdHandler;
     private $searchThingConnectedActionsHandler;
