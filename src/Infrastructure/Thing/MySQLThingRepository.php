@@ -5,6 +5,7 @@ namespace App\Infrastructure\Thing;
 use App\Domain\Entity\Thing;
 use App\Domain\Repository\ThingRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Routing\Route;
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -30,16 +31,16 @@ class MySQLThingRepository implements ThingRepository
         }
     }
 
-    public function find(int $id)
+    public function find(int $thingId)
     {
-        return $this->thingRepository->find($id);
+        return $this->thingRepository->find($thingId);
     }
 
-    public function searchThingByIdOrException(int $id): Thing
+    public function searchThingByIdOrException(int $thingId): Thing
     {
-        $thing = $this->find($id);
+        $thing = $this->find($thingId);
         if($thing === null){
-            throw new \Exception("Unknown thing id [".$id."]");
+            throw new \Exception("Unknown thing id [".$thingId."]");
         }
         return $thing;
     }
