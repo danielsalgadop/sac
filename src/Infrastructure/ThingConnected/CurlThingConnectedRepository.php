@@ -41,10 +41,13 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
 
 
         $json = curl_exec($ch);
-        if ($json == null) {
+
+        if ($json == null) { // TODO: duda, poner esto como === false?
             throw new \Exception("Connection Error");
         }
-        if (isset($json->error)) {
+        // errores en decode, TODO: duda ¿es necesario esto?
+        $jsonDecoded = json_decode($json);
+        if (isset($jsonDecoded->error)) {
             throw new \Exception($json->error);
         }
         return json_decode($json);
@@ -57,9 +60,12 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
         $thingConnected->message = '';
         try {
             $curlResponse = $this->sendCurl($id, $thingUserName, $thingPassword);
+            if($curlResponse->status === false){ // problems in iot_emulator (like credentials)
+                throw new \Exception($curlResponse->message);
+            }
             $thingConnected->status = true;
-            $thingConnected->data = $curlResponse;
-        } catch (\Exception $e) {
+            $thingConnected->data = $curlResponse->data;
+        } catch (\Exception $e) { // problems during conection
             $thingConnected->status = false;
             $thingConnected->data = null;
             $thingConnected->message = $e->getMessage();
@@ -71,7 +77,11 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
     {
         $thingConnected = $this->getThingConnectedCompleteById($id, $thingUserName, $thingPassword);
 //        dd($thingConnected);
-        return $thingConnected->data->name;
+        if ($thingConnected->status === true) {
+            return $thingConnected->data->name;
+        }
+        throw new \Exception($thingConnected->message);
+//        dd($thingConnected);
     }
 
     public function searchThingBrandByIdOrException(int $id, string $thingUserName, string $thingPassword)
@@ -82,6 +92,8 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
 
     public function searchThingActionsByIdOrException(int $id, string $thingUserName, string $thingPassword)
     {
-        return $this->getThingConnectedCompleteById($id, $thingUserName, $thingPassword);
+        $thingConnected = $this->getThingConnectedCompleteById($id, $thingUserName, $thingPassword);
+        return $thingConnected->data->actions;
     }
+
 }

@@ -11,7 +11,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class GetName extends Command
+class GetNameByThingId extends Command
 {
     protected static $defaultName = 'app:ThingConnected:GetThingNameByThingId';
 

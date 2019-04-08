@@ -11,7 +11,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class GetActions extends Command
+class GetActionsByThingId extends Command
 {
     protected static $defaultName = 'app:ThingConnected:GetThingActionsByThingId';
 
