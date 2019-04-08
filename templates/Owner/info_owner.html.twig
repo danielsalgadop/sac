@@ -47,7 +47,7 @@
                 $.ajax({
                     url: "{{ url('api_owner', {fbDelegated :  ownerFbDelegated } ) }}",
                     success: function (owner) {
-                        console.log(owner);
+                        // console.log(owner);
 
                         // fill owner info
                         var source = document.getElementById("owner_template").innerHTML;
@@ -58,7 +58,7 @@
 
                         // Fill Things with ConnectedThings
                         filledData = getThingConnectedInfo(owner.things);
-                        console.log(filledData);
+                        // console.log(filledData);
 
                         // Things
                         var source = document.getElementById("things_template").innerHTML;
@@ -72,16 +72,30 @@
             });
 
         function getThingConnectedInfo(things) {
-            arrayReturn = [];
+            var arrayReturn = [];
             things.forEach(function (thing) {
                 arrayReturn.push(getOneThingConnectedInfo(thing.id));
             });
             return arrayReturn;
         }
 
+        // Victor Thing->
         function getOneThingConnectedInfo(id) {
+            console.log(id);
+            $.ajax({
+            // https://symfony.com/doc/master/bundles/FOSJsRoutingBundle/usage.html
+                // DUDA Victor: donde pongo 1, debería poner id, pero me dice que 'Variable id does not exist'
+                {#url: "{{ url('api_thing', {thingId :  id } ) }}",#}
+                {#url: "{{ url('api_thing', {thingId :  1 } ) }}",#}
+                url: 'api/thing/'+id,
+                success: function (thing) {
+                    console.log(thing);
+                }
+            })
+
+
             // TODO: api call to fill ThingConnectedInfo
-            return {"brand": "hc_brand" + id, "name": "hc_name" + id};
+            // return {"brand": "hc_brand" + id, "name": "hc_name" + id};
         }
 
     </script>
