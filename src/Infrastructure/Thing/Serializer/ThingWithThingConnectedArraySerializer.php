@@ -12,6 +12,7 @@ class ThingWithThingConnectedArraySerializer
 {
     public static function serialize(Thing $thing): array
     {
+        // Victor quitar thing (no aporta nada)
         return [
             'thing' => ThingArraySerializer::serialize($thing),
             'thingConnected' =>ThingConnectedSerializer::serialize($thing->getThingConnected())

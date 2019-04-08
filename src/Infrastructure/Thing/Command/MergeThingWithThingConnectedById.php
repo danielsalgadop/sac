@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use App\Application\Command\Thing\SearchThingByIdCommand;
 use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
 use App\Application\Command\Thing\MergeThingWithThingConnectedByIdCommand;
-use App\Application\CommandHandler\Thing\ThingConnected\SearchThingConnectedCompleteHandler;
+use App\Application\CommandHandler\Thing\ThingConnected\GetThingConnectedCompleteHandler;
 
 class MergeThingWithThingConnectedById extends Command
 {

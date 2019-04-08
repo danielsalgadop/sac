@@ -110,7 +110,7 @@ services:
     - "@app.repository.thing_connected"
 
   app.command_handler.thing_connected.get_complete:
-    class: App\Application\CommandHandler\Thing\ThingConnected\SearchThingConnectedCompleteHandler
+    class: App\Application\CommandHandler\Thing\ThingConnected\GetThingConnectedCompleteHandler
     public: true
     arguments:
     - "@app.repository.thing_connected"

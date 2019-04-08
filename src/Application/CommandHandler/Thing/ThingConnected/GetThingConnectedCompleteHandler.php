@@ -6,7 +6,7 @@ use App\Application\Command\Thing\GetThingConnectedInfoCommand;
 use App\Domain\Repository\ThingConnectedRepository;
 
 
-class SearchThingConnectedCompleteHandler
+class GetThingConnectedCompleteHandler
 {
 
     private $thingConnectedRepository;
@@ -18,7 +18,7 @@ class SearchThingConnectedCompleteHandler
 
     public function handle(GetThingConnectedInfoCommand $getThingConnectedInfoCommand)
     {
-        return $this->thingConnectedRepository->getThingConnectedById(
+        return $this->thingConnectedRepository->getThingConnectedCompleteById(
             $getThingConnectedInfoCommand->getId(),
             $getThingConnectedInfoCommand->getThingUsername(),
             $getThingConnectedInfoCommand->getThingPassword()

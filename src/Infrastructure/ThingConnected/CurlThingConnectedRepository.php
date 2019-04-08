@@ -51,7 +51,7 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
     }
 
     // VICTOR poner type de return  {'status': 'message': data}
-    public function getThingConnectedById(int $id, string $thingUserName, string $thingPassword)
+    public function getThingConnectedCompleteById(int $id, string $thingUserName, string $thingPassword)
     {
         $thingConnected = new \StdClass();
         $thingConnected->message = '';
@@ -69,19 +69,19 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
 
     public function searchThingNameByIdOrException(int $id, string $thingUserName, string $thingPassword)
     {
-        $thingConnected = $this->getThingConnectedById($id, $thingUserName, $thingPassword);
+        $thingConnected = $this->getThingConnectedCompleteById($id, $thingUserName, $thingPassword);
 //        dd($thingConnected);
         return $thingConnected->data->name;
     }
 
     public function searchThingBrandByIdOrException(int $id, string $thingUserName, string $thingPassword)
     {
-        $thingConnected = $this->getThingConnectedById($id, $thingUserName, $thingPassword);
+        $thingConnected = $this->getThingConnectedCompleteById($id, $thingUserName, $thingPassword);
         return $thingConnected->data->brand;
     }
 
     public function searchThingActionsByIdOrException(int $id, string $thingUserName, string $thingPassword)
     {
-        return $this->getThingConnectedById($id, $thingUserName, $thingPassword);
+        return $this->getThingConnectedCompleteById($id, $thingUserName, $thingPassword);
     }
 }
