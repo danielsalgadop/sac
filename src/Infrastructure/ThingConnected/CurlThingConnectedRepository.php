@@ -54,21 +54,29 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
     }
 
     // VICTOR poner type de return  {'status': 'message': data}
-    public function getThingConnectedCompleteById(int $id, string $thingUserName, string $thingPassword)
+    public function getThingConnectedCompleteById(int $id, string $thingUserName, string $thingPassword): array
     {
-        $thingConnected = new \StdClass();
-        $thingConnected->message = '';
+//        $thingConnected = new \StdClass();  // antes era objeto, ahora array
+        $thingConnected = [];
+        $thingConnected['message'] = '';
         try {
             $curlResponse = $this->sendCurl($id, $thingUserName, $thingPassword);
-            if($curlResponse->status === false){ // problems in iot_emulator (like credentials)
-                throw new \Exception($curlResponse->message);
+            file_put_contents("/tmp/debug.txt", __METHOD__ . ' ' . __LINE__ . PHP_EOL . var_export($curlResponse, true) . PHP_EOL, FILE_APPEND);
+
+            if ($curlResponse->status === false) { // problems in iot_emulator (like credentials)
+                $thingConnected['status'] = false;
+                $thingConnected['data'] = null;
+                $thingConnected['message'] = $curlResponse->message;
+//                throw new \Exception($curlResponse->message);
+            } else {
+                $thingConnected['status'] = true;
+                $thingConnected['data'] = $curlResponse->data;
+
             }
-            $thingConnected->status = true;
-            $thingConnected->data = $curlResponse->data;
-        } catch (\Exception $e) { // problems during conection
-            $thingConnected->status = false;
-            $thingConnected->data = null;
-            $thingConnected->message = $e->getMessage();
+        } catch (\Exception $e) { // problems during connection
+            $thingConnected['status'] = false;
+            $thingConnected['data'] = null;
+            $thingConnected['message'] = $e->getMessage();
         }
         return $thingConnected;
     }

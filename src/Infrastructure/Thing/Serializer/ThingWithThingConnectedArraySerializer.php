@@ -12,10 +12,21 @@ class ThingWithThingConnectedArraySerializer
 {
     public static function serialize(Thing $thing): array
     {
+        $thingConnected = $thing->getThingConnected();
+
+        if ($thingConnected['status'] === true) {
+            return [
+                'status' => true,
+                'data' => ThingConnectedSerializer::serialize($thingConnected['data'])
+            ];
+        }
+        else{
+            return $thingConnected;
+        }
         // Victor quitar thing (no aporta nada)
         return [
             'thing' => ThingArraySerializer::serialize($thing),
-            'thingConnected' =>ThingConnectedSerializer::serialize($thing->getThingConnected())
+            'thingConnected' => ThingConnectedSerializer::serialize($thing->getThingConnected())
         ];
     }
 
