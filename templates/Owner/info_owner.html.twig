@@ -72,24 +72,25 @@
             });
 
         function getThingConnectedInfo(things) {
+            // console.log(things);
             var arrayReturn = [];
             things.forEach(function (thing) {
-                arrayReturn.push(getOneThingConnectedInfo(thing.id));
+                arrayReturn.push(getOneThingConnectedInfo(thing.urlForThingConnected));
             });
             return arrayReturn;
         }
 
         // Victor Thing->
-        function getOneThingConnectedInfo(id) {
-            console.log(id);
+        function getOneThingConnectedInfo(url) {
+            console.log(url);
             $.ajax({
-            // https://symfony.com/doc/master/bundles/FOSJsRoutingBundle/usage.html
-                // DUDA Victor: donde pongo 1, debería poner id, pero me dice que 'Variable id does not exist'
-                {#url: "{{ url('api_thing', {thingId :  id } ) }}",#}
-                {#url: "{{ url('api_thing', {thingId :  1 } ) }}",#}
-                url: 'api/thing/'+id,
+                url: url,
                 success: function (thing) {
                     console.log(thing);
+                },
+                error: function(error){
+                    console.log("ERROR");
+                    // console.log(error);
                 }
             })
 
