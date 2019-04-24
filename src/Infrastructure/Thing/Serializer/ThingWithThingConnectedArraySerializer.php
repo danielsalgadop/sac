@@ -23,7 +23,7 @@ class ThingWithThingConnectedArraySerializer
         else{
             return $thingConnected;
         }
-        // Victor quitar thing (no aporta nada)
+        // TODO Victor quitar thing (no aporta nada)
         return [
             'thing' => ThingArraySerializer::serialize($thing),
             'thingConnected' => ThingConnectedSerializer::serialize($thing->getThingConnected())
