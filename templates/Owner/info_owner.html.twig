@@ -18,10 +18,18 @@
     <h1>List of Things</h1>
 
     {% verbatim %}
+        <style>
+            .thing_error{
+                color:red;
+            }
+            .thing_ok{
+                color:green;
+            }
+        </style>
         <script id="things_template" type="text/x-handlebars-template">
             <ul>
             {{#each things}}
-                <li>{{this.id}}</li>
+                <li class="" id="thing_id_{{this.id}}">{{this.id}}</li>
             {{/each}}
             </ul>
         </script>
@@ -57,8 +65,7 @@
                         document.getElementById("owner_info").innerHTML = html;
 
                         // Fill Things with ConnectedThings
-                        filledData = getThingConnectedInfo(owner.things);
-                        // console.log(filledData);
+                        getThingConnectedInfo(owner.things);
 
                         // Things
                         var source = document.getElementById("things_template").innerHTML;
@@ -75,22 +82,39 @@
             // console.log(things);
             var arrayReturn = [];
             things.forEach(function (thing) {
-                arrayReturn.push(getOneThingConnectedInfo(thing.urlForThingConnected));
+                getOneThingConnectedInfo(thing.urlForThingConnected);
+                // arrayReturn.push(getOneThingConnectedInfo(thing.urlForThingConnected));
+                // arrayReturn.push(getOneThingConnectedInfo(thing.urlForThingConnected));
             });
             return arrayReturn;
         }
 
+        function fillThingRow(thingConnected) {
+
+            // console.log(thingConnected);
+            if (thingConnected.status === true) {
+                $("#thing_id_"+thingConnected.data.id).addClass('thing_ok');
+            }
+            else {
+                // console.log(thingConnected);
+                $("#thing_id_"+thingConnected.data.id).addClass('thing_error');
+            }
+        }
+
+
         // Victor Thing->
         function getOneThingConnectedInfo(url) {
-            console.log(url);
+            // console.log(url);
             $.ajax({
                 url: url,
+                // success: fillThingRow(thing),  // esto no funciona
                 success: function (thing) {
-                    console.log(thing);
+                    fillThingRow(thing);
                 },
-                error: function(error){
-                    console.log("ERROR");
-                    // console.log(error);
+                error: function (thing) {
+                    console.log("error getOneThingConnectedInfo");
+                    console.log(thing);
+                    return thing;
                 }
             })
 
