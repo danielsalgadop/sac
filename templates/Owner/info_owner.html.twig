@@ -91,13 +91,22 @@
 
         function fillThingRow(thingConnected) {
 
-            // console.log(thingConnected);
+            console.log(thingConnected);
             if (thingConnected.status === true) {
+                // TODO manage thing front structure with handlebars
                 $("#thing_id_"+thingConnected.data.id).addClass('thing_ok');
+                // add name and brand
+                $("#thing_id_"+thingConnected.data.id).append(' | '+thingConnected.data.name+' | '+thingConnected.data.brand);
+                // add View/Admin thing
+                $("#thing_id_"+thingConnected.data.id).append('<button>Admin</button>');
+
             }
             else {
                 // console.log(thingConnected);
                 $("#thing_id_"+thingConnected.data.id).addClass('thing_error');
+                // add error
+                $("#thing_id_"+thingConnected.data.id).append(' | '+thingConnected.message);
+
             }
         }
 
