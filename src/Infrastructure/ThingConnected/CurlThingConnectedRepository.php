@@ -59,13 +59,18 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
 //        $thingConnected = new \StdClass();  // antes era objeto, ahora array
         $thingConnected = [];
         $thingConnected['message'] = '';
+
+        // default $data content, just with thingId
+        $data = new \stdClass();
+        $data->id = $id;
+        
         try {
             $curlResponse = $this->sendCurl($id, $thingUserName, $thingPassword);
-            file_put_contents("/tmp/debug.txt", __METHOD__ . ' ' . __LINE__ . PHP_EOL . var_export($curlResponse, true) . PHP_EOL, FILE_APPEND);
+//            file_put_contents("/tmp/debug.txt", __METHOD__ . ' ' . __LINE__ . PHP_EOL . var_export($curlResponse, true) . PHP_EOL, FILE_APPEND);
 
             if ($curlResponse->status === false) { // problems in iot_emulator (like credentials)
                 $thingConnected['status'] = false;
-                $thingConnected['data'] = null;
+                $thingConnected['data'] = $data;
                 $thingConnected['message'] = $curlResponse->message;
 //                throw new \Exception($curlResponse->message);
             } else {
@@ -75,7 +80,7 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
             }
         } catch (\Exception $e) { // problems during connection
             $thingConnected['status'] = false;
-            $thingConnected['data'] = null;
+            $thingConnected['data'] = $data;
             $thingConnected['message'] = $e->getMessage();
         }
         return $thingConnected;
