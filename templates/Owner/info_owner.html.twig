@@ -82,49 +82,52 @@
             // console.log(things);
             var arrayReturn = [];
             things.forEach(function (thing) {
-                getOneThingConnectedInfo(thing.urlForThingConnected);
+                // console.log(thing);
+                getOneThingConnectedInfo(thing.urlForThingConnected, thing.urlForThingInfo);
                 // arrayReturn.push(getOneThingConnectedInfo(thing.urlForThingConnected));
                 // arrayReturn.push(getOneThingConnectedInfo(thing.urlForThingConnected));
             });
             return arrayReturn;
         }
 
-        function fillThingRow(thingConnected) {
+        function fillThingRow(thingConnected, urlForThingInfo) {
 
-            var urlAdminThing = 'thing/1';
-            console.log(thingConnected);
+            // var urlForThingInfo = 'thing/1';
+            // console.log(thingConnected);
             if (thingConnected.status === true) {
                 // TODO manage thing front structure with handlebars
-                $("#thing_id_"+thingConnected.data.id).addClass('thing_ok');
+                $("#thing_id_" + thingConnected.data.id).addClass('thing_ok');
                 // add name and brand
-                $("#thing_id_"+thingConnected.data.id).append(' | '+thingConnected.data.name+' | '+thingConnected.data.brand);
+                $("#thing_id_" + thingConnected.data.id).append(' | ' + thingConnected.data.name + ' | ' + thingConnected.data.brand);
                 // add View/Admin thing
-                $("#thing_id_"+thingConnected.data.id).append('<button onclick="window.location.href = \''+urlAdminThing+'\'">Admin</button>');
+                $("#thing_id_" + thingConnected.data.id).append('<button onclick="window.location.href = \'' + urlForThingInfo + '\'">Admin</button>');
 
             }
             else {
                 // console.log(thingConnected);
-                $("#thing_id_"+thingConnected.data.id).addClass('thing_error');
+                $("#thing_id_" + thingConnected.data.id).addClass('thing_error');
                 // add error
-                $("#thing_id_"+thingConnected.data.id).append(' | '+thingConnected.message);
+                $("#thing_id_" + thingConnected.data.id).append(' | ' + thingConnected.message);
 
             }
         }
 
 
         // Victor Thing->
-        function getOneThingConnectedInfo(url) {
+        function getOneThingConnectedInfo(urlForThingConnected, urlForThingInfo) {
+            // var urlForThingInfo = 'thing/1';
             // console.log(url);
             $.ajax({
-                url: url,
+                url: urlForThingConnected,
                 // success: fillThingRow(thing),  // esto no funciona
-                success: function (thing) {
-                    fillThingRow(thing);
+                success: function (thingConnectedInfo) {
+                    console.log(thingConnectedInfo);
+                    fillThingRow(thingConnectedInfo, urlForThingInfo);
                 },
-                error: function (thing) {
+                error: function (thingConnectedInfo) {
                     console.log("error getOneThingConnectedInfo");
-                    console.log(thing);
-                    return thing;
+                    console.log(thingConnectedInfo);
+                    return thingConnectedInfo;
                 }
             })
 
