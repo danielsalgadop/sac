@@ -79,13 +79,9 @@
             });
 
         function getThingConnectedInfo(things) {
-            // console.log(things);
             var arrayReturn = [];
             things.forEach(function (thing) {
-                // console.log(thing);
                 getOneThingConnectedInfo(thing.urlForThingConnected, thing.urlForThingInfo);
-                // arrayReturn.push(getOneThingConnectedInfo(thing.urlForThingConnected));
-                // arrayReturn.push(getOneThingConnectedInfo(thing.urlForThingConnected));
             });
             return arrayReturn;
         }
@@ -93,7 +89,6 @@
         function fillThingRow(thingConnected, urlForThingInfo) {
 
             // var urlForThingInfo = 'thing/1';
-            // console.log(thingConnected);
             if (thingConnected.status === true) {
                 // TODO manage thing front structure with handlebars
                 $("#thing_id_" + thingConnected.data.id).addClass('thing_ok');
@@ -121,12 +116,9 @@
                 url: urlForThingConnected,
                 // success: fillThingRow(thing),  // esto no funciona
                 success: function (thingConnectedInfo) {
-                    console.log(thingConnectedInfo);
                     fillThingRow(thingConnectedInfo, urlForThingInfo);
                 },
                 error: function (thingConnectedInfo) {
-                    console.log("error getOneThingConnectedInfo");
-                    console.log(thingConnectedInfo);
                     return thingConnectedInfo;
                 }
             })
