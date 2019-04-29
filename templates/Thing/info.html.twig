@@ -4,74 +4,198 @@
 {% endblock %}
 {% block body %}
     <h1>Thing</h1>
+    <div id="thing_info2"></div>
+{{ thing.thingConnected()|json_encode|raw }}
+    {% verbatim %}
+
+    <script id="thing_template2" type="text/x-handlebars-template">
+    <p>
+        {{ thing }}
+    </p>
+    </script>
+
+    {% endverbatim %}
+
+    <script>
+        var source = document.getElementById("thing_template2").innerHTML;
+        var template = Handlebars.compile(source);
+        // console.log();
+        {#console.log({{ thing.getId() }});#}
+        var data = {thing: "hctertwrt"};
+        // var html = "whatapp";
+        var html = template(data);
+        document.getElementById("thing_info2").innerHTML = html;
+        // document.getElementById("thing_info").innerHTML = 'tot';
+    </script>
+
+
+
+    <div id="thing_info"></div>
+
+
+
+    {% verbatim %}
+        <script id="thing_template" type="text/x-handlebars-template">
+            <h3>Actions in handlebars</h3>
+            {{#each actions}}
+                <p>
+                    {{this.id}}
+                </p>
+            {{/each}}
+
+        </script>
+
+    {% endverbatim %}
+
+    {% verbatim %}
+        <script id="action_template" type="text/x-handlebars-template">
+            <p>ACTION: {{ action.httpVerb }}</p>
+        </script>
+    {% endverbatim %}
+
+    <script>
+
+        var source = document.getElementById("thing_template").innerHTML;
+        var template = Handlebars.compile(source);
+        var actions = {actions: [{"id": 1}]};
+        // var data = {things: owner.things};
+        // var html = template(data);
+        var html = template(actions);
+        document.getElementById("thing_info").innerHTML = html;
+        // document.getElementById("thing_info").innerHTML = 'tot';
+    </script>
+
+
     {#TODO: meter validacion de usuario logado#}
     {#{% include 'fbSdk.html.twig' %}#}
     <h1>List of Action for Thing {{ thing.root }}</h1>
     {% for action in thing.getActions() %}
-        <p>
-            HTTP: {{ action.getHttpVerb() }} | ROUTE: {{ action.getRoute() }} |
-            Desciption: {{ action.getDescription() }}
-            <button onclick="openFriendDialog({{ action.getId() }})">Manage</button>
-        </p>
+        {#<p>#}
+        {#HTTP: {{ action.getHttpVerb() }} | ROUTE: {{ action.getRoute() }} |#}
+        {#Desciption: {{ action.getDescription() }}#}
+        {#<button onclick="openFriendDialog({{ action.getId() }})">Manage</button>#}
+        {#</p>#}
+        <div id="action_info"></div>
+        <script>
+
+            var source = document.getElementById("action_template").innerHTML;
+            var template = Handlebars.compile(source);
+
+            console.log("{{ action.getHttpVerb() }}");
+
+            // var html = template({'action':{'httpVerb':"ee" }});
+            var html = template({'action': {'httpVerb': "{{ action.getHttpVerb() }}"}});
+            document.getElementById("action_info").innerHTML = html;
+        </script>
+
+
     {% endfor %}
+
+
 
     <div id="dialog" title="List of friends">
         {#<ul>#}
-            {#{% for friend in friends %}#}
-                {#<li>#}
-                    {#{{ friend.name }}#}
-                    {#{{ friend. }}#}
-                    {#{% if friend.getF%}#}
-                {#</li>#}
-            {#{% endfor %}#}
+        {#{% for friend in friends %}#}
+        {#<li>#}
+        {#{{ friend.name }}#}
+        {#{{ friend. }}#}
+        {#{% if friend.getF%}#}
+        {#</li>#}
+        {#{% endfor %}#}
 
         {#</ul>#}
     </div>
 
     <script>
-        var shargingStatus = {{ sharingStatus|json_encode|raw}};
+        // Victor Thing->
+        function getOneThingConnectedInfo(urlForThingConnected, urlForThingInfo) {
+            // var urlForThingInfo = 'thing/1';
+            // console.log(url);
+            $.ajax({
+                url: urlForThingConnected,
+                // success: fillThingRow(thing),  // esto no funciona
+                success: function (thingConnectedInfo) {
+                    fillThingRow(thingConnectedInfo, urlForThingInfo);
+                },
+                error: function (thingConnectedInfo) {
+                    return thingConnectedInfo;
+                }
+            })
+
+
+            // TODO: api call to fill ThingConnectedInfo
+            // return {"brand": "hc_brand" + id, "name": "hc_name" + id};
+        }
+
+        getOneThingConnectedInfo(thing.urlForThingConnected, thing.urlForThingInfo);
+
+
+
+        function fillThingRow(thingConnected, urlForThingInfo) {
+
+            // var urlForThingInfo = 'thing/1';
+            if (thingConnected.status === true) {
+                // TODO manage thing front structure with handlebars
+                $("#thing_id_" + thingConnected.data.id).addClass('thing_ok');
+                // add name and brand
+                $("#thing_id_" + thingConnected.data.id).append(' | ' + thingConnected.data.name + ' | ' + thingConnected.data.brand);
+                // add View/Admin thing
+                $("#thing_id_" + thingConnected.data.id).append('<button onclick="window.location.href = \'' + urlForThingInfo + '\'">Admin</button>');
+
+            }
+            else {
+                // console.log(thingConnected);
+                $("#thing_id_" + thingConnected.data.id).addClass('thing_error');
+                // add error
+                $("#thing_id_" + thingConnected.data.id).append(' | ' + thingConnected.message);
+
+            }
+        }
+
+        var shargingStatus = {{ sharingStatus|json_encode|raw }};
         var thingId = '{{ thing.getId() }}';
         let friends = {{ friends|json_encode|raw }};
-
-    // alert(shargingStatus);
+qxc
+        // alert(shargingStatus);
 
         hideFriendDialog();
 
 
-        function hideFriendDialog(){
+        function hideFriendDialog() {
             $('#dialog').hide();
         }
 
-        function showFriendDialog(){
+        function showFriendDialog() {
             $('#dialog').show();
         }
 
-        function returnProperTypeOfFriend(friend){
+        function returnProperTypeOfFriend(friend) {
             // if(friend.)
-            return friend.name+setShareButton();
+            return friend.name + setShareButton();
         }
 
-        function setShareButton(){
+        function setShareButton() {
             return '<button> Share </button>';
         }
-        function denyShareButton(){
+
+        function denyShareButton() {
             return '<button>Deny</button>';
         }
 
-        function openFriendDialog(actionId){
+        function openFriendDialog(actionId) {
             showFriendDialog();
-            console.log("In thing thingId["+thingId+"] clicked this action id["+actionId+"]");
+            console.log("In thing thingId[" + thingId + "] clicked this action id[" + actionId + "]");
             var html = '<ul>';
             // console.log(friends);
-            for(i=0; i<friends.length; i++){
-                html += '<li>'+returnProperTypeOfFriend(friends[i])+'</li>';
+            for (i = 0; i < friends.length; i++) {
+                html += '<li>' + returnProperTypeOfFriend(friends[i]) + '</li>';
             }
-            html +='</ul>';
+            html += '</ul>';
 
             $('#dialog').html(html);
             $("#dialog").dialog({
-                modal:true,
-                width:600
+                modal: true,
+                width: 600
             });
         }
     </script>

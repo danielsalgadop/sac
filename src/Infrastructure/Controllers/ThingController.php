@@ -2,6 +2,8 @@
 
 namespace App\Infrastructure\Controllers;
 
+use App\Application\Command\Thing\MergeThingWithThingConnectedByIdCommand;
+use App\Application\CommandHandler\Thing\MergeThingWithThingConnectedByIdHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,13 +26,15 @@ class ThingController extends Controller
     private $getFbSharingStatusByOwnerHandler;
     private $createThingHandler;
     private $addThingToOwnerHandler;
+    private $mergeThingWithThingConnectedByIdHandler;
 
-    public function __construct(SearchOwnerByFbDelegatedHandler $searchOwnerByFbDelegatedHandler, GetFbSharingStatusByOwnerHandler $getFbSharingStatusByOwnerHandler, CreateThingHandler $createThingHandler, AddThingToOwnerHandler $addThingToOwnerHandler)
+    public function __construct(SearchOwnerByFbDelegatedHandler $searchOwnerByFbDelegatedHandler, GetFbSharingStatusByOwnerHandler $getFbSharingStatusByOwnerHandler, CreateThingHandler $createThingHandler, AddThingToOwnerHandler $addThingToOwnerHandler, MergeThingWithThingConnectedByIdHandler $mergeThingWithThingConnectedByIdHandler)
     {
         $this->searchOwnerByFbDelegatedHandler = $searchOwnerByFbDelegatedHandler;
         $this->getFbSharingStatusByOwnerHandler = $getFbSharingStatusByOwnerHandler;
         $this->createThingHandler = $createThingHandler;
         $this->addThingToOwnerHandler = $addThingToOwnerHandler;
+        $this->mergeThingWithThingConnectedByIdHandler = $mergeThingWithThingConnectedByIdHandler;
     }
 
     public function info($thingId)
@@ -56,6 +60,8 @@ class ThingController extends Controller
             ],
             ['name' => 'name2_hc_in_controller', 'actions' => []]
         ];
+
+        $this->mergeThingWithThingConnectedByIdHandler->handle(new MergeThingWithThingConnectedByIdCommand($thingId));
 
         return $this->render('Thing/info.html.twig', ['thing' => $thing, 'friends' => $friends, 'sharingStatus' => $sharingStatus]);
     }
