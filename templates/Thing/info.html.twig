@@ -3,12 +3,35 @@
     Thing
 {% endblock %}
 {% block body %}
-    <h1>Thing</h1>
-    <div id="thing_info2"></div>
-{{ thing.thingConnected()|json_encode|raw }}
+    {#<h1>{{ thingId }}</h1>#}
+    {#<h1>Thing</h1>#}
     {% verbatim %}
+        <!--<div id="thing_info2"></div>-->
+            <!--{{ thing.thingConnected()|json_encode|raw }}-->
 
+
+    <script id="thing_template3" type="text/x-handlebars-template">
+        <h1>{{thing.name}} | {{thing.brand}}</h1>
+        {{#if thing.links}}
+            {{#if thing.links.actions}}
+                {{#if thing.links.actions.resources}}
+                    {{#each thing.links.actions.resources}}
+                        {{@key}}
+                        <!--{{this.values}}-->
+                        <p>entras</p>
+
+                    {{/each}}
+                {{/if}}
+            {{/if}}
+        {{/if}}
+    </script>
+    <div id="thing_info3"></div>
+
+    {% endverbatim %}
+
+    {% verbatim %}
     <script id="thing_template2" type="text/x-handlebars-template">
+    <h1>thing_template2</h1>
     <p>
         {{ thing }}
     </p>
@@ -16,17 +39,47 @@
 
     {% endverbatim %}
 
+
     <script>
-        var source = document.getElementById("thing_template2").innerHTML;
-        var template = Handlebars.compile(source);
-        // console.log();
-        {#console.log({{ thing.getId() }});#}
-        var data = {thing: "hctertwrt"};
-        // var html = "whatapp";
-        var html = template(data);
-        document.getElementById("thing_info2").innerHTML = html;
-        // document.getElementById("thing_info").innerHTML = 'tot';
+        $(document).ready(
+            function () {
+                $.ajax({
+                    url: "{{ url('api_thing', {thingId :  thingId } ) }}",
+                    success: function (thing) {
+                        if (thing.status === true) {
+                            // status conection is OK
+                            console.log("status_true")
+                            var source = document.getElementById("thing_template3").innerHTML;
+                            var template = Handlebars.compile(source);
+                            var data = {thing: thing.data};
+                            var html = template(data);
+                            document.getElementById("thing_info3").innerHTML = html;
+                        }
+                        if (thing.status === false) {
+                            // something wrong with thing conection
+                            console.log("status_false")
+                        }
+                        console.log(thing);
+
+                    }
+                })
+
+            });
+
     </script>
+
+
+    {#<script>#}
+    {#var source = document.getElementById("thing_template2").innerHTML;#}
+    {#var template = Handlebars.compile(source);#}
+    {#// console.log();#}
+    {#console.log({{ thing.getId() }});#}
+    {#var data = {thing: "hctertwrt"};#}
+    {#// var html = "whatapp";#}
+    {#var html = template(data);#}
+    {#document.getElementById("thing_info2").innerHTML = html;#}
+    {#// document.getElementById("thing_info").innerHTML = 'tot';#}
+    {#</script>#}
 
 
 
@@ -107,55 +160,9 @@
     </div>
 
     <script>
-        // Victor Thing->
-        function getOneThingConnectedInfo(urlForThingConnected, urlForThingInfo) {
-            // var urlForThingInfo = 'thing/1';
-            // console.log(url);
-            $.ajax({
-                url: urlForThingConnected,
-                // success: fillThingRow(thing),  // esto no funciona
-                success: function (thingConnectedInfo) {
-                    fillThingRow(thingConnectedInfo, urlForThingInfo);
-                },
-                error: function (thingConnectedInfo) {
-                    return thingConnectedInfo;
-                }
-            })
-
-
-            // TODO: api call to fill ThingConnectedInfo
-            // return {"brand": "hc_brand" + id, "name": "hc_name" + id};
-        }
-
-        getOneThingConnectedInfo(thing.urlForThingConnected, thing.urlForThingInfo);
-
-
-
-        function fillThingRow(thingConnected, urlForThingInfo) {
-
-            // var urlForThingInfo = 'thing/1';
-            if (thingConnected.status === true) {
-                // TODO manage thing front structure with handlebars
-                $("#thing_id_" + thingConnected.data.id).addClass('thing_ok');
-                // add name and brand
-                $("#thing_id_" + thingConnected.data.id).append(' | ' + thingConnected.data.name + ' | ' + thingConnected.data.brand);
-                // add View/Admin thing
-                $("#thing_id_" + thingConnected.data.id).append('<button onclick="window.location.href = \'' + urlForThingInfo + '\'">Admin</button>');
-
-            }
-            else {
-                // console.log(thingConnected);
-                $("#thing_id_" + thingConnected.data.id).addClass('thing_error');
-                // add error
-                $("#thing_id_" + thingConnected.data.id).append(' | ' + thingConnected.message);
-
-            }
-        }
-
         var shargingStatus = {{ sharingStatus|json_encode|raw }};
         var thingId = '{{ thing.getId() }}';
         let friends = {{ friends|json_encode|raw }};
-qxc
         // alert(shargingStatus);
 
         hideFriendDialog();

@@ -28,6 +28,8 @@ class ThingArraySerializer
      *  - Usar servicio con -"@route" como argumento
      *  - Usar ThingArraySerializer2, que no es STATIC
 //            'urlForThingConnected' => $this->container->get('router')->generate('api_thing', ['thingId' => $thing->getId()]),
+     * TODO (cuando este entregado el proyecto) 19 Abril:
+     *     Hacer un singleton del serializador, que por constructor reciviese RouteCollection y en el método el contexto
      * */
     public static function getUrlsForThing($thingId)
     {

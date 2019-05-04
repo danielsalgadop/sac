@@ -63,7 +63,7 @@ class ThingController extends Controller
 
         $this->mergeThingWithThingConnectedByIdHandler->handle(new MergeThingWithThingConnectedByIdCommand($thingId));
 
-        return $this->render('Thing/info.html.twig', ['thing' => $thing, 'friends' => $friends, 'sharingStatus' => $sharingStatus]);
+        return $this->render('Thing/info.html.twig', ['thing' => $thing, 'friends' => $friends, 'sharingStatus' => $sharingStatus, 'thingId' => $thingId]);
     }
 
 
