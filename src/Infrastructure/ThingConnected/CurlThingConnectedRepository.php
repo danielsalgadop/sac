@@ -48,7 +48,7 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
         // errores en decode, TODO: duda ¿es necesario esto?
         $jsonDecoded = json_decode($json);
         if (isset($jsonDecoded->error)) {
-            throw new \Exception($json->error);
+            throw new \Exception($jsonDecoded->error);
         }
         return json_decode($json);
     }
@@ -67,18 +67,17 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
         try {
             $curlResponse = $this->sendCurl($id, $thingUserName, $thingPassword);
 //            file_put_contents("/tmp/debug.txt", __METHOD__ . ' ' . __LINE__ . PHP_EOL . var_export($curlResponse, true) . PHP_EOL, FILE_APPEND);
-
-            if ($curlResponse->status === false) { // problems in iot_emulator (like credentials)
-                $thingConnected['status'] = false;
-                $thingConnected['data'] = $data;
-                $thingConnected['message'] = $curlResponse->message;
+//            if ($curlResponse->status === false) { // problems in iot_emulator (like credentials)
+//                $thingConnected['status'] = false;
+//                $thingConnected['data'] = $data;
+//                $thingConnected['message'] = $curlResponse->message;
 //                throw new \Exception($curlResponse->message);
-            } else {
+//            } else {
                 $thingConnected['status'] = true;
-                $thingConnected['data'] = $curlResponse->data;
+                $thingConnected['data'] = $curlResponse;
 
-            }
-        } catch (\Exception $e) { // problems during connection
+//            }
+        } catch (\Exception $e) { // problems during connection or Credentials
             $thingConnected['status'] = false;
             $thingConnected['data'] = $data;
             $thingConnected['message'] = $e->getMessage();

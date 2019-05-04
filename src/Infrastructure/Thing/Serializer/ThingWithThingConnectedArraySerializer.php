@@ -14,20 +14,21 @@ class ThingWithThingConnectedArraySerializer
     {
         $thingConnected = $thing->getThingConnected();
 
-        if ($thingConnected['status'] === true) {
+
+        if ( array_key_exists("error", $thingConnected)) {
+            return [
+                'status' => false,
+                'message' => $thingConnected['error'],
+                'data' => null,
+            ];
+        } else {
+
             return [
                 'status' => true,
+                'message' => null,
                 'data' => ThingConnectedSerializer::serialize($thingConnected['data'])
             ];
         }
-        else{
-            return $thingConnected;
-        }
-        // TODO Victor quitar thing (no aporta nada)
-        return [
-            'thing' => ThingArraySerializer::serialize($thing),
-            'thingConnected' => ThingConnectedSerializer::serialize($thing->getThingConnected())
-        ];
     }
 
 }

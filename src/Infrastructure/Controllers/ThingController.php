@@ -85,6 +85,7 @@ class ThingController extends Controller
         return new Response("HC thing created");
     }
 
+    // TODO: esta route se usa?
     /*
      * @Route("/friends", name="friends", methods={"GET"})
      */
