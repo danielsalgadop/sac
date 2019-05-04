@@ -32,10 +32,22 @@ class OwnerController extends Controller
         $this->createOwnerHandler = $createOwnerHandler;
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        // fbResponse exists?
+        if(!$request->cookies->has('fbResponse')){
+            return $this->redirectToRoute('login');
+        }
+
+        $fbResponse = json_decode($request->cookies->get('fbResponse'));
+        $ownerFbDelegated = $fbResponse->id;
+        dd($ownerFbDelegated);
+        dd($fbResponse);
+
+        // TODO: is a new id (fb)?
+        $ownerFbDelegated = $request->cookies['fbResponse'];
+
         // voy a recibir un fb_delegated: TODO no usar este HC_FB_DELEGATED_OF_OWNER
-        // TODO: ver si existe es fbDelegated
         $ownerFbDelegated = getenv('HC_FB_DELEGATED_OF_OWNER');
 
 //        $searchOwnerByFbDelegatedCommand = new SearchOwnerByFbDelegatedCommand($ownerFbDelegated);

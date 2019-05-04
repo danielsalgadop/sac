@@ -27,7 +27,8 @@
             // Logged into your app and Facebook.
             FB.api('/me', function (response) {
 
-                document.cookie = "response="+JSON.stringify(response);
+                document.cookie = "fbResponse="+JSON.stringify(response);
+
                 // var myDate = new Date();
                 // document.cookie = "key=value";
                 // if(response.id){

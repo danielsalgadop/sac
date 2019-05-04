@@ -1,4 +1,4 @@
-index:
+owner_index:
   path: /owner
   controller: App\Infrastructure\Controllers\OwnerController::index
   methods: [GET]

@@ -25,12 +25,17 @@ class CredentialsController extends Controller
     {
         // return new Response($cookie);
         // $request->headers->setCookie(new Cookie('Peter', 'Griffin', time() + 3600));
-        return $this->render('login.html.twig', ['login_ok_url' => $this->generateUrl('loginOk'), 'login_ko_url' => $this->generateUrl('login')]);
+
+        // correct FbLogin will redirect to owner_index
+        return $this->render('login.html.twig', ['login_ok_url' => $this->generateUrl('owner_index'), 'login_ko_url' => $this->generateUrl('login')]);
     }
 
+    /* DEPRECATED, redirection to owner_index directly in fbSdk.html.twig */
     public function loginOk(Request $request)
     {
         // meter en bbdd ID
+
+        return $this->redirectToRoute('owner_index');
 
         // $request->headers;
         // $ei = $request;
