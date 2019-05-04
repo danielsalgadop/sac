@@ -5,9 +5,21 @@ namespace App\Infrastructure\Controllers;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
+use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
+use App\Application\Command\Owner\CreateOwnerCommand;
+use App\Application\CommandHandler\Owner\CreateOwnerHandler;
 
 class CredentialsController extends Controller
 {
+    private $searchOwnerByFbDelegatedHandler;
+    private $createOwnerHandler;
+
+    public function __construct(SearchOwnerByFbDelegatedHandler $searchOwnerByFbDelegatedHandler, CreateOwnerHandler $createOwnerHandler)
+    {
+        $this->searchOwnerByFbDelegatedHandler = $searchOwnerByFbDelegatedHandler;
+        $this->createOwnerHandler = $createOwnerHandler;
+    }
 
     public function test()
     {
@@ -27,20 +39,28 @@ class CredentialsController extends Controller
         // $request->headers->setCookie(new Cookie('Peter', 'Griffin', time() + 3600));
 
         // correct FbLogin will redirect to owner_index
-        return $this->render('login.html.twig', ['login_ok_url' => $this->generateUrl('owner_index'), 'login_ko_url' => $this->generateUrl('login')]);
+        return $this->render('login.html.twig', ['login_ok_url' => $this->generateUrl('loginOk'), 'login_ko_url' => $this->generateUrl('login')]);
     }
 
-    /* DEPRECATED, redirection to owner_index directly in fbSdk.html.twig */
     public function loginOk(Request $request)
     {
-        // meter en bbdd ID
+        // fbResponse exists?
+        if (!$request->cookies->has('fbResponse')) {
+            return $this->redirectToRoute('login');
+        }
 
-        return $this->redirectToRoute('owner_index');
+        $fbResponse = json_decode($request->cookies->get('fbResponse'));
+        $ownerFbDelegated = $fbResponse->id;
 
-        // $request->headers;
-        // $ei = $request;
-        // return new Response(var_dump($request->headers));
-        return $this->render('loginOk.html.twig', ['login_ok_url' => $this->generateUrl('loginOk'), 'login_ko_url' => $this->generateUrl('login')]);
+        // create Owner if not exists
+        try {
+            $this->searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand($ownerFbDelegated));
+        } catch (\Exception $e) {
+            // meter en bbdd ID
+            $this->createOwnerHandler->handle(new CreateOwnerCommand($fbResponse->name, $ownerFbDelegated));
+        }
+
+        return $this->forward('App\Infrastructure\Controllers\OwnerController::index', ['ownerFbDelegated' => $ownerFbDelegated]);
     }
 
 

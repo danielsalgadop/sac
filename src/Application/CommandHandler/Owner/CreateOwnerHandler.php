@@ -17,10 +17,8 @@ class CreateOwnerHandler
 
     public function handle(CreateOwnerCommand $createOwnerCommand)
     {
-        $name = $createOwnerCommand->getName();
-        $fb_delegated = $createOwnerCommand->getFbDelegated();
         // TODO: avoid creating owner if fb_delegated already exists
-        $owner = new Owner($name, $fb_delegated);
+        $owner = new Owner($createOwnerCommand->getName(), $createOwnerCommand->getFbDelegated());
         $this->ownerRepository->save($owner);
         return $owner;
 
