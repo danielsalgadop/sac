@@ -2,20 +2,9 @@
 
 namespace App\Infrastructure\Controllers;
 
-use App\Application\Command\Thing\CreateThingCommand;
-use App\Application\CommandHandler\Owner\CreateOwnerHandler;
-use App\Domain\Entity\Owner;
-use App\Infrastructure\Owner\MySQLOwnerRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use App\Application\Command\Owner\CreateOwnerCommand;
-use Doctrine\ORM\EntityManager;
-use Symfony\Contracts\Service;
-
 
 class CredentialsController extends Controller
 {
