@@ -27,7 +27,7 @@ class MergeThingWithThingConnectedById extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Given and (int) id searches Thing')
+            ->setDescription('Given and (int) id merges sac Thing with ThingConnected')
             ->addArgument('thingId', InputArgument::REQUIRED, '(int) thing id');
     }
 
