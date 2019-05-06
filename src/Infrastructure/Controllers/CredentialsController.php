@@ -56,10 +56,10 @@ class CredentialsController extends Controller
         try {
             $this->searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand($ownerFbDelegated));
         } catch (\Exception $e) {
-            // meter en bbdd ID
+            // create Owner
             $this->createOwnerHandler->handle(new CreateOwnerCommand($fbResponse->name, $ownerFbDelegated));
         }
-
+//        return $this->redirect('owner_info', 301);
         return $this->forward('App\Infrastructure\Controllers\OwnerController::index', ['ownerFbDelegated' => $ownerFbDelegated]);
     }
 
