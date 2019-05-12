@@ -80,6 +80,9 @@
     "doctrine/reflection": {
         "version": "v1.0.0"
     },
+    "facebook/graph-sdk": {
+        "version": "5.7.0"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },

@@ -22,6 +22,7 @@ use App\Application\Command\Owner\CreateOwnerCommand;
 use Doctrine\ORM\EntityManager;
 use Symfony\Contracts\Service;
 use App\Domain\Repository\ThingConnectorRepository;
+use Facebook\Facebook;
 
 class OwnerController extends Controller
 {
@@ -44,6 +45,7 @@ class OwnerController extends Controller
         $fbResponse = json_decode($request->cookies->get('fbResponse'));
         $ownerFbDelegated = $fbResponse->id;
 
+        file_put_contents("/tmp/debug.txt", __METHOD__ . ' ' . __LINE__ . PHP_EOL . var_export($fbResponse, true) . PHP_EOL, FILE_APPEND);
         // create Owner if not exists
         try {
             $this->searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand($ownerFbDelegated));
@@ -51,8 +53,47 @@ class OwnerController extends Controller
             // create Owner
             $this->createOwnerHandler->handle(new CreateOwnerCommand($fbResponse->name, $ownerFbDelegated));
         }
+
+        try{
+            $this->getSocialMediaUserOrException();
+        } catch (\Exception $e){
+            dd("must do Error route ".$e->getMessage());
+//            $this->redirectToRoute($route);
+        }
         return $this->render('Owner/info_owner.html.twig', ['ownerFbDelegated' => $ownerFbDelegated]);
     }
+
+    // Facebook coupled
+    private function getSocialMediaUserOrException()
+    {
+        $app_id = getenv('FACEBOOK_APP_ID');
+        $app_secret = getenv('FACEBOOK_SECRET');
+        $fb = new Facebook([
+            'app_id' => $app_id,
+            'app_secret' => $app_secret,
+            'default_graph_version' => 'v3.3',
+        ]);
+
+        try {
+            // Returns a `Facebook\FacebookResponse` object
+            $response = $fb->get('/me?fields=id,name', '{access-token}');
+        } catch(Facebook\Exceptions\FacebookResponseException $e) {
+            return new \Exception($e->getMessage());
+//            echo 'Graph returned an error: ' . $e->getMessage();
+//            exit;
+        } catch(Facebook\Exceptions\FacebookSDKException $e) {
+            return new \Exception($e->getMessage());
+//            echo 'Facebook SDK returned an error: ' . $e->getMessage();
+//            exit;
+        }
+
+        $user = $response->getGraphUser();
+        return $user;
+//        echo 'Name: ' . $user['name'];
+// OR
+// echo 'Name: ' . $user->getName();
+    }
+
 
     public function create(Request $request)
     {

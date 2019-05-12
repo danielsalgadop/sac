@@ -15,3 +15,5 @@
 src/Domain/Repository/OwnerRepository.php.interfaz
 src/Domain/Repository/OwnerRepository.php.psa.php
 node_modules
+### facebook components (DUDA TODO think will be installed when composer install facebook/php-sdk-graph)
+components
