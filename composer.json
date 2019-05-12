@@ -8,6 +8,7 @@
         "doctrine/common": "^2.10",
         "doctrine/doctrine-bundle": "^1.10",
         "doctrine/orm": "^2.6",
+        "facebook/graph-sdk": "^5.7",
         "symfony/asset": "4.2.*",
         "symfony/console": "4.2.*",
         "symfony/dotenv": "4.2.*",
