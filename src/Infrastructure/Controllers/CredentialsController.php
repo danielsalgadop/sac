@@ -12,14 +12,14 @@ use App\Application\CommandHandler\Owner\CreateOwnerHandler;
 
 class CredentialsController extends Controller
 {
-    private $searchOwnerByFbDelegatedHandler;
+/*    private $searchOwnerByFbDelegatedHandler;
     private $createOwnerHandler;
 
     public function __construct(SearchOwnerByFbDelegatedHandler $searchOwnerByFbDelegatedHandler, CreateOwnerHandler $createOwnerHandler)
     {
         $this->searchOwnerByFbDelegatedHandler = $searchOwnerByFbDelegatedHandler;
         $this->createOwnerHandler = $createOwnerHandler;
-    }
+    }*/
 
     public function test()
     {
@@ -39,29 +39,19 @@ class CredentialsController extends Controller
         // $request->headers->setCookie(new Cookie('Peter', 'Griffin', time() + 3600));
 
         // correct FbLogin will redirect to owner_index
-        return $this->render('login.html.twig', ['login_ok_url' => $this->generateUrl('loginOk'), 'login_ko_url' => $this->generateUrl('login')]);
+        return $this->render('login.html.twig', ['login_ok_url' => $this->generateUrl('owner_index'), 'login_ko_url' => $this->generateUrl('login')]);
     }
 
-    public function loginOk(Request $request)
-    {
-        // fbResponse exists?
-        if (!$request->cookies->has('fbResponse')) {
-            return $this->redirectToRoute('login');
-        }
+    // DEPRECATED
+    // public function loginOk(Request $request)
+    //{
 
-        $fbResponse = json_decode($request->cookies->get('fbResponse'));
-        $ownerFbDelegated = $fbResponse->id;
+        // Victor
+        // $ownerInfoUrl = urlGenerator
 
-        // create Owner if not exists
-        try {
-            $this->searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand($ownerFbDelegated));
-        } catch (\Exception $e) {
-            // create Owner
-            $this->createOwnerHandler->handle(new CreateOwnerCommand($fbResponse->name, $ownerFbDelegated));
-        }
 //        return $this->redirect('owner_info', 301);
-        return $this->forward('App\Infrastructure\Controllers\OwnerController::index', ['ownerFbDelegated' => $ownerFbDelegated]);
-    }
+      //  return $this->forward('App\Infrastructure\Controllers\OwnerController::index', ['ownerFbDelegated' => $ownerFbDelegated]);
+    //}
 
 
     public function loginStatus()

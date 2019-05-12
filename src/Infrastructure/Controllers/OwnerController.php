@@ -26,14 +26,31 @@ use App\Domain\Repository\ThingConnectorRepository;
 class OwnerController extends Controller
 {
     private $createOwnerHandler;
+    private $searchOwnerByFbDelegatedHandler;
 
-    public function __construct(CreateOwnerHandler $createOwnerHandler)
+    public function __construct(CreateOwnerHandler $createOwnerHandler, SearchOwnerByFbDelegatedHandler $searchOwnerByFbDelegatedHandler)
     {
         $this->createOwnerHandler = $createOwnerHandler;
+        $this->searchOwnerByFbDelegatedHandler = $searchOwnerByFbDelegatedHandler;
     }
 
-    public function index(int $ownerFbDelegated)
+    public function index(Request $request)
     {
+        // fbResponse exists?
+        if (!$request->cookies->has('fbResponse')) {
+            return $this->redirectToRoute('login');
+        }
+
+        $fbResponse = json_decode($request->cookies->get('fbResponse'));
+        $ownerFbDelegated = $fbResponse->id;
+
+        // create Owner if not exists
+        try {
+            $this->searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand($ownerFbDelegated));
+        } catch (\Exception $e) {
+            // create Owner
+            $this->createOwnerHandler->handle(new CreateOwnerCommand($fbResponse->name, $ownerFbDelegated));
+        }
         return $this->render('Owner/info_owner.html.twig', ['ownerFbDelegated' => $ownerFbDelegated]);
     }
 
