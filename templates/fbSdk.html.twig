@@ -22,12 +22,15 @@
 
     // docs on this response https://developers.facebook.com/apps/361174884467644/fb-login/quickstart/
     // basicaly is fullfilled in FB.getLoginStatus()
-    function statusChangeCallback(response) {
-        if (response.status === 'connected') {
+    function statusChangeCallback(connectFbResponse) {
+        console.log(connectFbResponse.authResponse);
+        if (connectFbResponse.status === 'connected') {
             // Logged into your app and Facebook.
-            FB.api('/me', function (response) {
+            FB.api('/me', function (fbResponse) {
 
-                document.cookie = "fbResponse="+JSON.stringify(response);
+
+                document.cookie = "fbResponse="+JSON.stringify(fbResponse);
+                document.cookie = "connectFbResponse="+JSON.stringify(connectFbResponse);
 
                 // var myDate = new Date();
                 // document.cookie = "key=value";

@@ -43,9 +43,13 @@ class OwnerController extends Controller
         }
 
         $fbResponse = json_decode($request->cookies->get('fbResponse'));
+        $connectFbResponse = json_decode($request->cookies->get('connectFbResponse'));
+
+        $accessToken = $connectFbResponse->authResponse->accessToken;
         $ownerFbDelegated = $fbResponse->id;
 
-        file_put_contents("/tmp/debug.txt", __METHOD__ . ' ' . __LINE__ . PHP_EOL . var_export($fbResponse, true) . PHP_EOL, FILE_APPEND);
+//        file_put_contents("/tmp/debug.txt", __METHOD__ . ' ' . __LINE__ . PHP_EOL . var_export($fbResponse, true) . PHP_EOL, FILE_APPEND);
+//        file_put_contents("/tmp/debug.txt", __METHOD__ . ' ' . __LINE__ . PHP_EOL . var_export($accessToken, true) . PHP_EOL, FILE_APPEND);
         // create Owner if not exists
         try {
             $this->searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand($ownerFbDelegated));
@@ -55,7 +59,7 @@ class OwnerController extends Controller
         }
 
         try{
-            $this->getSocialMediaUserOrException();
+            $this->getSocialMediaUserOrException($accessToken);
         } catch (\Exception $e){
             dd("must do Error route ".$e->getMessage());
 //            $this->redirectToRoute($route);
@@ -64,7 +68,7 @@ class OwnerController extends Controller
     }
 
     // Facebook coupled
-    private function getSocialMediaUserOrException()
+    private function getSocialMediaUserOrException(string $accessToken)
     {
         $app_id = getenv('FACEBOOK_APP_ID');
         $app_secret = getenv('FACEBOOK_SECRET');
@@ -76,7 +80,7 @@ class OwnerController extends Controller
 
         try {
             // Returns a `Facebook\FacebookResponse` object
-            $response = $fb->get('/me?fields=id,name', '{access-token}');
+            $response = $fb->get('/me?fields=id,name', $accessToken);
         } catch(Facebook\Exceptions\FacebookResponseException $e) {
             return new \Exception($e->getMessage());
 //            echo 'Graph returned an error: ' . $e->getMessage();
