@@ -10,6 +10,7 @@ use App\Infrastructure\Owner\Serializer\OwnerArraySeralizer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Infrastructure\Owner\Serializer\JsonSerializer;
+use Symfony\Component\HttpFoundation\Request;
 
 
 class OwnerApiController extends Controller
@@ -21,13 +22,17 @@ class OwnerApiController extends Controller
         $this->searchOwnerByFbDelegatedHandler = $searchOwnerByFbDelegatedHandler;
     }
 
-    public function info($fbDelegated)
+//    public function info($fbDelegated)
+    public function info(Request $request)
     {
+        $session = $request->getSession();
+        $ownerFbDelegated = $session->get('ownerFbDelegated');
+
         // TODO, securizar este fbDelegated, ahora mismo con que exita en mi bbdd ya lo daré por bueno. Lo ideas sería
         // asegurar que la persona que me lo manda en realidad ES quien fb ha asignado ese fbDelegated
 
         try {
-            $owner = $this->searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand($fbDelegated));
+            $owner = $this->searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand($ownerFbDelegated));
         } catch (\Exception $e) {
             return new JsonResponse($e->getMessage());
         }

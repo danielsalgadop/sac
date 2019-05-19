@@ -48,9 +48,17 @@ class OwnerController extends Controller
         $accessToken = $connectFbResponse->authResponse->accessToken;
         $ownerFbDelegated = $fbResponse->id;
 
-//        file_put_contents("/tmp/debug.txt", __METHOD__ . ' ' . __LINE__ . PHP_EOL . var_export($fbResponse, true) . PHP_EOL, FILE_APPEND);
-//        file_put_contents("/tmp/debug.txt", __METHOD__ . ' ' . __LINE__ . PHP_EOL . var_export($accessToken, true) . PHP_EOL, FILE_APPEND);
-        // create Owner if not exists
+        //
+        try{
+            $this->hasSocialMediaUserOrException($accessToken);
+        } catch (\Exception $e){
+            // TODO: error route
+            dd("must do Error route ".$e->getMessage());
+//            $this->redirectToRoute($route);
+        }
+
+
+        // create Owner if not exists in sac
         try {
             $this->searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand($ownerFbDelegated));
         } catch (\Exception $e) {
@@ -58,17 +66,16 @@ class OwnerController extends Controller
             $this->createOwnerHandler->handle(new CreateOwnerCommand($fbResponse->name, $ownerFbDelegated));
         }
 
-        try{
-            $this->getSocialMediaUserOrException($accessToken);
-        } catch (\Exception $e){
-            dd("must do Error route ".$e->getMessage());
-//            $this->redirectToRoute($route);
-        }
-        return $this->render('Owner/info_owner.html.twig', ['ownerFbDelegated' => $ownerFbDelegated]);
+        $session = $request->getSession();
+        $session->set('ownerFbDelegated',$ownerFbDelegated);
+        $session->set('accessToken',$accessToken);
+
+        // sending ownerFbDelegated via session: return $this->render('Owner/info_owner.html.twig', ['ownerFbDelegated' => 70]);
+        return $this->render('Owner/info_owner.html.twig');
     }
 
     // Facebook coupled
-    private function getSocialMediaUserOrException(string $accessToken)
+    private function hasSocialMediaUserOrException(string $accessToken)
     {
         $app_id = getenv('FACEBOOK_APP_ID');
         $app_secret = getenv('FACEBOOK_SECRET');
@@ -91,11 +98,12 @@ class OwnerController extends Controller
 //            exit;
         }
 
-        $user = $response->getGraphUser();
-        return $user;
-//        echo 'Name: ' . $user['name'];
-// OR
-// echo 'Name: ' . $user->getName();
+//        $user = $response->getGraphUser();
+//        return $user;
+
+        // How to get friend list
+//        $friends = $fb->get('/'.$user->getId().'/friends',$accessToken);
+        // en esta respuesta tengo 'body' (en json) o decodedBody con cada amigo en 1 array
     }
 
 

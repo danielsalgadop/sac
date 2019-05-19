@@ -50,10 +50,14 @@
     </form>
     {#<h1>{{ url('api_owner') }}?fbDelegated={{ ownerFbDelegated }}</h1>#}
     <script>
+        {#var ownerFbDelegatedToe = {{ app.session.get('ownerFbDelegated') }};#}
+        // var ownerFbDelegatedToe = 123;
+
         $(document).ready(
             function () {
                 $.ajax({
-                    url: "{{ url('api_owner', {fbDelegated :  ownerFbDelegated } ) }}",
+                    {#url: "{{ url('api_owner', {fbDelegated :  ownerFbDelegatedToe } ) }}",#}
+                    url: "{{ url('api_owner') }}",
                     success: function (owner) {
                         // console.log(owner);
 

@@ -39,7 +39,6 @@ class ThingController extends Controller
 
     public function info($thingId)
     {
-
         $owner = $this->searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand(getenv('HC_FB_DELEGATED_OF_OWNER')));
 
         $sharingStatus = $this->getFbSharingStatusByOwnerHandler->handle(new GetFbSharingStatusByOwnerCommand($owner));
