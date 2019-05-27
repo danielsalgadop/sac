@@ -17,3 +17,8 @@ src/Domain/Repository/OwnerRepository.php.psa.php
 node_modules
 ### facebook components (DUDA TODO no me queda muy claro cuando se instalan estos componentes think will be installed when composer install facebook/php-sdk-graph)
 components
+
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###
