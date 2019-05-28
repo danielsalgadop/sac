@@ -52,9 +52,7 @@ class OwnerController extends Controller
         try{
             $this->hasSocialMediaUserOrException($accessToken);
         } catch (\Exception $e){
-            // TODO: error route
-            dd("must do Error route ".$e->getMessage());
-//            $this->redirectToRoute($route);
+            return $this->redirectToRoute('error',['errorMessage' => $e->getMessage()]);
         }
 
 
@@ -85,15 +83,16 @@ class OwnerController extends Controller
             'default_graph_version' => 'v3.3',
         ]);
 
+        //
         try {
             // Returns a `Facebook\FacebookResponse` object
             $response = $fb->get('/me?fields=id,name', $accessToken);
         } catch(Facebook\Exceptions\FacebookResponseException $e) {
-            return new \Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
 //            echo 'Graph returned an error: ' . $e->getMessage();
 //            exit;
         } catch(Facebook\Exceptions\FacebookSDKException $e) {
-            return new \Exception($e->getMessage());
+            throw new \Exception($e->getMessage());
 //            echo 'Facebook SDK returned an error: ' . $e->getMessage();
 //            exit;
         }
