@@ -72,16 +72,24 @@ class ThingController extends Controller
         $userName = $request->request->get('user');
         $password = $request->request->get('password');
 
+//        $session = ;
+
         try {
+            $owner = $this->searchOwnerByFbDelegatedHandler->handle(
+                new SearchOwnerByFbDelegatedCommand(
+                    $request->getSession()->get('ownerFbDelegated')
+                )
+            );
+
             $thing = $this->createThingHandler->handle(new CreateThingCommand($root, $userName, $password));
 
-            $owner = $this->searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand(getenv('HC_FB_DELEGATED_OF_OWNER')));
             $this->addThingToOwnerHandler->handle(new AddThingToOwnerCommand($thing, $owner));
 
         } catch (\Exception $e) {
             return new Response($e->getMessage());
         }
-        return new Response("HC thing created");
+        return $this->redirectToRoute('success',['message' => 'HC thing created']);
+//        return new Response("");
     }
 
     // TODO: esta route se usa?

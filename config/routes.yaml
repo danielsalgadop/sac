@@ -20,3 +20,9 @@ thing_routes:
 
 api_routes:
     resource: '../src/Infrastructure/Resources/config/routes/api.yaml'
+
+error_routes:
+    resource: '../src/Infrastructure/Resources/config/routes/error.yaml'
+
+success_routes:
+    resource: '../src/Infrastructure/Resources/config/routes/success.yaml'

@@ -52,7 +52,7 @@ class OwnerController extends Controller
         try{
             $this->hasSocialMediaUserOrException($accessToken);
         } catch (\Exception $e){
-            return $this->redirectToRoute('error',['errorMessage' => $e->getMessage()]);
+            return $this->redirectToRoute('error',['message' => $e->getMessage()]);
         }
 
 
@@ -75,11 +75,11 @@ class OwnerController extends Controller
     // Facebook coupled
     private function hasSocialMediaUserOrException(string $accessToken)
     {
-        $app_id = getenv('FACEBOOK_APP_ID');
-        $app_secret = getenv('FACEBOOK_SECRET');
+        $fbAppId = getenv('FACEBOOK_APP_ID');
+        $fbSecret = getenv('FACEBOOK_SECRET');
         $fb = new Facebook([
-            'app_id' => $app_id,
-            'app_secret' => $app_secret,
+            'app_id' => $fbAppId,
+            'app_secret' => $fbSecret,
             'default_graph_version' => 'v3.3',
         ]);
 
@@ -89,12 +89,8 @@ class OwnerController extends Controller
             $response = $fb->get('/me?fields=id,name', $accessToken);
         } catch(Facebook\Exceptions\FacebookResponseException $e) {
             throw new \Exception($e->getMessage());
-//            echo 'Graph returned an error: ' . $e->getMessage();
-//            exit;
         } catch(Facebook\Exceptions\FacebookSDKException $e) {
             throw new \Exception($e->getMessage());
-//            echo 'Facebook SDK returned an error: ' . $e->getMessage();
-//            exit;
         }
 
 //        $user = $response->getGraphUser();

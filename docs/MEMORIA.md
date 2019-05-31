@@ -86,7 +86,9 @@ Prepare Mysql:
 
     php bin/console doctrine:fixture:load -n
 
+Using DTO in iot_emulator for storing Credentials
 
+"Confusion" when using same name for different concepts "dependiendo" of project, eg: ThingController, thing
 
 # TFM - Daniel Salgado - SAC
 
