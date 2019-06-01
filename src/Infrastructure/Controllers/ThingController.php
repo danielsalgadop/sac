@@ -37,9 +37,13 @@ class ThingController extends Controller
         $this->mergeThingWithThingConnectedByIdHandler = $mergeThingWithThingConnectedByIdHandler;
     }
 
-    public function info($thingId)
+    public function info($thingId, Request $request)
     {
-        $owner = $this->searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand(getenv('HC_FB_DELEGATED_OF_OWNER')));
+
+        $owner = $this->searchOwnerByFbDelegatedHandler->handle(
+            new SearchOwnerByFbDelegatedCommand($request->getSession()->get('ownerFbDelegated')
+            )
+        );
 
         $sharingStatus = $this->getFbSharingStatusByOwnerHandler->handle(new GetFbSharingStatusByOwnerCommand($owner));
 
@@ -48,7 +52,7 @@ class ThingController extends Controller
         try {
             $thing = $owner->getThingByIdOrException($thingId);
         } catch (\Exception $e) {
-            return new Response($e->getMessage());
+            return $this->redirectToRoute('error',['message' => $e->getMessage()]);
         }
 
         // TODO: get real facebook friends
@@ -71,8 +75,6 @@ class ThingController extends Controller
         $root = $request->request->get('root');
         $userName = $request->request->get('user');
         $password = $request->request->get('password');
-
-//        $session = ;
 
         try {
             $owner = $this->searchOwnerByFbDelegatedHandler->handle(
