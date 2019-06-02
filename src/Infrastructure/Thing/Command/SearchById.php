@@ -12,6 +12,7 @@ use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
 
 class SearchById extends Command
 {
+    // TODO: rename as SearchThingByThingId
     protected static $defaultName = 'app:Thing:SearchByThingId';
     private $searchThingByIdHandler;
 
