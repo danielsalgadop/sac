@@ -25,7 +25,7 @@ class SearchById extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Given and (int) id searches Thing')
+            ->setDescription('Given a (int) id searches Thing')
             ->addArgument('thingId', InputArgument::REQUIRED, '(int) thing id')
             ;
     }

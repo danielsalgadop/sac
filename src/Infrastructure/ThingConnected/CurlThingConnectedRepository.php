@@ -41,11 +41,14 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
 
 
         $json = curl_exec($ch);
-
-        if ($json == null) { // TODO: duda, poner esto como === false?
+        if ($json == null) {
             throw new \Exception("Connection Error");
         }
-        // errores en decode, TODO: duda ¿es necesario esto?
+        elseif (curl_getinfo($ch)['http_code'] === 500){
+            throw new \Exception('iot_emulator Internal Error');
+        }
+
+        // possible json_decode errors
         $jsonDecoded = json_decode($json);
         if (isset($jsonDecoded->error)) {
             throw new \Exception($jsonDecoded->error);
@@ -56,6 +59,7 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
     // VICTOR poner type de return  {'status': 'message': data}
     public function getThingConnectedCompleteById(int $id, string $thingUserName, string $thingPassword): array
     {
+//        dd("sdafsd");
 //        $thingConnected = new \StdClass();  // antes era objeto, ahora array
         $thingConnected = [];
         $thingConnected['message'] = '';
@@ -63,20 +67,22 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
         // default $data content, just with thingId
         $data = new \stdClass();
         $data->id = $id;
-        
+
         try {
             $curlResponse = $this->sendCurl($id, $thingUserName, $thingPassword);
-//            file_put_contents("/tmp/debug.txt", __METHOD__ . ' ' . __LINE__ . PHP_EOL . var_export($curlResponse, true) . PHP_EOL, FILE_APPEND);
-//            if ($curlResponse->status === false) { // problems in iot_emulator (like credentials)
-//                $thingConnected['status'] = false;
-//                $thingConnected['data'] = $data;
-//                $thingConnected['message'] = $curlResponse->message;
+//        dd($curlResponse);
+            if ($curlResponse === null) { // problems in iot_emulator response
+                $thingConnected['status'] = false;
+                $thingConnected['data'] = null;
+                $thingConnected['message'] = 'ThingConnected internal errors '.$curlResponse->message;
+//                var_export($thingConnected);die;
+//                dd($thingConnected);
+                return $thingConnected;
 //                throw new \Exception($curlResponse->message);
-//            } else {
+            } else {
                 $thingConnected['status'] = true;
                 $thingConnected['data'] = $curlResponse;
-
-//            }
+            }
         } catch (\Exception $e) { // problems during connection or Credentials
             $thingConnected['status'] = false;
             $thingConnected['data'] = $data;
@@ -105,6 +111,7 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
     public function searchThingActionsByIdOrException(int $id, string $thingUserName, string $thingPassword)
     {
         $thingConnected = $this->getThingConnectedCompleteById($id, $thingUserName, $thingPassword);
+        dd($thingConnected);
         return $thingConnected->data->actions;
     }
 

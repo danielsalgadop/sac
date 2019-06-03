@@ -127,7 +127,7 @@ class OwnerController extends Controller
 
     public function friends()
     {
-        dd("dfdd");
+//        dd("dfdd");
         $ownerFbDelegated = getenv('HC_FB_DELEGATED_OF_OWNER');
         $searchOwnerByFbDelegatedCommand = new SearchOwnerByFbDelegatedCommand($ownerFbDelegated);
         $searchOwnerByFbDelegatedHandler = $this->get('app.command_handler.owner.search.by_fb_delegated');
