@@ -14,13 +14,13 @@ use App\Application\CommandHandler\Friend\SearchFriendByFbDelegatedHandler;
 
 class SearchByFbDelegated extends ContainerAwareCommand
 {
-    protected static $defaultName = 'app:Friend:FindByFbDelegated';
+    protected static $defaultName = 'app:Friend:SearchFriendByFbDelegated';
 
     protected function configure()
     {
         $this
-            ->setDescription('Add a short description for your command')
-            ->addArgument('fbDelegated', InputArgument::REQUIRED, '(string) fb_delegated (must exist)')
+            ->setDescription('given fbDelegated returns friend')
+            ->addArgument('fbDelegated', InputArgument::REQUIRED, '(string) friends fb_delegated (must exist)')
         ;
     }
 

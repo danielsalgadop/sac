@@ -84,6 +84,8 @@ class ThingController extends AbstractController
         }
 
 
+
+
         //            dd($friendsForView);
 //        $friends = [
 //            ['name' => 'name1_hc_in_controller',

@@ -9,6 +9,6 @@ interface FriendRepository
 {
     public function save(Friend $friend);
     public function searchByfbDelegated(string $fbDelegated);
-    public function searchById(int $id);  // actually not in use, created just-in-case
+    public function searchById(int $id);
 
 }

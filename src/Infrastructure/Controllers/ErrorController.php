@@ -3,11 +3,12 @@
 namespace App\Infrastructure\Controllers;
 
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use Symfony\Component\HttpFoundation\Response;
 
-class ErrorController extends Controller
+class ErrorController extends AbstractController
 {
     public function index(Request $request)
     {

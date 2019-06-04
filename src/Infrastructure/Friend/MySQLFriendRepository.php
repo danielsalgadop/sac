@@ -6,6 +6,7 @@ use App\Domain\Entity\Friend;
 use App\Domain\Repository\Friend\FriendRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
+use mysql_xdevapi\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class MySQLFriendRepository implements FriendRepository
@@ -44,6 +45,7 @@ class MySQLFriendRepository implements FriendRepository
         }
     }
 
+    // TODO: creo que esto no se usa
     public function getIdFromfbDelegated(string $fbDelegated)
     {
 //        return 1;
@@ -57,19 +59,42 @@ class MySQLFriendRepository implements FriendRepository
         return $id;
     }
 
+
+    public function searchFriendByIdOrException(int $id)
+    {
+        $friend = $this->searchById($id);
+
+        $exceptionMessage = null;
+        if (!$friend)  {
+            $exceptionMessage = "Friend not found by";
+        }
+        elseif ($friend === null){
+            $exceptionMessage = "Non-existing Friend";
+        }
+
+        if($exceptionMessage !== null){
+            throw new \Exception($exceptionMessage." id [".$id."]");
+        }
+        return $friend;
+    }
+
     public function searchFriendByfbDelegatedOrException(string $fbDelegated)
     {
+        $friend = $this->friendRepository->findOneBy(['fbDelegated' => $fbDelegated]);
 
-        $owner = $this->friendRepository->findOneBy(['fbDelegated' => $fbDelegated]);
-        if (!$owner) {
-            throw new \Exception("Friend not found by firendFbDelegated [".$fbDelegated."]");
+        $exceptionMessage = null;
+        if (!$friend) {
+            $exceptionMessage = "Friend not found by";
         }
 
-
-
-        if ($owner === null) {
-            throw new \Exception("Non-existing fbDelegated");
+        if ($friend === null) {
+            $exceptionMessage = "Non-existing";
         }
-        return $owner;
+
+        if ($exceptionMessage !== null) {
+            throw new \Exception($exceptionMessage." fbDelegated [".$fbDelegated."]");
+        }
+        return $friend;
+
     }
 }

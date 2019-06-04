@@ -17,7 +17,7 @@
                 {{#if thing.links.actions.resources}}
                     {{#each thing.links.actions.resources}}
                         {{@key}} | {{this.values}}
-                        <!--{{this.values}}-->
+                                <button onclick="openFriendDialog3()">Share</button>
                         <p>entras</p>
 
                     {{/each}}
@@ -51,6 +51,7 @@
                             console.log("status_true")
                             var source = document.getElementById("thing_template3").innerHTML;
                             var template = Handlebars.compile(source);
+                            console.log(thing.data);
                             var data = {thing: thing.data};
                             var html = template(data);
                             document.getElementById("thing_info3").innerHTML = html;
@@ -187,6 +188,22 @@
 
         function denyShareButton() {
             return '<button>Deny</button>';
+        }
+        function openFriendDialog3() {
+            showFriendDialog();
+            // console.log("In thing thingId[" + thingId + "] clicked this action id[" + actionId + "]");
+            // var html = '<ul>';
+            // console.log(friends);
+            // for (i = 0; i < friends.length; i++) {
+            //     html += '<li>' + returnProperTypeOfFriend(friends[i]) + '</li>';
+            // }
+            // html += '</ul>';
+
+            $('#dialog').html(html);
+            $("#dialog").dialog({
+                modal: true,
+                width: 600
+            });
         }
 
         function openFriendDialog(actionId) {

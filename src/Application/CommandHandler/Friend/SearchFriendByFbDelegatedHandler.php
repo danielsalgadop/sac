@@ -18,10 +18,7 @@ class SearchFriendByFbDelegatedHandler
 
     public function handle(SearchFriendByFbDelegatedCommand $searchFriendByFbDelegatedCommand): Friend
     {
-        // TODO: ojo hasta que no sea tipo unique en la bbdd puede existir mismo friend.fb_delegated. Esto no debería ser asi
-        // si en tabla friend hace referencia a misma persona debería haber solo 1 entrada
-        $fbDelegated = $searchFriendByFbDelegatedCommand->getFbDelegated();
-        $friend = $this->friendRepository->searchFriendByfbDelegatedOrException($fbDelegated);
+        $friend = $this->friendRepository->searchFriendByfbDelegatedOrException($searchFriendByFbDelegatedCommand->getFbDelegated());
 
         return $friend;
     }
