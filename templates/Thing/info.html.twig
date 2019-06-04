@@ -11,12 +11,12 @@
 
 
     <script id="thing_template3" type="text/x-handlebars-template">
-        <h1>{{thing.name}} | {{thing.brand}}</h1>
+        <h1>{{thing.name}} | {{thing.brand}} | {{thing.links.actions.resources}}</h1>
         {{#if thing.links}}
             {{#if thing.links.actions}}
                 {{#if thing.links.actions.resources}}
                     {{#each thing.links.actions.resources}}
-                        {{@key}}
+                        {{@key}} | {{this.values}}
                         <!--{{this.values}}-->
                         <p>entras</p>
 
