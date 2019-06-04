@@ -2,15 +2,12 @@
 
 namespace App\Infrastructure\Controllers;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
-use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
-use App\Application\Command\Owner\CreateOwnerCommand;
-use App\Application\CommandHandler\Owner\CreateOwnerHandler;
 
-class CredentialsController extends Controller
+class CredentialsController extends AbstractController
 {
 /*    private $searchOwnerByFbDelegatedHandler;
     private $createOwnerHandler;
