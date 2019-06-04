@@ -3,28 +3,18 @@
 namespace App\Infrastructure\Controllers;
 
 use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
-use App\Application\Command\Thing\CreateThingCommand;
 use App\Application\CommandHandler\Owner\CreateOwnerHandler;
 use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
-use App\Domain\Entity\Owner;
-use App\Domain\Entity\Thing;
-use App\Infrastructure\Owner\MySQLOwnerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use App\Application\Command\Thing\GetThingConnectedInfoCommand;
 use App\Application\CommandHandler\Thing\ThingConnected\GetThingConnectedNameHandler;
 use App\Application\CommandHandler\Thing\ThingConnected\GetThingConnectedBrandHandler;
 use App\Application\Command\Owner\CreateOwnerCommand;
-use Doctrine\ORM\EntityManager;
-use Symfony\Contracts\Service;
 use App\Domain\Repository\ThingConnectorRepository;
 use Facebook\Facebook;
 
-class OwnerController extends Controller
+class OwnerController extends AbstractController
 {
     private $createOwnerHandler;
     private $searchOwnerByFbDelegatedHandler;
@@ -50,7 +40,7 @@ class OwnerController extends Controller
 
         //
         try{
-            $this->hasSocialMediaUserOrException($accessToken);
+            $friends = $this->hasSocialMediaUserOrException($accessToken);
         } catch (\Exception $e){
             return $this->redirectToRoute('error',['message' => $e->getMessage()]);
         }
@@ -67,6 +57,7 @@ class OwnerController extends Controller
         $session = $request->getSession();
         $session->set('ownerFbDelegated',$ownerFbDelegated);
         $session->set('accessToken',$accessToken);
+        $session->set('fbFriends',$friends);
 
         // sending ownerFbDelegated via session: return $this->render('Owner/info_owner.html.twig', ['ownerFbDelegated' => 70]);
         return $this->render('Owner/info_owner.html.twig');
@@ -93,11 +84,12 @@ class OwnerController extends Controller
             throw new \Exception($e->getMessage());
         }
 
-//        $user = $response->getGraphUser();
+        $user = $response->getGraphUser();
 //        return $user;
 
         // How to get friend list
-//        $friends = $fb->get('/'.$user->getId().'/friends',$accessToken);
+        $friends = $fb->get('/'.$user->getId().'/friends',$accessToken);
+        return $friends;
         // en esta respuesta tengo 'body' (en json) o decodedBody con cada amigo en 1 array
     }
 
@@ -150,33 +142,10 @@ class OwnerController extends Controller
     // TODO: thins info will be fetched from facebook
     private function hardcodedFbFriend(string $fbDelegated): array
     {
-        foreach ([1, 2, 3] as $i) {
-            $hardcodedFbFriend = new hardcodedFbFriend(100 + $i, "hard_coded_exclusiveFbFriend_" . $i . "_" . $fbDelegated);
-            $exclusiveFbFriends[] = $hardcodedFbFriend;
-        }
-        return $exclusiveFbFriends;
-    }
-}
-
-
-class hardcodedFbFriend
-{
-    public $id = null;
-    public $fbDelegated = null;
-
-    function __construct(int $id, $fbDelegated)
-    {
-        $this->id = $id;
-        $this->fbDelegated = $fbDelegated;
-    }
-
-    function getId()
-    {
-        return $this->id;
-    }
-
-    function getFbDelegated()
-    {
-        return $this->fbDelegated;
+//        foreach ([1, 2, 3] as $i) {
+//            $hardcodedFbFriend = new hardcodedFbFriend(100 + $i, "hard_coded_exclusiveFbFriend_" . $i . "_" . $fbDelegated);
+//            $exclusiveFbFriends[] = $hardcodedFbFriend;
+//        }
+//        return $exclusiveFbFriends;
     }
 }

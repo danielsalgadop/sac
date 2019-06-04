@@ -3,8 +3,10 @@
 namespace App\Infrastructure\Controllers;
 
 use App\Application\Command\Thing\MergeThingWithThingConnectedByIdCommand;
+use App\Application\CommandHandler\Friend\CreateFriendHandler;
+use App\Application\Command\Friend\CreateFriendCommand;
 use App\Application\CommandHandler\Thing\MergeThingWithThingConnectedByIdHandler;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -20,21 +22,31 @@ use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
 use App\Application\Command\Owner\GetFbSharingStatusByOwnerCommand;
 use App\Application\CommandHandler\Owner\GetFbSharingStatusByOwnerHandler;
 
-class ThingController extends Controller
+class ThingController extends AbstractController
 {
+
     private $searchOwnerByFbDelegatedHandler;
     private $getFbSharingStatusByOwnerHandler;
     private $createThingHandler;
     private $addThingToOwnerHandler;
     private $mergeThingWithThingConnectedByIdHandler;
+    private $createFriendHandler;
 
-    public function __construct(SearchOwnerByFbDelegatedHandler $searchOwnerByFbDelegatedHandler, GetFbSharingStatusByOwnerHandler $getFbSharingStatusByOwnerHandler, CreateThingHandler $createThingHandler, AddThingToOwnerHandler $addThingToOwnerHandler, MergeThingWithThingConnectedByIdHandler $mergeThingWithThingConnectedByIdHandler)
+    public function __construct(
+        SearchOwnerByFbDelegatedHandler $searchOwnerByFbDelegatedHandler,
+        GetFbSharingStatusByOwnerHandler $getFbSharingStatusByOwnerHandler,
+        CreateThingHandler $createThingHandler,
+        AddThingToOwnerHandler $addThingToOwnerHandler,
+        MergeThingWithThingConnectedByIdHandler $mergeThingWithThingConnectedByIdHandler,
+        CreateFriendHandler $createFriendHandler
+    )
     {
         $this->searchOwnerByFbDelegatedHandler = $searchOwnerByFbDelegatedHandler;
         $this->getFbSharingStatusByOwnerHandler = $getFbSharingStatusByOwnerHandler;
         $this->createThingHandler = $createThingHandler;
         $this->addThingToOwnerHandler = $addThingToOwnerHandler;
         $this->mergeThingWithThingConnectedByIdHandler = $mergeThingWithThingConnectedByIdHandler;
+        $this->createFriendHandler = $createFriendHandler;
     }
 
     public function info($thingId, Request $request)
@@ -52,17 +64,34 @@ class ThingController extends Controller
         try {
             $thing = $owner->getThingByIdOrException($thingId);
         } catch (\Exception $e) {
-            return $this->redirectToRoute('error',['message' => $e->getMessage()]);
+            return $this->redirectToRoute('error', ['message' => $e->getMessage()]);
         }
 
         // TODO: get real facebook friends
-        $friends = [
-            ['name' => 'name1_hc_in_controller',
-                'actions' => [1, 2],
-                'fdbDelegated' => '0_fbDelegated_friend_of_this_owner_id1'
-            ],
-            ['name' => 'name2_hc_in_controller', 'actions' => []]
-        ];
+        $session = $request->getSession();
+        $friends = $session->get('fbFriends');
+        $friendsAsObj = json_decode($friends->getBody());
+
+        // build friend for view
+
+//        dd($friendsAsObj->data);
+
+        $friendsForView = [];
+        foreach ($friendsAsObj->data as $friend) {
+            $this->createFriendHandler->handle(new CreateFriendCommand($friend->id));
+            $friendsForView['name'] = $friend->name;
+            $friendsForView['fbDelegated'] = $friend->id;
+        }
+
+
+        //            dd($friendsForView);
+//        $friends = [
+//            ['name' => 'name1_hc_in_controller',
+//                'actions' => [1, 2],
+//                'fdbDelegated' => '0_fbDelegated_friend_of_this_owner_id1'
+//            ],
+//            ['name' => 'name2_hc_in_controller', 'actions' => []]
+//        ];
 
         $this->mergeThingWithThingConnectedByIdHandler->handle(new MergeThingWithThingConnectedByIdCommand($thingId));
 
@@ -90,7 +119,7 @@ class ThingController extends Controller
         } catch (\Exception $e) {
             return new Response($e->getMessage());
         }
-        return $this->redirectToRoute('success',['message' => 'HC thing created']);
+        return $this->redirectToRoute('success', ['message' => 'HC thing created']);
 //        return new Response("");
     }
 
