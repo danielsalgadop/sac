@@ -6,6 +6,8 @@ use App\Application\Command\Thing\MergeThingWithThingConnectedByIdCommand;
 use App\Application\CommandHandler\Friend\CreateFriendHandler;
 use App\Application\Command\Friend\CreateFriendCommand;
 use App\Application\CommandHandler\Thing\MergeThingWithThingConnectedByIdHandler;
+use App\Domain\Entity\Friend;
+use App\Domain\Entity\Action;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -57,12 +59,14 @@ class ThingController extends AbstractController
             )
         );
 
+        /** @var GetFbSharingStatusByOwnerHandler $sharingStatus */
         $sharingStatus = $this->getFbSharingStatusByOwnerHandler->handle(new GetFbSharingStatusByOwnerCommand($owner));
 
         // TODO: pensar si pasar esto a Command-CommandHandler
         // given thingId belongs to Owner?
         try {
             $thing = $owner->getThingByIdOrException($thingId);
+//            dd($thing);
         } catch (\Exception $e) {
             return $this->redirectToRoute('error', ['message' => $e->getMessage()]);
         }
@@ -76,14 +80,34 @@ class ThingController extends AbstractController
 
 //        dd($friendsAsObj->data);
 
+        // TODO: move this to owner:info. Tengo que añadir la columna name
         $friendsForView = [];
         foreach ($friendsAsObj->data as $friend) {
             $this->createFriendHandler->handle(new CreateFriendCommand($friend->id));
-            $friendsForView['name'] = $friend->name;
-            $friendsForView['fbDelegated'] = $friend->id;
+//            $friendsForView['name'] = $friend->name;
+//            $friendsForView['fbDelegated'] = $friend->id;
         }
 
+        $friends  = $owner->getFriends();
 
+//        dd($friends);
+        /** @var $friend Friend*/
+        foreach ($friends as $friend){
+            $oneFriend = [];
+            $oneFriend['name'] = "FriendnameeeeTODO".rand(1,200);
+            $oneFriend['fbDelegated'] = $friend->getFbDelegated();
+
+            $actionsIdList = [];
+            /** @var $action Action */
+            foreach ($friend->getActions() as $action) {
+                $actionsIdList[] = $action->getId();
+            }
+            $oneFriend['actions'] = $actionsIdList;
+
+            $friendsForView[] = $oneFriend;
+        }
+
+//        dd($friendsForView);
 
 
         //            dd($friendsForView);
@@ -94,10 +118,15 @@ class ThingController extends AbstractController
 //            ],
 //            ['name' => 'name2_hc_in_controller', 'actions' => []]
 //        ];
-
+//        dd($friendsForView);
         $this->mergeThingWithThingConnectedByIdHandler->handle(new MergeThingWithThingConnectedByIdCommand($thingId));
 
-        return $this->render('Thing/info.html.twig', ['thing' => $thing, 'friends' => $friends, 'sharingStatus' => $sharingStatus, 'thingId' => $thingId]);
+
+        $thingConnected = $thing->getThingConnected();
+        // persistActions
+
+//    dd($thing);
+        return $this->render('Thing/info.html.twig', ['thing' => $thing, 'friends' => $friendsForView, 'sharingStatus' => $sharingStatus, 'thingId' => $thingId]);
     }
 
 

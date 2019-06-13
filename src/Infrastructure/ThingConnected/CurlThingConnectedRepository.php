@@ -70,7 +70,6 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
 
         try {
             $curlResponse = $this->sendCurl($id, $thingUserName, $thingPassword);
-//        dd($curlResponse);
             if ($curlResponse === null) { // problems in iot_emulator response
                 $thingConnected['status'] = false;
                 $thingConnected['data'] = null;
@@ -80,6 +79,7 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
                 return $thingConnected;
 //                throw new \Exception($curlResponse->message);
             } else {
+
                 $thingConnected['status'] = true;
                 $thingConnected['data'] = $curlResponse;
             }

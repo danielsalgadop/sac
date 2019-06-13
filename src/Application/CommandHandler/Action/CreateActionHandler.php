@@ -8,6 +8,7 @@ use App\Domain\Repository\Action\ActionRepository;
 
 class CreateActionHandler
 {
+    /** @var ActionRepository  */
     private $actionRespository;
 
     public function __construct(ActionRepository $actionRespository)
@@ -18,11 +19,8 @@ class CreateActionHandler
     public function handle(CreateActionCommand $createActionCommand): Action
     {
         return $this->actionRespository->save(
-            $createActionCommand->getHttpVerb(),
             $createActionCommand->getRoute(),
-            $createActionCommand->getThing(),
-            $createActionCommand->getFriend(),
-            $createActionCommand->getActionDescription()
+            $createActionCommand->getThing()
         );
     }
 }

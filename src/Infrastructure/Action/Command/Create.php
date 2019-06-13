@@ -32,14 +32,13 @@ class Create extends ContainerAwareCommand
 
     protected function configure()
     {
-        // TODO: actionDescription as a Phrase (not a word)
         $this
             ->setDescription('Creates an Action')
             ->addArgument('thingId', InputArgument::REQUIRED, '(int) thing id')
-            ->addArgument('friendFbDelegated', InputArgument::REQUIRED, '(string) friends fb_delegated')
-            ->addArgument('httpVerb', InputArgument::REQUIRED, 'GET | POST')
-            ->addArgument('route', InputArgument::REQUIRED, '(string) /this/is/a/route')
-            ->addArgument('actionDescription', InputArgument::REQUIRED, '(xxx) Action Description')
+//            ->addArgument('friendFbDelegated', InputArgument::REQUIRED, '(string) friends fb_delegated')
+//            ->addArgument('httpVerb', InputArgument::REQUIRED, 'GET | POST')
+            ->addArgument('route', InputArgument::REQUIRED, '(string) /this/is/a/route')  // really this is action name (links->actions->link->resources)
+//            ->addArgument('actionDescription', InputArgument::REQUIRED, '(xxx) Action Description')
         ;
     }
 
@@ -52,15 +51,12 @@ class Create extends ContainerAwareCommand
         $thing = $this->searchThingByIdHandler->handle(new SearchThingByIdCommand($input->getArgument("thingId")));
 
         // Friend
-        $friend = $this->searchFriendByFbDelegatedHandler->handle(new SearchFriendByFbDelegatedCommand($input->getArgument("friendFbDelegated")));
+//        $friend = $this->searchFriendByFbDelegatedHandler->handle(new SearchFriendByFbDelegatedCommand($input->getArgument("friendFbDelegated")));
 
         $action = $this->createActionHandler->handle(
             new CreateActionCommand(
                 $thing,
-                $friend,
-                $input->getArgument("httpVerb"),
-                $input->getArgument("route"),
-                $input->getArgument("actionDescription")
+                $input->getArgument("route")
             )
         );
 

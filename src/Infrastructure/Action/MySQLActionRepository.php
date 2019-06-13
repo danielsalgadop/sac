@@ -19,17 +19,14 @@ class MySQLActionRepository implements ActionRepository
     }
 
 
-    public function save(string $httpVerb, string $route, Thing $thing, Friend $friend, string $actionDescription)
+    public function save(string $route, Thing $thing)
     {
         try {
             $action = new Action();
-            $action->setDescription($actionDescription);
-            $action->setHttpVerb($httpVerb);
             $action->setRoute($route);
             $action->setWt($thing);
-            $action->addFriend($friend);
             $this->em->persist($action);
-            $this->em->flush(); // TODO: mover el flush al Controller
+            $this->em->flush();
         } catch (Exception $e) {
             return $e->getMessage();
         }

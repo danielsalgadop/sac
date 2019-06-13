@@ -4,8 +4,11 @@ namespace App\Application\CommandHandler\Owner;
 
 
 use App\Application\Command\Owner\GetFbSharingStatusByOwnerCommand;
+use App\Domain\Entity\Action;
+use App\Domain\Entity\Friend;
 use App\Domain\Entity\Owner;
 use App\Domain\Repository\OwnerRepository;
+use App\Domain\Entity\Thing;
 
 class GetFbSharingStatusByOwnerHandler
 {
@@ -20,31 +23,58 @@ class GetFbSharingStatusByOwnerHandler
 
         $owner = $command->getOwner();
         /*
+         *
+         *
          * shareStatus structure
-         *     [ ThingID =>
-         *          [
-         *          'ActionId' =>
-         *              ['FbDelegated_Friend1']
-         *                 ... rest of friends
-         *          ]
-         *          ... rest of actions
-         *      ... rest of things
-         * ]
+         *   1 => array:2 [
+         *       "thingId" => 1
+         *       "actions" => array:2 [
+         *         1 => "103671587486416"   // this key is action id  => fbDelegated
+         *         2 => "104003390786397"
+         *       ]
+         *     ]
+         *
          */
         // build $sharingStatus
         $sharingStatus = [];
+
+        $sharingStatus = [];
+        /** @var Thing $thing */
+        $i = 1;
         foreach ($owner->getThings()  as $thing){
-            $sharingStatus[$thing->getId()] = [];
+
+            $sharingStatus[$i]['thingId'] = $thing->getId();
+
+            /** @var Action $thingAction */
             foreach ($thing->getActions() as $thingAction){
+
+                /** @var Friend $friend */
                 foreach ($owner->getFriends() as $friend) {
+
                     foreach ($friend->getActions() as $friendAction) {
+
                         if($thingAction->getId() === $friendAction->getId()){
-                            $sharingStatus[$thing->getId()][$thingAction->getId()][] = $friend->getFbDelegated();
+
+                            $sharingStatus[$i]['actions'][$thingAction->getId()][] = $friend->getFbDelegated();
                         }
                     }
                 }
             }
+            $i++;
         }
+
+//        foreach ($owner->getThings()  as $thing){
+//            $sharingStatus[$thing->getId()] = [];
+//            foreach ($thing->getActions() as $thingAction){
+//                foreach ($owner->getFriends() as $friend) {
+//                    foreach ($friend->getActions() as $friendAction) {
+//                        if($thingAction->getId() === $friendAction->getId()){
+//                            $sharingStatus[$thing->getId()][$thingAction->getId()][] = $friend->getFbDelegated();
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
 
         return $sharingStatus;

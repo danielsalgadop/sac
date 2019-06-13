@@ -11,15 +11,13 @@
 
 
     <script id="thing_template3" type="text/x-handlebars-template">
-        <h1>{{thing.name}} | {{thing.brand}} | {{thing.links.actions.resources}}</h1>
+        <h1>{{thing.name}} | {{thing.brand}} | {{thing.id}} </h1>
         {{#if thing.links}}
             {{#if thing.links.actions}}
                 {{#if thing.links.actions.resources}}
                     {{#each thing.links.actions.resources}}
-                        {{@key}} | {{this.values}}
-                                <button onclick="openFriendDialog3()">Share</button>
-                        <p>entras</p>
-
+                        {{@key}} | {{this.values}} | {{this.id}} |
+                                <button onclick="openFriendDialog3()">Share</button><br>
                     {{/each}}
                 {{/if}}
             {{/if}}
@@ -48,7 +46,7 @@
                     success: function (thing) {
                         if (thing.status === true) {
                             // status conection is OK
-                            console.log("status_true")
+                            console.log("status_true");
                             var source = document.getElementById("thing_template3").innerHTML;
                             var template = Handlebars.compile(source);
                             console.log(thing.data);
@@ -57,10 +55,11 @@
                             document.getElementById("thing_info3").innerHTML = html;
                         }
                         if (thing.status === false) {
+                            // TODO : redirect to error
                             // something wrong with thing conection
                             console.log("status_false")
                         }
-                        console.log(thing);
+                        // console.log(thing);
 
                     }
                 })
@@ -161,10 +160,10 @@
     </div>
 
     <script>
-        var shargingStatus = {{ sharingStatus|json_encode|raw }};
+        var sharingStatus = {{ sharingStatus|json_encode|raw }};
         var thingId = '{{ thing.getId() }}';
         let friends = {{ friends|json_encode|raw }};
-        // alert(shargingStatus);
+        // alert(sharingStatus);
 
         hideFriendDialog();
 
@@ -189,15 +188,19 @@
         function denyShareButton() {
             return '<button>Deny</button>';
         }
-        function openFriendDialog3() {
+
+        function openFriendDialog3(thingId) {
+            console.log("thingId" + thingId);
             showFriendDialog();
             // console.log("In thing thingId[" + thingId + "] clicked this action id[" + actionId + "]");
-            // var html = '<ul>';
-            // console.log(friends);
-            // for (i = 0; i < friends.length; i++) {
-            //     html += '<li>' + returnProperTypeOfFriend(friends[i]) + '</li>';
-            // }
-            // html += '</ul>';
+
+            // TODO: buil html ul with js
+            var html = '<ul>';
+            console.log(friends);
+            for (i = 0; i < friends.length; i++) {
+                html += '<li>' + returnProperTypeOfFriend(friends[i]) + '</li>';
+            }
+            html += '</ul>';
 
             $('#dialog').html(html);
             $("#dialog").dialog({

@@ -7,12 +7,12 @@ namespace App\Infrastructure\Controllers\Api;
 use App\Application\Command\Thing\MergeThingWithThingConnectedByIdCommand;
 use App\Application\CommandHandler\Thing\MergeThingWithThingConnectedByIdHandler;
 use App\Infrastructure\Thing\Serializer\ThingWithThingConnectedArraySerializer;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Infrastructure\Owner\Serializer\JsonSerializer;
 
 
-class ThingApiController extends Controller
+class ThingApiController extends AbstractController
 {
 
     private $mergeThingWithThingConnectedByIdHandler;

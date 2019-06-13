@@ -13,12 +13,10 @@ class Action
     private $http_verb;
     private $route;
     private $description;
-
     private $wt;
-
-
     private $friends;
 
+    // TODO: add all parameters by constructor
     public function __construct()
     {
         $this->friends = new ArrayCollection();

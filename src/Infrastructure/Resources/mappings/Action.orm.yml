@@ -18,7 +18,7 @@ App\Domain\Entity\Action:
             scale: 0
             length: 10
             unique: false
-            nullable: false
+            nullable: true
             precision: 0
         route:
             type: string
@@ -32,7 +32,7 @@ App\Domain\Entity\Action:
             scale: 0
             length: 255
             unique: false
-            nullable: false
+            nullable: true
             precision: 0
     manyToOne:
         wt:
