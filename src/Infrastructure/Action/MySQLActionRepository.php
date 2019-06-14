@@ -22,12 +22,32 @@ class MySQLActionRepository implements ActionRepository
     public function save(string $route, Thing $thing)
     {
         try {
+            print "route [".$route."] thingId ".$thing->getId().PHP_EOL;
             // avoid saving same route for same thing (this could be done with a Unique in ddbb)
             $actionRepo = $this->em->getRepository(Action::class);
-            $action = $actionRepo->findBy(['id' => $thing->getId(), 'route' => $route]);
-            if($action){
-                return $action;
+
+//            /** @var Action $action */
+//            $actions = $actionRepo->findBy(['id' => $thing->getId(), 'route' => $route]);
+//
+//            foreach ($actions as $action) {
+//                $storedThing = $action->getWt();
+//                if ($storedThing->getId() === $thing->getId() && $action->getRoute() === $route) {
+//                    return $action;
+//                }
+//            }
+//            dd($action);
+
+            $allActions = $actionRepo->findAll();
+            /** @var Action $storedAction */
+            foreach ($allActions as $storedAction) {
+                $actualThing = $storedAction->getWt();
+                if($actualThing->getId() === $thing->getId() &&
+                    $storedAction->getRoute() === $route
+                ){
+                    return $storedAction;
+                }
             }
+
 
             $action = new Action($thing, $route);
             $this->em->persist($action);
