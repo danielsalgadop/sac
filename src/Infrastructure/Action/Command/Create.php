@@ -60,6 +60,6 @@ class Create extends ContainerAwareCommand
             )
         );
 
-        $io->success('Created Action ['.$action->getHttpVerb().' '.$action->getRoute().'] with description "'.$action->getDescription().'" for ThingId ['.$action->getId().']');
+        $io->success('Created Action ['.$action->getId().'] with route (actionName) ['.$action->getRoute().']for ThingId ['.$thing->getId().']');
     }
 }

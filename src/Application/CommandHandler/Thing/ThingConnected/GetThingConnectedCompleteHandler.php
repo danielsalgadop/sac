@@ -8,17 +8,23 @@ use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
 use App\Domain\Entity\Action;
 use App\Domain\Repository\ThingConnectedRepository;
 use App\Domain\Entity\Thing;
+use App\Infrastructure\Action\MySQLActionRepository;
 
 class GetThingConnectedCompleteHandler
 {
 
     private $thingConnectedRepository;
     private $searchThingByIdHandler;
+    /**
+     * @var MySQLActionRepository
+     */
+    private $mySQLActionRepository;
 
-    public function __construct(ThingConnectedRepository $thingConnectedRepository, SearchThingByIdHandler $searchThingByIdHandler)
+    public function __construct(ThingConnectedRepository $thingConnectedRepository, SearchThingByIdHandler $searchThingByIdHandler, MySQLActionRepository $mySQLActionRepository)
     {
         $this->thingConnectedRepository = $thingConnectedRepository;
         $this->searchThingByIdHandler = $searchThingByIdHandler;
+        $this->mySQLActionRepository = $mySQLActionRepository;
     }
 
     public function handle(GetThingConnectedInfoCommand $getThingConnectedInfoCommand)
@@ -41,8 +47,11 @@ class GetThingConnectedCompleteHandler
 //        dd(gettype($thingConnected['data']->links));
         $actionsInThing = [];
         foreach ($thingConnected['data']->links->actions->resources as $actionName => $action) {
+            $this->mySQLActionRepository->save($actionName, $thing);
+//            $action = new Action($thing, $actionName);
+
 //                var_export($actionName);
-            $actionsInThing[$actionName] = $action->values;
+//            $actionsInThing[$actionName] = $action->values;
 //            var_export($action);
 //            var_export(values($thingConnected['data']->links->actions));
 //            dd($action);

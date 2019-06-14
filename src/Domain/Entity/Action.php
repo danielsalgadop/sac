@@ -10,33 +10,21 @@ use Doctrine\ORM\Mapping as ORM;
 class Action
 {
     private $id;
-    private $http_verb;
     private $route;
-    private $description;
     private $wt;
     private $friends;
 
-    // TODO: add all parameters by constructor
-    public function __construct()
+    // TODO: parameter of by setter, or by ->. Now they are mixed
+    public function __construct(Thing $thing, string $route)
     {
+        $this->wt = $thing;
+        $this->setRoute($route);
         $this->friends = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getHttpVerb(): ?string
-    {
-        return $this->http_verb;
-    }
-
-    public function setHttpVerb(string $http_verb): self
-    {
-        $this->http_verb = $http_verb;
-
-        return $this;
     }
 
     public function getRoute(): ?string
@@ -47,18 +35,6 @@ class Action
     public function setRoute(string $route): self
     {
         $this->route = $route;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(string $description): self
-    {
-        $this->description = $description;
 
         return $this;
     }

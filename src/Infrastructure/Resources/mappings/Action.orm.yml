@@ -13,26 +13,12 @@ App\Domain\Entity\Action:
             generator:
                 strategy: IDENTITY
     fields:
-        http_verb:
-            type: string
-            scale: 0
-            length: 10
-            unique: false
-            nullable: true
-            precision: 0
         route:
             type: string
             scale: 0
             length: 255
             unique: false
             nullable: false
-            precision: 0
-        description:
-            type: string
-            scale: 0
-            length: 255
-            unique: false
-            nullable: true
             precision: 0
     manyToOne:
         wt:

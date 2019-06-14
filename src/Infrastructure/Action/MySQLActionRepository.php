@@ -22,9 +22,31 @@ class MySQLActionRepository implements ActionRepository
     public function save(string $route, Thing $thing)
     {
         try {
-            $action = new Action();
-            $action->setRoute($route);
-            $action->setWt($thing);
+            $actionRepo = $this->em->getRepository(Action::class);
+//            $foo = $actionRepo->findBy(['id' => $thing->getId(), 'route' => $route]);
+//            dd($foo);
+//            $action = $actionRepo->find($thing->getId());
+            $allActions = $actionRepo->findAll();
+//            if($action){
+//                return $action;
+//            }
+
+            /** @var Action $storedAction */
+            foreach ($allActions as $storedAction) {
+                $actualThing = $storedAction->getWt();
+                if($actualThing->getId() === $thing->getId() &&
+                    $storedAction->getRoute() === $route
+                ){
+                    return $storedAction;
+                }
+            }
+//            if($foo){
+//                dd("exists");
+//            }
+//            dd("does not exist");
+
+
+            $action = new Action($thing, $route);
             $this->em->persist($action);
             $this->em->flush();
         } catch (Exception $e) {
