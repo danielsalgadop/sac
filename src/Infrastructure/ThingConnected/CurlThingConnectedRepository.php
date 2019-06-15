@@ -43,18 +43,26 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
 
         $json = curl_exec($ch);
         if ($json == null) {
-            throw new \Exception("Connection Error");
-        }
-        elseif (curl_getinfo($ch)['http_code'] === 500){
-            throw new \Exception('iot_emulator Internal Error');
+            throw new Exception("Connection Error");
         }
 
+        $jsonDecoded = @json_decode($json);
         // possible json_decode errors
-        $jsonDecoded = json_decode($json);
-        if (isset($jsonDecoded->error)) {
-            throw new \Exception($jsonDecoded->error);
+        if($jsonDecoded == null){
+            throw new Exception("invalid json format");
+
         }
-        return json_decode($json);
+        elseif (isset($jsonDecoded->error)) {
+            // iot_emulator returned error
+            throw new Exception($jsonDecoded->error);
+        }
+        elseif (curl_getinfo($ch)['http_code'] === 500){
+            // iot_emulatro returned 500
+            throw new Exception('iot_emulator Internal Error');
+        }
+
+
+        return $jsonDecoded;
     }
 
     // VICTOR poner type de return  {'status': 'message': data}
@@ -68,28 +76,35 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
         // default $data content, just with thingId
         $data = new \stdClass();
         $data->id = $id;
-        try {
+
+        $thingConnected['status'] = true;
+        $thingConnected['data'] = $this->sendCurlOrException($id, $thingUserName, $thingPassword);
+        return $thingConnected;
+
+//        try {
             $curlResponse = $this->sendCurlOrException($id, $thingUserName, $thingPassword);
             if ($curlResponse === null) { // problems in iot_emulator response
-
-                $thingConnected['status'] = false;
-                $thingConnected['data'] = null;
-                $thingConnected['message'] = 'ThingConnected internal errors '.$curlResponse->message;
+                throw new Exception('ThingConnected null response '.$curlResponse->message);
+//                $thingConnected['status'] = false;
+//                $thingConnected['data'] = null;
+//                $thingConnected['message'] = ;
 //                var_export($thingConnected);die;
 //                dd($thingConnected);
-                return $thingConnected;
-//                throw new \Exception($curlResponse->message);
+//                return $thingConnected;
+//                throw new Exception($curlResponse->message);
             } else {
 
                 $thingConnected['status'] = true;
                 $thingConnected['data'] = $curlResponse;
+                return $thingConnected;
             }
-        } catch (\Exception $e) { // problems during connection or Credentials
-            $thingConnected['status'] = false;
-            $thingConnected['data'] = $data;
-            $thingConnected['message'] = $e->getMessage();
-        }
-        return $thingConnected;
+//        } catch (Exception $e) { // problems during connection or Credentials
+
+//            $thingConnected['status'] = false;
+//            $thingConnected['data'] = $data;
+//            $thingConnected['message'] = $e->getMessage();
+//        }
+//        return $thingConnected;
     }
 
     public function searchThingNameByIdOrException(int $id, string $thingUserName, string $thingPassword)
@@ -99,7 +114,7 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
         if ($thingConnected->status === true) {
             return $thingConnected->data->name;
         }
-        throw new \Exception($thingConnected->message);
+        throw new Exception($thingConnected->message);
 //        dd($thingConnected);
     }
 
