@@ -125,7 +125,7 @@ class ThingController extends AbstractController
         $thingConnected = $thing->getThingConnected();
         // persistActions
 
-//    dd($thing);
+//    dd($friendsForView);
         return $this->render('Thing/info.html.twig', ['thing' => $thing, 'friends' => $friendsForView, 'sharingStatus' => $sharingStatus, 'thingId' => $thingId]);
     }
 

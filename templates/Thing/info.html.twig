@@ -190,17 +190,31 @@
         }
 
         function openFriendDialog3(thingId) {
-            console.log("thingId" + thingId);
+            // thingId = 1;
+            // console.log("thingId" + thingId);
+            // console.log(friends);
+            console.log("friends " + typeof (friends));
             showFriendDialog();
-            // console.log("In thing thingId[" + thingId + "] clicked this action id[" + actionId + "]");
 
+            // console.log("In thing thingId[" + thingId + "] clicked this action id[" + actionId + "]");
             // TODO: buil html ul with js
+            // if(friends.isEmpty()){
+            //     html += 'Onwer has no facbook friends';
+            //
+            // }
+            // else{
             var html = '<ul>';
-            console.log(friends);
+            var li = null;
             for (i = 0; i < friends.length; i++) {
-                html += '<li>' + returnProperTypeOfFriend(friends[i]) + '</li>';
+                var liElement = '<li>' + returnProperTypeOfFriend(friends[i]) + '</li>';
+                li += liElement;
             }
+            if(li === null){
+                li = '<li>Onwer has no facebook friends</li>';
+            }
+            html += li;
             html += '</ul>';
+            // }
 
             $('#dialog').html(html);
             $("#dialog").dialog({
