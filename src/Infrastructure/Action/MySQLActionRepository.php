@@ -24,10 +24,15 @@ class MySQLActionRepository implements ActionRepository
         try {
             print "route [".$route."] thingId ".$thing->getId().PHP_EOL;
             // avoid saving same route for same thing (this could be done with a Unique in ddbb)
+
+
+
             $actionRepo = $this->em->getRepository(Action::class);
 
 //            /** @var Action $action */
-//            $actions = $actionRepo->findBy(['id' => $thing->getId(), 'route' => $route]);
+            $action = $actionRepo->findOneBy(['wt' => $thing->getId(), 'route' => $route]);
+
+//            dd($action);
 //
 //            foreach ($actions as $action) {
 //                $storedThing = $action->getWt();
@@ -35,18 +40,23 @@ class MySQLActionRepository implements ActionRepository
 //                    return $action;
 //                }
 //            }
+            if($action){
+//                dd("exite");
+                return $action;
+            }
+//            dd("no existe");
 //            dd($action);
 
-            $allActions = $actionRepo->findAll();
-            /** @var Action $storedAction */
-            foreach ($allActions as $storedAction) {
-                $actualThing = $storedAction->getWt();
-                if($actualThing->getId() === $thing->getId() &&
-                    $storedAction->getRoute() === $route
-                ){
-                    return $storedAction;
-                }
-            }
+//            $allActions = $actionRepo->findAll();
+//            /** @var Action $storedAction */
+//            foreach ($allActions as $storedAction) {
+//                $actualThing = $storedAction->getWt();
+//                if($actualThing->getId() === $thing->getId() &&
+//                    $storedAction->getRoute() === $route
+//                ){
+//                    return $storedAction;
+//                }
+//            }
 
 
             $action = new Action($thing, $route);
