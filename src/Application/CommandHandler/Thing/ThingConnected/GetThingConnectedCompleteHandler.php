@@ -57,12 +57,6 @@ class GetThingConnectedCompleteHandler
 //            dd($action);
 
         }
-        dd($actionsInThing);
-        exit;
-        dd(gettype($thingConnected['data']->links->actions->resources));
-
-
-
 
         // sacar del array de thingConnected los actions
 //        $thingConnected -> actions

@@ -8,6 +8,6 @@ class ActionArraySerializer
 {
     public static function serialize(Action $action)
     {
-        return ['id' => $action->getId(), 'httpVerb' => $action->getHttpVerb(), 'description' => $action->getDescription()];
+        return ['id' => $action->getId()];
     }
 }
