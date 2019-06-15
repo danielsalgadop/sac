@@ -26,7 +26,7 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
 //        $this->port = $port;
     }
 
-    private function sendCurl($id, $thingUserName, $thingPassword)
+    private function sendCurlOrException($id, $thingUserName, $thingPassword)
     {
         // TODO VICTOR: endpoint y puerto pasarlo como parámetro al constructor. Definirlo en parámetros y en services, Usarlo como servicio la url y el puerto
         // Esto q es tan variable, definirlo conf/ en parámetros, o hacerlo en services
@@ -69,8 +69,9 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
         $data = new \stdClass();
         $data->id = $id;
         try {
-            $curlResponse = $this->sendCurl($id, $thingUserName, $thingPassword);
+            $curlResponse = $this->sendCurlOrException($id, $thingUserName, $thingPassword);
             if ($curlResponse === null) { // problems in iot_emulator response
+
                 $thingConnected['status'] = false;
                 $thingConnected['data'] = null;
                 $thingConnected['message'] = 'ThingConnected internal errors '.$curlResponse->message;
