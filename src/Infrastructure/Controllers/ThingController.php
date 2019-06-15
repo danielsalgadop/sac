@@ -89,8 +89,7 @@ class ThingController extends AbstractController
         }
 
         $friends  = $owner->getFriends();
-
-//        dd($friends);
+        dd($friends);
         /** @var $friend Friend*/
         foreach ($friends as $friend){
             $oneFriend = [];
@@ -106,6 +105,7 @@ class ThingController extends AbstractController
 
             $friendsForView[] = $oneFriend;
         }
+        dd($friendsForView);
 
 //        dd($friendsForView);
 

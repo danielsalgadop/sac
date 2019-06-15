@@ -235,7 +235,8 @@ ___ MEJORAS
 
 Add headers response 'Link: <model/>; rel="model"' 
 
-More comples iot emuation. Using noSQL for hetorgenic structure
-
+More complex iot emuation. Using noSQL for hetorgenic structure
 
 iot_emulator, add Action to iot, add Property to iot
+
+Manage more than 1 owner (ddbb is thought to be extended in this way)
