@@ -102,7 +102,7 @@
 
     {% verbatim %}
         <script id="action_template" type="text/x-handlebars-template">
-            <p>ACTION: {{ action.httpVerb }}</p>
+<!--            <p>ACTION: {{ action.httpVerb }}</p>-->
         </script>
     {% endverbatim %}
 
@@ -134,10 +134,10 @@
             var source = document.getElementById("action_template").innerHTML;
             var template = Handlebars.compile(source);
 
-            console.log("{{ action.getHttpVerb() }}");
+            {#console.log("{{ action.getHttpVerb() }}");#}
 
             // var html = template({'action':{'httpVerb':"ee" }});
-            var html = template({'action': {'httpVerb': "{{ action.getHttpVerb() }}"}});
+            {#var html = template({'action': {'httpVerb': "{{ action.getHttpVerb() }}"}});#}
             document.getElementById("action_info").innerHTML = html;
         </script>
 

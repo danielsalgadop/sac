@@ -22,7 +22,7 @@ class MySQLActionRepository implements ActionRepository
     public function save(string $route, Thing $thing)
     {
         try {
-            print "route [".$route."] thingId ".$thing->getId().PHP_EOL;
+//            print "route [".$route."] thingId ".$thing->getId().PHP_EOL;
             // avoid saving same route for same thing (this could be done with a Unique in ddbb)
 
 
