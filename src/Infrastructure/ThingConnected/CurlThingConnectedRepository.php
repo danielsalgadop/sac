@@ -3,6 +3,7 @@
 namespace App\Infrastructure\ThingConnected;
 
 use App\Domain\Repository\ThingConnectedRepository;
+use \Exception;
 
 
 class CurlThingConnectedRepository implements ThingConnectedRepository
@@ -57,7 +58,7 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
     }
 
     // VICTOR poner type de return  {'status': 'message': data}
-    public function getThingConnectedCompleteById(int $id, string $thingUserName, string $thingPassword): array
+    public function getThingConnectedCompleteByIdOrException(int $id, string $thingUserName, string $thingPassword): array
     {
 //        dd("sdafsd");
 //        $thingConnected = new \StdClass();  // antes era objeto, ahora array
@@ -67,7 +68,6 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
         // default $data content, just with thingId
         $data = new \stdClass();
         $data->id = $id;
-
         try {
             $curlResponse = $this->sendCurl($id, $thingUserName, $thingPassword);
             if ($curlResponse === null) { // problems in iot_emulator response
@@ -93,7 +93,7 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
 
     public function searchThingNameByIdOrException(int $id, string $thingUserName, string $thingPassword)
     {
-        $thingConnected = $this->getThingConnectedCompleteById($id, $thingUserName, $thingPassword);
+        $thingConnected = $this->getThingConnectedCompleteByIdOrException($id, $thingUserName, $thingPassword);
 //        dd($thingConnected);
         if ($thingConnected->status === true) {
             return $thingConnected->data->name;
@@ -104,13 +104,13 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
 
     public function searchThingBrandByIdOrException(int $id, string $thingUserName, string $thingPassword)
     {
-        $thingConnected = $this->getThingConnectedCompleteById($id, $thingUserName, $thingPassword);
+        $thingConnected = $this->getThingConnectedCompleteByIdOrException($id, $thingUserName, $thingPassword);
         return $thingConnected->data->brand;
     }
 
     public function searchThingActionsByIdOrException(int $id, string $thingUserName, string $thingPassword)
     {
-        $thingConnected = $this->getThingConnectedCompleteById($id, $thingUserName, $thingPassword);
+        $thingConnected = $this->getThingConnectedCompleteByIdOrException($id, $thingUserName, $thingPassword);
         dd($thingConnected);
         return $thingConnected->data->actions;
     }

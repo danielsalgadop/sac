@@ -25,9 +25,9 @@ class ThingApiController extends AbstractController
     public function info($thingId)
     {
         // TODO, securizar esto para que solo obtenga esta info un owner autorizado (que posea el thing)
-        $thingWithThingConnected = $this->mergeThingWithThingConnectedByIdHandler->handle(new MergeThingWithThingConnectedByIdCommand($thingId));
 
         try {
+            $thingWithThingConnected = $this->mergeThingWithThingConnectedByIdHandler->handle(new MergeThingWithThingConnectedByIdCommand($thingId));
             return new JsonResponse(ThingWithThingConnectedArraySerializer::serialize($thingWithThingConnected));
         } catch (\Exception $e) {
             return new JsonResponse($e->getMessage(), 500);

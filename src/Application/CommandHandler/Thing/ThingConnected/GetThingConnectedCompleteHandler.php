@@ -5,9 +5,7 @@ namespace App\Application\CommandHandler\Thing\ThingConnected;
 use App\Application\Command\Thing\GetThingConnectedInfoCommand;
 use App\Application\Command\Thing\SearchThingByIdCommand;
 use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
-use App\Domain\Entity\Action;
 use App\Domain\Repository\ThingConnectedRepository;
-use App\Domain\Entity\Thing;
 use App\Infrastructure\Action\MySQLActionRepository;
 
 class GetThingConnectedCompleteHandler
@@ -31,7 +29,7 @@ class GetThingConnectedCompleteHandler
     {
         $thingId = $getThingConnectedInfoCommand->getId();
 
-        $thingConnected =  $this->thingConnectedRepository->getThingConnectedCompleteById(
+        $thingConnected =  $this->thingConnectedRepository->getThingConnectedCompleteByIdOrException(
             $thingId,
             $getThingConnectedInfoCommand->getThingUsername(),
             $getThingConnectedInfoCommand->getThingPassword()
