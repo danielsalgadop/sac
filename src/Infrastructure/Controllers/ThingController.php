@@ -71,25 +71,20 @@ class ThingController extends AbstractController
             return $this->redirectToRoute('error', ['message' => $e->getMessage()]);
         }
 
-        // TODO: get real facebook friends
+
+        // TODO: move this to owner:info. Tengo que añadir la columna name
         $session = $request->getSession();
         $friends = $session->get('fbFriends');
         $friendsAsObj = json_decode($friends->getBody());
-
-        // build friend for view
-
-//        dd($friendsAsObj->data);
-
-        // TODO: move this to owner:info. Tengo que añadir la columna name
         $friendsForView = [];
         foreach ($friendsAsObj->data as $friend) {
-            $this->createFriendHandler->handle(new CreateFriendCommand($friend->id));
-//            $friendsForView['name'] = $friend->name;
-//            $friendsForView['fbDelegated'] = $friend->id;
+            $owner->addFriend($this->createFriendHandler->handle(new CreateFriendCommand($friend->id)));
         }
 
+//        dd($owner);
         $friends  = $owner->getFriends();
-        dd($friends);
+
+//        dd(count($friends));
         /** @var $friend Friend*/
         foreach ($friends as $friend){
             $oneFriend = [];

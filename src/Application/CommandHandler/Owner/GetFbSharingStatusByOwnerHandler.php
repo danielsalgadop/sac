@@ -40,7 +40,7 @@ class GetFbSharingStatusByOwnerHandler
 
         $sharingStatus = [];
         /** @var Thing $thing */
-        $i = 1;
+        $i = 0;
         foreach ($owner->getThings() as $thing) {
 
             $sharingStatusNew['things'][$i] = [

@@ -17,7 +17,8 @@
                 {{#if thing.links.actions.resources}}
                     {{#each thing.links.actions.resources}}
                         {{@key}} | {{this.values}} | {{this.id}} |
-                                <button onclick="openFriendDialog3()">Share</button><br>
+
+                                <button onclick='openFriendDialog3("{{@key}}")'>Share</button><br>
                     {{/each}}
                 {{/if}}
             {{/if}}
@@ -189,19 +190,10 @@
             return '<button>Deny</button>';
         }
 
-        function openFriendDialog3(thingId) {
-            // thingId = 1;
-            // console.log("thingId" + thingId);
-            // console.log(friends);
-            // console.log("friends " + typeof (friends));
-
-            // console.log("In thing thingId[" + thingId + "] clicked this action id[" + actionId + "]");
+        function openFriendDialog3(actionName) {
+            var actionId = getActionIdByActionNameAndThingId(actionName);
+            console.log("In thing thingId[" + thingId + "] clicked this action id[" + actionId + "]");
             // TODO: buil html ul with js
-            // if(friends.isEmpty()){
-            //     html += 'Onwer has no facbook friends';
-            //
-            // }
-            // else{
             showFriendDialog();
             var html = '<ul>';
             var li = '';
@@ -238,6 +230,21 @@
                 modal: true,
                 width: 600
             });
+        }
+
+        function getActionIdByActionNameAndThingId(actionName) {
+
+            console.log('actionName=' + actionName + ' thingId=' + thingId);
+            for (var i in sharingStatus.things) {
+                var oneThingSharingStatus = sharingStatus.things[i];
+                for (var j in oneThingSharingStatus.actions){
+                    if(actionName == oneThingSharingStatus.actions[j].actionName){
+                        return oneThingSharingStatus.actions[j].actionId;
+                    }
+
+                }
+            }
+            // TODO: redirect to error?='ActionId not found'
         }
     </script>
 
