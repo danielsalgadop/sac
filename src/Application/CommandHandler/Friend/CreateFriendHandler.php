@@ -17,11 +17,14 @@ class CreateFriendHandler
     {
         $fbDelegated = $createFriendCommand->getFbDelegated();
 
+        $storedFriend = $this->friendRepository->searchByfbDelegated($fbDelegated);
         // create Friend if does not exit
-        if(null === $this->friendRepository->searchByfbDelegated($fbDelegated)) {
+        if(null === $storedFriend) {
             $friend = new Friend();
             $friend->setFbDelegated($fbDelegated);
             $this->friendRepository->save($friend);
+            $storedFriend = $friend;
         }
+        return $storedFriend;
     }
 }
