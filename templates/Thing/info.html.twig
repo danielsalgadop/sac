@@ -204,12 +204,12 @@
             // else{
             showFriendDialog();
             var html = '<ul>';
-            var li = null;
+            var li = '';
             for (i = 0; i < friends.length; i++) {
                 var liElement = '<li>' + returnProperTypeOfFriend(friends[i]) + '</li>';
                 li += liElement;
             }
-            if(li === null){
+            if(li === ''){
                 li = '<li>Onwer has no facebook friends</li>';
             }
             html += li;

@@ -105,7 +105,7 @@ class ThingController extends AbstractController
 
             $friendsForView[] = $oneFriend;
         }
-        dd($friendsForView);
+//        dd($friendsForView);
 
 //        dd($friendsForView);
 
@@ -122,7 +122,7 @@ class ThingController extends AbstractController
         $this->mergeThingWithThingConnectedByIdHandler->handle(new MergeThingWithThingConnectedByIdCommand($thingId));
 
 
-        $thingConnected = $thing->getThingConnected();
+//        $thingConnected = $thing->getThingConnected();
         // persistActions
 
 //    dd($friendsForView);
