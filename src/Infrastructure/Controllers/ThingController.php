@@ -88,7 +88,7 @@ class ThingController extends AbstractController
         /** @var $friend Friend*/
         foreach ($friends as $friend){
             $oneFriend = [];
-            $oneFriend['name'] = "FriendnameeeeTODO".rand(1,200);
+            $oneFriend['name'] = "FriendnameeeeTODO".$friend->getFbDelegated();
             $oneFriend['fbDelegated'] = $friend->getFbDelegated();
 
             $actionsIdList = [];

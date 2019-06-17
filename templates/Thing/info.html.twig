@@ -18,7 +18,7 @@
                     {{#each thing.links.actions.resources}}
                         {{@key}} | {{this.values}} | {{this.id}} |
 
-                                <button onclick='openFriendDialog3("{{@key}}")'>Share</button><br>
+                                <button onclick='openFriendDialog3("{{@key}}")'>Admin</button><br>
                     {{/each}}
                 {{/if}}
             {{/if}}
@@ -47,10 +47,10 @@
                     success: function (thing) {
                         if (thing.status === true) {
                             // status conection is OK
-                            console.log("status_true");
+                            // console.log("status_true");
                             var source = document.getElementById("thing_template3").innerHTML;
                             var template = Handlebars.compile(source);
-                            console.log(thing.data);
+                            // console.log(thing.data);
                             var data = {thing: thing.data};
                             var html = template(data);
                             document.getElementById("thing_info3").innerHTML = html;
@@ -58,7 +58,7 @@
                         if (thing.status === false) {
                             // TODO : redirect to error
                             // something wrong with thing conection
-                            console.log("status_false")
+                            // console.log("status_false")
                         }
                         // console.log(thing);
 
@@ -177,28 +177,34 @@
             $('#dialog').show();
         }
 
-        function returnProperTypeOfFriend(friend) {
-            // if(friend.)
-            return friend.name + setShareButton();
+        function returnProperTypeOfFriend(friend,actionId) {
+
+            var retval = friend.name;
+
+            if (friend.actions.includes(actionId)) {
+                return retval += setShareButton();
+            }
+            return retval += denyShareButton();
+            // console.log(friend);
         }
 
         function setShareButton() {
-            return '<button> Share </button>';
+            return '<button style="color:green"> Share </button>';
         }
 
         function denyShareButton() {
-            return '<button>Deny</button>';
+            return '<button style="color:red">Deny</button>';
         }
 
         function openFriendDialog3(actionName) {
             var actionId = getActionIdByActionNameAndThingId(actionName);
-            console.log("In thing thingId[" + thingId + "] clicked this action id[" + actionId + "]");
+            // console.log("In thing thingId[" + thingId + "] clicked this action id[" + actionId + "]");
             // TODO: buil html ul with js
             showFriendDialog();
             var html = '<ul>';
             var li = '';
             for (i = 0; i < friends.length; i++) {
-                var liElement = '<li>' + returnProperTypeOfFriend(friends[i]) + '</li>';
+                var liElement = '<li>' + returnProperTypeOfFriend(friends[i],actionId) + '</li>';
                 li += liElement;
             }
             if(li === ''){
@@ -217,7 +223,7 @@
 
         function openFriendDialog(actionId) {
             showFriendDialog();
-            console.log("In thing thingId[" + thingId + "] clicked this action id[" + actionId + "]");
+            // console.log("In thing thingId[" + thingId + "] clicked this action id[" + actionId + "]");
             var html = '<ul>';
             // console.log(friends);
             for (i = 0; i < friends.length; i++) {
@@ -234,7 +240,7 @@
 
         function getActionIdByActionNameAndThingId(actionName) {
 
-            console.log('actionName=' + actionName + ' thingId=' + thingId);
+            // console.log('actionName=' + actionName + ' thingId=' + thingId);
             for (var i in sharingStatus.things) {
                 var oneThingSharingStatus = sharingStatus.things[i];
                 for (var j in oneThingSharingStatus.actions){
