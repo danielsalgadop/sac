@@ -189,6 +189,7 @@
         }
 
         function setShareButton() {
+            //
             return '<button style="color:green"> Share </button>';
         }
 
@@ -197,7 +198,7 @@
         }
 
         function openFriendDialog3(actionName) {
-            var actionId = getActionIdByActionNameAndThingId(actionName);
+            var actionId = getActionIdByActionName(actionName);
             // console.log("In thing thingId[" + thingId + "] clicked this action id[" + actionId + "]");
             // TODO: buil html ul with js
             showFriendDialog();
@@ -238,7 +239,7 @@
             });
         }
 
-        function getActionIdByActionNameAndThingId(actionName) {
+        function getActionIdByActionName(actionName) {
 
             // console.log('actionName=' + actionName + ' thingId=' + thingId);
             for (var i in sharingStatus.things) {

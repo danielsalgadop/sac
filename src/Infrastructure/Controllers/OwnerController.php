@@ -5,6 +5,7 @@ namespace App\Infrastructure\Controllers;
 use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
 use App\Application\CommandHandler\Owner\CreateOwnerHandler;
 use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
+use Assetic\Filter\HashableInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,7 +33,9 @@ class OwnerController extends AbstractController
             return $this->redirectToRoute('login');
         }
 
+        // TODO Victor: fbResponse, usamos id y name
         $fbResponse = json_decode($request->cookies->get('fbResponse'));
+//        dd($fbResponse);
         $connectFbResponse = json_decode($request->cookies->get('connectFbResponse'));
 
         $accessToken = $connectFbResponse->authResponse->accessToken;
@@ -41,8 +44,8 @@ class OwnerController extends AbstractController
         //
         try{
             $friends = $this->hasSocialMediaUserOrException($accessToken);
-        } catch (\Exception $e){
-            return $this->redirectToRoute('error',['message' => $e->getMessage()]);
+        } catch (\Exception $e) {
+            return $this->redirectToRoute('login');
         }
 
 
@@ -55,6 +58,8 @@ class OwnerController extends AbstractController
         }
 
         $session = $request->getSession();
+        $session->start();
+//        dd($session->isStarted());
         $session->set('ownerFbDelegated',$ownerFbDelegated);
         $session->set('accessToken',$accessToken);
         $session->set('fbFriends',$friends);
@@ -74,18 +79,8 @@ class OwnerController extends AbstractController
             'default_graph_version' => 'v3.3',
         ]);
 
-        //
-        try {
-            // Returns a `Facebook\FacebookResponse` object
-            $response = $fb->get('/me?fields=id,name', $accessToken);
-        } catch(Facebook\Exceptions\FacebookResponseException $e) {
-            throw new \Exception($e->getMessage());
-        } catch(Facebook\Exceptions\FacebookSDKException $e) {
-            throw new \Exception($e->getMessage());
-        }
-
+        $response = $fb->get('/me?fields=id,name', $accessToken);
         $user = $response->getGraphUser();
-//        return $user;
 
         // How to get friend list
         $friends = $fb->get('/'.$user->getId().'/friends',$accessToken);

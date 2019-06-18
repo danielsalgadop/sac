@@ -24,7 +24,9 @@ use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
 use App\Application\Command\Owner\GetFbSharingStatusByOwnerCommand;
 use App\Application\CommandHandler\Owner\GetFbSharingStatusByOwnerHandler;
 
-class ThingController extends AbstractController
+use \App\Infrastructure\Controllers\HasFbSessionController;
+
+class ThingController extends AbstractController implements HasFbSessionController
 {
 
     private $searchOwnerByFbDelegatedHandler;
@@ -100,7 +102,6 @@ class ThingController extends AbstractController
 
             $friendsForView[] = $oneFriend;
         }
-//        dd($friendsForView);
 
 //        dd($friendsForView);
 

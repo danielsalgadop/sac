@@ -6,14 +6,15 @@ namespace App\Infrastructure\Controllers\Api;
 
 use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
 use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
+use App\Infrastructure\Controllers\HasFbSessionController;
 use App\Infrastructure\Owner\Serializer\OwnerArraySeralizer;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Infrastructure\Owner\Serializer\JsonSerializer;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
-class OwnerApiController extends Controller
+class OwnerApiController extends AbstractController implements HasFbSessionController
 {
     private $searchOwnerByFbDelegatedHandler;
 

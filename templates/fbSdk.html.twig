@@ -29,6 +29,8 @@
             FB.api('/me', function (fbResponse) {
 
 
+
+                // TODO Victor: reducir el número de cosas que le paso al servidor
                 document.cookie = "fbResponse="+JSON.stringify(fbResponse);
                 document.cookie = "connectFbResponse="+JSON.stringify(connectFbResponse);
 

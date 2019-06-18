@@ -6,13 +6,14 @@ namespace App\Infrastructure\Controllers\Api;
 
 use App\Application\Command\Thing\MergeThingWithThingConnectedByIdCommand;
 use App\Application\CommandHandler\Thing\MergeThingWithThingConnectedByIdHandler;
+use App\Infrastructure\Controllers\HasFbSessionController;
 use App\Infrastructure\Thing\Serializer\ThingWithThingConnectedArraySerializer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Infrastructure\Owner\Serializer\JsonSerializer;
 
 
-class ThingApiController extends AbstractController
+class ThingApiController extends AbstractController  implements HasFbSessionController
 {
 
     private $mergeThingWithThingConnectedByIdHandler;
@@ -24,8 +25,6 @@ class ThingApiController extends AbstractController
 
     public function info($thingId)
     {
-        // TODO, securizar esto para que solo obtenga esta info un owner autorizado (que posea el thing)
-
         try {
             $thingWithThingConnected = $this->mergeThingWithThingConnectedByIdHandler->handle(new MergeThingWithThingConnectedByIdCommand($thingId));
             return new JsonResponse(ThingWithThingConnectedArraySerializer::serialize($thingWithThingConnected));

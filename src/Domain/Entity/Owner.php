@@ -16,7 +16,6 @@ class Owner
 
     public function __construct(string $name, string $fbDelegated)
     {
-        // DUDA, tiene sentido setear estos params (name, fbDelegated usando métodos set*)? (asi podría validarlos)
         $this->validateName($name);
         $this->name = $name;
         $this->fbDelegated = $fbDelegated;

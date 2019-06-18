@@ -13,6 +13,13 @@ services:
     autowire: true      # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
+
+
+  event_subscribers:
+    namespace: App\Infrastructure\EventSubscriber\
+    resource: '../src/Infrastructure/EventSubscriber'
+    tags: [event_subscriber]
+
   # makes classes in src/ available to be used as services
   # this creates a service per class whose id is the fully-qualified class name
   App\:
@@ -135,3 +142,5 @@ services:
     public: true
     arguments:
     - "@doctrine.orm.default_entity_manager"
+
+
