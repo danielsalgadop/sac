@@ -5,8 +5,9 @@ namespace App\Application\CommandHandler\Action;
 use App\Application\Command\Action\CreateActionCommand;
 use App\Domain\Entity\Action;
 use App\Domain\Repository\Action\ActionRepository;
+use App\Application\Command\Action\SearchActionByIdCommand;
 
-class CreateActionHandler
+class SearchActionByIdHandler
 {
     /** @var ActionRepository  */
     private $actionRepository;
@@ -16,11 +17,9 @@ class CreateActionHandler
         $this->actionRepository = $actionRepository;
     }
 
-    public function handle(CreateActionCommand $createActionCommand): Action
+    public function handle(SearchActionByIdCommand $searchActionByIdCommand): Action
     {
-        return $this->actionRepository->save(
-            $createActionCommand->getRoute(),
-            $createActionCommand->getThing()
-        );
+        return $this->actionRepository->searchByIdOrException($searchActionByIdCommand->getActionId());
+
     }
 }
