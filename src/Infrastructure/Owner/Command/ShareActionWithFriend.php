@@ -48,8 +48,6 @@ class ShareActionWithFriend extends Command
 
         $action = $this->searchActionByIdHandler->handle(new SearchActionByIdCommand($actionId));
         $friend = $this->searchFriendByIdHandler->handle(new SearchFriendByIdCommand($friendId));
-
-
         $this->shareActionWithFriendHandler->handle(new ShareActionWithFriendCommand($friend,$action));
     }
 }
