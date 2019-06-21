@@ -16,7 +16,7 @@ use App\Application\CommandHandler\Friend\CreateFriendHandler;
 
 class Create extends Command
 {
-    protected static $defaultName = "app:CreateFriend";
+    protected static $defaultName = "app:Friend:Create";
     private $friendRepository;
 
     public function __construct(FriendRepository $friendRepository)

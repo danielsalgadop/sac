@@ -8,6 +8,7 @@ use App\Domain\Entity\Thing;
 use App\Domain\Entity\Friend;
 use App\Domain\Repository\Action\ActionRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\This;
 
 class MySQLActionRepository implements ActionRepository
 {
@@ -68,4 +69,23 @@ class MySQLActionRepository implements ActionRepository
         return $action;
     }
 
+    public function searchByIdOrException(int $id): Action
+    {
+        $action = $this->em->find(Action::class, $id);
+
+        $exceptionMessage = null;
+        if (!$action) {
+            $exceptionMessage = "Action not found by";
+        }
+
+        if ($action === null) {
+            $exceptionMessage = "Non-existing";
+        }
+
+        if ($exceptionMessage !== null) {
+            throw new \Exception($exceptionMessage." actionId [".$id."]");
+        }
+        return $action;
+
+    }
 }

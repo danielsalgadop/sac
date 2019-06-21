@@ -5,16 +5,16 @@ namespace App\Application\Command\Friend;
 
 class SearchFriendByIdCommand
 {
-    private $id;
+    private $friendId;
 
-    public function __construct(int $id)
+    public function __construct(int $friendId)
     {
-        $this->id = $id;
+        $this->friendId = $friendId;
     }
 
     public function getId()
     {
-        return $this->id;
+        return $this->friendId;
     }
 }
 

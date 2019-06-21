@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Application\Command\Friend;
+namespace App\Application\Command\Owner;
 
 
 use App\Domain\Entity\Action;
