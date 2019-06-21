@@ -25,11 +25,8 @@ class ShareActionWithFriendHandler
         $friend =  $shareActionWithFriendCommand->getFriend();
         /** @var Action $action */
         $action = $shareActionWithFriendCommand->getAction();
-        /** @var Owner $owner */
-        $owner = $shareActionWithFriendCommand->getOwner();
 
         $friend->addAction($action);
         $this->friendRepository->save($friend);
-//        return $this->ownerRepository->searchFriendByIdOrException($shareActionWithFriendCommand->Friend());
     }
 }

@@ -12,11 +12,9 @@ class ShareActionWithFriendCommand
 {
     private $friend;
     private $action;
-    private $owner;
 
-    public function __construct(Owner $owner, Friend $friend, Action $action)
+    public function __construct(Friend $friend, Action $action)
     {
-        $this->owner = $owner;
         $this->friend = $friend;
         $this->action = $action;
     }
@@ -29,11 +27,6 @@ class ShareActionWithFriendCommand
     public function getAction(): Action
     {
         return $this->action;
-    }
-
-    public function getOwner(): Owner
-    {
-        return $this->owner;
     }
 
 }
