@@ -15,9 +15,9 @@ use App\Application\CommandHandler\Owner\ShareActionWithFriendHandler;
 use App\Infrastructure\Controllers\HasFbSessionController;
 use App\Infrastructure\Owner\Serializer\OwnerArraySeralizer;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Infrastructure\Owner\Serializer\JsonSerializer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use \Exception;
 
 
 class OwnerApiController extends AbstractController implements HasFbSessionController
@@ -42,7 +42,7 @@ class OwnerApiController extends AbstractController implements HasFbSessionContr
 
         try {
             $owner = $this->searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand($ownerFbDelegated));
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // TODO: Do a error page to show this error
             return new JsonResponse($e->getMessage(),401);
         }
@@ -51,9 +51,14 @@ class OwnerApiController extends AbstractController implements HasFbSessionContr
 
     public function shareActionWithFriend(int $friendId, int $actionId)
     {
-        $action = $this->searchActionByIdHandler->handle(new SearchActionByIdCommand($actionId));
-        $friend = $this->searchFriendByIdHandler->handle(new SearchFriendByIdCommand($friendId));
-        $this->shareActionWithFriendHandler->handle(new ShareActionWithFriendCommand($friend,$action));
-        return new JsonResponse(true,200);
+        try{
+            $action = $this->searchActionByIdHandler->handle(new SearchActionByIdCommand($actionId));
+            $friend = $this->searchFriendByIdHandler->handle(new SearchFriendByIdCommand($friendId));
+            $this->shareActionWithFriendHandler->handle(new ShareActionWithFriendCommand($friend,$action));
+        }
+        catch (Exception $e){
+            return new JsonResponse(["message" => $e->getMessage()],400);
+        }
+        return new JsonResponse(["message" => "Share Relationship created"],200);
     }
 }
