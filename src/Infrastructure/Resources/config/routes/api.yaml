@@ -1,10 +1,17 @@
 api_owner:
   path: /api/owner
-#  path: /api/owner/{fbDelegated}
   controller: App\Infrastructure\Controllers\Api\OwnerApiController::info
   methods: [GET]
 
 api_thing:
   path: /api/thing/{thingId}
   controller: App\Infrastructure\Controllers\Api\ThingApiController::info
+  methods: [GET]
+
+api_share_action:
+  path: /owner_share/friend/{friendId}/action/{actionId}
+  controller: App\Infrastructure\Controllers\Api\OwnerApiController::shareActionWithFriend
+  requirements:
+    friendId: '\d+'
+    actionId: '\d+'
   methods: [GET]

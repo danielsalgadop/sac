@@ -177,20 +177,23 @@
             $('#dialog').show();
         }
 
-        function returnProperTypeOfFriend(friend,actionId) {
+        function hasAlreadyBeenShared(friend,actionId) {
 
             var retval = friend.name;
 
             if (friend.actions.includes(actionId)) {
-                return retval += setShareButton();
+                retval += denyShareButton();
             }
-            return retval += denyShareButton();
+            else{
+                retval += setShareButton();
+            }
+            return retval;
             // console.log(friend);
         }
 
         function setShareButton() {
             //
-            return '<button style="color:green"> Share </button>';
+            return '<button style="color:green" onclick="shareThisAction()"> Share </button>';
         }
 
         function denyShareButton() {
@@ -205,7 +208,7 @@
             var html = '<ul>';
             var li = '';
             for (i = 0; i < friends.length; i++) {
-                var liElement = '<li>' + returnProperTypeOfFriend(friends[i],actionId) + '</li>';
+                var liElement = '<li>' + hasAlreadyBeenShared(friends[i],actionId) + '</li>';
                 li += liElement;
             }
             if(li === ''){
@@ -228,7 +231,7 @@
             var html = '<ul>';
             // console.log(friends);
             for (i = 0; i < friends.length; i++) {
-                html += '<li>' + returnProperTypeOfFriend(friends[i]) + '</li>';
+                html += '<li>' + hasAlreadyBeenShared(friends[i]) + '</li>';
             }
             html += '</ul>';
 
@@ -252,6 +255,22 @@
                 }
             }
             // TODO: redirect to error?='ActionId not found'
+        }
+
+        function shareThisAction(){
+
+            console.log("shareThisAction");
+            // TODO user twigs url
+            $.ajax({
+                url: "/owner_share/friend/1/action/1",
+                success: function (response) {
+                    console.log(response);
+                    if (response.status === true) {
+
+                    }
+                }
+            })
+
         }
     </script>
 
