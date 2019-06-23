@@ -70,95 +70,17 @@
     </script>
 
 
-    {#<script>#}
-    {#var source = document.getElementById("thing_template2").innerHTML;#}
-    {#var template = Handlebars.compile(source);#}
-    {#// console.log();#}
-    {#console.log({{ thing.getId() }});#}
-    {#var data = {thing: "hctertwrt"};#}
-    {#// var html = "whatapp";#}
-    {#var html = template(data);#}
-    {#document.getElementById("thing_info2").innerHTML = html;#}
-    {#// document.getElementById("thing_info").innerHTML = 'tot';#}
-    {#</script>#}
-
-
-
     <div id="thing_info"></div>
 
 
-
     {% verbatim %}
-        <script id="thing_template" type="text/x-handlebars-template">
-            <h3>Actions in handlebars</h3>
-            {{#each actions}}
-                <p>
-                    {{this.id}}
-                </p>
-            {{/each}}
-
-        </script>
-
+        <script id="action_template" type="text/x-handlebars-template"></script>
     {% endverbatim %}
 
-    {% verbatim %}
-        <script id="action_template" type="text/x-handlebars-template">
-<!--            <p>ACTION: {{ action.httpVerb }}</p>-->
-        </script>
-    {% endverbatim %}
-
-    <script>
-
-        var source = document.getElementById("thing_template").innerHTML;
-        var template = Handlebars.compile(source);
-        var actions = {actions: [{"id": 1}]};
-        // var data = {things: owner.things};
-        // var html = template(data);
-        var html = template(actions);
-        document.getElementById("thing_info").innerHTML = html;
-        // document.getElementById("thing_info").innerHTML = 'tot';
-    </script>
-
-
-    {#TODO: meter validacion de usuario logado#}
-    {#{% include 'fbSdk.html.twig' %}#}
-    <h1>List of Action for Thing {{ thing.root }}</h1>
-    {% for action in thing.getActions() %}
-        {#<p>#}
-        {#HTTP: {{ action.getHttpVerb() }} | ROUTE: {{ action.getRoute() }} |#}
-        {#Desciption: {{ action.getDescription() }}#}
-        {#<button onclick="openFriendDialog({{ action.getId() }})">Manage</button>#}
-        {#</p>#}
-        <div id="action_info"></div>
-        <script>
-
-            var source = document.getElementById("action_template").innerHTML;
-            var template = Handlebars.compile(source);
-
-            {#console.log("{{ action.getHttpVerb() }}");#}
-
-            // var html = template({'action':{'httpVerb':"ee" }});
-            {#var html = template({'action': {'httpVerb': "{{ action.getHttpVerb() }}"}});#}
-            document.getElementById("action_info").innerHTML = html;
-        </script>
-
-
-    {% endfor %}
 
 
 
-    <div id="dialog" title="List of friends">
-        {#<ul>#}
-        {#{% for friend in friends %}#}
-        {#<li>#}
-        {#{{ friend.name }}#}
-        {#{{ friend. }}#}
-        {#{% if friend.getF%}#}
-        {#</li>#}
-        {#{% endfor %}#}
-
-        {#</ul>#}
-    </div>
+    <div id="dialog" title="List of friends"></div>
 
     <script>
         var sharingStatus = {{ sharingStatus|json_encode|raw }};
@@ -185,15 +107,17 @@
                 retval += denyShareButton();
             }
             else{
-                retval += setShareButton();
+                // TODO use symfony url generator for shareActionWithFriendUrl
+                var shareActionWithFriendUrl = "/owner_share/friend/"+friend.friendId+"/action/"+actionId;
+                retval += setShareButton(shareActionWithFriendUrl);
             }
             return retval;
             // console.log(friend);
         }
 
-        function setShareButton() {
-            //
-            return '<button style="color:green" onclick="shareThisAction()"> Share </button>';
+        function setShareButton(shareActionWithFriendUrl) {
+            console.log("shareActionWithFriend "+shareActionWithFriendUrl);
+            return '<button style="color:green" onclick=shareThisAction("'+shareActionWithFriendUrl+'")> Share </button>';
         }
 
         function denyShareButton() {
@@ -225,23 +149,6 @@
             });
         }
 
-        function openFriendDialog(actionId) {
-            showFriendDialog();
-            // console.log("In thing thingId[" + thingId + "] clicked this action id[" + actionId + "]");
-            var html = '<ul>';
-            // console.log(friends);
-            for (i = 0; i < friends.length; i++) {
-                html += '<li>' + hasAlreadyBeenShared(friends[i]) + '</li>';
-            }
-            html += '</ul>';
-
-            $('#dialog').html(html);
-            $("#dialog").dialog({
-                modal: true,
-                width: 600
-            });
-        }
-
         function getActionIdByActionName(actionName) {
 
             // console.log('actionName=' + actionName + ' thingId=' + thingId);
@@ -257,19 +164,18 @@
             // TODO: redirect to error?='ActionId not found'
         }
 
-        function shareThisAction(){
+        function shareThisAction(shareActionWithFriendUrl){
 
-            console.log("shareThisAction");
-            // TODO user twigs url
             $.ajax({
-                url: "/owner_share/friend/1/action/1",
+                url: shareActionWithFriendUrl,
+                dataType: "json",
                 success: function (response) {
-                    console.log(response);
-                    if (response.status === true) {
-
+                    window.location.href = "{{ url('success') }}?message="+response.message;
                     }
-                }
-            })
+            }).fail( function( jqXHR, textStatus, errorThrown ) {
+                    var response = JSON.parse(jqXHR.responseText);
+                    window.location.href = "{{ url('error') }}?message="+response.message;
+            });
 
         }
     </script>

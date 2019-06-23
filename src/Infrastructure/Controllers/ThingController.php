@@ -92,6 +92,7 @@ class ThingController extends AbstractController implements HasFbSessionControll
             $oneFriend = [];
             $oneFriend['name'] = "FriendnameeeeTODO".$friend->getFbDelegated();
             $oneFriend['fbDelegated'] = $friend->getFbDelegated();
+            $oneFriend['friendId'] = $friend->getId();
 
             $actionsIdList = [];
             /** @var $action Action */
