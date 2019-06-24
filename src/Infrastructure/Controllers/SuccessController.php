@@ -11,8 +11,11 @@ class SuccessController extends AbstractController
 {
     public function index(Request $request)
     {
-//        var_export($errors);
         $message = $request->get('message');
-        return new Response("SUCCESS ".$message);
+        $shareLink = null;
+        if($request->get('shareLink')){
+            $shareLink =$request->get('shareLink');
+        }
+        return $this->render('Success/success.twig', ['message' => $message, 'shareLink' => $shareLink]);
     }
 }

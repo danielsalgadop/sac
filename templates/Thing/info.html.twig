@@ -108,7 +108,7 @@
             }
             else{
                 // TODO use symfony url generator for shareActionWithFriendUrl
-                var shareActionWithFriendUrl = "/owner_share/friend/"+friend.friendId+"/action/"+actionId;
+                var shareActionWithFriendUrl = "/owner/share/action/"+actionId+"/friend/"+friend.friendId;
                 retval += setShareButton(shareActionWithFriendUrl);
             }
             return retval;
@@ -170,7 +170,10 @@
                 url: shareActionWithFriendUrl,
                 dataType: "json",
                 success: function (response) {
-                    window.location.href = "{{ url('success') }}?message="+response.message;
+
+                    // TODO use symfony url generator
+                    var shareLink="/friend/thing/1/action/1/";
+                    window.location.href = "{{ url('success') }}?message="+response.message+"&shareLink="+shareLink;
                     }
             }).fail( function( jqXHR, textStatus, errorThrown ) {
                     var response = JSON.parse(jqXHR.responseText);

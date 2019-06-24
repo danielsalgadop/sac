@@ -8,5 +8,9 @@
     <div class="alert alert-info" role="alert">
         {{ message }}
     </div>
-
+    {% if shareLink %}
+        <div class="alert alert-info" role="alert">
+            {{ shareLink }}
+        </div>
+    {% endif %}
 {% endblock %}

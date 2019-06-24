@@ -9,7 +9,7 @@ api_thing:
   methods: [GET]
 
 api_share_action:
-  path: /owner_share/friend/{friendId}/action/{actionId}
+  path: /owner/share/action/{actionId}/friend/{friendId}
   controller: App\Infrastructure\Controllers\Api\OwnerApiController::shareActionWithFriend
   requirements:
     friendId: '\d+'
