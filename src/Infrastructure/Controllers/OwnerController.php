@@ -33,7 +33,7 @@ class OwnerController extends AbstractController
             return $this->redirectToRoute('login');
         }
 
-        // TODO Victor: fbResponse, usamos id y name
+        // TODO Victor mejorar los datos que se envian en fbResponse (mando demasiados) se usan: id y name
         $fbResponse = json_decode($request->cookies->get('fbResponse'));
 //        dd($fbResponse);
         $connectFbResponse = json_decode($request->cookies->get('connectFbResponse'));
