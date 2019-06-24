@@ -1,0 +1,7 @@
+friend_see_action:
+  path: /friend/thing/{thingId}/action/{actionId}
+  controller: App\Infrastructure\Controllers\FriendController::showAction
+  requirements:
+    actionId: '\d+'
+    thingId: '\d+'
+  methods: [GET]

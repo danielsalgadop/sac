@@ -18,6 +18,9 @@ owner_routes:
 thing_routes:
     resource: '../src/Infrastructure/Resources/config/routes/thing.yaml'
 
+friend_routes:
+    resource: '../src/Infrastructure/Resources/config/routes/friend.yaml'
+
 api_routes:
     resource: '../src/Infrastructure/Resources/config/routes/api.yaml'
 
