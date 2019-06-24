@@ -1,0 +1,1 @@
+Hemos creado un entorno seguro donde las relaciones en facebook se mantienen dentro de SAC. Un dueño puede elegir qué acciones compartir y a quien compartirlas

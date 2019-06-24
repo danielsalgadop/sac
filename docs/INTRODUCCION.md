@@ -1,0 +1,1 @@
+Basándonos en el articulo "Sharing Using Social Networks in a Compossable Web of Things" y en el modelo propuesto por W3 hemos querido poner en marcha un sistema funcional.
