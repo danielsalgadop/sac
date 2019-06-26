@@ -30,7 +30,7 @@ DUDA como instalar phpunit, hasta que no lanzo el primer phpunit no lo instala
 System requiremetns, PHP (extensions) and npm:
 
 - sudo apt-get install mysql-server -y
-- sudo apt-get install php php-mysql php-xml npm -y
+- sudo apt-get install php php-mysql php-xml npm libapache2-mod-php -y
 - TODO: probar si vale composer a perlo, Needed composer (creo que instalado 'a pelo' ya que no vale con la manera sudo apt-get install composer)
 - sudo apt-get install php-curl (actualy in iot_emulator, fixtures are done in a php script via curl)
 
