@@ -59,13 +59,12 @@ class CredentialsController extends AbstractController
 
     public function privacy()
     {
-        return new Response("FB privacy");
-
+        return $this->render('Facebook/privacy.html.twig');
     }
 
     public function conditions()
     {
-        return new Response("FB conditions");
+        return $this->render('Facebook/conditions.html.twig');
     }
 
 
