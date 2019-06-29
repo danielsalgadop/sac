@@ -1,3 +1,5 @@
+# TFM - Daniel Salgado - SAC
+
 ---- 
 
 all things have user:user password:password, if not they are meant not to be accesible
@@ -22,75 +24,36 @@ For SAC our iot_emulator acts as a gateway to all web things
 
 
 
----- INSTALATION
-
-DUDA como instalar phpunit, hasta que no lanzo el primer phpunit no lo instala
 
 
-System requiremetns, PHP (extensions) and npm:
+----- CONFIGURACION MYSQL
 
-- sudo apt-get install mysql-server -y
-- sudo apt-get install php php-mysql php-xml npm libapache2-mod-php -y
-- TODO: probar si vale composer a perlo, Needed composer (creo que instalado 'a pelo' ya que no vale con la manera sudo apt-get install composer)
-- sudo apt-get install php-curl (actualy in iot_emulator, fixtures are done in a php script via curl)
+- For simplicity database user, database name and table all are 'sac'
+- create user with privileges for
+(SAC)
+    - creating user 'sac'
+    - with Permsision for table 'sac' DDL ALTER, AND DML SELECT, INSERT, UPDATE, DELETE
 
+(iot_emulator)
+- create database 'iot'
+- create user with privileges for accessing database iot DDL ALTER, AND DML SELECT, INSERT, UPDATE, DELETE
 
 Development requirements
 
 - sudo apt-get install httpie jq
 
-(sac) App scaffold:
-
-        git clone https://github.com/danielsalgadop/iot_emulator
-        composer install
-
-(iot_emulator) App scaffold:
-
-    git clone https://github.com/danielsalgadop/iot_emulator
-    composer install
-    npm install
 
 
 
-Facebook, create proyect and get FACEBOOK_APP_ID and FACEBOOK_SECRET
-
-(sac) Create .env.local
-
-- fill FACEBOOK_APP_ID and FACEBOOK_SECRET
-- fill DATABASE_URL
-
-Create .env.local with FB and Mysql credentials
-
-
-Prepare Mysql:
-
-(sac)
-- For simplicity database user, database name and table all are 'sac'
-- create user with privileges for
-
-    - creating database 'sac'
-    - accessing table 'sac' DDL ALTER, AND DML SELECT, INSERT, UPDATE, DELETE
-
-(iot_emulator)
-- For simplicity database user, database name and table all are 'iot'
-- create database 'iot'
-- create user with privileges for accessing database iot DDL ALTER, AND DML SELECT, INSERT, UPDATE, DELETE
-
-    php bin/console doctrine:database:create
-    php bin/console doctrine:schema:create
-
-
-
-(Optional) fixtures for populating databases
-
+Mientras que SAC puede quedarse sin datos y popularlos en vivo se recomienda lanzar fixtures en iot_emulator
 
     php bin/console doctrine:fixture:load -n
+
 
 Using DTO in iot_emulator for storing Credentials
 
 "Confusion" when using same name for different concepts "dependiendo" of project, eg: ThingController, thing
 
-# TFM - Daniel Salgado - SAC
 
 ## Terminology
 
