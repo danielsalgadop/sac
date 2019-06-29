@@ -1,16 +1,30 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-    </head>
-    <body>
+{% extends('base.html.twig') %}
+{% block title %}
+    Welcome
+{% endblock %}
+{% block body %}
+
     {% include 'fbSdk.html.twig' %}
-    <div id="status"></div>
-        Please identify yourself<br>
-          <fb:login-button
-                scope="public_profile,email"
-                onlogin="checkLoginState();">
-        </fb:login-button>
-    </body>
-</html>
+    {#    <section class="page-content" style="background-image: ;">#}
+
+
+
+        <div class="jumbotron">
+            <div id="status"></div>
+            <h3 class="text-center">
+                Please identify yourself
+
+            </h3>
+            <fb:login-button style="left:47%"
+                    scope="public_profile,email"
+                    onlogin="checkLoginState();">
+            </fb:login-button>
+        </div>
+    <div class="text-center">
+        <img src="/img/background-img.png" class="rounded" alt="">
+
+    </div>
+
+    </section>
+    </div>
+{% endblock %}
