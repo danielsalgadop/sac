@@ -7,8 +7,9 @@ namespace App\Infrastructure\Controllers\Api;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use App\Infrastructure\Controllers\HasFbSessionController;
 
-class ApiUrlGeneratorController extends AbstractController
+class ApiUrlGeneratorController extends AbstractController implements HasFbSessionController
 {
     public function urlForThingInfoProvider(Request $request)
     {
@@ -17,8 +18,6 @@ class ApiUrlGeneratorController extends AbstractController
 
     public function urlForApiThingInfoProvider(Request $request)
     {
-//        dd($this->generateUrl('api_thing_info', ['thingId' => $request->get('thingId')]));
         return new JsonResponse($this->generateUrl('api_thing_info', ['thingId' => $request->get('thingId')]), 200);
-        //
     }
 }
