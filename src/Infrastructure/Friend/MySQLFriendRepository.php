@@ -5,9 +5,6 @@ namespace App\Infrastructure\Friend;
 use App\Domain\Entity\Friend;
 use App\Domain\Repository\Friend\FriendRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\QueryBuilder;
-use mysql_xdevapi\Exception;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class MySQLFriendRepository implements FriendRepository
 {
@@ -45,21 +42,6 @@ class MySQLFriendRepository implements FriendRepository
         }
     }
 
-    // TODO: creo que esto no se usa
-    public function getIdFromfbDelegated(string $fbDelegated)
-    {
-//        return 1;
-        // usando CreateQuery
-        $query = $this->em->createQuery('SELECT id FROM App\Domain\Entity\Friend o where o.fb_delegated = ":fbDelegated"')->setParameter('fbDelegated', $fbDelegated);
-        // usando QueryBuilder
-//        $friendRepository = $this->em->getRepository(Friend::class);
-//        $query = $friendRepository->createQueryBuilder('o')->select('id')->from(Friend::class, 'o')->where('o.fb_delegated = '.$fbDelegated);
-        // comun a CreateQuery (DDL) o QueryBuilder
-        $id = $query->getResult();
-        return $id;
-    }
-
-
     public function searchFriendByIdOrException(int $id)
     {
         $friend = $this->searchById($id);
@@ -94,6 +76,7 @@ class MySQLFriendRepository implements FriendRepository
         if ($exceptionMessage !== null) {
             throw new \Exception($exceptionMessage." fbDelegated [".$fbDelegated."]");
         }
+        dd($friend);
         return $friend;
 
     }

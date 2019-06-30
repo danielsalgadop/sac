@@ -7,12 +7,12 @@ class SearchOwnerByFbDelegatedCommand
 {
     private $ownerFbDelegated;
 
-    public function __construct(string $ownerFbDelegated)
+    public function __construct(int $ownerFbDelegated)
     {
         $this->ownerFbDelegated = $ownerFbDelegated;
     }
 
-    public function getFbDelegated():string
+    public function getFbDelegated():int
     {
         return $this->ownerFbDelegated;
     }

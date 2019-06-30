@@ -45,12 +45,12 @@ class Owner
         return $this->fbDelegated;
     }
 
-    public function setFbDelegated(string $fbDelegated): self
-    {
-        $this->fbDelegated = $fbDelegated;
-
-        return $this;
-    }
+//    public function setFbDelegated(string $fbDelegated): self
+//    {
+//        $this->fbDelegated = $fbDelegated;
+//
+//        return $this;
+//    }
 
 
     public function getThings(): Collection

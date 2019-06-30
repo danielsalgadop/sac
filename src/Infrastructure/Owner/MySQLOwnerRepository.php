@@ -18,9 +18,9 @@ class MySQLOwnerRepository implements OwnerRepository
         $this->em = $entityManager;
     }
 
-    public function findAll()
+    public function find(int $id)
     {
-//        return $this->ownerRepository->findAll();
+        return $this->em->find(Owner::class, $id) ;
     }
 
     public function save(Owner $owner)
