@@ -160,8 +160,8 @@ class Sac extends Fixture
 
     public function createAndPersistFriend($fbDelegated)
     {
-        $friend = new Friend();
-        $friend->setFbDelegated($fbDelegated);
+        $friend = new Friend($fbDelegated);
+//        $friend->setFbDelegated($fbDelegated);
         $this->manager->persist($friend);
         $this->manager->flush();
         return $friend;
