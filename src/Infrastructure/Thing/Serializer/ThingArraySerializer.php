@@ -27,7 +27,7 @@ class ThingArraySerializer
      * DUDA VICTOR, he probado muchas cosas, pero no consigo usar el Router aqui:
      *  - Usar servicio con -"@route" como argumento
      *  - Usar ThingArraySerializer2, que no es STATIC
-//            'urlForThingConnected' => $this->container->get('router')->generate('api_thing', ['thingId' => $thing->getId()]),
+//            'urlForThingConnected' => $this->container->get('router')->generate('api_thing_info', ['thingId' => $thing->getId()]),
      * TODO (cuando este entregado el proyecto) 19 Abril:
      *     Hacer un singleton del serializador, que por constructor reciviese RouteCollection y en el método el contexto
      * */
@@ -41,12 +41,12 @@ class ThingArraySerializer
 
         $routes = new RouteCollection();
 
-        $routes->add('api_thing', new Route($apiRouteYaml['api_thing']['path']));
+        $routes->add('api_thing_info', new Route($apiRouteYaml['api_thing_info']['path']));
         $routes->add('thing_info', new Route($thingRouteYaml['thing_info']['path']));
         $context = new RequestContext();
 
         $urlGenerator = new UrlGenerator($routes, $context);
-        $urlForThingConnected = $urlGenerator->generate('api_thing', ['thingId' => $thingId]);
+        $urlForThingConnected = $urlGenerator->generate('api_thing_info', ['thingId' => $thingId]);
         $urlForThingInfo = $urlGenerator->generate('thing_info', ['thingId' => $thingId]);
 
         return [

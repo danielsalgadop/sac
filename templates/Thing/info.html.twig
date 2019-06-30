@@ -43,7 +43,7 @@
         $(document).ready(
             function () {
                 $.ajax({
-                    url: "{{ url('api_thing', {thingId :  thingId } ) }}",
+                    url: "{{ url('api_thing_info', {thingId :  thingId } ) }}",
                     success: function (thing) {
                         if (thing.status === true) {
                             // status conection is OK

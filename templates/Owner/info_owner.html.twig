@@ -122,31 +122,46 @@
         }
 
 
-        function fillOneThingOfOwner(urlForThingConnected, urlForThingInfo, thingId) {
+        function fillOneThingOfOwner(urlForThingConnectedOld, urlForThingInfo, thingId) {
 
+            var urlThingInfoProvided = '';
+            var urlForThingConnectedNew= '';
 
-            $.ajax({
+            // TODO use promises (spaguetti code alert)
+            $.get({
                 url: "{{ url('url_provider_for_thing_info')}}",
                 data: {'thingId':thingId},
-                success: function (urlProvided) {
-                    console.log('urlProvided====="'+urlProvided)
+                success: function (urlThingInfoProvidedResponse) {
+                    urlThingInfoProvided = urlThingInfoProvidedResponse;
+
+                    $.get({
+                        url: "{{ url('url_provider_for_api_thing_info') }}",
+                        data: {'thingId': thingId},
+                        success: function (urlApiThingInfoProvidedResponse) {
+                            urlForThingConnectedNew = urlApiThingInfoProvidedResponse;
+
+                            $.get({
+                                url: urlForThingConnectedNew,
+                                success: function (thingConnectedInfo) {
+                                    fillThingRow(thingConnectedInfo, urlThingInfoProvided, thingId);
+                                },
+                                error: function (error) {
+                                    var thingConnectedInfoWithError = {'status': false, 'message': error
+                                            .responseText};
+                                    fillThingRow(thingConnectedInfoWithError, '', thingId);
+                                }
+                            })
+                        }
+                    })
                 }
             });
 
 
-            console.log("urlForThingConnected===="+urlForThingConnected);
-            console.log("urlForThingInfo===="+urlForThingInfo);
-            $.ajax({
-                url: urlForThingConnected,
-                success: function (thingConnectedInfo) {
-                    fillThingRow(thingConnectedInfo, urlForThingInfo,thingId);
-                },
-                error: function (thingConnectedInfo) {
-                    let retval = {'status':false,'message':thingConnectedInfo.responseText};
-                    fillThingRow(retval, '', thingId);
-                }
-            });
+
+            // console.log("urlForThingConnected===="+urlForThingConnected);
+            // console.log("urlForThingInfo===="+urlForThingInfo);
         }
+
 
         // function fillLiteralTemplateWithArrayValues(UrlTemplate,arrayValues)
         // {
