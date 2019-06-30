@@ -72,6 +72,9 @@
 
 
     <script>
+
+        {#var urlForThingConnectedTemplate = {{ url('url_provider_for_thing_info_connected_url_template_provider') }};#}
+
         $(document).ready(
             function () {
                 $.ajax({
@@ -121,8 +124,18 @@
 
         function fillOneThingOfOwner(urlForThingConnected, urlForThingInfo, thingId) {
 
-            console.log("urlForThingConnected"+urlForThingConnected);
-            console.log("urlForThingInfo"+urlForThingInfo);
+
+            $.ajax({
+                url: "{{ url('url_provider_for_thing_info')}}",
+                data: {'thingId':thingId},
+                success: function (urlProvided) {
+                    console.log('urlProvided====="'+urlProvided)
+                }
+            });
+
+
+            console.log("urlForThingConnected===="+urlForThingConnected);
+            console.log("urlForThingInfo===="+urlForThingInfo);
             $.ajax({
                 url: urlForThingConnected,
                 success: function (thingConnectedInfo) {
@@ -134,6 +147,11 @@
                 }
             });
         }
+
+        // function fillLiteralTemplateWithArrayValues(UrlTemplate,arrayValues)
+        // {
+        //
+        // }
 
     </script>
 {% endblock %}

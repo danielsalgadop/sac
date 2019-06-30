@@ -43,7 +43,6 @@ class OwnerApiController extends AbstractController implements HasFbSessionContr
         try {
             $owner = $this->searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand($ownerFbDelegated));
         } catch (Exception $e) {
-            // TODO: Do a error page to show this error
             return new JsonResponse($e->getMessage(),401);
         }
         return new JsonResponse(OwnerArraySeralizer::serialize($owner));

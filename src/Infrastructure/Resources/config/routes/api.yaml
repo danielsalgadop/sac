@@ -16,4 +16,9 @@ api_share_action:
     actionId: '\d+'
   methods: [GET]
 
-#url_for_thing_connected_endpoint:
+url_provider_for_thing_info:
+  path: /api/url/provider/thing
+  controller: App\Infrastructure\Controllers\Api\ApiUrlGeneratorController::urlForThingInfoProvider
+  requirements:
+    thingId: '\d+'
+  methods: [GET]
