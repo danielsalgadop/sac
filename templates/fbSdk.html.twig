@@ -23,7 +23,6 @@
     // docs on this response https://developers.facebook.com/apps/361174884467644/fb-login/quickstart/
     // basicaly is fullfilled in FB.getLoginStatus()
     function statusChangeCallback(connectFbResponse) {
-        console.log(connectFbResponse.authResponse);
         if (connectFbResponse.status === 'connected') {
             // Logged into your app and Facebook.
             FB.api('/me', function (fbResponse) {

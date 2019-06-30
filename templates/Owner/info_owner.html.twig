@@ -90,51 +90,49 @@
         function getThingConnectedInfo(things) {
             var arrayReturn = [];
             things.forEach(function (thing) {
-                getOneThingConnectedInfo(thing.urlForThingConnected, thing.urlForThingInfo);
+                console.log(thing);
+                getOneThingConnectedInfo(thing.urlForThingConnected, thing.urlForThingInfo, thing.id);
             });
             return arrayReturn;
         }
 
-        function fillThingRow(thingConnected, urlForThingInfo) {
+        function fillThingRow(thingConnected, urlForThingInfo, thingId) {
 
-            // var urlForThingInfo = 'thing/1';
+            // console.log(thingConnected);
+            var thingElement = $("#thing_id_" + thingId);
+
             if (thingConnected.status === true) {
                 // TODO manage thing front structure with handlebars
-                $("#thing_id_" + thingConnected.data.id).addClass('thing_ok');
+                thingElement.addClass('thing_ok');
                 // add name and brand
-                $("#thing_id_" + thingConnected.data.id).append(' | ' + thingConnected.data.name + ' | ' + thingConnected.data.brand);
+                thingElement.append(' | ' + thingConnected.data.name + ' | ' + thingConnected.data.brand);
                 // add View/Admin thing
-                $("#thing_id_" + thingConnected.data.id).append('<button onclick="window.location.href = \'' + urlForThingInfo + '\'">Admin</button>');
+                thingElement.append('<button onclick="window.location.href = \'' + urlForThingInfo +
+                    '\'">Admin</button>');
 
             }
             else {
                 // console.log(thingConnected);
-                $("#thing_id_" + thingConnected.data.id).addClass('thing_error');
+                thingElement.addClass('thing_error');
                 // add error
-                $("#thing_id_" + thingConnected.data.id).append(' | ' + thingConnected.message);
+                thingElement.append(' | ' + thingConnected.message);
 
             }
         }
 
 
-        // Victor Thing->
-        function getOneThingConnectedInfo(urlForThingConnected, urlForThingInfo) {
-            // var urlForThingInfo = 'thing/1';
-            // console.log(url);
+        function getOneThingConnectedInfo(urlForThingConnected, urlForThingInfo, thingId) {
+
             $.ajax({
                 url: urlForThingConnected,
-                // success: fillThingRow(thing),  // esto no funciona
                 success: function (thingConnectedInfo) {
-                    fillThingRow(thingConnectedInfo, urlForThingInfo);
+                    fillThingRow(thingConnectedInfo, urlForThingInfo,thingId);
                 },
                 error: function (thingConnectedInfo) {
-                    return thingConnectedInfo;
+                    let retval = {'status':false,'message':thingConnectedInfo.responseText};
+                    fillThingRow(retval, '', thingId);
                 }
-            })
-
-
-            // TODO: api call to fill ThingConnectedInfo
-            // return {"brand": "hc_brand" + id, "name": "hc_name" + id};
+            });
         }
 
     </script>
