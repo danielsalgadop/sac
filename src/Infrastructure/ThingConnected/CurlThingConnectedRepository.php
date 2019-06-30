@@ -8,38 +8,27 @@ use \Exception;
 
 class CurlThingConnectedRepository implements ThingConnectedRepository
 {
-//    private $endpoint = "localhost";
-//    private $port = "8001";
 
-    private $endpoint;
-    private $port;
+    private $iotEmulatorHost;
+    private $iotEmulatorPort;
 
-
-//    public function __construct(string $endpoint, int $port)
     public function __construct()
-//    public function __construct(string $endpoint)
     {
-
-//        $this->endpoint = $endpoint;
-        $this->endpoint = "localhost";
-        $this->port = 8001;
-//        $this->port = $port;
+        $this->iotEmulatorHost = getenv('IOT_EMULATOR_HOST');
+        $this->iotEmulatorPort = getenv('IOT_EMULATOR_PORT');
     }
 
     private function sendCurlOrException($id, $thingUserName, $thingPassword)
     {
-        // TODO VICTOR: endpoint y puerto pasarlo como parámetro al constructor. Definirlo en parámetros y en services, Usarlo como servicio la url y el puerto
-        // Esto q es tan variable, definirlo conf/ en parámetros, o hacerlo en services
-        $ch = curl_init($this->endpoint . '/' . $id);
+        $ch = curl_init($this->iotEmulatorHost . '/' . $id);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
-        curl_setopt($ch, CURLOPT_PORT, $this->port);
+        curl_setopt($ch, CURLOPT_PORT, $this->iotEmulatorPort);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
                 'user: ' . $thingUserName,
                 'password: ' . $thingPassword
             )
         );
-
 
         $json = curl_exec($ch);
         if ($json == null) {

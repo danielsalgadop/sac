@@ -3,17 +3,12 @@
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
-parameters:
-  # TODO borrar esta línea si no se usa en constructor de CurlThingConnectedRepository
-  endpoint: 'localhost'
 
 services:
   # default configuration for services in *this* file
   _defaults:
     autowire: true      # Automatically injects dependencies in your services.
     autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-
-
 
   event_subscribers:
     namespace: App\Infrastructure\EventSubscriber\
@@ -106,9 +101,7 @@ services:
     class: App\Infrastructure\ThingConnected\CurlThingConnectedRepository
     public: true
 #    arguments:
-#      $endpoint: "localhost"
-#       $port: 8001
-#
+#      $iotEmulatorHost: env(IOT_EMULATOR_HOST)
 
   app.command_handler.thing_connected.get_actions:
     class: App\Application\CommandHandler\Thing\ThingConnected\GetThingConnectedActionsHandler
