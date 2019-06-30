@@ -87,7 +87,7 @@
 
                         // fill Things with ConnectedThings
                         owner.things.forEach(function (thing) {
-                            fillOneThingOfOwner(thing.urlForThingConnected, thing.urlForThingInfo, thing.id);
+                            fillOneThingOfOwner(thing.id);
                         });
 
                         // Things
@@ -122,9 +122,9 @@
         }
 
 
-        function fillOneThingOfOwner(urlForThingConnectedOld, urlForThingInfo, thingId) {
+        function fillOneThingOfOwner(thingId) {
 
-            // TODO use promises (spaguetti code alert)
+            // (spaghetti code alert) TODO use promises
             $.get({
                 url: "{{ url('url_provider_for_thing_info')}}",
                 data: {'thingId':thingId},
@@ -150,18 +150,6 @@
                     })
                 }
             });
-
-
-
-            // console.log("urlForThingConnected===="+urlForThingConnected);
-            // console.log("urlForThingInfo===="+urlForThingInfo);
         }
-
-
-        // function fillLiteralTemplateWithArrayValues(UrlTemplate,arrayValues)
-        // {
-        //
-        // }
-
     </script>
 {% endblock %}
