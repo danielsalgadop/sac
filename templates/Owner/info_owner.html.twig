@@ -124,26 +124,21 @@
 
         function fillOneThingOfOwner(urlForThingConnectedOld, urlForThingInfo, thingId) {
 
-            var urlThingInfoProvided = '';
-            var urlForThingConnectedNew= '';
-
             // TODO use promises (spaguetti code alert)
             $.get({
                 url: "{{ url('url_provider_for_thing_info')}}",
                 data: {'thingId':thingId},
                 success: function (urlThingInfoProvidedResponse) {
-                    urlThingInfoProvided = urlThingInfoProvidedResponse;
 
                     $.get({
                         url: "{{ url('url_provider_for_api_thing_info') }}",
                         data: {'thingId': thingId},
                         success: function (urlApiThingInfoProvidedResponse) {
-                            urlForThingConnectedNew = urlApiThingInfoProvidedResponse;
 
                             $.get({
-                                url: urlForThingConnectedNew,
+                                url: urlApiThingInfoProvidedResponse,
                                 success: function (thingConnectedInfo) {
-                                    fillThingRow(thingConnectedInfo, urlThingInfoProvided, thingId);
+                                    fillThingRow(thingConnectedInfo, urlThingInfoProvidedResponse, thingId);
                                 },
                                 error: function (error) {
                                     var thingConnectedInfoWithError = {'status': false, 'message': error
