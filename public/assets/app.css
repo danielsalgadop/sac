@@ -1,0 +1,19 @@
+.thing_error{
+    color:red;
+}
+.thing_ok{
+    color:green;
+}
+.card {
+    margin-bottom: 10px;
+}
+.card-body{
+    background-color: rgba(222, 234, 245, 0.56);
+
+}
+
+#fbLogin{
+    position:absolute;
+    top:14px;
+    height: 190px;
+}

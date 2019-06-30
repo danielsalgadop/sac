@@ -1,27 +1,29 @@
-{% extends('plain.html.twig') %}
+{% extends('Common/base.html.twig') %}
 {% block title %}
     Welcome
 {% endblock %}
 {% block body %}
 
     {% include 'fbSdk.html.twig' %}
-    {#    <section class="page-content" style="background-image: ;">#}
+    {% block header %}{% endblock %}
+    <div class="text-center">
+        <img src="/img/background-img.png" class="rounded" alt="">
 
+        <div class="card" id="fbLogin">
+            <div class="card-body">
 
-
-        <div class="jumbotron">
-            <div id="status"></div>
+                <div id="status"></div>
             <h3 class="text-center">
                 Please identify yourself
 
             </h3>
-            <fb:login-button style="left:47%"
+{#                <div class="fb-login-button" data-width="" data-size="large" data-button-type="continue_with" data-auto-logout-link="false" data-use-continue-as="false"></div>#}
+            <fb:login-button
                     scope="public_profile,email"
                     onlogin="checkLoginState();">
             </fb:login-button>
+            </div>
         </div>
-    <div class="text-center">
-        <img src="/img/background-img.png" class="rounded" alt="">
 
     </div>
 {% endblock %}

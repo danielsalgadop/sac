@@ -1,4 +1,4 @@
-{% extends('base.html.twig') %}
+{% extends('Common/base.html.twig') %}
 {% block title %}
     Info Owner
 {% endblock %}
@@ -24,15 +24,6 @@
             <h2>List of Things</h2>
 
             {% verbatim %}
-                <style>
-                    .thing_error{
-                        color:red;
-                    }
-                    .thing_ok{
-                        color:green;
-                    }
-                </style>
-
                 <script id="things_template" type="text/x-handlebars-template">
                     {{#each things}}
                         <div class="alert alert-dark" role="alert"  id="thing_id_{{this.id}}">{{this.id}}</div>
