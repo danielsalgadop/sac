@@ -7,8 +7,7 @@
     <div class="card">
         <div class="card-body">
 
-
-            <h1>General INFO</h1>
+            <h2>General INFO</h2>
 
             {% verbatim %}
                 <script id="owner_template" type="text/x-handlebars-template">
@@ -17,31 +16,29 @@
             {% endverbatim %}
             <div id="owner_info"></div>
 
-
         </div>
     </div>
 
     <div class="card">
         <div class="card-body">
-            <h1>List of Things</h1>
+            <h2>List of Things</h2>
 
             {% verbatim %}
-        <style>
-            .thing_error{
-                color:red;
-            }
-            .thing_ok{
-                color:green;
-            }
-        </style>
-        <script id="things_template" type="text/x-handlebars-template">
-            <ul>
-            {{#each things}}
-                <li class="" id="thing_id_{{this.id}}">{{this.id}}</li>
-            {{/each}}
-            </ul>
-        </script>
-    {% endverbatim %}
+                <style>
+                    .thing_error{
+                        color:red;
+                    }
+                    .thing_ok{
+                        color:green;
+                    }
+                </style>
+
+                <script id="things_template" type="text/x-handlebars-template">
+                    {{#each things}}
+                        <div class="alert alert-dark" role="alert"  id="thing_id_{{this.id}}">{{this.id}}</div>
+                    {{/each}}
+                </script>
+            {% endverbatim %}
 
             <div id="things_info"></div>
             <div id="things"></div>
@@ -51,7 +48,7 @@
 
     <div class="card">
         <div class="card-body">
-            <h1>Add new Thing</h1>
+            <h2>Add new Thing</h2>
 
             <form>
                 <div class="form-group row">
@@ -81,14 +78,8 @@
             </form>
         </div>
     </div>
-    {#    <form action="{{ path('thing_create') }}" method="post">#}
-    {#        <p>id (url)</p>#}
-    {#        <input type="text" name="root">#}
-    {#        <p>user</p>#}
-    {#        <input type="text" name="user">#}
-    {#        <p>password</p>#}
-    {#        <input type="password" name="password">#}
-    {#    </form>#}
+
+
     <script>
 
         $(document).ready(
@@ -98,25 +89,17 @@
                     success: function (owner) {
 
                         // fill owner info
-                        var source = document.getElementById("owner_template").innerHTML;
-                        var template = Handlebars.compile(source);
-                        var data = {ownerName: owner.name};
-                        var html = template(data);
-                        document.getElementById("owner_info").innerHTML = html;
+                        var ownerTemplate = Handlebars.compile(document.getElementById("owner_template").innerHTML);
+                        document.getElementById("owner_info").innerHTML = ownerTemplate({ownerName: owner.name});
 
                         // Fill Things with ConnectedThings
                         getThingConnectedInfo(owner.things);
 
                         // Things
-                        var source = document.getElementById("things_template").innerHTML;
-                        var template = Handlebars.compile(source);
-                        console.log(owner.things);
-                        var data = {things: owner.things};
-                        var html = template(data);
-                        document.getElementById("things_info").innerHTML = html;
+                        var thingTemplate = Handlebars.compile(document.getElementById("things_template").innerHTML);
+                        document.getElementById("things_info").innerHTML = thingTemplate({things: owner.things});;
                     },
-                    error: function (error) {
-                        console.log(error);
+                    error: function () {
                         window.location.replace("{{ url('login') }}");
                     }
                 })
@@ -133,7 +116,6 @@
 
         function fillThingRow(thingConnected, urlForThingInfo, thingId) {
 
-            // console.log(thingConnected);
             var thingElement = $("#thing_id_" + thingId);
 
             if (thingConnected.status === true) {
@@ -147,9 +129,7 @@
 
             }
             else {
-                // console.log(thingConnected);
                 thingElement.addClass('thing_error');
-                // add error
                 thingElement.append(' | ' + thingConnected.message);
 
             }
