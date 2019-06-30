@@ -84,7 +84,7 @@
                         document.getElementById("owner_info").innerHTML = ownerTemplate({ownerName: owner.name});
 
                         // Fill Things with ConnectedThings
-                        getThingConnectedInfo(owner.things);
+                        fillThingsOfOwner(owner.things);
 
                         // Things
                         var thingTemplate = Handlebars.compile(document.getElementById("things_template").innerHTML);
@@ -97,12 +97,12 @@
 
             });
 
-        function getThingConnectedInfo(things) {
-            var arrayReturn = [];
+        function fillThingsOfOwner(things) {
+            // var arrayReturn = [];
             things.forEach(function (thing) {
-                getOneThingConnectedInfo(thing.urlForThingConnected, thing.urlForThingInfo, thing.id);
+                fillOneThingOfOwner(thing.urlForThingConnected, thing.urlForThingInfo, thing.id);
             });
-            return arrayReturn;
+            // return arrayReturn;
         }
 
         function fillThingRow(thingConnected, urlForThingInfo, thingId) {
@@ -127,7 +127,7 @@
         }
 
 
-        function getOneThingConnectedInfo(urlForThingConnected, urlForThingInfo, thingId) {
+        function fillOneThingOfOwner(urlForThingConnected, urlForThingInfo, thingId) {
 
             $.ajax({
                 url: urlForThingConnected,
