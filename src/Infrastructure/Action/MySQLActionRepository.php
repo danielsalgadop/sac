@@ -36,8 +36,8 @@ class MySQLActionRepository implements ActionRepository
 //            dd($action);
 //
 //            foreach ($actions as $action) {
-//                $storedThing = $action->getWt();
-//                if ($storedThing->getId() === $thing->getId() && $action->getRoute() === $route) {
+//                $storedThing = $action->getThing();
+//                if ($storedThing->getId() === $thing->getId() && $action->getName() === $route) {
 //                    return $action;
 //                }
 //            }
@@ -51,9 +51,9 @@ class MySQLActionRepository implements ActionRepository
 //            $allActions = $actionRepo->findAll();
 //            /** @var Action $storedAction */
 //            foreach ($allActions as $storedAction) {
-//                $actualThing = $storedAction->getWt();
+//                $actualThing = $storedAction->getThing();
 //                if($actualThing->getId() === $thing->getId() &&
-//                    $storedAction->getRoute() === $route
+//                    $storedAction->getName() === $route
 //                ){
 //                    return $storedAction;
 //                }

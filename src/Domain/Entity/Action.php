@@ -10,15 +10,14 @@ use Doctrine\ORM\Mapping as ORM;
 class Action
 {
     private $id;
-    private $route;
-    private $wt;
+    private $name;
+    private $thing;
     private $friends;
 
-    // TODO: parameter of by setter, or by ->. Now they are mixed
-    public function __construct(Thing $thing, string $route)
+    public function __construct(Thing $thing, string $name)
     {
-        $this->wt = $thing;
-        $this->setRoute($route);
+        $this->thing = $thing;
+        $this->name = $name;
         $this->friends = new ArrayCollection();
     }
 
@@ -27,26 +26,26 @@ class Action
         return $this->id;
     }
 
-    public function getRoute(): ?string
+    public function getName(): ?string
     {
-        return $this->route;
+        return $this->name;
     }
 
-    public function setRoute(string $route): self
-    {
-        $this->route = $route;
+//    public function setName(string $name): self
+//    {
+//        $this->name = $name;
+//
+//        return $this;
+//    }
 
-        return $this;
+    public function getThing(): ?Thing
+    {
+        return $this->thing;
     }
 
-    public function getWt(): ?Thing
+    public function setThing(?Thing $thing): self
     {
-        return $this->wt;
-    }
-
-    public function setWt(?Thing $wt): self
-    {
-        $this->wt = $wt;
+        $this->thing = $thing;
 
         return $this;
     }

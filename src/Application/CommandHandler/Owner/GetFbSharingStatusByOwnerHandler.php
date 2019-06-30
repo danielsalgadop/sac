@@ -54,7 +54,7 @@ class GetFbSharingStatusByOwnerHandler
 
                 $sharingStatusNew['things'][$i]['actions'][$j] = [
                     'actionId' => $thingAction->getId(),
-                    'actionName' => $thingAction->getRoute(),
+                    'actionName' => $thingAction->getName(),
                     'friendFbDelegatedList' => [],
                 ];
 

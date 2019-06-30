@@ -16,7 +16,7 @@ class CreateActionCommand
         $this->route = $route;
     }
 
-    public function getRoute(): string
+    public function getName(): string
     {
         return $this->route;
     }

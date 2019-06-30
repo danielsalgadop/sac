@@ -12,12 +12,14 @@ class Friend
     private $fbDelegated;
     private $actions;
     private $owners;
+    private $name;
 
-    public function __construct(string $fbDelegated)
+    public function __construct(int $fbDelegated, string $name)
     {
         $this->actions = new ArrayCollection();
         $this->owners = new ArrayCollection();
         $this->fbDelegated = $fbDelegated;
+        $this->name = $name;
     }
 
     public function getId(): ?int
@@ -25,10 +27,11 @@ class Friend
         return $this->id;
     }
 
-    public function getFbDelegated(): ?string
+    public function getFbDelegated(): ?int
     {
         return $this->fbDelegated;
     }
+
 
 //    public function setFbDelegated(string $fbDelegated): self
 //    {
@@ -37,6 +40,10 @@ class Friend
 //        return $this;
 //    }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
 
     public function getActions(): Collection
     {

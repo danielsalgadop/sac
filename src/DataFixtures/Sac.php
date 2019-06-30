@@ -182,8 +182,8 @@ class Sac extends Fixture
             $action = new Action();
             $action->setDescription($actionDescription);
             $action->setHttpVerb($httpVerb);
-            $action->setRoute($route);
-            $action->setWt($thing);
+            $action->setName($route);
+            $action->setThing($thing);
             $action->addFriend($friend);
             $this->manager->persist($action);
             $this->manager->flush();

@@ -72,7 +72,7 @@ class Thing
     {
         if (!$this->actions->contains($action)) {
             $this->actions[] = $action;
-            $action->setWt($this);
+            $action->setThing($this);
         }
 
         return $this;
@@ -83,8 +83,8 @@ class Thing
         if ($this->actions->contains($action)) {
             $this->actions->removeElement($action);
             // set the owning side to null (unless already changed)
-            if ($action->getWtId() === $this) {
-                $action->setWt(null);
+            if ($action->getThingId() === $this) {
+                $action->setThing(null);
             }
         }
 

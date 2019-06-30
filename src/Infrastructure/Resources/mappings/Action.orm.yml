@@ -13,7 +13,7 @@ App\Domain\Entity\Action:
             generator:
                 strategy: IDENTITY
     fields:
-        route:
+        name:
             type: string
             scale: 0
             length: 255
@@ -21,14 +21,14 @@ App\Domain\Entity\Action:
             nullable: false
             precision: 0
     manyToOne:
-        wt:
+        thing:
             targetEntity: App\Domain\Entity\Thing
             cascade: {  }
             fetch: LAZY
             mappedBy: null
             inversedBy: actions
             joinColumns:
-                wt_id:
+                thing_id:
                     referencedColumnName: id
             orphanRemoval: false
     manyToMany:

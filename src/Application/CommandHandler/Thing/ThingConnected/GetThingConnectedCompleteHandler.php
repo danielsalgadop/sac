@@ -63,8 +63,8 @@ class GetThingConnectedCompleteHandler
 //        $action = new Action();
 //        $action->setDescription('');
 //        $action->setHttpVerb('');
-//        $action->setRoute('');
-//        $action->setWt($thing);
+//        $action->setName('');
+//        $action->setThing($thing);
 //        $action->addFriend($friend);
 //
 //        $this->manager->persist($action);

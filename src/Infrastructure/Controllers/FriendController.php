@@ -57,7 +57,7 @@ class FriendController extends AbstractController implements HasFbSessionControl
                             foreach ($actions as $foo) {
                                 foreach ($foo->resources as $actionName => $value) {
 
-                                    if ($action->getRoute() === $actionName) {
+                                    if ($action->getName() === $actionName) {
 
                                         return new JsonResponse($value->values);
                                     }
