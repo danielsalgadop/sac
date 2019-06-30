@@ -72,7 +72,6 @@
 
 
     <script>
-
         $(document).ready(
             function () {
                 $.ajax({
@@ -83,8 +82,10 @@
                         var ownerTemplate = Handlebars.compile(document.getElementById("owner_template").innerHTML);
                         document.getElementById("owner_info").innerHTML = ownerTemplate({ownerName: owner.name});
 
-                        // Fill Things with ConnectedThings
-                        fillThingsOfOwner(owner.things);
+                        // fill Things with ConnectedThings
+                        owner.things.forEach(function (thing) {
+                            fillOneThingOfOwner(thing.urlForThingConnected, thing.urlForThingInfo, thing.id);
+                        });
 
                         // Things
                         var thingTemplate = Handlebars.compile(document.getElementById("things_template").innerHTML);
@@ -94,16 +95,7 @@
                         window.location.replace("{{ url('login') }}");
                     }
                 })
-
             });
-
-        function fillThingsOfOwner(things) {
-            // var arrayReturn = [];
-            things.forEach(function (thing) {
-                fillOneThingOfOwner(thing.urlForThingConnected, thing.urlForThingInfo, thing.id);
-            });
-            // return arrayReturn;
-        }
 
         function fillThingRow(thingConnected, urlForThingInfo, thingId) {
 
