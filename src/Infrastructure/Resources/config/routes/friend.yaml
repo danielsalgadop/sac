@@ -5,3 +5,8 @@ friend_see_action:
     actionId: '\d+'
     thingId: '\d+'
   methods: [GET]
+
+friend_info:
+  path: /friend/
+  controller: App\Infrastructure\Controllers\FriendController::info
+  methods: [GET]

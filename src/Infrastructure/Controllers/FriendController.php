@@ -70,10 +70,13 @@ class FriendController extends AbstractController implements HasFbSessionControl
             }
 
         } catch (Exception $e) {
-//            return new JsonResponse("Resource not found ---error---" . $e->getMessage(), 200);
             return new JsonResponse("Resource not found", 200);
         }
         return new JsonResponse("Resource not found", 200);
-        return new JsonResponse('actionId ' . $actionId . ' thingId ' . $thingId . ' ownerFbDelegated [' . $ownerFbDelegated . ']', 200);
+    }
+
+    public function info()
+    {
+        return $this->render(':Friend:friend_info.html.twig');
     }
 }

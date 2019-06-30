@@ -1,0 +1,21 @@
+{% extends('Common/base.html.twig') %}
+{%  block title %}
+    List of Friends
+{% endblock %}
+{% block body %}
+    {%  block header %}
+    {% endblock %}
+
+    <h1>Hello, Friend</h1>
+
+
+    <h1>List of Actions Shared to you</h1>
+    <p>Added friends in SAC</p>
+{#    {% for action in actions %}#}
+{#        <p>#}
+{#            <a href="{{ path('owner_things') }}">#}
+{#                {{ friend.getId() }}  {{ friend.fbDelegated }}#}
+{#            </a>#}
+{#        </p>#}
+{#    {% endfor %}#}
+{% endblock %}
