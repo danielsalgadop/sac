@@ -15,3 +15,5 @@ api_share_action:
     friendId: '\d+'
     actionId: '\d+'
   methods: [GET]
+
+#url_for_thing_connected_endpoint:

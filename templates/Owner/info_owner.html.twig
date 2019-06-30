@@ -121,6 +121,8 @@
 
         function fillOneThingOfOwner(urlForThingConnected, urlForThingInfo, thingId) {
 
+            console.log("urlForThingConnected"+urlForThingConnected);
+            console.log("urlForThingInfo"+urlForThingInfo);
             $.ajax({
                 url: urlForThingConnected,
                 success: function (thingConnectedInfo) {
