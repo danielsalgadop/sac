@@ -14,7 +14,7 @@ App\Domain\Entity\Friend:
                 strategy: IDENTITY
     fields:
         fbDelegated:
-            type: integer
+            type: bigint
             scale: 0
             length: null
             unique: false

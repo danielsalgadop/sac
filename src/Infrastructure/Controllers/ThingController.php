@@ -4,7 +4,6 @@ namespace App\Infrastructure\Controllers;
 
 use App\Application\Command\Thing\MergeThingWithThingConnectedByIdCommand;
 use App\Application\CommandHandler\Friend\CreateFriendHandler;
-use App\Application\Command\Friend\CreateFriendCommand;
 use App\Application\CommandHandler\Thing\MergeThingWithThingConnectedByIdHandler;
 use App\Domain\Entity\Friend;
 use App\Domain\Entity\Action;
@@ -23,8 +22,7 @@ use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
 
 use App\Application\Command\Owner\GetFbSharingStatusByOwnerCommand;
 use App\Application\CommandHandler\Owner\GetFbSharingStatusByOwnerHandler;
-
-use \App\Infrastructure\Controllers\HasFbSessionController;
+use \Exception;
 
 class ThingController extends AbstractController implements HasFbSessionController
 {
@@ -64,29 +62,14 @@ class ThingController extends AbstractController implements HasFbSessionControll
         /** @var GetFbSharingStatusByOwnerHandler $sharingStatus */
         $sharingStatus = $this->getFbSharingStatusByOwnerHandler->handle(new GetFbSharingStatusByOwnerCommand($owner));
 
-        // TODO: pensar si pasar esto a Command-CommandHandler
-        // given thingId belongs to Owner?
         try {
             $thing = $owner->getThingByIdOrException($thingId);
-//            dd($thing);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return $this->redirectToRoute('error', ['message' => $e->getMessage()]);
         }
 
-
-        // TODO: move this to owner:info. Tengo que añadir la columna name
-        $session = $request->getSession();
-        $friends = $session->get('fbFriends');
-        $friendsAsObj = json_decode($friends->getBody());
-        $friendsForView = [];
-        foreach ($friendsAsObj->data as $friend) {
-            $owner->addFriend($this->createFriendHandler->handle(new CreateFriendCommand($friend->id)));
-        }
-
-//        dd($owner);
         $friends  = $owner->getFriends();
 
-//        dd(count($friends));
         /** @var $friend Friend*/
         foreach ($friends as $friend){
             $oneFriend = [];
@@ -104,25 +87,8 @@ class ThingController extends AbstractController implements HasFbSessionControll
             $friendsForView[] = $oneFriend;
         }
 
-//        dd($friendsForView);
 
-
-        //            dd($friendsForView);
-//        $friends = [
-//            ['name' => 'name1_hc_in_controller',
-//                'actions' => [1, 2],
-//                'fdbDelegated' => '0_fbDelegated_friend_of_this_owner_id1'
-//            ],
-//            ['name' => 'name2_hc_in_controller', 'actions' => []]
-//        ];
-//        dd($friendsForView);
         $this->mergeThingWithThingConnectedByIdHandler->handle(new MergeThingWithThingConnectedByIdCommand($thingId));
-
-
-//        $thingConnected = $thing->getThingConnected();
-        // persistActions
-
-//    dd($friendsForView);
         return $this->render('Thing/info.html.twig', ['thing' => $thing, 'friends' => $friendsForView, 'sharingStatus' => $sharingStatus, 'thingId' => $thingId]);
     }
 
@@ -144,11 +110,10 @@ class ThingController extends AbstractController implements HasFbSessionControll
 
             $this->addThingToOwnerHandler->handle(new AddThingToOwnerCommand($thing, $owner));
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return new Response($e->getMessage());
         }
         return $this->redirectToRoute('success', ['message' => 'HC thing created']);
-//        return new Response("");
     }
 
     // TODO: esta route se usa?
