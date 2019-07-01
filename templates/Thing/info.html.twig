@@ -10,8 +10,11 @@
             <!--{{ thing.thingConnected()|json_encode|raw }}-->
 
 
+    <div class="card">
+    <div class="card-body">
+
     <script id="thing_template3" type="text/x-handlebars-template">
-        <h1>{{thing.name}} | {{thing.brand}} | {{thing.id}} </h1>
+        <h1>{{thing.name}} | {{thing.brand}} </h1>
         {{#if thing.links}}
             {{#if thing.links.actions}}
                 {{#if thing.links.actions.resources}}
@@ -27,6 +30,8 @@
     <div id="thing_info3"></div>
 
     {% endverbatim %}
+    </div>
+    </div>
 
     {% verbatim %}
     <script id="thing_template2" type="text/x-handlebars-template">

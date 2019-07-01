@@ -20,6 +20,9 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
 
     private function sendCurlOrException($id, $thingUserName, $thingPassword)
     {
+        file_put_contents("/tmp/debug.txt", __METHOD__ . ' ' . __LINE__ . PHP_EOL . var_export($this->iotEmulatorHost, true) . PHP_EOL, FILE_APPEND);
+        file_put_contents("/tmp/debug.txt", __METHOD__ . ' ' . __LINE__ . PHP_EOL . var_export($thingUserName, true) . PHP_EOL, FILE_APPEND);
+        file_put_contents("/tmp/debug.txt", __METHOD__ . ' ' . __LINE__ . PHP_EOL . var_export($thingPassword, true) . PHP_EOL, FILE_APPEND);
         $ch = curl_init($this->iotEmulatorHost . '/' . $id);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
         curl_setopt($ch, CURLOPT_PORT, $this->iotEmulatorPort);

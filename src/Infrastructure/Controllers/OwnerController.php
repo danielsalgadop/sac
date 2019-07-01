@@ -49,7 +49,6 @@ class OwnerController extends AbstractController
 
     public function index(Request $request)
     {
-//        dd(__METHOD__.' '.__LINE__);
         // fbResponse exists?
         if (!$request->cookies->has('fbResponse')) {
             return $this->redirectToRoute('login');
@@ -59,6 +58,10 @@ class OwnerController extends AbstractController
         $fbResponse = json_decode($request->cookies->get('fbResponse'));
         $connectFbResponse = json_decode($request->cookies->get('connectFbResponse'));
 
+
+//        $res = new Response();
+//        $res->headers->clearCookie('my_old_cookie');
+//        $res->send();
 
         $accessToken = $connectFbResponse->authResponse->accessToken;
         $ownerFbDelegated = $fbResponse->id;
@@ -97,6 +100,7 @@ class OwnerController extends AbstractController
 //        dd($owner);
         // app has owner, but it is not actual User, so it is a friend
         if ($owner === null) {
+//        dd(__METHOD__.' '.__LINE__);
             try {
                 $friend = $this->searchFriendByFbDelegatedHandler->handle(new SearchFriendByFbDelegatedCommand($ownerFbDelegated));
             } catch (\Exception $e) { // not a friend of owner
@@ -107,7 +111,10 @@ class OwnerController extends AbstractController
 
 //        dd(__METHOD__.' '.__LINE__);
         // sending ownerFbDelegated via session: return $this->render('Owner/info_owner.html.twig', ['ownerFbDelegated' => 70]);
-        return $this->render('Owner/info_owner.html.twig');
+        $response = $this->render('Owner/info_owner.html.twig');
+        $response->headers->clearCookie('fbResponse');
+        $response->headers->clearCookie('connectFbResponse');
+        return $response;
     }
 
     // Facebook coupled
