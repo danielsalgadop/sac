@@ -4,8 +4,8 @@ server {
         listen 80;
         include snippets/snakeoil.conf;
         index index.php;
-##      error_log /tmp/example.error.log;
-##      access_log /tmp/example.access.log;
+        error_log /var/log/nginx/socialaccesscontroller.error.log;
+        access_log /var/log/nginx/socialaccesscontroller.error.log;
 
         root /var/www/sac/public;
         server_name socialaccesscontroller.tk;

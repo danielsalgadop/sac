@@ -16,3 +16,6 @@ mysql -D mysql -e "CREATE USER 'sac'@'localhost' IDENTIFIED BY 'sac'; GRANT ALL 
 'sac'@'localhost'; FLUSH PRIVILEGES"
 
 cd /var/www/sac; composer install; php bin/console doctrine:database:create; php bin/console doctrine:schema:create;
+
+ssh -i ~/dev/socialaccesscontroller-paris.pem ubuntu@ec2-35-180-227-177.eu-west-3.compute.amazonaws.com cd
+/var/www/sac;  git pull origin master
