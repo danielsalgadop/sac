@@ -1,7 +1,6 @@
 server {
         listen 443 ssl;
         listen [::]:443 ssl;
-        listen 80;
         include snippets/snakeoil.conf;
         index index.php;
         error_log /var/log/nginx/socialaccesscontroller.error.log;
