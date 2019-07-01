@@ -5,10 +5,9 @@ namespace App\Infrastructure\Action;
 
 use App\Domain\Entity\Action;
 use App\Domain\Entity\Thing;
-use App\Domain\Entity\Friend;
 use App\Domain\Repository\Action\ActionRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use phpDocumentor\Reflection\Types\This;
+use \Exception;
 
 class MySQLActionRepository implements ActionRepository
 {
@@ -20,7 +19,7 @@ class MySQLActionRepository implements ActionRepository
     }
 
 
-    public function save(string $route, Thing $thing)
+    public function save(string $name, Thing $thing)
     {
         try {
 //            print "route [".$route."] thingId ".$thing->getId().PHP_EOL;
@@ -31,7 +30,7 @@ class MySQLActionRepository implements ActionRepository
             $actionRepo = $this->em->getRepository(Action::class);
 
 //            /** @var Action $action */
-            $action = $actionRepo->findOneBy(['wt' => $thing->getId(), 'route' => $route]);
+            $action = $actionRepo->findOneBy(['thing_id' => $thing->getId(), 'name' => $name]);
 
 //            dd($action);
 //
@@ -60,7 +59,7 @@ class MySQLActionRepository implements ActionRepository
 //            }
 
 
-            $action = new Action($thing, $route);
+            $action = new Action($thing, $name);
             $this->em->persist($action);
             $this->em->flush();
         } catch (Exception $e) {

@@ -6,7 +6,6 @@ use App\Application\Command\Friend\CreateFriendCommand;
 use App\Application\Command\Friend\SearchFriendByFbDelegatedCommand;
 use App\Application\Command\Owner\CreateOwnerCommand;
 use App\Application\Command\Owner\IsActualUserAnOwnerCommand;
-use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
 use App\Application\CommandHandler\Friend\CreateFriendHandler;
 use App\Application\CommandHandler\Friend\SearchFriendByFbDelegatedHandler;
 use App\Application\CommandHandler\Owner\CreateOwnerHandler;
@@ -50,6 +49,7 @@ class OwnerController extends AbstractController
 
     public function index(Request $request)
     {
+//        dd(__METHOD__.' '.__LINE__);
         // fbResponse exists?
         if (!$request->cookies->has('fbResponse')) {
             return $this->redirectToRoute('login');
@@ -67,23 +67,34 @@ class OwnerController extends AbstractController
         $session->start();
         $session->set('ownerFbDelegated',$ownerFbDelegated);
         $session->set('accessToken',$accessToken);
+//        dd(__METHOD__.' '.__LINE__);
 
         // only 1 owner for application allowed
         $appHasOwner = $this->mySQLOwnerRepository->find(1);
 
+//        dd($appHasOwner);
         $owner = null;
 
         if ($appHasOwner) {
+//            dd(__METHOD__ . ' ' . __LINE__);
             $owner = $this->isActualUserAnOwnerHandler->handle(new IsActualUserAnOwnerCommand($ownerFbDelegated));
         } else { // actual user will be owner
             try {
 
                 $owner = $this->createOwnerHandler->handle(new CreateOwnerCommand($fbResponse->name, $ownerFbDelegated));
+                try {
+                    $friends = $this->getAndAddFriendsToOwner($accessToken, $owner);
+//                    dd($friends);
+                } catch (\Exception $e) {
+                    return $this->redirectToRoute('login');
+                }
+
             } catch (\Exception $e) {
                 return $this->redirectToRoute('error', ['message' => $e->getMessage()]);
             }
         }
 
+//        dd($owner);
         // app has owner, but it is not actual User, so it is a friend
         if ($owner === null) {
             try {
@@ -94,12 +105,7 @@ class OwnerController extends AbstractController
             return $this->redirectToRoute('friend_info');
         }
 
-        try {
-            $friends = $this->getAndAddFriendsToOwner($accessToken, $owner);
-        } catch (\Exception $e) {
-            return $this->redirectToRoute('login');
-        }
-
+//        dd(__METHOD__.' '.__LINE__);
         // sending ownerFbDelegated via session: return $this->render('Owner/info_owner.html.twig', ['ownerFbDelegated' => 70]);
         return $this->render('Owner/info_owner.html.twig');
     }

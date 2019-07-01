@@ -40,7 +40,7 @@ App\Domain\Entity\Thing:
             cascade:
                 - remove
             fetch: LAZY
-            mappedBy: wt
+            mappedBy: thing
             inversedBy: null
             orphanRemoval: true
             orderBy: null
