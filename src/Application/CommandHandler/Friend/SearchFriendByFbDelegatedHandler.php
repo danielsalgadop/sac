@@ -20,7 +20,6 @@ class SearchFriendByFbDelegatedHandler
     {
         /** @var Friend $friend */
         $friend = $this->friendRepository->searchFriendByfbDelegatedOrException($searchFriendByFbDelegatedCommand->getFbDelegated());
-
         return $friend;
     }
 }

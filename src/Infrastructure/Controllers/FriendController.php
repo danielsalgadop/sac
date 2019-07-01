@@ -4,19 +4,21 @@
 namespace App\Infrastructure\Controllers;
 
 use App\Application\Command\Friend\SearchFriendByFbDelegatedCommand;
+use App\Application\Command\Friend\SearchFriendByIdCommand;
+use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
 use App\Application\Command\Thing\GetThingConnectedInfoCommand;
 use App\Application\Command\Thing\SearchThingByIdCommand;
 use App\Application\CommandHandler\Friend\SearchFriendByFbDelegatedHandler;
+use App\Application\CommandHandler\Friend\SearchFriendByIdHandler;
 use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
 use App\Application\CommandHandler\Thing\ThingConnected\GetThingConnectedCompleteHandler;
 use App\Domain\Entity\Action;
 use App\Domain\Entity\Friend;
-use App\Infrastructure\ThingConnected\Serializer\ThingConnectedSerializer;
-use Symfony\Component\HttpFoundation\Request;
+use App\Domain\Entity\Owner;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use \Exception;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 
 class FriendController extends AbstractController implements HasFbSessionController
 {
@@ -25,7 +27,11 @@ class FriendController extends AbstractController implements HasFbSessionControl
     private $searchFriendByFbDelegatedHandler;
     private $getThingConnectedCompleteHandler;
 
-    public function __construct(SearchThingByIdHandler $searchThingByIdHandler, SearchFriendByFbDelegatedHandler $searchFriendByFbDelegatedHandler, GetThingConnectedCompleteHandler $getThingConnectedCompleteHandler)
+    public function __construct(
+        SearchThingByIdHandler $searchThingByIdHandler,
+        SearchFriendByFbDelegatedHandler $searchFriendByFbDelegatedHandler,
+        GetThingConnectedCompleteHandler $getThingConnectedCompleteHandler
+    )
     {
 
         $this->searchThingByIdHandler = $searchThingByIdHandler;
@@ -75,8 +81,15 @@ class FriendController extends AbstractController implements HasFbSessionControl
         return new JsonResponse("Resource not found", 200);
     }
 
-    public function info()
+    public function info(Request $request)
     {
-        return $this->render(':Friend:friend_info.html.twig');
+        $session = $request->getSession();
+        $sessionFbDelegated = $session->get('ownerFbDelegated');
+        $friend = $this->searchFriendByFbDelegatedHandler->handle(new SearchFriendByFbDelegatedCommand($sessionFbDelegated));
+
+        $owners = $friend->getOwners();
+        /** @var Owner $owner */
+        $owner = $owners->first();
+        return $this->render('Friend/friend_info.html.twig', ['friend' => $friend, 'ownerName' => $owner->getName()]);
     }
 }

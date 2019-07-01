@@ -63,6 +63,10 @@ class OwnerController extends AbstractController
         $accessToken = $connectFbResponse->authResponse->accessToken;
         $ownerFbDelegated = $fbResponse->id;
 
+        $session = $request->getSession();
+        $session->start();
+        $session->set('ownerFbDelegated',$ownerFbDelegated);
+        $session->set('accessToken',$accessToken);
 
         // only 1 owner for application allowed
         $appHasOwner = $this->mySQLOwnerRepository->find(1);
@@ -83,48 +87,18 @@ class OwnerController extends AbstractController
         // app has owner, but it is not actual User, so it is a friend
         if ($owner === null) {
             try {
-//                dd(__METHOD__ . ' ' . __LINE__);
-                $friend = $this->searchFriendByFbDelegatedHandler->handle(new SearchFriendByFbDelegatedCommand('dd' . $ownerFbDelegated));
-//                dd($friend);
+                $friend = $this->searchFriendByFbDelegatedHandler->handle(new SearchFriendByFbDelegatedCommand($ownerFbDelegated));
             } catch (\Exception $e) { // not a friend of owner
                 return $this->redirectToRoute('login');
             }
-            return $this->render('Friend/friend_info.html.twig', ["friend" => "ffff"]);
+            return $this->redirectToRoute('friend_info');
         }
 
-//        dd(__LINE__.' '.__METHOD__);
         try {
             $friends = $this->getAndAddFriendsToOwner($accessToken, $owner);
         } catch (\Exception $e) {
             return $this->redirectToRoute('login');
         }
-        dd("2");
-        dd($friends->getDecodedBody());
-//        if($appHasOwner && $owner)
-
-
-//        if($owner){
-//            print "YES it is";
-//        }
-//        else{
-//            print "NO it is not";
-//        }
-
-//        exit;
-
-        // create Owner if not exists in sac
-        try {
-            $this->searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand($ownerFbDelegated));
-        } catch (\Exception $e) {
-            // create Owner
-            $this->createOwnerHandler->handle(new CreateOwnerCommand($fbResponse->name, $ownerFbDelegated));
-        }
-
-        $session = $request->getSession();
-        $session->start();
-        $session->set('ownerFbDelegated',$ownerFbDelegated);
-        $session->set('accessToken',$accessToken);
-        $session->set('fbFriends',$friends);
 
         // sending ownerFbDelegated via session: return $this->render('Owner/info_owner.html.twig', ['ownerFbDelegated' => 70]);
         return $this->render('Owner/info_owner.html.twig');

@@ -76,8 +76,6 @@ class MySQLFriendRepository implements FriendRepository
         if ($exceptionMessage !== null) {
             throw new \Exception($exceptionMessage." fbDelegated [".$fbDelegated."]");
         }
-        dd($friend);
         return $friend;
-
     }
 }
