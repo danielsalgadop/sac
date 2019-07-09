@@ -8,6 +8,5 @@
 (iot_emulator)
 - For simplicity database user, database name and table all are 'iot'
 
-
     php bin/console doctrine:database:create
     php bin/console doctrine:schema:create
