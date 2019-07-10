@@ -1,8 +1,16 @@
 --------- FRONT
+html5
+javascript
+jquery
+moustache
 --------- FRAMEWORKS
+symfony 4
 --------- DESARROLLO EFICIENTE
+arquitectura hexagonal
 --------- SQL
---------- SEL
+mysql
+--------- SEO
+routas SEO
 --------- RENDIMIENTO
 --------- EMPRENDEDURIA
 
