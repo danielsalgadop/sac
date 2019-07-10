@@ -1,3 +1,7 @@
+DISEÑO general
+
+Para acometer el proyecto hemos simplificado los modelos propuestos tanto por [LINK1] y [LINK2]. 
+
 DISEÑO IOT
 
 El estandar seguido es el propuesto por [LINK 1]. Nos hemos acoplado de esta manera
@@ -58,6 +62,6 @@ Diseño de BBDD
     - diseño SAC
     - diseño iot_emulator
 
-    
+
 Diseño de REST
 (mencionar las requests construidas)
