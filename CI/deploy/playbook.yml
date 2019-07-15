@@ -23,3 +23,12 @@
       apt: name=composer
     - name: install npm
       apt: name=npm
+    - name: install mysql-server
+      apt: name=mysql-server
+# sudo cp /etc/mysql/debian.cnf /home/ubuntu/.my.cnf; sudo chown ubuntu:ubuntu /home/ubuntu/.my.cnf
+    - name: copy mysql credentials
+      become: yes
+      copy:
+        src: /etc/mysql/debian.cnf
+        dest: /home/vagrant/.my.cnf
+        remote_src: yes
