@@ -2,6 +2,8 @@
   connection: local
   become: yes
 
+# mysql-server php-mysql php7.2-xml npm php-curl composer -y;
+
   tasks:
     - name: ensure nginx is at the latest version
       apt: name=nginx state=latest
@@ -9,3 +11,15 @@
       service:
           name: nginx
           state: started
+    - name: install php
+      apt: name=php
+    - name: install php-mysql
+      apt: name=php-mysql
+    - name: install php7.2-xml
+      apt: name=php7.2-xml
+    - name: install php-curl
+      apt: name=php-curl
+    - name: install composer
+      apt: name=composer
+    - name: install npm
+      apt: name=npm
