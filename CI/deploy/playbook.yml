@@ -32,3 +32,18 @@
         src: /etc/mysql/debian.cnf
         dest: /home/vagrant/.my.cnf
         remote_src: yes
+# cd /var/www/; sudo mkdir -p /var/www/temp; sudo chown ubuntu:ubuntu /var/www/temp; cd /var/www/temp/; git clone https://github.com/danielsalgadop/sac.git; cd /var/www; sudo mv  /var/www/temp/sac /var/www;  sudo rm -rf /var/www/temp
+    - git:
+        repo: 'https://github.com/danielsalgadop/sac.git'
+        dest: '/var/www/sac'
+    - git:
+        repo: 'https://github.com/danielsalgadop/iot_emulator.git'
+        dest: '/var/www/iot_emulator'
+    # composer
+    - composer:
+        name: "doing composer install in sac"
+        command: install
+        working_dir: /var/www/sac
+    - composer:
+        command: install
+        working_dir: /var/www/iot_emulator
