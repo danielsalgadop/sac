@@ -4,7 +4,7 @@ server {
         include snippets/snakeoil.conf;
         index index.php;
         error_log /var/log/nginx/socialaccesscontroller.error.log;
-        access_log /var/log/nginx/socialaccesscontroller.error.log;
+        access_log /var/log/nginx/socialaccesscontroller.access.log;
 
         root /var/www/sac/public;
         server_name socialaccesscontroller.tk;
