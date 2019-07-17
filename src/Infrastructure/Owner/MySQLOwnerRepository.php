@@ -20,7 +20,7 @@ class MySQLOwnerRepository implements OwnerRepository
 
     public function find(int $id)
     {
-        dd(__LINE__.' '.__METHOD__);
+//        dd(__LINE__.' '.__METHOD__);
         return $this->em->find(Owner::class, $id) ;
     }
 
