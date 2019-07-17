@@ -1,0 +1,49 @@
+- hosts: 127.0.0.1
+  connection: local
+  become: yes
+
+# mysql-server php-mysql php7.2-xml npm php-curl composer -y;
+
+  tasks:
+    - name: ensure nginx is at the latest version
+      apt: name=nginx state=latest
+    - name: start nginx
+      service:
+          name: nginx
+          state: started
+    - name: install php
+      apt: name=php
+    - name: install php-mysql
+      apt: name=php-mysql
+    - name: install php7.2-xml
+      apt: name=php7.2-xml
+    - name: install php-curl
+      apt: name=php-curl
+    - name: install composer
+      apt: name=composer
+    - name: install npm
+      apt: name=npm
+    - name: install mysql-server
+      apt: name=mysql-server
+# sudo cp /etc/mysql/debian.cnf /home/ubuntu/.my.cnf; sudo chown ubuntu:ubuntu /home/ubuntu/.my.cnf
+    - name: copy mysql credentials
+      become: yes
+      copy:
+        src: /etc/mysql/debian.cnf
+        dest: /home/vagrant/.my.cnf
+        remote_src: yes
+# cd /var/www/; sudo mkdir -p /var/www/temp; sudo chown ubuntu:ubuntu /var/www/temp; cd /var/www/temp/; git clone https://github.com/danielsalgadop/sac.git; cd /var/www; sudo mv  /var/www/temp/sac /var/www;  sudo rm -rf /var/www/temp
+    - git:
+        repo: 'https://github.com/danielsalgadop/sac.git'
+        dest: '/var/www/sac'
+    - git:
+        repo: 'https://github.com/danielsalgadop/iot_emulator.git'
+        dest: '/var/www/iot_emulator'
+    # composer
+    - composer:
+        name: "doing composer install in sac"
+        command: install
+        working_dir: /var/www/sac
+    - composer:
+        command: install
+        working_dir: /var/www/iot_emulator
