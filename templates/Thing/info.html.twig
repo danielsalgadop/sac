@@ -113,7 +113,7 @@
             }
             else{
                 // TODO use symfony url generator for shareActionWithFriendUrl
-                var shareActionWithFriendUrl = "/owner/share/action/"+actionId+"/friend/"+friend.friendId;
+                var shareActionWithFriendUrl = "/owner/share/actionXXXXXXXXXXXX/"+actionId+"/friend/"+friend.friendId;
                 retval += setShareButton(shareActionWithFriendUrl);
             }
             return retval;
@@ -122,11 +122,12 @@
 
         function setShareButton(shareActionWithFriendUrl) {
             console.log("shareActionWithFriend "+shareActionWithFriendUrl);
-            return '<button style="color:green" onclick=shareThisAction("'+shareActionWithFriendUrl+'")> Share </button>';
+            return '<button class="not_shared_action" onclick=shareThisAction("'+shareActionWithFriendUrl+'")> Share ' +
+                '</button>';
         }
 
         function denyShareButton() {
-            return '<button style="color:red">Deny</button>';
+            return '<button class="shared_action"</button>';
         }
 
         function openFriendDialog3(actionName) {

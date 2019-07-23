@@ -1,23 +1,26 @@
-.thing_error{
-    color:red;
+.thing_error, .shared_action {
+    color: red;
 }
-.thing_ok{
-    color:green;
+
+.thing_ok, .not_shared_action  {
+    color: green;
 }
+
 .card {
     margin-bottom: 10px;
 }
-.card-body{
+
+.card-body {
     background-color: rgba(222, 234, 245, 0.56);
 
 }
 
-#fbLogin{
-    position:absolute;
-    top:14px;
+#fbLogin {
+    position: absolute;
+    top: 14px;
     height: 190px;
 }
 
-header{
+header {
     height: 70px;
 }
