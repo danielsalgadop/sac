@@ -19,9 +19,9 @@ class MySQLActionRepository implements ActionRepository
     }
 
 
-    public function save(string $name, Thing $thing)
+    public function save(string $name, Thing $thing): Action
     {
-        try {
+//        try {
 //            print "route [".$route."] thingId ".$thing->getId().PHP_EOL;
             // avoid saving same route for same thing (this could be done with a Unique in ddbb)
 
@@ -30,7 +30,7 @@ class MySQLActionRepository implements ActionRepository
             $actionRepo = $this->em->getRepository(Action::class);
 
 //            /** @var Action $action */
-            $action = $actionRepo->findOneBy(['thing_id' => $thing->getId(), 'name' => $name]);
+            $action = $actionRepo->findOneBy(['thing' => $thing->getId(), 'name' => $name]);
 
 //            dd($action);
 //
@@ -62,9 +62,9 @@ class MySQLActionRepository implements ActionRepository
             $action = new Action($thing, $name);
             $this->em->persist($action);
             $this->em->flush();
-        } catch (Exception $e) {
-            return $e->getMessage();
-        }
+//        } catch (Exception $e) {
+//            return $e->getMessage();
+//        }
         return $action;
     }
 

@@ -4,6 +4,8 @@ namespace App\Application\CommandHandler\Thing\ThingConnected;
 
 use App\Application\Command\Thing\GetThingConnectedInfoCommand;
 use App\Application\Command\Thing\SearchThingByIdCommand;
+use App\Application\Command\Action\CreateActionCommand;
+use App\Application\CommandHandler\Action\CreateActionHandler;
 use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
 use App\Domain\Repository\ThingConnectedRepository;
 use App\Infrastructure\Action\MySQLActionRepository;
@@ -13,16 +15,18 @@ class GetThingConnectedCompleteHandler
 
     private $thingConnectedRepository;
     private $searchThingByIdHandler;
+    private $createActionHandler;
     /**
      * @var MySQLActionRepository
      */
-    private $mySQLActionRepository;
+    private $mySQLActionRepository;  // deberia ser la interfaz
 
-    public function __construct(ThingConnectedRepository $thingConnectedRepository, SearchThingByIdHandler $searchThingByIdHandler, MySQLActionRepository $mySQLActionRepository)
+    public function __construct(ThingConnectedRepository $thingConnectedRepository, SearchThingByIdHandler $searchThingByIdHandler, MySQLActionRepository $mySQLActionRepository, CreateActionHandler $createActionHandler)
     {
         $this->thingConnectedRepository = $thingConnectedRepository;
         $this->searchThingByIdHandler = $searchThingByIdHandler;
         $this->mySQLActionRepository = $mySQLActionRepository;
+        $this->createActionHandler = $createActionHandler;
     }
 
     public function handle(GetThingConnectedInfoCommand $getThingConnectedInfoCommand)
@@ -41,38 +45,20 @@ class GetThingConnectedCompleteHandler
         $searchThingByIdCommand = new SearchThingByIdCommand($thingId);
         $thing = $this->searchThingByIdHandler->handle($searchThingByIdCommand);
 
-//        var_export(key($thingConnected['data']->links->actions->resources));
-//        dd(gettype($thingConnected['data']->links));
         $actionsInThing = [];
         foreach ($thingConnected['data']->links->actions->resources as $actionName => $action) {
-            $this->mySQLActionRepository->save($actionName, $thing);
-//            $action = new Action($thing, $actionName);
 
-//                var_export($actionName);
-//            $actionsInThing[$actionName] = $action->values;
-//            var_export($action);
-//            var_export(values($thingConnected['data']->links->actions));
-//            dd($action);
+
+        $action = $this->createActionHandler->handle(
+            new CreateActionCommand(
+                $thing,
+                $actionName
+            )
+        );
+
 
         }
 
-        // sacar del array de thingConnected los actions
-//        $thingConnected -> actions
-
-
-//        $action = new Action();
-//        $action->setDescription('');
-//        $action->setHttpVerb('');
-//        $action->setName('');
-//        $action->setThing($thing);
-//        $action->addFriend($friend);
-//
-//        $this->manager->persist($action);
-//        $arrayActions[] = $action;
-//
-//
-//        $thing->addAction();
-//        $thing->flush;  <<<
 
 
         return $thingConnected;

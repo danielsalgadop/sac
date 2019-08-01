@@ -37,7 +37,7 @@ class Create extends ContainerAwareCommand
             ->addArgument('thingId', InputArgument::REQUIRED, '(int) thing id')
 //            ->addArgument('friendFbDelegated', InputArgument::REQUIRED, '(string) friends fb_delegated')
 //            ->addArgument('httpVerb', InputArgument::REQUIRED, 'GET | POST')
-            ->addArgument('route', InputArgument::REQUIRED, '(string) /this/is/a/route')  // really this is action name (links->actions->link->resources)
+            ->addArgument('name', InputArgument::REQUIRED, '(string) name')  // really this is action name (links->actions->link->resources)
 //            ->addArgument('actionDescription', InputArgument::REQUIRED, '(xxx) Action Description')
         ;
     }
@@ -56,10 +56,10 @@ class Create extends ContainerAwareCommand
         $action = $this->createActionHandler->handle(
             new CreateActionCommand(
                 $thing,
-                $input->getArgument("route")
+                $input->getArgument("name")
             )
         );
 
-        $io->success('Created Action ['.$action->getId().'] with route (actionName) ['.$action->getName().']for ThingId ['.$thing->getId().']');
+        $io->success('Created Action ['.$action->getId().'] with name (actionName) ['.$action->getName().']for ThingId ['.$thing->getId().']');
     }
 }

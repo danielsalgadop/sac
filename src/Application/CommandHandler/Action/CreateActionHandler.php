@@ -18,6 +18,7 @@ class CreateActionHandler
 
     public function handle(CreateActionCommand $createActionCommand): Action
     {
+
         return $this->actionRepository->save(
             $createActionCommand->getName(),
             $createActionCommand->getThing()

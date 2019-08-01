@@ -3,6 +3,7 @@
 namespace App\Infrastructure\Controllers;
 
 use App\Application\Command\Thing\MergeThingWithThingConnectedByIdCommand;
+use App\Application\CommandHandler\Action\CreateActionHandler;
 use App\Application\CommandHandler\Friend\CreateFriendHandler;
 use App\Application\CommandHandler\Thing\MergeThingWithThingConnectedByIdHandler;
 use App\Domain\Entity\Friend;
@@ -22,6 +23,7 @@ use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
 
 use App\Application\Command\Owner\GetFbSharingStatusByOwnerCommand;
 use App\Application\CommandHandler\Owner\GetFbSharingStatusByOwnerHandler;
+use App\Application\Command\Action\CreateActionCommand;
 use \Exception;
 
 class ThingController extends AbstractController implements HasFbSessionController
@@ -33,6 +35,7 @@ class ThingController extends AbstractController implements HasFbSessionControll
     private $addThingToOwnerHandler;
     private $mergeThingWithThingConnectedByIdHandler;
     private $createFriendHandler;
+    private $createActionHandler;
 
     public function __construct(
         SearchOwnerByFbDelegatedHandler $searchOwnerByFbDelegatedHandler,
@@ -40,7 +43,8 @@ class ThingController extends AbstractController implements HasFbSessionControll
         CreateThingHandler $createThingHandler,
         AddThingToOwnerHandler $addThingToOwnerHandler,
         MergeThingWithThingConnectedByIdHandler $mergeThingWithThingConnectedByIdHandler,
-        CreateFriendHandler $createFriendHandler
+        CreateFriendHandler $createFriendHandler,
+        CreateActionHandler $createActionHandler
     )
     {
         $this->searchOwnerByFbDelegatedHandler = $searchOwnerByFbDelegatedHandler;
@@ -49,6 +53,7 @@ class ThingController extends AbstractController implements HasFbSessionControll
         $this->addThingToOwnerHandler = $addThingToOwnerHandler;
         $this->mergeThingWithThingConnectedByIdHandler = $mergeThingWithThingConnectedByIdHandler;
         $this->createFriendHandler = $createFriendHandler;
+        $this->createActionHandler = $createActionHandler;
     }
 
     public function info($thingId, Request $request)
@@ -88,7 +93,11 @@ class ThingController extends AbstractController implements HasFbSessionControll
         }
 
 
+
         $this->mergeThingWithThingConnectedByIdHandler->handle(new MergeThingWithThingConnectedByIdCommand($thingId));
+
+
+
         return $this->render('Thing/info.html.twig', ['thing' => $thing, 'friends' => $friendsForView, 'sharingStatus' => $sharingStatus, 'thingId' => $thingId]);
     }
 
