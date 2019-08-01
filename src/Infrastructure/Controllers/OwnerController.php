@@ -49,6 +49,7 @@ class OwnerController extends AbstractController
 
     public function index(Request $request)
     {
+//        dd("fdaasd");
         // fbResponse exists?
         if (!$request->cookies->has('fbResponse')) {
             return $this->redirectToRoute('login');
@@ -122,6 +123,7 @@ class OwnerController extends AbstractController
     {
         $fbAppId = getenv('FACEBOOK_APP_ID');
         $fbSecret = getenv('FACEBOOK_SECRET');
+
         $fb = new Facebook([
             'app_id' => $fbAppId,
             'app_secret' => $fbSecret,

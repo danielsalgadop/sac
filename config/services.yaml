@@ -115,6 +115,10 @@ services:
     arguments:
     - "@app.repository.thing_connected"
 
+  app.application.command_handler.owner.is_actual_user_an_owner_handler:
+    class: App\Application\CommandHandler\Owner\IsActualUserAnOwnerHandler
+    arguments: ['@app.command_handler.owner.search.by_fb_delegated']
+
 # TODO faltan de ThingConnected get_name, get_brand
 
 
