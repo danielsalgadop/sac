@@ -2,7 +2,7 @@ DISEÑO general
 
 Para acometer el proyecto hemos simplificado los modelos propuestos tanto por [LINK1] y [LINK2]. 
 
-DISEÑO IOT
+__ACOPLE AL DISEÑO IOT propuesto por W3consorcium__
 
 El estandar seguido es el propuesto por [LINK 1]. Nos hemos acoplado de esta manera
 
@@ -44,7 +44,9 @@ El estandar seguido es el propuesto por [LINK 1]. Nos hemos acoplado de esta man
   -NO
 
 
+__DISEÑO SAC IOT__
 
+Nuestros iot tiene nombre y brand. Tienen propiedades y acciones. Y el nombre de la propiedad coincide con el valor de la acción
 
 
 Diseño de BBDD
