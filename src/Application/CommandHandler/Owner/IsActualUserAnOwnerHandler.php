@@ -11,19 +11,18 @@ use \Exception;
 
 class IsActualUserAnOwnerHandler
 {
-    private $mySQLOwnerRepository;
+    private $searchOwnerByFbDelegatedHandler;
 
-    public function __construct(MySQLOwnerRepository $mySQLOwnerRepository)
+    public function __construct(SearchOwnerByFbDelegatedHandler $searchOwnerByFbDelegatedHandler)
     {
-        $this->mySQLOwnerRepository = $mySQLOwnerRepository;
+        $this->searchOwnerByFbDelegatedHandler = $searchOwnerByFbDelegatedHandler;
     }
 
     public function handle(IsActualUserAnOwnerCommand $isActualUserAnOwnerCommand): ?Owner
     {
         $fbDelegated = $isActualUserAnOwnerCommand->getActualFbDelegated();
-        $searchOwnerByFbDelegatedHandler = new SearchOwnerByFbDelegatedHandler($this->mySQLOwnerRepository);
         try{
-            $owner = $searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand($fbDelegated));
+            $owner = $this->searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand($fbDelegated));
         }
         catch (Exception $e)
         {
