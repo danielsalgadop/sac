@@ -113,7 +113,7 @@
             }
             else{
                 // TODO use symfony url generator for shareActionWithFriendUrl
-                var shareActionWithFriendUrl = "/owner/share/action/"+actionId+"/friend/"+friend.friendId;
+                var shareActionWithFriendUrl = getShareActionWithFriendUrl(actionId,friend.friendId);
                 retval += setShareButton(shareActionWithFriendUrl);
             }
             return retval;
@@ -122,10 +122,8 @@
 
         function setShareButton(shareActionWithFriendUrl) {
             console.log("shareActionWithFriend "+shareActionWithFriendUrl);
-            return '<button class="not_shared_action" onclick=shareThisAction("'+shareActionWithFriendUrl+'")> Share ' +
-                '</button>';
+            // return '<button class="not_shared_action" onclick=shareThisAction("'+shareActionWithFriendUrl+'")>     // Share ' + '</button>';
         }
-
         function denyShareButton() {
             return ' (already shared)';
             // return '<button class="shared_action" type="button" disabled="disabled">Already shared</button>';
@@ -171,12 +169,32 @@
             // TODO: redirect to error?='ActionId not found'
         }
 
+
+        function getShareActionWithFriendUrl(actionId, friendId){
+            console.log('actionId '+actionId+' friendId '+friendId);
+            $.ajax({
+                method: "GET",
+                url: "{{ url('url_provider_for_api_share_action') }}",
+                dataType: "json",
+                data: {actionId: actionId, friendId: friendId},
+                success: function (response) {
+                    console.log("getShareActionWithFriendUrl "+response);
+                    return response;
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                var response = JSON.parse(jqXHR.responseText);
+                window.location.href = "{{ url('error') }}?message=" + response.message;
+            });
+
+        }
+
         function shareThisAction(shareActionWithFriendUrl){
 
             $.ajax({
                 url: shareActionWithFriendUrl,
                 dataType: "json",
                 success: function (response) {
+
 
                     // TODO use symfony url generator
                     var shareLink="/friend/thing/1/action/1/";

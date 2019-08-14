@@ -48,7 +48,7 @@ class OwnerApiController extends AbstractController implements HasFbSessionContr
         return new JsonResponse(OwnerArraySeralizer::serialize($owner));
     }
 
-    public function shareActionWithFriend(int $friendId, int $actionId)
+    public function shareActionWithFriend(int $actionId, int $friendId)
     {
         try{
             $action = $this->searchActionByIdHandler->handle(new SearchActionByIdCommand($actionId));
