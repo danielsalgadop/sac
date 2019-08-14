@@ -104,29 +104,21 @@
             $('#dialog').show();
         }
 
-        function hasAlreadyBeenShared(friend,actionId) {
+        function setFriendButton(friend,actionId) {
 
-            var retval = friend.name;
+            console.log(friend);
+            var wrapperContent = ' (already shared)';
+            var buttonWrapper = $("#friendButtonWrapper_" + friend.friendId);
 
-            if (friend.actions.includes(actionId)) {
-                retval += denyShareButton();
+            if (!friend.actions.includes(actionId)) {
+                
+                var shareActionWithFriendUrl = getShareActionWithFriendUrl(actionId, friend.friendId);
+                wrapperContent = '<button class="not_shared_action" onclick=shareThisAction("'+shareActionWithFriendUrl+'")> Share ' + '</button>';
+                // console.log('shareActionWithFriendUrl2222 '+shareActionWithFriendUrl);
+                // setShareButton(shareActionWithFriendUrl);
+
             }
-            else{
-                // TODO use symfony url generator for shareActionWithFriendUrl
-                var shareActionWithFriendUrl = getShareActionWithFriendUrl(actionId,friend.friendId);
-                retval += setShareButton(shareActionWithFriendUrl);
-            }
-            return retval;
-            // console.log(friend);
-        }
-
-        function setShareButton(shareActionWithFriendUrl) {
-            console.log("shareActionWithFriend "+shareActionWithFriendUrl);
-            // return '<button class="not_shared_action" onclick=shareThisAction("'+shareActionWithFriendUrl+'")>     // Share ' + '</button>';
-        }
-        function denyShareButton() {
-            return ' (already shared)';
-            // return '<button class="shared_action" type="button" disabled="disabled">Already shared</button>';
+            buttonWrapper.append(wrapperContent);
         }
 
         function openFriendDialog3(actionName) {
@@ -137,7 +129,9 @@
             var html = '<ul>';
             var li = '';
             for (i = 0; i < friends.length; i++) {
-                var liElement = '<li>' + hasAlreadyBeenShared(friends[i],actionId) + '</li>';
+                var friendId = friends[i]["friendId"];
+                var friendName = friends[i]["name"]
+                var liElement = '<li>'+friends[i]["name"]+'<span id="friendButtonWrapper_'+friendId+'"></span></li>';
                 li += liElement;
             }
             if(li === ''){
@@ -152,6 +146,10 @@
                 modal: true,
                 width: 600
             });
+
+            for (i = 0; i < friends.length; i++) {
+                setFriendButton(friends[i], actionId)
+            }
         }
 
         function getActionIdByActionName(actionName) {
@@ -171,17 +169,20 @@
 
 
         function getShareActionWithFriendUrl(actionId, friendId){
-            console.log('actionId '+actionId+' friendId '+friendId);
             $.ajax({
+                async: false,
                 method: "GET",
                 url: "{{ url('url_provider_for_api_share_action') }}",
                 dataType: "json",
                 data: {actionId: actionId, friendId: friendId},
                 success: function (response) {
-                    console.log("getShareActionWithFriendUrl "+response);
+
+                    // setShareButton(response);
+                    console.log("getShareActionWithFriendUrlSUCCESSSS "+response);
                     return response;
                 }
             }).fail(function (jqXHR, textStatus, errorThrown) {
+                // console.log('getShareActionWithFriendUrlError');
                 var response = JSON.parse(jqXHR.responseText);
                 window.location.href = "{{ url('error') }}?message=" + response.message;
             });

@@ -6,8 +6,8 @@ api_owner:
 api_thing_info:
   path: /api/thing/{thingId}
   controller: App\Infrastructure\Controllers\Api\ThingApiController::info
-#  requirements:
-#    thingId: '\d+'
+  requirements:
+    thingId: '\d+'
   methods: [GET]
 
 api_share_action:
