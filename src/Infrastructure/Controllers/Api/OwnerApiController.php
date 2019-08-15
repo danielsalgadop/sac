@@ -63,7 +63,7 @@ class OwnerApiController extends AbstractController implements HasFbSessionContr
         }
 
         $thing = $action->getThing();
-        $shareLink = $this->generateUrl('friend_see_action', ['thingId' => $thing->getId(), 'actionId' => $actionId],UrlGeneratorInterface::ABSOLUTE_PATH);
+        $shareLink = $this->generateUrl('friend_see_action', ['thingId' => $thing->getId(), 'actionId' => $actionId]);
         return new JsonResponse(["message" => "Share Relationship created", "shareLink" => $shareLink],200);
     }
 }
