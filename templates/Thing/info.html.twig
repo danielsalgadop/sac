@@ -189,11 +189,7 @@
                 url: shareActionWithFriendUrl,
                 dataType: "json",
                 success: function (response) {
-
-
-                    // TODO use symfony url generator
-                    var shareLink="/friend/thing/1/action/1/";
-                    window.location.href = "{{ url('success') }}?message="+response.message+"&shareLink="+shareLink;
+                    window.location.href = "{{ url('success') }}?message="+response.message+"&shareLink="+response.shareLink;
                     }
             }).fail( function( jqXHR, textStatus, errorThrown ) {
                     var response = JSON.parse(jqXHR.responseText);

@@ -48,7 +48,7 @@ class FriendController extends AbstractController implements HasFbSessionControl
 
         // TODO rename ownerFbDelegated, because here it is NOT owner's but friend's. Should be userLoggedFbDelegated
         $friendFbDelegated = $request->getSession()->get('ownerFbDelegated');
-//        $friendFbDelegated = 101658664356739;
+
         try {
 
             $loggedFriend = $this->searchFriendByFbDelegatedHandler->handle(new SearchFriendByFbDelegatedCommand($friendFbDelegated));
