@@ -111,15 +111,7 @@
             var buttonWrapper = $("#friendButtonWrapper_" + friend.friendId);
 
             if (!friend.actions.includes(actionId)) {
-
-                var shareActionWithFriendUrl = getShareActionWithFriendUrl(actionId, friend.friendId, buttonWrapper);
-
-                console.log(shareActionWithFriendUrl);
-
-                // wrapperContent = ;
-                // console.log('shareActionWithFriendUrl2222 '+shareActionWithFriendUrl);
-                // setShareButton(shareActionWithFriendUrl);
-
+                getShareActionWithFriendUrl(actionId, friend.friendId, buttonWrapper);
             }
             else{
                 buttonWrapper.append(wrapperContent);
@@ -175,7 +167,6 @@
 
         function getShareActionWithFriendUrl(actionId, friendId, buttonWrapper){
             $.ajax({
-                async: false,
                 method: "GET",
                 url: "{{ url('url_provider_for_api_share_action') }}",
                 dataType: "json",
