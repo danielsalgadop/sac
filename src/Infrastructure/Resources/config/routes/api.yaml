@@ -6,6 +6,8 @@ api_owner:
 api_thing_info:
   path: /api/thing/{thingId}
   controller: App\Infrastructure\Controllers\Api\ThingApiController::info
+  requirements:
+    thingId: '\d+'
   methods: [GET]
 
 api_share_action:
@@ -29,4 +31,12 @@ url_provider_for_api_thing_info:  # thing Connected
   controller: App\Infrastructure\Controllers\Api\ApiUrlGeneratorController::urlForApiThingInfoProvider
   requirements:
     thingId: '\d+'
+  methods: [GET]
+
+url_provider_for_api_share_action:
+  path: /api/url/provider/api/share/action
+  controller:  App\Infrastructure\Controllers\Api\ApiUrlGeneratorController::urlForShareActionWithFriend
+  requirements:
+    actionId: '\d+'
+    friendId: '\d+'
   methods: [GET]

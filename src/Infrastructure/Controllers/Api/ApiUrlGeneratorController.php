@@ -20,4 +20,9 @@ class ApiUrlGeneratorController extends AbstractController implements HasFbSessi
     {
         return new JsonResponse($this->generateUrl('api_thing_info', ['thingId' => $request->get('thingId')]), 200);
     }
+
+    public function urlForShareActionWithFriend(Request $request)
+    {
+        return new JsonResponse($this->generateUrl('api_share_action', ['friendId' => $request->get('friendId'), 'actionId' => $request->get('actionId')]), 200);
+    }
 }

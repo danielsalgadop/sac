@@ -49,46 +49,40 @@ class OwnerController extends AbstractController
 
     public function index(Request $request)
     {
-//        dd("fdaasd");
+        $session = $request->getSession();
+
+        if (!$request->cookies->has('fbResponse') && !$request->cookies->has('connectFbResponse') &&  !$session->get('ownerFbDelegated')){
         // fbResponse exists?
-        if (!$request->cookies->has('fbResponse')) {
+        //        if (!$request->cookies->has('fbResponse')) {
             return $this->redirectToRoute('login');
         }
 
-        // TODO Victor mejorar los datos que se envian en fbResponse (mando demasiados) se usan: id y name
-        $fbResponse = json_decode($request->cookies->get('fbResponse'));
-        $connectFbResponse = json_decode($request->cookies->get('connectFbResponse'));
+        $ownerFbDelegated = null;
 
+        if($request->cookies->has('fbResponse') && $request->cookies->has('connectFbResponse')) {
+            $fbResponse = json_decode($request->cookies->get('fbResponse'));
+            $connectFbResponse = json_decode($request->cookies->get('connectFbResponse'));
+            $accessToken = $connectFbResponse->authResponse->accessToken;
+            $ownerFbDelegated = $fbResponse->id;
 
-//        $res = new Response();
-//        $res->headers->clearCookie('my_old_cookie');
-//        $res->send();
-
-        $accessToken = $connectFbResponse->authResponse->accessToken;
-        $ownerFbDelegated = $fbResponse->id;
-
-        $session = $request->getSession();
-        $session->start();
-        $session->set('ownerFbDelegated',$ownerFbDelegated);
-        $session->set('accessToken',$accessToken);
-//        dd(__METHOD__.' '.__LINE__);
+            $session->start();
+            $session->set('ownerFbDelegated',$ownerFbDelegated);
+            $session->set('accessToken',$accessToken);
+        }else {
+            $ownerFbDelegated = $session->get('ownerFbDelegated');
+        }
 
         // only 1 owner for application allowed
         $appHasOwner = $this->mySQLOwnerRepository->find(1);
 
-//        dd($appHasOwner);
         $owner = null;
-
         if ($appHasOwner) {
-//            dd(__METHOD__ . ' ' . __LINE__);
             $owner = $this->isActualUserAnOwnerHandler->handle(new IsActualUserAnOwnerCommand($ownerFbDelegated));
         } else { // actual user will be owner
             try {
-
                 $owner = $this->createOwnerHandler->handle(new CreateOwnerCommand($fbResponse->name, $ownerFbDelegated));
                 try {
                     $friends = $this->getAndAddFriendsToOwner($accessToken, $owner);
-//                    dd($friends);
                 } catch (\Exception $e) {
                     return $this->redirectToRoute('login');
                 }
@@ -98,10 +92,7 @@ class OwnerController extends AbstractController
             }
         }
 
-//        dd($owner);
-        // app has owner, but it is not actual User, so it is a friend
         if ($owner === null) {
-//        dd(__METHOD__.' '.__LINE__);
             try {
                 $friend = $this->searchFriendByFbDelegatedHandler->handle(new SearchFriendByFbDelegatedCommand($ownerFbDelegated));
             } catch (\Exception $e) { // not a friend of owner
@@ -110,7 +101,6 @@ class OwnerController extends AbstractController
             return $this->redirectToRoute('friend_info');
         }
 
-//        dd(__METHOD__.' '.__LINE__);
         // sending ownerFbDelegated via session: return $this->render('Owner/info_owner.html.twig', ['ownerFbDelegated' => 70]);
         $response = $this->render('Owner/info_owner.html.twig');
         $response->headers->clearCookie('fbResponse');

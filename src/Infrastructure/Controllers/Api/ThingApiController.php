@@ -23,8 +23,9 @@ class ThingApiController extends AbstractController  implements HasFbSessionCont
         $this->mergeThingWithThingConnectedByIdHandler = $mergeThingWithThingConnectedByIdHandler;
     }
 
-    public function info($thingId)
+    public function info(int $thingId)
     {
+        file_put_contents("/tmp/debug.txt", __METHOD__ . ' ' . __LINE__ . PHP_EOL . var_export($thingId, true) . PHP_EOL, FILE_APPEND);
         try {
             $thingWithThingConnected = $this->mergeThingWithThingConnectedByIdHandler->handle(new MergeThingWithThingConnectedByIdCommand($thingId));
             return new JsonResponse(ThingWithThingConnectedArraySerializer::serialize($thingWithThingConnected));

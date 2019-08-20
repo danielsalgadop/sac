@@ -7,6 +7,7 @@ use App\Application\Command\Thing\SearchThingByIdCommand;
 use App\Application\Command\Action\CreateActionCommand;
 use App\Application\CommandHandler\Action\CreateActionHandler;
 use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
+use App\Domain\Entity\Thing;
 use App\Domain\Repository\ThingConnectedRepository;
 use App\Infrastructure\Action\MySQLActionRepository;
 
@@ -32,19 +33,19 @@ class GetThingConnectedCompleteHandler
     public function handle(GetThingConnectedInfoCommand $getThingConnectedInfoCommand)
     {
         $thingId = $getThingConnectedInfoCommand->getId();
+        /** @var Thing $thing */
+        $thing = $this->searchThingByIdHandler->handle(new SearchThingByIdCommand($thingId));
 
+        $thingRoot = $thing->getRoot();
         $thingConnected =  $this->thingConnectedRepository->getThingConnectedCompleteByIdOrException(
-            $thingId,
+            $thingRoot,
             $getThingConnectedInfoCommand->getThingUsername(),
             $getThingConnectedInfoCommand->getThingPassword()
         );
 
 
-        // persistActionToDDBB();
-        /** Thing $thing */
-        $searchThingByIdCommand = new SearchThingByIdCommand($thingId);
-        $thing = $this->searchThingByIdHandler->handle($searchThingByIdCommand);
 
+        // persistActionToDDBB();
         $actionsInThing = [];
         foreach ($thingConnected['data']->links->actions->resources as $actionName => $action) {
 

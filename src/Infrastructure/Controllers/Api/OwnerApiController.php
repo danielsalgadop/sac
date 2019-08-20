@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use \Exception;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 
 class OwnerApiController extends AbstractController implements HasFbSessionController
@@ -48,8 +49,10 @@ class OwnerApiController extends AbstractController implements HasFbSessionContr
         return new JsonResponse(OwnerArraySeralizer::serialize($owner));
     }
 
-    public function shareActionWithFriend(int $friendId, int $actionId)
+    /* route invoking this method is dinamically built */
+    public function shareActionWithFriend(int $actionId, int $friendId)
     {
+
         try{
             $action = $this->searchActionByIdHandler->handle(new SearchActionByIdCommand($actionId));
             $friend = $this->searchFriendByIdHandler->handle(new SearchFriendByIdCommand($friendId));
@@ -58,6 +61,9 @@ class OwnerApiController extends AbstractController implements HasFbSessionContr
         catch (Exception $e){
             return new JsonResponse(["message" => $e->getMessage()],400);
         }
-        return new JsonResponse(["message" => "Share Relationship created"],200);
+
+        $thing = $action->getThing();
+        $shareLink = $this->generateUrl('friend_see_action', ['thingId' => $thing->getId(), 'actionId' => $actionId]);
+        return new JsonResponse(["message" => "Share Relationship created", "shareLink" => $shareLink],200);
     }
 }

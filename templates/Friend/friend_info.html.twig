@@ -2,13 +2,15 @@
 {%  block title %}
     List of Friends
 {% endblock %}
+    {%  block header %}
+        {% include 'Friend/friend_header.html.twig' %}
+    {% endblock %}
 {% block body %}
-{#    {%  block header %}#}
-{#    {% endblock %}#}
 
     <h1>Hello, {{ friend.name }} </h1>
     <p>Your friend <b>{{ ownerName }} </b> has kindly shared this actions with you:</p>
-    {% for action in friend.actions %}
-        <p> {{ action }}</p>
-    {% endfor %}
+
+{#    {% for action in friend.actions %}#}
+{#        <p> {{ action }}</p>#}
+{#    {% endfor %}#}
 {% endblock %}
