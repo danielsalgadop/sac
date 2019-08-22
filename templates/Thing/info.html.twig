@@ -18,17 +18,27 @@
 
     <script id="thing_template3" type="text/x-handlebars-template">
         <h1>{{thing.name}} | {{thing.brand}} </h1>
+        <table class="table table-striped table-sm table-hover">
+        <thead class="thead-dark">
+            <th>Action Name</th>
+            <th>Property Value</th>
+            <th>Admin</th>
+        </thead>
+
         {{#if thing.links}}
             {{#if thing.links.actions}}
                 {{#if thing.links.actions.resources}}
                     {{#each thing.links.actions.resources}}
-                        {{@key}} | {{this.values}} | {{this.id}} |
-
-                                <button onclick='openFriendDialog3("{{@key}}")'>Admin</button><br>
+                    <tr>
+                        <td>{{@key}}</td>
+                        <td>{{this.values}}</td>
+                        <td><button onclick='openFriendDialog3("{{@key}}")'>Admin</button></td>
+                    </tr>
                     {{/each}}
                 {{/if}}
             {{/if}}
         {{/if}}
+        </table>
     </script>
     <div id="thing_info3"></div>
 
@@ -36,15 +46,6 @@
     </div>
     </div>
 
-    {% verbatim %}
-    <script id="thing_template2" type="text/x-handlebars-template">
-    <h1>thing_template2</h1>
-    <p>
-        {{ thing }}
-    </p>
-    </script>
-
-    {% endverbatim %}
 
 
     <script>
