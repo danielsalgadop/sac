@@ -24,3 +24,4 @@ components
 ###< symfony/phpunit-bridge ###
 CI/deploy/.vagrant
 CI/deploy/*log
+docs/~*
