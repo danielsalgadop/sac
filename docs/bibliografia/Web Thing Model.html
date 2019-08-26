@@ -1,0 +1,2341 @@
+<!DOCTYPE html>
+<html dir="ltr" typeof="bibo:Document " prefix="bibo: http://purl.org/ontology/bibo/ w3p: http://www.w3.org/2001/02pd/rec54#" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><meta property="dc:language" content="en" lang="">
+    <title>Web Thing Model</title>
+    <meta charset="utf-8">
+    
+    
+    <style type="text/css">
+        table {
+            border: 1px solid grey;
+        }
+    </style>
+<style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
+.en-markup-crop-options {
+    top: 18px !important;
+    left: 50% !important;
+    margin-left: -100px !important;
+    width: 200px !important;
+    border: 2px rgba(255,255,255,.38) solid !important;
+    border-radius: 4px !important;
+}
+
+.en-markup-crop-options div div:first-of-type {
+    margin-left: 0px !important;
+}
+</style><style>/*****************************************************************
+ * ReSpec 3 CSS
+ * Robin Berjon - http://berjon.com/
+ *****************************************************************/
+
+/* --- INLINES --- */
+em.rfc2119 { 
+    text-transform:     lowercase;
+    font-variant:       small-caps;
+    font-style:         normal;
+    color:              #900;
+}
+
+h1 acronym, h2 acronym, h3 acronym, h4 acronym, h5 acronym, h6 acronym, a acronym,
+h1 abbr, h2 abbr, h3 abbr, h4 abbr, h5 abbr, h6 abbr, a abbr {
+    border: none;
+}
+
+dfn {
+    font-weight:    bold;
+}
+
+a.internalDFN {
+    color:  inherit;
+    border-bottom:  1px solid #99c;
+    text-decoration:    none;
+}
+
+a.externalDFN {
+    color:  inherit;
+    border-bottom:  1px dotted #ccc;
+    text-decoration:    none;
+}
+
+a.bibref {
+    text-decoration:    none;
+}
+
+cite .bibref {
+    font-style: normal;
+}
+
+code {
+    color:  #C83500;
+}
+
+/* --- TOC --- */
+.toc a, .tof a {
+    text-decoration:    none;
+}
+
+a .secno, a .figno {
+    color:  #000;
+}
+
+ul.tof, ol.tof {
+    list-style: none outside none;
+}
+
+.caption {
+    margin-top: 0.5em;
+    font-style:   italic;
+}
+
+/* --- TABLE --- */
+table.simple {
+    border-spacing: 0;
+    border-collapse:    collapse;
+    border-bottom:  3px solid #005a9c;
+}
+
+.simple th {
+    background: #005a9c;
+    color:  #fff;
+    padding:    3px 5px;
+    text-align: left;
+}
+
+.simple th[scope="row"] {
+    background: inherit;
+    color:  inherit;
+    border-top: 1px solid #ddd;
+}
+
+.simple td {
+    padding:    3px 10px;
+    border-top: 1px solid #ddd;
+}
+
+.simple tr:nth-child(even) {
+    background: #f0f6ff;
+}
+
+/* --- DL --- */
+.section dd > p:first-child {
+    margin-top: 0;
+}
+
+.section dd > p:last-child {
+    margin-bottom: 0;
+}
+
+.section dd {
+    margin-bottom:  1em;
+}
+
+.section dl.attrs dd, .section dl.eldef dd {
+    margin-bottom:  0;
+}
+
+@media print {
+    .removeOnSave {
+        display: none;
+    }
+}
+</style><style>/* --- EXAMPLES --- */
+div.example-title {
+    min-width: 7.5em;
+    color: #b9ab2d;
+}
+div.example-title span {
+    text-transform: uppercase;
+}
+aside.example, div.example, div.illegal-example {
+    padding: 0.5em;
+    margin: 1em 0;
+    position: relative;
+    clear: both;
+}
+div.illegal-example { color: red }
+div.illegal-example p { color: black }
+aside.example, div.example {
+    padding: .5em;
+    border-left-width: .5em;
+    border-left-style: solid;
+    border-color: #e0cb52;
+    background: #fcfaee;
+}
+
+aside.example div.example {
+    border-left-width: .1em;
+    border-color: #999;
+    background: #fff;
+}
+aside.example div.example div.example-title {
+    color: #999;
+}
+</style><style>/* --- ISSUES/NOTES --- */
+div.issue-title, div.note-title , div.ednote-title, div.warning-title {
+    padding-right:  1em;
+    min-width: 7.5em;
+    color: #b9ab2d;
+}
+div.issue-title { color: #e05252; }
+div.note-title, div.ednote-title { color: #2b2; }
+div.warning-title { color: #f22; }
+div.issue-title span, div.note-title span, div.ednote-title span, div.warning-title span {
+    text-transform: uppercase;
+}
+div.note, div.issue, div.ednote, div.warning {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+.note > p:first-child, .ednote > p:first-child, .issue > p:first-child, .warning > p:first-child { margin-top: 0 }
+.issue, .note, .ednote, .warning {
+    padding: .5em;
+    border-left-width: .5em;
+    border-left-style: solid;
+}
+div.issue, div.note , div.ednote,  div.warning {
+    padding: 1em 1.2em 0.5em;
+    margin: 1em 0;
+    position: relative;
+    clear: both;
+}
+span.note, span.ednote, span.issue, span.warning { padding: .1em .5em .15em; }
+
+.issue {
+    border-color: #e05252;
+    background: #fbe9e9;
+}
+.note, .ednote {
+    border-color: #52e052;
+    background: #e9fbe9;
+}
+
+.warning {
+    border-color: #f11;
+    border-right-width: .2em;
+    border-top-width: .2em;
+    border-bottom-width: .2em;
+    border-style: solid;
+    background: #fbe9e9;
+}
+
+.warning-title:before{
+    content: "⚠"; /*U+26A0 WARNING SIGN*/
+    font-size: 3em;
+    float: left;
+    height: 100%;
+    padding-right: .3em;
+    vertical-align: top;
+    margin-top: -0.5em;
+}
+
+li.task-list-item {
+    list-style: none;
+}
+
+input.task-list-item-checkbox {
+    margin: 0 0.35em 0.25em -1.6em;
+    vertical-align: middle;
+}
+</style><link rel="stylesheet" href="Web%20Thing%20Model_files/W3C-Member-SUBM.css"><!--[if lt IE 9]><script src='https://www.w3.org/2008/site/js/html5shiv.js'></script><![endif]--></head>
+<body data-feedly-mini="yes" class="h-entry" role="document" id="respecDocument"><div class="head" role="contentinfo" id="respecHeader">
+  <p>
+      
+        </p><p><a href="http://www.w3.org/"><img src="Web%20Thing%20Model_files/w3c_home.png" alt="W3C" width="72" height="48"></a><a href="http://www.w3.org/Submission/"><img src="Web%20Thing%20Model_files/member_subm.png" alt="W3C Member Submission" width="211" height="48"></a></p>
+      
+  <p></p>
+  <h1 class="title p-name" id="title" property="dcterms:title">Web Thing Model</h1>
+  
+  <h2 id="w3c-member-submission-24-august-2015">W3C Member Submission <time property="dcterms:issued" class="dt-published" datetime="2015-08-24">24 August 2015</time></h2>
+  <dl>
+    
+      <dt>This version:</dt>
+      <dd><a class="u-url" href="http://www.w3.org/Submission/2015/SUBM-wot-model-20150824/">http://www.w3.org/Submission/2015/SUBM-wot-model-20150824/</a></dd>
+      <dt>Latest published version:</dt>
+      <dd><a href="http://www.w3.org/Submission/wot-model/">http://www.w3.org/Submission/wot-model/</a></dd>
+    
+    
+    
+    
+    
+    
+    
+    
+    <dt>Editors:</dt>
+    <dd class="p-author h-card vcard" property="bibo:editor" resource="_:editor0"><span property="rdf:first" typeof="foaf:Person"><span property="foaf:name" class="p-name fn">Vlad Trifa</span>, <a property="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://evrythng.com/">EVRYTHNG</a></span>
+<span property="rdf:rest" resource="_:editor1"></span>
+</dd>
+<dd class="p-author h-card vcard" resource="_:editor1"><span property="rdf:first" typeof="foaf:Person"><span property="foaf:name" class="p-name fn">Dominique Guinard</span>, <a property="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://evrythng.com/">EVRYTHNG</a></span>
+<span property="rdf:rest" resource="_:editor2"></span>
+</dd>
+<dd class="p-author h-card vcard" resource="_:editor2"><span property="rdf:first" typeof="foaf:Person"><span property="foaf:name" class="p-name fn">David Carrera</span>, <a property="foaf:workplaceHomepage" class="p-org org h-org h-card" href="http://bsc.es/">Barcelona Supercomputing Center</a></span>
+<span property="rdf:rest" resource="rdf:nil"></span>
+</dd>
+
+    
+    
+  </dl>
+  
+  
+  
+  
+    
+  <p class="copyright">
+      Copyright © 2015 EVRYTHNG. This document is available under the <a href="http://www.w3.org/Consortium/Legal/copyright-documents">W3C Document License</a>. See the <a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">W3C Intellectual Rights Notice and Legal Disclaimers</a> for additional information.
+  </p>
+  
+</div>
+  <hr>
+<section id="abstract" class="introductory" property="dc:abstract"><h2 id="h-abstract" resource="#h-abstract"><span property="xhv:role" resource="xhv:heading">Abstract</span></h2>
+    <p>
+        This document proposes the basis of a common model to describe the virtual counterpart of physical objects in
+        the Web of Things.
+        It defines a model and Web API for Things to be followed by anyone wanting to create a product, device, service,
+        or application for the Web of Things. This document considers the definition of the Web of Things (WoT) proposed
+        in [<cite><a class="bibref" href="#bib-WoTPaper">WoTPaper</a></cite>] and [<cite><a class="bibref" href="#bib-WoTBook">WoTBook</a></cite>], i.e., the Application layer of the Internet of Things. The model and
+        protocols proposed here aim at making the interaction between Things in the Internet of Things accessible
+        through Web standards to facilitate the implementation of Web applications making use or retrieving data from
+        real-world objects.
+    </p>
+</section><section id="sotd" class="introductory"><h2 id="h-sotd" resource="#h-sotd"><span property="xhv:role" resource="xhv:heading">Status of This Document</span></h2>
+  
+    
+      
+        <p>
+          <em>This section describes the status of this document at the 
+time of its publication. Other documents may supersede this document. A 
+list of current W3C publications can be found in the <a href="http://www.w3.org/TR/">W3C technical reports index</a> at http://www.w3.org/TR/.</em>
+        </p>
+        
+          
+    <p>
+        This document is based on work undertaken within the
+        <a href="http://www.compose-project.eu/">COMPOSE</a> European 
+project and submitted to W3C as a possible starting point for a future 
+Working Group chartered to work on the Web of Things.
+    </p>
+
+          
+            <p>By publishing this document, W3C acknowledges that the <a href="http://www.w3.org/Submission/2015/SUBM-wot-model-20150824/">Submitting Members</a>
+ have made a formal Submission request to W3C for discussion. 
+Publication of this document by W3C indicates no endorsement of its 
+content by W3C, nor that W3C has, is, or will be allocating any 
+resources to the issues addressed by it. This document is not the 
+product of a chartered W3C group, but is published as potential input to
+ the <a href="http://www.w3.org/Consortium/Process">W3C Process</a>. A <a href="http://www.w3.org/Submission/2015/01/Comment/">W3C Team Comment</a>
+ has been published in conjunction with this Member Submission. 
+Publication of acknowledged Member Submissions at the W3C site is one of
+ the benefits of <a href="http://www.w3.org/Consortium/Prospectus/Joining">W3C Membership</a>. Please consult the requirements associated with Member Submissions of <a href="http://www.w3.org/Consortium/Patent-Policy-20040205/#sec-submissions">section 3.3 of the W3C Patent Policy</a>. Please consult the complete <a href="http://www.w3.org/Submission">list of acknowledged W3C Member Submissions</a>.</p>
+          
+        
+      
+    
+  
+</section><section id="toc"><h2 class="introductory" id="h-toc" resource="#h-toc"><span property="xhv:role" resource="xhv:heading">Table of Contents</span></h2><ul class="toc" role="directory" id="respecContents"><li class="tocline"><a href="#introduction" class="tocxref"><span class="secno">1. </span>Introduction</a></li><li class="tocline"><a href="#conformance" class="tocxref"><span class="secno">2. </span>Conformance</a></li><li class="tocline"><a href="#terminology" class="tocxref"><span class="secno">3. </span>Terminology</a></li><li class="tocline"><a href="#web-things-integration-patterns" class="tocxref"><span class="secno">4. </span>Web Things integration patterns</a><ul class="toc"><li class="tocline"><a href="#direct-connectivity" class="tocxref"><span class="secno">4.1 </span><span data-dfn-type="dfn">Direct</span> Connectivity</a></li><li class="tocline"><a href="#gateway-based-connectivity" class="tocxref"><span class="secno">4.2 </span><span data-dfn-type="dfn">Gateway</span>-Based Connectivity</a></li><li class="tocline"><a href="#cloud-based-connectivity" class="tocxref"><span class="secno">4.3 </span><span data-dfn-type="dfn">Cloud</span>-Based Connectivity</a></li></ul></li><li class="tocline"><a href="#web-things-requirements" class="tocxref"><span class="secno">5. </span>Web Things requirements</a><ul class="toc"><li class="tocline"><a href="#level-0-must" class="tocxref"><span class="secno">5.1 </span>Level 0 – <em class="rfc2119" title="MUST">MUST</em></a><ul class="toc"><li class="tocline"><a href="#r0.1-a-web-thing-must-at-least-be-an-http-1.1-server" class="tocxref"><span class="secno">5.1.1 </span>R0.1 – A <span class="formerLink" data-link-type="dfn">Web Thing</span> <em class="rfc2119" title="MUST">MUST</em> at least be an HTTP/1.1 server</a></li><li class="tocline"><a href="#r0.2-a-web-thing-must-have-a-root-resource-accessible-via-an-http-url" class="tocxref"><span class="secno">5.1.2 </span>R0.2 – A <span class="formerLink" data-link-type="dfn">Web Thing</span> <em class="rfc2119" title="MUST">MUST</em> have a root resource accessible via an HTTP URL</a></li><li class="tocline"><a href="#r0.3-a-web-thing-must-support-get-post-put-and-delete-http-verbs" class="tocxref"><span class="secno">5.1.3 </span>R0.3 – A <span class="formerLink" data-link-type="dfn">Web Thing</span> <em class="rfc2119" title="MUST">MUST</em> support <code>GET</code>, <code>POST</code>, <code>PUT</code> and <code>DELETE</code>
+                HTTP verbs</a></li><li class="tocline"><a href="#r0.4-a-web-thing-must-implement-http-status-codes-200-400-500" class="tocxref"><span class="secno">5.1.4 </span>R0.4 – A <span class="formerLink" data-link-type="dfn">Web Thing</span> <em class="rfc2119" title="MUST">MUST</em> implement HTTP status codes <code>200</code>, <code>400</code>,
+                <code>500</code></a></li><li class="tocline"><a href="#r0.5-a-web-thing-must-support-json-as-default-representation" class="tocxref"><span class="secno">5.1.5 </span>R0.5 – A <span class="formerLink" data-link-type="dfn">Web Thing</span> <em class="rfc2119" title="MUST">MUST</em> support JSON as default representation</a></li><li class="tocline"><a href="#r0.6-a-web-thing-must-support-get-on-its-root-url" class="tocxref"><span class="secno">5.1.6 </span>R0.6 – A <span class="formerLink" data-link-type="dfn">Web Thing</span> <em class="rfc2119" title="MUST">MUST</em> support <code>GET</code> on its root URL</a></li></ul></li><li class="tocline"><a href="#level-1-should" class="tocxref"><span class="secno">5.2 </span>Level 1 – <em class="rfc2119" title="SHOULD">SHOULD</em></a><ul class="toc"><li class="tocline"><a href="#r1.1-a-web-thing-should-use-secure-http-connections-https" class="tocxref"><span class="secno">5.2.1 </span>R1.1 – A <span class="formerLink" data-link-type="dfn">Web Thing</span> <em class="rfc2119" title="SHOULD">SHOULD</em> use secure HTTP connections (HTTPS)</a></li><li class="tocline"><a href="#r1.2-a-web-thing-should-implement-the-websocket-protocol" class="tocxref"><span class="secno">5.2.2 </span>R1.2 – A <span class="formerLink" data-link-type="dfn">Web Thing</span> <em class="rfc2119" title="SHOULD">SHOULD</em> implement the WebSocket Protocol</a></li><li class="tocline"><a href="#r1.3-a-web-thing-should-support-the-web-things-model" class="tocxref"><span class="secno">5.2.3 </span>R1.3 – A <span class="formerLink" data-link-type="dfn">Web Thing</span> <em class="rfc2119" title="SHOULD">SHOULD</em> support the Web Things model</a></li><li class="tocline"><a href="#r1.4-a-web-thing-should-return-a-204-for-all-write-operations" class="tocxref"><span class="secno">5.2.4 </span>R1.4 – A <span class="formerLink" data-link-type="dfn">Web Thing</span> <em class="rfc2119" title="SHOULD">SHOULD</em> return a 204 for all write operations</a></li><li class="tocline"><a href="#r1.5-a-web-thing-should-provide-a-default-human-readable-documentation" class="tocxref"><span class="secno">5.2.5 </span>R1.5 – A <span class="formerLink" data-link-type="dfn">Web Thing</span> <em class="rfc2119" title="SHOULD">SHOULD</em> provide a default human-readable documentation</a></li></ul></li><li class="tocline"><a href="#level-2-may" class="tocxref"><span class="secno">5.3 </span>Level 2 – <em class="rfc2119" title="MAY">MAY</em></a><ul class="toc"><li class="tocline"><a href="#r2.1-a-web-thing-may-support-the-http-options-verb-for-each-of-its-resources" class="tocxref"><span class="secno">5.3.1 </span>R2.1 – A <span class="formerLink" data-link-type="dfn">Web Thing</span> <em class="rfc2119" title="MAY">MAY</em> support the HTTP <code>OPTIONS</code> verb for each of its resources</a></li><li class="tocline"><a href="#r2.2-a-web-thing-may-provide-additional-representation-mechanisms-rdf-xml-json-ld" class="tocxref"><span class="secno">5.3.2 </span>R2.2 – A <span class="formerLink" data-link-type="dfn">Web Thing</span> <em class="rfc2119" title="MAY">MAY</em> provide additional representation mechanisms (RDF, XML, JSON-LD)</a></li><li class="tocline"><a href="#r2.3-a-web-thing-may-offer-a-html-based-user-interface" class="tocxref"><span class="secno">5.3.3 </span>R2.3 – A <span class="formerLink" data-link-type="dfn">Web Thing</span> <em class="rfc2119" title="MAY">MAY</em> offer a HTML-based user interface</a></li><li class="tocline"><a href="#r2.4-a-web-thing-may-provide-precise-information-about-the-intended-meaning-of-individual-parts-of-the-model" class="tocxref"><span class="secno">5.3.4 </span>R2.4 – A <span class="formerLink" data-link-type="dfn">Web Thing</span> <em class="rfc2119" title="MAY">MAY</em> provide precise information about the intended meaning of individual parts of the model</a></li></ul></li></ul></li><li class="tocline"><a href="#web-things-model" class="tocxref"><span class="secno">6. </span>Web Things model</a><ul class="toc"><li class="tocline"><a href="#common-constructs" class="tocxref"><span class="secno">6.1 </span>Common Constructs</a></li><li class="tocline"><a href="#links" class="tocxref"><span class="secno">6.2 </span>Links</a></li><li class="tocline"><a href="#values" class="tocxref"><span class="secno">6.3 </span>Values</a></li><li class="tocline"><a href="#resources" class="tocxref"><span class="secno">6.4 </span>Resources</a><ul class="toc"><li class="tocline"><a href="#http-verbs-support" class="tocxref"><span class="secno">6.4.1 </span>HTTP verbs support</a></li><li class="tocline"><a href="#web-thing-resource" class="tocxref"><span class="secno">6.4.2 </span>Web <span data-dfn-type="dfn">Thing Resource</span></a><ul class="toc"><li class="tocline"><a href="#retrieve-a-web-thing" class="tocxref"><span class="secno">6.4.2.1 </span>Retrieve a Web Thing</a></li><li class="tocline"><a href="#update-a-web-thing" class="tocxref"><span class="secno">6.4.2.2 </span>Update a Web Thing</a></li></ul></li><li class="tocline"><a href="#model-resource" class="tocxref"><span class="secno">6.4.3 </span><span data-dfn-type="dfn">Model Resource</span></a><ul class="toc"><li class="tocline"><a href="#retrieve-the-model-of-a-thing" class="tocxref"><span class="secno">6.4.3.1 </span>Retrieve the model of a <span class="formerLink" data-link-type="dfn">Thing</span></a></li><li class="tocline"><a href="#update-the-model-of-a-thing" class="tocxref"><span class="secno">6.4.3.2 </span>Update the model of a <span class="formerLink" data-link-type="dfn">Thing</span></a></li></ul></li><li class="tocline"><a href="#properties-resource" class="tocxref"><span class="secno">6.4.4 </span><span data-dfn-type="dfn">Properties Resource</span></a><ul class="toc"><li class="tocline"><a href="#retrieve-a-list-of-properties" class="tocxref"><span class="secno">6.4.4.1 </span>Retrieve a list of properties</a></li><li class="tocline"><a href="#retrieve-the-value-of-a-property" class="tocxref"><span class="secno">6.4.4.2 </span>Retrieve the value of a property</a></li><li class="tocline"><a href="#update-a-specific-property" class="tocxref"><span class="secno">6.4.4.3 </span>Update a specific property</a></li><li class="tocline"><a href="#update-multiple-properties-at-once" class="tocxref"><span class="secno">6.4.4.4 </span>Update multiple properties at once</a></li></ul></li><li class="tocline"><a href="#actions-resource" class="tocxref"><span class="secno">6.4.5 </span><span data-dfn-type="dfn">Actions Resource</span></a><ul class="toc"><li class="tocline"><a href="#retrieve-a-list-of-actions" class="tocxref"><span class="secno">6.4.5.1 </span>Retrieve a list of actions</a></li><li class="tocline"><a href="#retrieve-recent-executions-of-a-specific-action" class="tocxref"><span class="secno">6.4.5.2 </span>Retrieve recent executions of a specific action</a></li><li class="tocline"><a href="#execute-an-action" class="tocxref"><span class="secno">6.4.5.3 </span>Execute an action</a></li><li class="tocline"><a href="#retrieve-the-status-of-an-action" class="tocxref"><span class="secno">6.4.5.4 </span>Retrieve the status of an action</a></li></ul></li><li class="tocline"><a href="#things-resource" class="tocxref"><span class="secno">6.4.6 </span><span data-dfn-type="dfn">Things Resource</span></a><ul class="toc"><li class="tocline"><a href="#retrieve-a-list-of-web-things" class="tocxref"><span class="secno">6.4.6.1 </span>Retrieve a list of Web Things</a></li><li class="tocline"><a href="#add-a-web-thing-to-a-gateway" class="tocxref"><span class="secno">6.4.6.2 </span>Add a Web Thing to a gateway</a></li></ul></li><li class="tocline"><a href="#subscriptions-resource" class="tocxref"><span class="secno">6.4.7 </span><span data-dfn-type="dfn">Subscriptions Resource</span></a><ul class="toc"><li class="tocline"><a href="#create-a-subscription" class="tocxref"><span class="secno">6.4.7.1 </span>Create a subscription</a></li><li class="tocline"><a href="#retrieve-a-list-of-subscriptions" class="tocxref"><span class="secno">6.4.7.2 </span>Retrieve a list of subscriptions</a></li><li class="tocline"><a href="#retrieve-information-about-a-specific-subscription" class="tocxref"><span class="secno">6.4.7.3 </span>Retrieve information about a specific subscription</a></li><li class="tocline"><a href="#delete-a-subscription" class="tocxref"><span class="secno">6.4.7.4 </span>Delete a subscription</a></li></ul></li></ul></li><li class="tocline"><a href="#semantic-extensions" class="tocxref"><span class="secno">6.5 </span>Semantic Extensions</a></li></ul></li><li class="tocline"><a href="#acknowledgments" class="tocxref"><span class="secno">7. </span>Acknowledgments</a></li><li class="tocline"><a href="#references" class="tocxref"><span class="secno">A. </span>References</a><ul class="toc"><li class="tocline"><a href="#normative-references" class="tocxref"><span class="secno">A.1 </span>Normative references</a></li><li class="tocline"><a href="#informative-references" class="tocxref"><span class="secno">A.2 </span>Informative references</a></li></ul></li></ul></section>
+
+
+
+<section class="informative" id="introduction" typeof="bibo:Chapter" resource="#introduction" property="bibo:hasPart">
+    <!--OddPage--><h2 id="h-introduction" resource="#h-introduction"><span property="xhv:role" resource="xhv:heading"><span class="secno">1. </span>Introduction</span></h2><p><em>This section is non-normative.</em></p>
+
+    <p>
+        The following guidelines and recommendations aim at ensuring interoperability across all entities on the Web of
+        Things. Unlike custom (non-Web) protocols used for machine-to-machine communications that create a
+        “parallel universe” to the existing Web; the Web of Things is designed to be seamlessly
+        integrated to the existing Web so it can fully leverage its infrastructure and standards to minimize
+        integrations across applications and systems.
+    </p>
+
+    <p>
+        The proposal is composed of three sub-parts:
+    </p>
+    <ul>
+        <li>
+            <strong>Integration Patterns</strong>. This section discusses the way Things are integrated to the Web. It
+            proposes 3 different patterns, Direct Connectivity, Gateway Based Connectivity, Cloud Based Connectivity.
+        </li>
+        <li>
+            <strong>Web Things (WT) Requirements</strong>. This part does not introduce any specific data naming
+            conventions of domain-specific models. It is solely composed of multiple constraints and recommendations on
+            how the protocol should be implemented so that any entity on the Web of Things can easily interact with each
+            other. Respecting these requirements turns a Web server into a Web Thing.
+        </li>
+        <li>
+            <strong>Web Things Model</strong>. Once a Web Thing follows 
+the conventions defined above, it is then
+            capable to read and exchange data with any other entities of
+ the Web of Things. However, it does not mean it
+            can “understand” what the object is, what data or services 
+it offers, etc. Therefore, the third component
+            of this specification proposes RESTful Web protocol with a 
+set of resources, data models and payload syntax that Web Thing and 
+applications should follow. Respecting these requirements turns a Web
+            Thing into an Extended Web Thing. Implementing semantic 
+extensions (e.g., via [<cite><a class="bibref" href="#bib-JSON-LD">JSON-LD</a></cite>] and <a href="http://schema.org/">schema.org</a>) turns the Extended Web Thing into a Semantic Web Thing.
+        </li>
+    </ul>
+    <div class="note"><div class="note-title" aria-level="3" role="heading" id="h-note1"><span>Note</span></div><p class="">
+        While the Web Things Requirements are described with the HTTP 
+and WebSockets protocols using JSON because they are well supported on 
+the Web of browsers, the Web Thing Model can also be applied to describe
+ the models and interactions of Things supported via other RESTful 
+protocols such as CoAP [<cite><a class="bibref" href="#bib-RFC7252">RFC7252</a></cite>] or even pub/sub protocols such as [<cite><a class="bibref" href="#bib-MQTT">MQTT</a></cite>].
+    </p></div>
+    <figure id="wot-levels">
+        <img src="Web%20Thing%20Model_files/wot-levels.png" alt="Web Thing Model levels build on top of each other, from a Web Thing that implement the requirements to the Extended Web Thing and Semantic Web Thing" width="770">
+        <figcaption>Fig. <span class="figno">1</span> <span class="fig-title">Web Thing Model levels (source: [<cite><a class="bibref" href="#bib-WoTBook">WoTBook</a></cite>])</span></figcaption>
+    </figure>
+</section>
+
+<section id="conformance" typeof="bibo:Chapter" resource="#conformance" property="bibo:hasPart"><!--OddPage--><h2 id="h-conformance" resource="#h-conformance"><span property="xhv:role" resource="xhv:heading"><span class="secno">2. </span>Conformance</span></h2>
+<p>
+  As well as sections marked as non-normative, all authoring guidelines, diagrams, examples,
+  and notes in this specification are non-normative. Everything else in this specification is
+  normative.
+</p>
+<p id="respecRFC2119">The key words <em class="rfc2119" title="MAY">MAY</em>, <em class="rfc2119" title="MUST">MUST</em>, and <em class="rfc2119" title="SHOULD">SHOULD</em> are 
+  to be interpreted as described in [<cite><a class="bibref" href="#bib-RFC2119">RFC2119</a></cite>].
+</p>
+
+    <p>
+        This specification has two classes of products:
+    </p>
+    <dl>
+        <dt><dfn data-dfn-type="dfn" id="dfn-web-thing">Web Thing</dfn></dt>
+        <dd>
+            A Web Thing (or simply Thing) is a digital representation of
+ a physical object accessible via a RESTful Web API. Examples of
+            Web Things are: an Arduino board, a garage door, a bottle of
+ soda, a building, a TV, etc. The API of the Web
+            Thing can be hosted on the Thing itself or on an 
+intermediate host in the network such as a Gateway or a
+            Cloud service (for Things that aren't accessible through the
+ Internet).
+            <p>A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> conforms to this specification if it follows the statements defined in <a href="#web-things-requirements" class="sec-ref"><span class="secno">5.</span> <span class="sec-title">Web Things requirements</span></a>.</p>
+        </dd>
+        <dt><dfn data-dfn-type="dfn" id="dfn-extended-web-thing">Extended Web Thing</dfn></dt>
+        <dd>
+            An <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> is a <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> that additionally supports the REST API and data model defined in this specification,
+            thus enabling its automatic inclusion in more complex systems.
+            <p>An <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> conforms to this specification if it follows the statements defined in <a href="#web-things-requirements" class="sec-ref"><span class="secno">5.</span> <span class="sec-title">Web Things requirements</span></a> and <a href="#web-things-model" class="sec-ref"><span class="secno">6.</span> <span class="sec-title">Web Things model</span></a>.</p>
+        </dd>
+    </dl>
+</section>
+
+<section id="terminology" typeof="bibo:Chapter" resource="#terminology" property="bibo:hasPart">
+    <!--OddPage--><h2 id="h-terminology" resource="#h-terminology"><span property="xhv:role" resource="xhv:heading"><span class="secno">3. </span>Terminology</span></h2>
+
+    <p>
+        The following terms are considered in this proposal:
+    </p>
+    <dl>
+        <dt><dfn data-dfn-type="dfn" id="dfn-client">Client</dfn></dt>
+        <dd>A <a href="#dfn-client" class="internalDFN" data-link-type="dfn">Client</a> refers to any physical or digital entity that can interact with a Web Thing. This can be a
+            mobile application, a Web browser, a proxy, a desktop application, but also another Web Things (e.g., in the
+            case of Machine to Machine communication).
+        </dd>
+
+        <dt><dfn data-dfn-type="dfn" id="dfn-property">Property</dfn>
+        </dt><dt>
+        </dt><dd>A <a href="#dfn-property" class="internalDFN" data-link-type="dfn">Property</a> is a variable of a Web Thing. Properties represent the internal state of a  <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a>. Clients can
+            subscribe to properties to receive a notification message when specific conditions are met (e.g. value of
+            one or more properties changed).
+        </dd>
+
+        <dt><dfn data-dfn-type="dfn" id="dfn-action">Action</dfn></dt>
+        <dd>An <a href="#dfn-action" class="internalDFN" data-link-type="dfn">Action</a> is a function offered by a <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a>. A Client invokes a function on a <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a>
+ which initiates a state transition by sending it an Action. Examples of
+ Actions are “open” or “close” for a garage door; “enable” or
+            “disable” for a smoke alarm; “check-in” or “scan” for a 
+bottle of soda or a place. The direction of an
+            <a href="#dfn-action" class="internalDFN" data-link-type="dfn">Action</a> is from the <a href="#dfn-client" class="internalDFN" data-link-type="dfn">Client</a> to the <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a>.
+        </dd>
+    </dl>
+</section>
+
+<section id="web-things-integration-patterns" typeof="bibo:Chapter" resource="#web-things-integration-patterns" property="bibo:hasPart">
+    <!--OddPage--><h2 id="h-web-things-integration-patterns" resource="#h-web-things-integration-patterns"><span property="xhv:role" resource="xhv:heading"><span class="secno">4. </span>Web Things integration patterns</span></h2>
+
+    <p>
+        This part looks into the different ways of integrating physical objects to the Web to make them <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Things</a>. Once a pattern has been choosen, the server of a <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> should
+        follow the <a href="#web-things-requirements">Web Things Requirements</a> and the resources and payloads it uses
+        should follow the <a href="#web-things-model">Web Things Model </a>.
+    </p>
+
+    <p>
+        Some physical entities might not expose a Web API themselves for various reasons (e.g., a ZigBee sensor node, or
+        a heart rate monitor accessible over Bluetooth only), in which case they are not <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web
+        Things</a> as such, but they can use another <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> as a proxy or gateway to provide a Web API for
+        them, therefore turning them into Web Things.
+    </p>
+
+    <p>
+        While the three integration patterns described below need to be taken into account, it is worth noting that the
+        requirements and model apply regardless of the integration pattern of choice.
+    </p>
+
+    <section id="direct-connectivity" typeof="bibo:Chapter" resource="#direct-connectivity" property="bibo:hasPart">
+        <h3 id="h-direct-connectivity" resource="#h-direct-connectivity"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.1 </span><dfn data-dfn-type="dfn" id="dfn-direct">Direct</dfn> Connectivity</span></h3>
+
+        <p>
+            In the most straightforward case, a <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> is simply a Web API that <a href="#dfn-client" class="internalDFN" data-link-type="dfn">Clients</a>
+            send requests to. In some cases, the <a href="#dfn-client" class="internalDFN" data-link-type="dfn">Client</a> and the <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> can be on the same network or on
+            different networks. In both cases, you are sending the same request to a <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a>. The only
+            difference is the URL to which you are sending the request (and obviously how the <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> gets the message).
+        </p>
+        <figure id="fig-direct-connectivity-between-a-client-and-a-web-thing-source-wotbook">
+            <img src="Web%20Thing%20Model_files/integration-direct.png" alt="When a Web Thing exposes a Web API, Clients can directly connect to it, potential through a local address if they are both on the same network" width="800">
+            <figcaption>Fig. <span class="figno">2</span> <span class="fig-title">Direct connectivity between a Client and a Web Thing (source: [<cite><a class="bibref" href="#bib-WoTBook">WoTBook</a></cite>])</span></figcaption>
+        </figure>
+    </section>
+
+    <section id="gateway-based-connectivity" typeof="bibo:Chapter" resource="#gateway-based-connectivity" property="bibo:hasPart">
+        <h3 id="h-gateway-based-connectivity" resource="#h-gateway-based-connectivity"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.2 </span><dfn data-dfn-type="dfn" id="dfn-gateway">Gateway</dfn>-Based Connectivity</span></h3>
+
+        <p>
+            Gateway-based connectivity is used when a Thing cannot offer a Web API directly. In this case an
+            intermediate <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> - the gateway - exposes a Web API on the Thing's behalf. The Web Thing therefore acts as a proxy for the Thing (or gateway
+            depending on the complexity/layer of the translation).
+        </p>
+        <figure id="fig-gateway-based-connectivity-between-a-client-and-a-web-thing-source-wotbook">
+            <img src="Web%20Thing%20Model_files/integration-gateways.png" alt="When a Web Thing cannot expose a Web API directly, Clients connect to it through a Gateway that exposes the Web API on their behalf" width="800">
+            <figcaption>Fig. <span class="figno">3</span> <span class="fig-title">Gateway-based connectivity between a Client and a Web Thing (source: [<cite><a class="bibref" href="#bib-WoTBook">WoTBook</a></cite>])</span></figcaption>
+        </figure>
+    </section>
+
+    <section id="cloud-based-connectivity" typeof="bibo:Chapter" resource="#cloud-based-connectivity" property="bibo:hasPart">
+        <h3 id="h-cloud-based-connectivity" resource="#h-cloud-based-connectivity"><span property="xhv:role" resource="xhv:heading"><span class="secno">4.3 </span><dfn data-dfn-type="dfn" id="dfn-cloud">Cloud</dfn>-Based Connectivity</span></h3>
+
+        <p>
+            This third case is similar to <a href="#gateway-based-connectivity" class="sec-ref"><span class="secno">4.2</span> <span class="sec-title">Gateway-Based Connectivity</span></a>. However, in this case the gateway
+            is a cloud service and not another device in situ.
+        </p>
+        <figure id="fig-cloud-based-connectivity-between-a-client-and-a-web-thing-source-wotbook">
+            <img src="Web%20Thing%20Model_files/integration-cloud.png" alt="A cloud service may expose the Web API of a Web Thing for Clients to connect to it" width="800">
+            <figcaption>Fig. <span class="figno">4</span> <span class="fig-title">Cloud-based connectivity between a Client and a Web Thing (source: [<cite><a class="bibref" href="#bib-WoTBook">WoTBook</a></cite>])</span></figcaption>
+        </figure>
+    </section>
+</section>
+
+<section id="web-things-requirements" typeof="bibo:Chapter" resource="#web-things-requirements" property="bibo:hasPart">
+    <!--OddPage--><h2 id="h-web-things-requirements" resource="#h-web-things-requirements"><span property="xhv:role" resource="xhv:heading"><span class="secno">5. </span>Web Things requirements</span></h2>
+
+    <p>
+        This part defines a set of rules for implementing <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Things</a>. It assumes that an <a href="#web-things-integration-patterns">Integration Pattern</a> was chosen.
+    </p>
+    <section id="level-0-must" typeof="bibo:Chapter" resource="#level-0-must" property="bibo:hasPart">
+        <h3 id="h-level-0-must" resource="#h-level-0-must"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.1 </span>Level 0 – <em class="rfc2119" title="MUST">MUST</em></span></h3>
+
+        <p>
+            This section defines the Level 0 requirements – all of which <em class="rfc2119" title="MUST">MUST</em> be in place in any <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a>
+            implementation, as all <a href="#dfn-client" class="internalDFN" data-link-type="dfn">Clients</a> will expect these constraints.
+        </p>
+
+        <section id="r0.1-a-web-thing-must-at-least-be-an-http-1.1-server" typeof="bibo:Chapter" resource="#r0.1-a-web-thing-must-at-least-be-an-http-1.1-server" property="bibo:hasPart">
+            <h4 id="h-r0.1-a-web-thing-must-at-least-be-an-http-1.1-server" resource="#h-r0.1-a-web-thing-must-at-least-be-an-http-1.1-server"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.1.1 </span>R0.1 – A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> at least be an HTTP/1.1 server</span></h4>
+
+            <p>
+                All <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Things</a> <em class="rfc2119" title="MUST">MUST</em> support communication over HTTP/1.1 [<cite><a class="bibref" href="#bib-RFC2616">RFC2616</a></cite>]. When
+                possible, <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Things</a> <em class="rfc2119" title="SHOULD">SHOULD</em> also support HTTP/2 [<cite><a class="bibref" href="#bib-RFC7540">RFC7540</a></cite>].
+            </p>
+
+            <div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note2"><span>Note</span></div><p class="">
+                HTTP/1.1 is the most widely spread protocol over the Web and virtually any HTTP client or server
+                implementation supports it, therefore it is likely that the majority of clients might not support HTTP/2
+                as of yet. This can be implemented directly on the <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> or can be provided via a proxy (see
+                Integration Patterns).
+            </p></div>
+
+            <div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note3"><span>Note</span></div><p class="">
+                As a consequence, while <a href="#dfn-client" class="internalDFN" data-link-type="dfn">Clients</a> should not expect support for HTTP/2,
+                communication with a <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> using HTTP/1.1 is always possible.
+            </p></div>
+        </section>
+
+        <section id="r0.2-a-web-thing-must-have-a-root-resource-accessible-via-an-http-url" typeof="bibo:Chapter" resource="#r0.2-a-web-thing-must-have-a-root-resource-accessible-via-an-http-url" property="bibo:hasPart">
+            <h4 id="h-r0.2-a-web-thing-must-have-a-root-resource-accessible-via-an-http-url" resource="#h-r0.2-a-web-thing-must-have-a-root-resource-accessible-via-an-http-url"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.1.2 </span>R0.2 – A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> have a root resource accessible via an HTTP URL</span></h4>
+
+            <p>
+                A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> have a so-called “root resource” identified by a HTTP URL (uses the HTTP
+                protocol, therefore starts with <code>http://</code> or <code>https://</code>) that acts as the entry
+                point for the <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> and enables the interaction with it. This root resource makes the <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web
+                Thing</a> both uniquely identifiable and addressable over a network so that <a href="#dfn-client" class="internalDFN" data-link-type="dfn">Clients</a> can interact with it.
+            </p>
+
+            <p>
+                If the <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> is a device connected on a LAN (e.g. a printer, a lamp, etc.), the root URL of a
+                <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="SHOULD">SHOULD</em> be its IP address and standard HTTP port, so that, knowing only the IP address
+                of a networked device that is a <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a>, a <a href="#dfn-client" class="internalDFN" data-link-type="dfn">Client</a> can send an HTTP GET request on that
+                IP address over the default port (80 for HTTP, 443 for HTTPS) to retrieve a representation of the Web
+                Thing. This feature is envisioned to facilitate discovery of devices at the network level, without
+                requiring an additional protocol.
+            </p>
+
+            <div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note4"><span>Note</span></div><p class="">
+                A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> does not need to be publicly accessible over the Internet, as some Web of Things
+                scenarios might only work within a local area network (LAN) as defined above. This means a root URL does
+                not need to be public and can be simply the local IP address of a device. The Root URL of a Web Thing is
+                referred to as {wt} throughout this document.
+            </p></div>
+          <div class="example"><div class="example-title"><span>Example 1</span>: Valid root URLs</div><pre class="example">http://gateway.api.com/devices/TV
+http://kitchen-raspberry.device-lab.co.uk
+https://192.168.10.10:9002
+https://kitchen:3000/fridge/root</pre></div>
+        </section>
+
+        <section id="r0.3-a-web-thing-must-support-get-post-put-and-delete-http-verbs" typeof="bibo:Chapter" resource="#r0.3-a-web-thing-must-support-get-post-put-and-delete-http-verbs" property="bibo:hasPart">
+            <h4 id="h-r0.3-a-web-thing-must-support-get-post-put-and-delete-http-verbs" resource="#h-r0.3-a-web-thing-must-support-get-post-put-and-delete-http-verbs"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.1.3 </span>R0.3 – A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> support <code>GET</code>, <code>POST</code>, <code>PUT</code> and <code>DELETE</code>
+                HTTP verbs</span></h4>
+
+            <p>
+                The Web of Things aims to maximise interoperability by exposing the services of Things using REST
+                [<cite><a class="bibref" href="#bib-REST">REST</a></cite>]. For this idea to come to reality, supporting certain HTTP verbs of the specification is
+                required. Considering that the REST paradigm is based on resources and <abbr title="Create, Read, Update and Delete">CRUD</abbr> operations on them, a <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="MUST">MUST</em>
+                support <code>GET</code> for reading operations, <code>POST</code> for creation, <code>PUT</code> for
+                updates and state changes, and <code>DELETE</code> for removal.
+            </p>
+
+
+        </section>
+
+        <section id="r0.4-a-web-thing-must-implement-http-status-codes-200-400-500" typeof="bibo:Chapter" resource="#r0.4-a-web-thing-must-implement-http-status-codes-200-400-500" property="bibo:hasPart">
+            <h4 id="h-r0.4-a-web-thing-must-implement-http-status-codes-200-400-500" resource="#h-r0.4-a-web-thing-must-implement-http-status-codes-200-400-500"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.1.4 </span>R0.4 – A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> implement HTTP status codes <code>200</code>, <code>400</code>,
+                <code>500</code></span></h4>
+
+            <p>
+                Proper usage of HTTP/1.1 error codes is advisable. However, considering that some devices are
+                restricted, only the following subset is mandatory:
+            </p>
+            <ul>
+                <li><strong>2XX Success</strong>. Returned for any successful action. The <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> at least
+                    support the 200 OK response.
+                </li>
+                <li><strong>4XX Client Error</strong>. This should be returned for any error due to the client that sent
+                    the request (from a wrong URL, to invalid authentication, or incorrect parameter). The <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web
+                        Thing</a> <em class="rfc2119" title="MUST">MUST</em> at least support the 400 Bad Request error code.
+                </li>
+                <li><strong>5XX Server Error</strong>. This should be used for any error on the <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> side
+                    when a request was valid but cannot be processed at this time for any reason, e.g. the <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web
+                        Thing</a> has a server error, etc. The <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> at least support the 500 Internal
+                    Server Error error code.
+                </li>
+            </ul>
+
+        </section>
+
+        <section id="r0.5-a-web-thing-must-support-json-as-default-representation" typeof="bibo:Chapter" resource="#r0.5-a-web-thing-must-support-json-as-default-representation" property="bibo:hasPart">
+            <h4 id="h-r0.5-a-web-thing-must-support-json-as-default-representation" resource="#h-r0.5-a-web-thing-must-support-json-as-default-representation"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.1.5 </span>R0.5 – A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> support JSON as default representation</span></h4>
+
+            <p>
+                A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> always accept a valid JSON document [<cite><a class="bibref" href="#bib-RFC7159">RFC7159</a></cite>] as input payload for requests and
+                always return a JSON representation when requested. If no <code>Accept:</code> HTTP header is specified
+                in the request (or if the format is unknown or not supported), the <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="SHOULD">SHOULD</em> return an
+                appropriate error code, but it also <em class="rfc2119" title="MAY">MAY</em>
+ return JSON as default. Fields in JSON objects should follow the 
+camelCase convention starting with a lowerCase letter (e.g., backColor) 
+or a special character (e.g., _customRelation).
+            </p>
+
+            <p>
+                A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="MAY">MAY</em> support additional formats.
+            </p>
+
+            <div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note5"><span>Note</span></div><p class="">
+                A consequence of supporting JSON is that UTF-8 is the default encoding for payloads (see <a href="https://tools.ietf.org/html/rfc7159#section-8.1">Character Encoding</a> in the JSON
+                specification [<cite><a class="bibref" href="#bib-RFC7159">RFC7159</a></cite>])
+            </p></div>
+        </section>
+
+        <section id="r0.6-a-web-thing-must-support-get-on-its-root-url" typeof="bibo:Chapter" resource="#r0.6-a-web-thing-must-support-get-on-its-root-url" property="bibo:hasPart">
+            <h4 id="h-r0.6-a-web-thing-must-support-get-on-its-root-url" resource="#h-r0.6-a-web-thing-must-support-get-on-its-root-url"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.1.6 </span>R0.6 – A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> support <code>GET</code> on its root URL</span></h4>
+
+            <p>
+                Because they all have a unique root URL and sometimes it is all we know about them, <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Things</a> <em class="rfc2119" title="MUST">MUST</em> respond to HTTP <code>GET</code> requests on their root URL
+                with their basic representation, so that <a href="#dfn-client" class="internalDFN" data-link-type="dfn">Clients</a> can use and understand it.
+            </p>
+
+            <div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note6"><span>Note</span></div><p class="">
+                The basic representation returned by an <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> is defined in <a href="#web-things-model" class="sec-ref"><span class="secno">6.</span> <span class="sec-title">Web Things model</span></a>
+            </p></div>
+        </section>
+    </section>
+
+    <section id="level-1-should" typeof="bibo:Chapter" resource="#level-1-should" property="bibo:hasPart">
+        <h3 id="h-level-1-should" resource="#h-level-1-should"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.2 </span>Level 1 – <em class="rfc2119" title="SHOULD">SHOULD</em></span></h3>
+
+        <p>
+            Unless there are technical or practical limitations for not adhering to Level 1 constraints, <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Things</a> <em class="rfc2119" title="SHOULD">SHOULD</em> support the following constraints.
+        </p>
+
+        <section id="r1.1-a-web-thing-should-use-secure-http-connections-https" typeof="bibo:Chapter" resource="#r1.1-a-web-thing-should-use-secure-http-connections-https" property="bibo:hasPart">
+            <h4 id="h-r1.1-a-web-thing-should-use-secure-http-connections-https" resource="#h-r1.1-a-web-thing-should-use-secure-http-connections-https"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.2.1 </span>R1.1 – A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="SHOULD">SHOULD</em> use secure HTTP connections (HTTPS)</span></h4>
+
+            <p>
+                Ideally, <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="SHOULD">SHOULD</em> support secure connections with HTTP over TLS [<cite><a class="bibref" href="#bib-RFC5246">RFC5246</a></cite>]. The ideal
+                case for security is to support only HTTP over TLS. <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> that are exposed on the Internet
+                <em class="rfc2119" title="MUST">MUST</em> always implement HTTP over TLS.
+            </p>
+
+            <p>
+                <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Things</a> <em class="rfc2119" title="MAY">MAY</em> use other security mechanisms if they want to (in addition or in
+                place of HTTPS). In some cases, it might be impossible or impractical to implement HTTPS over TLS (for
+                example in pure intranet scenario), in which case using another security mechanism is still highly
+                recommended.
+            </p>
+        </section>
+
+        <section id="r1.2-a-web-thing-should-implement-the-websocket-protocol" typeof="bibo:Chapter" resource="#r1.2-a-web-thing-should-implement-the-websocket-protocol" property="bibo:hasPart">
+            <h4 id="h-r1.2-a-web-thing-should-implement-the-websocket-protocol" resource="#h-r1.2-a-web-thing-should-implement-the-websocket-protocol"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.2.2 </span>R1.2 – A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="SHOULD">SHOULD</em> implement the WebSocket Protocol</span></h4>
+
+            <p>
+                Clients <em class="rfc2119" title="SHOULD">SHOULD</em> be able to subscribe to notifications from <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> using a Publish/Subscribe
+                (Pub/Sub) pattern implemented using the WebSocket protocol [<cite><a class="bibref" href="#bib-RFC6455">RFC6455</a></cite>].
+            </p>
+        </section>
+
+        <section id="r1.3-a-web-thing-should-support-the-web-things-model" typeof="bibo:Chapter" resource="#r1.3-a-web-thing-should-support-the-web-things-model" property="bibo:hasPart">
+            <h4 id="h-r1.3-a-web-thing-should-support-the-web-things-model" resource="#h-r1.3-a-web-thing-should-support-the-web-things-model"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.2.3 </span>R1.3 – A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="SHOULD">SHOULD</em> support the Web Things model</span></h4>
+
+            <p>
+                If possible, every <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="SHOULD">SHOULD</em> implement the <a href="#web-things-model">Web Things
+                Model</a>. It is not essential to use it for a device to be part of the Web of Things, but implementing
+                it will lead to a higher degree of interoperability.
+
+            </p>
+
+            <div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note7"><span>Note</span></div><p class="">
+                An <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> fulfills this requirement by definition. In other words, while this
+                specification acknowledges the usefulness of the <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> level to accommodate legacy devices
+                and very restricted scenarios, implementers are encouraged to implement <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended
+                Web Things</a>.
+            </p></div>
+        </section>
+
+        <section id="r1.4-a-web-thing-should-return-a-204-for-all-write-operations" typeof="bibo:Chapter" resource="#r1.4-a-web-thing-should-return-a-204-for-all-write-operations" property="bibo:hasPart">
+            <h4 id="h-r1.4-a-web-thing-should-return-a-204-for-all-write-operations" resource="#h-r1.4-a-web-thing-should-return-a-204-for-all-write-operations"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.2.4 </span>R1.4 – A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="SHOULD">SHOULD</em> return a 204 for all write operations</span></h4>
+
+            <p>
+                By default, all PUT, POST, and DELETE requests to a Web 
+Thing should not return the payload of the object that was 
+created/modified, therefore should return a <code>204 NO CONTENT</code> response and no response body. 
+            </p>
+
+        </section>
+
+        <section id="r1.5-a-web-thing-should-provide-a-default-human-readable-documentation" typeof="bibo:Chapter" resource="#r1.5-a-web-thing-should-provide-a-default-human-readable-documentation" property="bibo:hasPart">
+            <h4 id="h-r1.5-a-web-thing-should-provide-a-default-human-readable-documentation" resource="#h-r1.5-a-web-thing-should-provide-a-default-human-readable-documentation"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.2.5 </span>R1.5 – A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="SHOULD">SHOULD</em> provide a default human-readable documentation</span></h4>
+
+            <p>
+                To interact with a <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a>, a Client needs to know how to use a Web Thing. The
+                format of the API documentation is left to implementers, but should describe the resources offered, the
+                verbs they support, the payloads accepted and returned, and possible status codes that can be returned
+                and when.
+            </p>
+
+
+        </section>
+
+    </section>
+
+    <section id="level-2-may" typeof="bibo:Chapter" resource="#level-2-may" property="bibo:hasPart">
+        <h3 id="h-level-2-may" resource="#h-level-2-may"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.3 </span>Level 2 – <em class="rfc2119" title="MAY">MAY</em></span></h3>
+
+        <p>
+            A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="MAY">MAY</em> support these rules, but is not expected to. It depends on the device capabilities and other implementation aspects.
+        </p>
+
+        <section id="r2.1-a-web-thing-may-support-the-http-options-verb-for-each-of-its-resources" typeof="bibo:Chapter" resource="#r2.1-a-web-thing-may-support-the-http-options-verb-for-each-of-its-resources" property="bibo:hasPart">
+            <h4 id="h-r2.1-a-web-thing-may-support-the-http-options-verb-for-each-of-its-resources" resource="#h-r2.1-a-web-thing-may-support-the-http-options-verb-for-each-of-its-resources"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.3.1 </span>R2.1 – A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="MAY">MAY</em> support the HTTP <code>OPTIONS</code> verb for each of its resources</span></h4>
+
+            <p>
+                Any resource of a Web Thing should implement the OPTIONS verb to describe what verbs are supported by
+                each resource.
+            </p>
+        </section>
+
+        <section id="r2.2-a-web-thing-may-provide-additional-representation-mechanisms-rdf-xml-json-ld" typeof="bibo:Chapter" resource="#r2.2-a-web-thing-may-provide-additional-representation-mechanisms-rdf-xml-json-ld" property="bibo:hasPart">
+            <h4 id="h-r2.2-a-web-thing-may-provide-additional-representation-mechanisms-rdf-xml-json-ld" resource="#h-r2.2-a-web-thing-may-provide-additional-representation-mechanisms-rdf-xml-json-ld"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.3.2 </span>R2.2 – A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="MAY">MAY</em> provide additional representation mechanisms (RDF, XML, JSON-LD)</span></h4>
+
+            <p>
+                A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="MAY">MAY</em>
+ provide additional representations of its data and descriptions. JSON 
+is the
+                only mandatory representation. Additional formats are up
+ to the implementers if needed for additional purposes. The discovery of
+ additional representation <em class="rfc2119" title="SHOULD">SHOULD</em> be supported via HTTP content-negotiation [<cite><a class="bibref" href="#bib-content-negotiation">content-negotiation</a></cite>].
+            </p>
+        </section>
+
+        <section id="r2.3-a-web-thing-may-offer-a-html-based-user-interface" typeof="bibo:Chapter" resource="#r2.3-a-web-thing-may-offer-a-html-based-user-interface" property="bibo:hasPart">
+            <h4 id="h-r2.3-a-web-thing-may-offer-a-html-based-user-interface" resource="#h-r2.3-a-web-thing-may-offer-a-html-based-user-interface"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.3.3 </span>R2.3 – A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="MAY">MAY</em> offer a HTML-based user interface</span></h4>
+            <p>
+                A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="MAY">MAY</em> expose a  <abbr title="User Interface">UI</abbr> in HTML, CSS and JavaScript. For example, the <abbr title="User Interface">UI</abbr> may be a HTML widget to integrate the <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web
+                Thing</a> in dashboard environments.
+            </p>
+        </section>
+        <section id="r2.4-a-web-thing-may-provide-precise-information-about-the-intended-meaning-of-individual-parts-of-the-model" typeof="bibo:Chapter" resource="#r2.4-a-web-thing-may-provide-precise-information-about-the-intended-meaning-of-individual-parts-of-the-model" property="bibo:hasPart">
+            <h4 id="h-r2.4-a-web-thing-may-provide-precise-information-about-the-intended-meaning-of-individual-parts-of-the-model" resource="#h-r2.4-a-web-thing-may-provide-precise-information-about-the-intended-meaning-of-individual-parts-of-the-model"><span property="xhv:role" resource="xhv:heading"><span class="secno">5.3.4 </span>R2.4 – A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="MAY">MAY</em> provide precise information about the intended meaning of individual parts of the model</span></h4>
+
+            <p>
+                A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> <em class="rfc2119" title="MAY">MAY</em>
+ provide additional meta data to precisely describe the meaning of 
+individual building blocks of a model in a machine-understandable way.
+            </p>
+        </section>
+    </section>
+</section>
+
+<section id="web-things-model" typeof="bibo:Chapter" resource="#web-things-model" property="bibo:hasPart">
+    <!--OddPage--><h2 id="h-web-things-model" resource="#h-web-things-model"><span property="xhv:role" resource="xhv:heading"><span class="secno">6. </span>Web Things model</span></h2>
+
+    <p>
+        This part defines the model, JSON payloads and REST API that an <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> implement to
+        allow <a href="#dfn-client" class="internalDFN" data-link-type="dfn">Clients</a> to automatically discover and use its properties. It assumes an <a href="#web-things-integration-patterns">Integration Pattern</a> and that the Web Thing follows the <a href="#web-things-requirements">Web Things Requirements</a>. As such, the Web Things model is a contract
+        between clients and Things in the IoT.
+    </p>
+
+    <div class="note"><div class="note-title" aria-level="3" role="heading" id="h-note8"><span>Note</span></div><p class="">
+        An <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> has a root resource accessible via an HTTP URL and supports HTTP <code>GET</code>
+        requests on that URL (see <a href="#r0.2-a-web-thing-must-have-a-root-resource-accessible-via-an-http-url" class="sec-ref"><span class="secno">5.1.2</span> <span class="sec-title">R0.2 – A Web Thing MUST have a root resource accessible via an HTTP URL</span></a>
+        and <a href="#r0.6-a-web-thing-must-support-get-on-its-root-url" class="sec-ref"><span class="secno">5.1.6</span> <span class="sec-title">R0.6 – A Web Thing MUST support GET on its root URL</span></a>).
+    </p></div>
+
+    <p>
+        An <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> <em class="rfc2119" title="MUST">MUST</em>
+ create a URL endpoint for all the resources that it exposes, including 
+itself. Relative URLs are to be resolved against the URL of the resource
+ that includes them. Implementers are encouraged to create a logical 
+tree structure for resources and to use relative URLs to keep JSON 
+payloads short, for instance:
+    </p>
+    <table>
+        <thead>
+        <tr>
+            <th>URL</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><code>{wt}</code>
+            </td><td>The root resource URL</td>
+        </tr>
+        <tr>
+            <td><code>{wt}/model/</code>
+            </td><td>The model of a Web Thing</td>
+        </tr>
+        <tr>
+            <td><code>{wt}/properties/</code>
+            </td><td>The list of properties</td>
+        </tr>
+        <tr>
+            <td><code>{wt}/properties/{id}</code>
+            </td><td>A specific property</td>
+        </tr>
+        <tr>
+            <td><code>{wt}/actions/</code>
+            </td><td>The list of actions</td>
+        </tr>
+        <tr>
+            <td><code>{wt}/actions/{id}</code>
+            </td><td>A specific action</td>
+        </tr>
+        <tr>
+            <td><code>{wt}/actions/{id}/{actionId}</code>
+            </td><td>A specific execution of an action</td>
+        </tr>
+        <tr>
+            <td><code>{wt}/.../</code>
+            </td><td>...</td>
+        </tr>
+        <!-- TODO Visualise tree structure -->
+        </tbody>
+    </table>
+
+
+    <section id="common-constructs" typeof="bibo:Chapter" resource="#common-constructs" property="bibo:hasPart">
+        <h3 id="h-common-constructs" resource="#h-common-constructs"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.1 </span>Common Constructs</span></h3>
+
+        <p>
+            In response to an HTTP <code>GET</code> request on one of its resources (including the root resource), an
+            <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> return a JSON representation of that resource that follows the JSON schema
+            defined in the table below:
+        </p>
+        <table>
+            <thead>
+            <tr>
+                <th>Field name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><code>id</code></td>
+                <td>String</td>
+                <td>The URL of this resource following the URI format [<cite><a class="bibref" href="#bib-RFC3986">RFC3986</a></cite>]. Relative URLs are resolved against
+                    the URL of the enclosing resource.
+                    <br><strong>This field is required</strong>.
+                </td>
+            </tr>
+            <tr>
+                <td><code>createdAt</code></td>
+                <td>String</td>
+                <td>Timestamp when this resource was created, following the ISO8601 notation [<cite><a class="bibref" href="#bib-ISO8601">ISO8601</a></cite>].</td>
+            </tr>
+            <tr>
+                <td><code>updatedAt</code></td>
+                <td>String</td>
+                <td>Timestamp when this resource was last updated, following the ISO8601 notation [<cite><a class="bibref" href="#bib-ISO8601">ISO8601</a></cite>].</td>
+            </tr>
+            <tr>
+                <td><code>name</code></td>
+                <td>String</td>
+                <td>A short human-readable name for the resource.</td>
+            </tr>
+            <tr>
+                <td><code>description</code></td>
+                <td>String</td>
+                <td>A human-readable description of the resource.</td>
+            </tr>
+            <tr>
+                <td><code>tags</code></td>
+                <td>[String]</td>
+                <td>An array of tags.</td>
+            </tr>
+            <tr>
+                <td><code>customFields</code></td>
+                <td>Object</td>
+                <td>A JSON object with key-value pairs to store custom information about this resource (e.g. {"key":"value",...}).</td>
+            </tr>
+            <tr>
+                <td><code>links</code></td>
+                <td>Object</td>
+                <td>A JSON object that lists the sub-resources that this resource links to. See <a href="#links" class="sec-ref"><span class="secno">6.2</span> <span class="sec-title">Links</span></a>
+                    for details.
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="example"><div class="example-title"><span>Example 2</span>: Basic JSON payload</div><pre class="example">{
+  "id": "myCar",
+  "name": "My great car",
+  "description": "This is such a great car.",
+  "createdAt": "2012-08-24T17:29:11.683Z",
+  "updatedAt": "2012-08-24T17:29:11.683Z",
+  "tags": [
+    "cart",
+    "device",
+    "test"
+  ],
+  "customFields": {
+    "size": "20",
+    "color": "blue"
+  },
+  "links": {
+    "model": {
+      "link": "model/",
+      "title": "Model this Web Thing."
+    },
+    "properties": {
+      "link": "properties/",
+      "title": "Properties of this Web Thing."
+    },
+    "actions": {
+      "link": "actions/",
+      "title": "Actions of this Web Thing."
+    },
+    ...
+  }
+}</pre></div>
+        <p>
+            The JSON response <em class="rfc2119" title="MAY">MAY</em> contain additional fields, depending on the type of resource being considered, check
+            the <a href="#resources" class="sec-ref"><span class="secno">6.4</span> <span class="sec-title">Resources</span></a> for details.
+        </p>
+
+        <h3 id="pagination">Pagination</h3>
+        Requests on things of a gateway, on properties that store the 
+history of value changes or on executed actions return many items will 
+be paginated to 30 items by default. You can specify any further page to
+ be returned using the ?page parameter. For example, set a custom page 
+size up to 100 with the ?perPage parameter with:
+
+        <code>GET {wt}/properties/acceleration?page=3&amp;perPage=100</code>
+
+
+        Extra pagination data is sent in response headers.
+
+        <div class="example"><div class="example-title"><span>Example 3</span>: Extra pagination data is sent in response headers</div><pre class="example">Result-Count: 562
+Link: &lt;http://webofthings.io/properties/acceleration?page=3&amp;perPage=100&lt;; rel="next",
+&lt;http://webofthings.io/properties/acceleration?page=56&amp;perPage=100&lt;; rel="last"</pre></div>
+        The <code>Result-Count</code> header contains the total number of results.
+        The pagination info is included in the Link header.
+
+
+        <table>
+            <thead>
+            <tr>
+                <th>rel value</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><code>next</code></td>
+                <td>The URL of the last page of results.</td>
+            </tr>
+            <tr>
+                <td><code>first</code></td>
+                <td>The URL of the first page of results.</td>
+            </tr>
+            <tr>
+                <td><code>prev</code></td>
+                <td>The URL of the immediate previous page of results.</td>
+            </tr>
+
+            </tbody>
+        </table>
+
+    </section>
+
+
+    <section id="links" typeof="bibo:Chapter" resource="#links" property="bibo:hasPart">
+        <h3 id="h-links" resource="#h-links"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.2 </span>Links</span></h3>
+
+        <p>
+            A resource may link to a number of sub-resources. To enable the discovery of these sub-resources (as
+            required by the <abbr title="Hypermedia as the Engine of Application State">HATEOAS</abbr> constraint of the
+            REST application architecture), an <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> <em class="rfc2119" title="SHOULD">SHOULD</em> expose  sub-resources associated with
+            a given resource using the HTTP <code>Link</code> header field [<cite><a class="bibref" href="#bib-RFC5988">RFC5988</a></cite>].
+        </p>
+
+        <p>
+            In particular, each link is defined by a <strong>relation type</strong> (the "link type"), the actual URL of the sub-resource (the "link"),
+            and a human-readable identifier for the relation (the "title"). <a href="https://tools.ietf.org/html/rfc5988#section-6.2.2">Relation types</a> defined in [<cite><a class="bibref" href="#bib-RFC5988">RFC5988</a></cite>] may
+            be used to characterize the relation with the sub-resource. Additionally, the Web Things model defines the
+            following relation types:
+        </p>
+        <table>
+            <thead>
+            <tr>
+                <th>Relation name</th>
+                <th>Description</th>
+                <th>Section</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><code>model</code></td>
+                <td>A link to an <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> compliant description of a resource.</td>
+                <td><a href="#model-resource">Model Resource</a></td>
+            </tr>
+            <tr>
+                <td><code>properties</code></td>
+                <td>The properties of this resource.</td>
+                <td><a href="#properties-resource">Properties Resource</a></td>
+            </tr>
+            <tr>
+                <td><code>actions</code></td>
+                <td>The actions that this resource can perform.</td>
+                <td><a href="#actions-resource">Actions Resource</a></td>
+            </tr>
+            <tr>
+                <td><code>things</code></td>
+                <td>The <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web things</a> proxied by this resource (if applicable).</td>
+                <td><a href="#things-resource">Things Resource</a></td>
+            </tr>
+            <tr>
+                <td><code>subscriptions</code></td>
+                <td>The endpoint to manage subscriptions to this resource.</td>
+                <td><a href="#subscriptions-resource">Subscriptions Resource</a></td>
+            </tr>
+            <tr>
+                <td><code>type</code></td>
+                <td>Can be used to indicate that the context
+                    resource is an instance of the resource identified by the target
+                    external URL.</td>
+                <td><a href="https://www.rfc-editor.org/rfc/rfc6903.txt"></a></td>
+            </tr>
+            <tr>
+                <td><code>product</code></td>
+                <td>A link to authoritative product information for this Web Thing.</td>
+                <td><a href="https://schema.org/Product">Product</a></td>
+            </tr>
+            <tr>
+                <td><code>help</code></td>
+                <td>A link to the online manual page for this Web Thing.</td>
+                <td><a href="http://www.w3.org/TR/html5/links.html#link-type-help">4.8.4.4 Link type "help"</a> </td>
+
+            </tr>
+            <tr>
+                <td><code>ui</code></td>
+                <td>A link to the HTML-based user interface for this Web Thing.</td>
+                <td>External Resource</td>
+            </tr>
+            <tr>
+                <td><code>&lt;_customRelType&gt;</code></td>
+                <td>A link to a custom resource.</td>
+                <td>Custom Resource</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p>
+            An <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> <em class="rfc2119" title="MAY">MAY</em> use custom relation types using URLs as described in [<cite><a class="bibref" href="#bib-RFC5988">RFC5988</a></cite>].
+            As a convention, custom relation types start with an underscore <code>_</code>.
+        </p>
+
+        <p>
+            In addition to exposing them in the HTTP Header of each resource, links <em class="rfc2119" title="SHOULD">SHOULD</em> be exposed from the
+            <a href="#dfn-model" class="internalDFN" data-link-type="dfn">Model</a> resource of a <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> using the <code>links</code> field of the JSON payload.
+            The keys of this object represent the relation type while each value describes the actual link as illustrated below.
+        </p>
+        <div class="example"><div class="example-title"><span>Example 4</span>: Links Object JSON Model</div><pre class="example">{
+  ...
+  "links":{
+    "&lt;relType&gt;":{
+      "link": "&lt;String&gt;",
+      "title": "&lt;String&gt;"
+    }
+    "&lt;_customRelType&gt;":{
+      "link": "&lt;String&gt;",
+      "title": "&lt;String&gt;"
+    },
+    ...     
+  }
+  ... 
+}</pre></div>
+        <p>
+            The following fields define the actual link:
+        </p>
+        <table>
+            <thead>
+            <tr>
+                <th>Field name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><code>link</code></td>
+                <td>String</td>
+                <td>The URL of the destination of the link.
+                    <br><strong>This field is required.</strong></td>
+            </tr>
+            <tr>
+                <td><code>title</code></td>
+                <td>String</td>
+                <td>A human-readable label of the destination of the link.
+                    <br><strong>This field is required.</strong></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="example"><div class="example-title"><span>Example 5</span>: Links Object JSON Example</div><pre class="example">{
+    "model": {
+      "link": "model/",
+      "title": "Model of this Web Thing."
+    },
+    "properties": {
+      "link": "properties/",
+      "title": "Properties of this Web Thing."
+    },
+    "actions": {
+      "link": "actions/",
+      "title": "Actions of this Web Thing."
+    },
+    "product": {
+      "link": "https://www.raspberrypi.org/products/raspberry-pi-2-model-b/",
+      "title": "Product this Web Thing is an instance of"
+    },
+    "type": {
+      "link": "http://webofthings.org/schemas/web-thing/",
+      "title": "External information about the instance type of this Thing"
+    },
+    "help": {
+      "link": "http://webofthings.org/docs/pi/",
+      "title": "Documentation"
+    },
+    "ui": {
+      "link": "ui/",
+      "title": "User Interface"
+    },
+    "_myCustomLinkRelType": {
+      "link": "custom/",
+      "schema": "http://webofthings.org/schemas/custom.html",
+      "title": "My custom resource"
+    },
+    "_..." : {"..." : {"..."}}
+}</pre></div>
+
+        <p>
+            A <code>GET</code> request on any resource of a Web Thing 
+should return the list of all related resources as "Link" HTTP headers, 
+which allows to use the same standard model regardless of the 
+representation chosen. This is an example of the headers returned after a
+ <code>GET {wt}/</code> on the root URL of a Web Thing:
+        </p>
+
+        <div class="example"><div class="example-title"><span>Example 6</span>: Links in the HTTP Header</div><pre class="example">Link: &lt;model/&gt;; rel="model"
+Link: &lt;properties/&gt;; rel="properties"
+Link: &lt;actions/&gt;; rel="actions"
+Link: &lt;product/&gt;; rel="product"
+Link: &lt;type/&gt;; rel="type"
+Link: &lt;help/&gt;; rel="help"
+Link: &lt;ui/&gt;; rel="ui"</pre></div>
+
+
+    </section>
+
+    <section id="values" typeof="bibo:Chapter" resource="#values" property="bibo:hasPart">
+        <h3 id="h-values" resource="#h-values"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.3 </span>Values</span></h3>
+
+        <p>
+            Several resources support values (particularly <a href="#dfn-action" class="internalDFN" data-link-type="dfn">Actions</a> and <a href="#dfn-property" class="internalDFN" data-link-type="dfn">Properties</a>).
+            A <code>values</code> object contains the description of a set of values identified by their name. The
+            description includes the value type, unit, and possible concrete values that the value can take. A <code>values</code>
+            object is typically used to define the parameters a <a href="#dfn-client" class="internalDFN" data-link-type="dfn">Client</a> can use when it issues an <a href="#dfn-action" class="internalDFN" data-link-type="dfn">Action</a> or
+            accesses the channels of a <a href="#dfn-property" class="internalDFN" data-link-type="dfn">Property</a>.
+        </p>
+
+        <p>
+            The following fields <em class="rfc2119" title="MAY">MAY</em> be used to describe a <code>values</code> object:
+        </p>
+        <table>
+            <thead>
+            <tr>
+                <th>Field name</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><code>&lt;valueName&gt;</code></td>
+                <td>String</td>
+                <td>The identifier of this value <br><strong>This field is required</strong>.</td>
+            </tr>
+            <tr>
+                <td><code>name</code></td>
+                <td>String</td>
+                <td>A human-readable caption for this value.</td>
+            </tr>
+            <tr>
+                <td><code>description</code></td>
+                <td>String</td>
+                <td>A human-readable description of this value.</td>
+            </tr>
+            <tr>
+                <td><code>type</code></td>
+                <td>String</td>
+                <td>The type of this value. The supported types are <code>integer</code>, <code>float</code>, <code>boolean</code>,
+                    <code>string</code>.
+                </td>
+            </tr>
+            <tr>
+                <td><code>unit</code></td>
+                <td>String</td>
+                <td>The unit of this value using one the (case-insensitive) full names defined in the International System of Units
+                    [<cite><a class="bibref" href="#bib-SI">SI</a></cite>].
+                    <br>Example: <code>"meter per second squared"</code></td>
+            </tr>
+            <tr>
+                <td><code>required</code></td>
+                <td>Boolean</td>
+                <td>Specifies whether this value is required or optional. If omitted, the default is <code>true</code>.
+                </td>
+            </tr>
+            <tr>
+                <td><code>minValue</code></td>
+                <td>Number</td>
+                <td>The minimal concrete value that this value can take.</td>
+            </tr>
+            <tr>
+                <td><code>maxValue</code></td>
+                <td>Number</td>
+                <td>The maximal concrete value of this value</td>
+            </tr>
+            <tr>
+                <td><code>enum</code></td>
+                <td>Object</td>
+                <td>Specifies a set of concrete values that this value can take, e.g.
+                    <br><code>{"LOCK":"Locks the door.", "UNLOCK":"unlocks the door."}</code></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="example"><div class="example-title"><span>Example 7</span>: Values object model</div><pre class="example">{
+  ...
+  "values": {
+    "&lt;valueName&gt;":{
+      "name":"&lt;String&gt;",
+      "description":"&lt;String&gt;",
+      "type":"&lt;String&gt;",
+      "unit":"&lt;String&gt;",
+      "required":"&lt;Boolean&gt;",
+      "minValue":"&lt;Numeric&gt;",
+      "maxValue":"&lt;Numeric&gt;"
+    },
+    ...
+  }
+  ...
+}</pre></div>
+        <p>
+            The value name <code>timestamp</code> is reserved. An <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> append a <code>timestamp</code>,
+            set to the current date and time, whenever it creates a value unless that <code>timestamp</code> is already
+            provided. The <code>timestamp</code> field follows the ISO8601 notation [<cite><a class="bibref" href="#bib-ISO8601">ISO8601</a></cite>]. The
+            <code>createdAt</code> is different from <code>timestamp</code> because it used to refer when a resource has
+            been created (server side information only), whereas the <code>timestamp</code> indicates when a value
+            (property) has been measured (by the client or the Web Thing).
+        </p>
+    </section>
+
+    <section id="resources" typeof="bibo:Chapter" resource="#resources" property="bibo:hasPart">
+        <h3 id="h-resources" resource="#h-resources"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4 </span>Resources</span></h3>
+
+        <section id="http-verbs-support" typeof="bibo:Chapter" resource="#http-verbs-support" property="bibo:hasPart">
+            <h4 id="h-http-verbs-support" resource="#h-http-verbs-support"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.1 </span>HTTP verbs support</span></h4>
+
+            <p>
+                Ideally, an <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> <em class="rfc2119" title="SHOULD">SHOULD</em> support all end-points. The letters <code>D,G,C</code> refer to <a href="#web-things-integration-patterns" class="sec-ref"><span class="secno">4.</span> <span class="sec-title">Web Things integration patterns</span></a> and is here as an indication of which type of integration would typically implement these resources. A <code>D</code> means that the resource should be implemented on Web Things using the the <a href="#dfn-direct" class="internalDFN" data-link-type="dfn">Direct</a> integration pattern, a <code>G</code> means the resource should be implemented when using the <a href="#dfn-gateway" class="internalDFN" data-link-type="dfn">Gateway</a> integration pattern, a <code>C</code> means the resource should be implemented when using the <a href="#dfn-cloud" class="internalDFN" data-link-type="dfn">Cloud</a> integration pattern.
+
+
+            </p>
+
+            <div class="note"><div class="note-title" aria-level="5" role="heading" id="h-note9"><span>Note</span></div><p class="">
+                The URLs used in this table are indicative as an <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> may choose to use
+                other URLs for them. The actual URLs are to be reported in the representation of the in
+                <code>Link</code> HTTP Headers and in the JSON <code>links</code> field as described in <a href="#links" class="sec-ref"><span class="secno">6.2</span> <span class="sec-title">Links</span></a> of the <a href="#dfn-model" class="internalDFN" data-link-type="dfn">Model</a> resource.
+            </p></div>
+            <table style="width:800px;">
+                <thead>
+                <tr>
+                    <th>REST URL</th>
+                    <th>POST</th>
+                    <th>GET</th>
+                    <th>PUT</th>
+                    <th>DELETE</th>
+                    <th>OPTIONS</th>
+                    <th>Details</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><code>{wt}</code></td>
+                    <td>G,C</td>
+                    <td>D,G,C</td>
+                    <td>D,G,C</td>
+                    <td>G,C</td>
+                    <td>D,G,C</td>
+                    <td><a href="#dfn-thing-resource" class="internalDFN" data-link-type="dfn">Thing Resource</a></td>
+                </tr>
+                <tr>
+                    <td><code>{wt}/model</code></td>
+                    <td>-</td>
+                    <td>D,G,C</td>
+                    <td>G,C</td>
+                    <td>-</td>
+                    <td>D,G,C</td>
+                    <td><a href="#dfn-model-resource" class="internalDFN" data-link-type="dfn">Model Resource</a></td>
+                </tr>
+                <tr>
+                    <td><code>{wt}/properties</code></td>
+                    <td>G,C</td>
+                    <td>D,G,C</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>D,G,C</td>
+                    <td><a href="#dfn-properties-resource" class="internalDFN" data-link-type="dfn">Properties Resource</a></td>
+                </tr>
+                <tr>
+                    <td><code>{wt}/properties/{id}</code></td>
+                    <td>-</td>
+                    <td>D,G,C</td>
+                    <td>G,C</td>
+                    <td>-</td>
+                    <td>D,G,C</td>
+                    <td><a href="#dfn-properties-resource" class="internalDFN" data-link-type="dfn">Properties Resource</a></td>
+                </tr>
+                <tr>
+                    <td><code>{wt}/actions</code></td>
+                    <td>G,C</td>
+                    <td>D,G,C</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>D,G,C</td>
+                    <td><a href="#dfn-actions-resource" class="internalDFN" data-link-type="dfn">Actions Resource</a></td>
+                </tr>
+                <tr>
+                    <td><code>{wt}/actions/{id}</code></td>
+                    <td>D,G,C</td>
+                    <td>D,G,C</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>D,G,C</td>
+                    <td><a href="#dfn-actions-resource" class="internalDFN" data-link-type="dfn">Actions Resource</a></td>
+                </tr>
+                <tr>
+                    <td><code>{wt}/actions/{id}/{actionId}</code></td>
+                    <td>-</td>
+                    <td>D,G,C</td>
+                    <td>-</td>
+                    <td>D,G,C</td>
+                    <td>D,G,C</td>
+                    <td><a href="#dfn-actions-resource" class="internalDFN" data-link-type="dfn">Actions Resource</a></td>
+                </tr>
+                <tr>
+                    <td><code>{wt}/things</code></td>
+                    <td>G,C</td>
+                    <td>G,C</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>G,C</td>
+                    <td><a href="#dfn-things-resource" class="internalDFN" data-link-type="dfn">Things Resource</a></td>
+                </tr>
+                <tr>
+                    <td><code>{wt}/things/{id}</code></td>
+                    <td>-</td>
+                    <td>G,C</td>
+                    <td>G,C</td>
+                    <td>G,C</td>
+                    <td>G,C</td>
+                    <td><a href="#dfn-things-resource" class="internalDFN" data-link-type="dfn">Things Resource</a></td>
+                </tr>
+                <tr>
+                    <td><code>{wt}/subscriptions</code></td>
+                    <td>-</td>
+                    <td>D,G,C</td>
+                    <td>-</td>
+                    <td>D,G,C</td>
+                    <td>D,G,C</td>
+                    <td><a href="#dfn-subscriptions-resource" class="internalDFN" data-link-type="dfn">Subscriptions Resource</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+        <section id="web-thing-resource" typeof="bibo:Chapter" resource="#web-thing-resource" property="bibo:hasPart">
+            <h4 id="h-web-thing-resource" resource="#h-web-thing-resource"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.2 </span>Web <dfn data-dfn-type="dfn" id="dfn-thing-resource">Thing Resource</dfn></span></h4>
+
+            <p>
+                A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> is the virtual representation of a physical object. It is the root resource of the Web
+                Things model.
+            </p>
+
+            <p>
+                The Web <dfn data-dfn-type="dfn" id="dfn-thing-url">Thing URL</dfn> is either the root URL of the API or, in the case of a proxy for other Web Things,
+                the result of resolving the <code>id</code> returned in the representation of the Web <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Things</a>
+                resource.
+            </p>
+            <section id="retrieve-a-web-thing" typeof="bibo:Chapter" resource="#retrieve-a-web-thing" property="bibo:hasPart">
+                <h5 id="h-retrieve-a-web-thing" resource="#h-retrieve-a-web-thing"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.2.1 </span>Retrieve a Web Thing</span></h5>
+
+                <p>
+                    In response to an HTTP <code>GET</code> request on the root URL of a <code>Thing</code>, an <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> return an object that its representation.
+                </p>
+            <div class="example"><div class="example-title"><span>Example 8</span>: Get the Root Resource of a Web Thing</div><pre class="example">--&gt; REQUEST
+GET {wt}
+ 
+&lt;-- RESPONSE
+200 OK
+Link: &lt;model/&gt;; rel="model"
+Link: &lt;properties/&gt;; rel="properties"
+Link: &lt;actions/&gt;; rel="actions"
+Link: &lt;product/&gt;; rel="product"
+Link: &lt;type/&gt;; rel="type"
+Link: &lt;help/&gt;; rel="help"
+Link: &lt;ui/&gt;; rel="ui"
+Link: &lt;_myCustomLinkRelType/&gt;; rel="_myCustomLinkRelType"
+
+{
+  "id": "myCar",
+  "name": "My super great car",
+  "description": "This is such a great car.",
+  "createdAd": "2012-08-24T17:29:11.683Z",
+  "updatedAd": "2012-08-24T17:29:11.683Z",
+  "tags":["cart", "device", "test"],
+  "customFields":{
+      "size": "20",
+      "color":"blue"
+  }
+}</pre></div>
+            </section>
+            <section id="update-a-web-thing" typeof="bibo:Chapter" resource="#update-a-web-thing" property="bibo:hasPart">
+                <h5 id="h-update-a-web-thing" resource="#h-update-a-web-thing"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.2.2 </span>Update a Web Thing</span></h5>
+
+                <p>
+                    In response to an HTTP <code>PUT</code> request on a Web <a href="#dfn-thing-url" class="internalDFN" data-link-type="dfn">Thing URL</a> with a Web Thing object as
+                    request body, an <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> either reject the request with the appropriate
+                    status code (e.g. because the <a href="#dfn-client" class="internalDFN" data-link-type="dfn">Client</a> is unauthenticated or because the <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Thing</a> is
+                    read-only) or store the provided value(s) by updating the Web <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Thing</a>. Partial updates
+                    are authorized and result in updating the fields that were provided in the request body.
+                </p>
+            <div class="example"><div class="example-title"><span>Example 9</span>: Update my super great car</div><pre class="example">--&gt; REQUEST
+PUT {wt}
+    
+{
+  "name":"My really super great car"
+}
+
+&lt;-- RESPONSE
+204 NO CONTENT</pre></div>
+            </section>
+        </section>
+            <section id="model-resource" typeof="bibo:Chapter" resource="#model-resource" property="bibo:hasPart">
+                <h4 id="h-model-resource" resource="#h-model-resource"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.3 </span><dfn data-dfn-type="dfn" id="dfn-model-resource">Model Resource</dfn></span></h4>
+
+                <p>
+                    A <dfn data-dfn-type="dfn" id="dfn-model">Model</dfn> describes the values of <code>properties</code> and <code>actions</code> that can
+                    be
+                    performed on <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Things</a>.
+                </p>
+
+                <p>
+                    The <dfn data-dfn-type="dfn" id="dfn-model-url">Model URL</dfn> is the result of resolving the <code>id</code> returned in the
+                    representation of a <a href="#dfn-property" class="internalDFN" data-link-type="dfn">Property</a> against the destination URL of the <code>properties</code> link
+                    that
+                    gave birth to it.
+                    <!-- TODO example -->
+                </p>
+
+                <section id="retrieve-the-model-of-a-thing" typeof="bibo:Chapter" resource="#retrieve-the-model-of-a-thing" property="bibo:hasPart">
+                    <h5 id="h-retrieve-the-model-of-a-thing" resource="#h-retrieve-the-model-of-a-thing"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.3.1 </span>Retrieve the model of a <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Thing</a></span></h5>
+
+                    <p>
+                        In response to an HTTP <code>GET</code> request on the destination URL of a <code>model</code>
+                        link, an <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> return an object containing the model of the Thing.
+                    </p>
+            <div class="example"><div class="example-title"><span>Example 10</span>: Model of a Web Thing</div><pre class="example">--&gt; REQUEST
+GET {wt}/model
+
+&lt;-- RESPONSE
+200 OK
+
+{
+  "id": "pi",
+  "name": "My WoT Raspberry PI",
+  "description": "A simple WoT-connected Raspberry PI for the WoT Label.",
+  "tags": [
+    "raspberry",
+    "pi",
+    "WoT"
+  ],
+  "customFields" : {
+    "port" : 8484
+  },
+  "links": {
+    "product": {
+      "link": "https://www.raspberrypi.org/products/raspberry-pi-2-model-b/",
+      "title": "Product this Web Thing is based on"
+    },
+    "properties": {
+      "link": "/properties",
+      "title": "List of Properties",
+      "resources": {
+        "temperature": {
+          "name": "Temperature Sensor",
+          "description": "An ambient temperature sensor.",
+          "values": {
+            "temp": {
+              "name": "Temperature sensor",
+              "description": "The temperature in celsius",
+              "unit": "celsius",
+              "customFields": {
+"gpio": 21
+              }
+            }
+          },
+          "tags": [
+            "sensor",
+            "public",
+            "indoors"
+          ]
+        },
+        "humidity": {
+          "name": "Humidity Sensor",
+          "description": "An ambient humidity sensor.",
+          "values": {
+            "h": {
+              "name": "Humidity",
+              "description": "Percentage of Humidity",
+              "unit": "percent",
+              "customFields": {
+"gpio": 21
+              }
+            }
+          },
+          "tags": [
+            "sensor",
+            "public"
+          ]
+        },
+        "pir": {
+          "name": "Passive Infrared",
+          "description": "A passive infrared sensor.",
+          "values": {
+            "p": {
+              "name": "Presence",
+              "description": "Current sensor value (true=motion detected)",
+              "type": "boolean",
+              "customFields": {
+"gpio": 20
+              }
+            }
+          },
+          "tags": [
+            "sensor",
+            "public"
+          ]
+        },
+        "leds": {
+          "name": "LEDs",
+          "description": "The LEDs of this device.",
+          "values": {
+            "1": {
+              "name": "LED 1",
+              "customFields": {
+"gpio": 17
+              }
+            },
+            "2": {
+              "name": "LED 2",
+              "customFields": {
+"gpio": 19
+              }
+            }
+          },
+          "tags": [
+            "sensor",
+            "public"
+          ]
+        }
+      }
+    },
+    "actions": {
+      "link": "/actions",
+      "title": "Actions of this Web Thing",
+      "resources": {
+        "ledState": {
+          "values": {
+            "ledId": {
+              "type": "string",
+              "required": true
+            },
+            "state": {
+              "type": "boolean",
+              "required" : true
+            }
+          }
+        }
+      }
+    },
+    "type": {
+      "link": "http://w3c.org/schemas/webthing/",
+      "title": "Instance type of the Pi"
+    },
+    "help": {
+      "link": "http://webofthings.org/docs/pi/",
+      "title": "Documentation"
+    },
+    "ui": {
+      "link": "/ui",
+      "title": "User Interface"
+    }
+  }
+}</pre></div>
+                </section>
+                <section id="update-the-model-of-a-thing" typeof="bibo:Chapter" resource="#update-the-model-of-a-thing" property="bibo:hasPart">
+                    <h5 id="h-update-the-model-of-a-thing" resource="#h-update-the-model-of-a-thing"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.3.2 </span>Update the model of a <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Thing</a></span></h5>
+
+                    <p>
+                        In response to an HTTP <code>PUT</code> request on a <a href="#dfn-model-url" class="internalDFN" data-link-type="dfn">Model URL</a> with a Model object as
+                        request body, an <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> either reject the request with the appropriate
+                        status code (e.g. because the <a href="#dfn-client" class="internalDFN" data-link-type="dfn">Client</a> is unauthenticated or because the <a href="#dfn-model" class="internalDFN" data-link-type="dfn">Model</a> is
+                        read-only) or store the provided value(s) by updating the <a href="#dfn-model" class="internalDFN" data-link-type="dfn">Model</a>. Partial updates
+                        are authorized and result in updating the fields that were provided in the request body.
+
+                    </p><div class="note"><div class="note-title" aria-level="6" role="heading" id="h-note10"><span>Note</span></div><p class="">
+                        Usually, the model will be hardcoded in the 
+device and generally cannot be altered by clients. If the Web Thing is 
+hosted on a cloud service, the model can be updated by sending an HTTP <code>PUT</code> request to the same URL, with the new model document in the request body.
+                    </p></div>
+                </section>
+            </section>
+            <section id="properties-resource" typeof="bibo:Chapter" resource="#properties-resource" property="bibo:hasPart">
+                <h4 id="h-properties-resource" resource="#h-properties-resource"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.4 </span><dfn data-dfn-type="dfn" id="dfn-properties-resource">Properties Resource</dfn></span></h4>
+
+                <p>
+                    A <a href="#dfn-property" class="internalDFN" data-link-type="dfn">Property</a> keeps track of a set of variables about a device (its location, the temperature
+                    sensor reading, etc.).
+                </p>
+
+                <p>
+                    The <dfn data-dfn-type="dfn" id="dfn-property-url">Property URL</dfn> is the result of resolving the <code>id</code> returned in the
+                    representation of a <a href="#dfn-property" class="internalDFN" data-link-type="dfn">Property</a> against the destination URL of the <code>properties</code> link
+                    that
+                    gave birth to it.
+                </p>
+
+                <section id="retrieve-a-list-of-properties" typeof="bibo:Chapter" resource="#retrieve-a-list-of-properties" property="bibo:hasPart">
+                    <h5 id="h-retrieve-a-list-of-properties" resource="#h-retrieve-a-list-of-properties"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.4.1 </span>Retrieve a list of properties</span></h5>
+
+                    <p>
+                        In response to an HTTP <code>GET</code> request on the destination URL of a
+                        <code>properties</code>
+                        link, an <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> return an array of <a href="#dfn-property" class="internalDFN" data-link-type="dfn">Property</a> that the initial
+                        resource
+                        contains.
+                    </p>
+            <div class="example"><div class="example-title"><span>Example 11</span>: List of properties</div><pre class="example">--&gt; REQUEST
+GET {wt}/properties
+
+
+&lt;-- RESPONSE
+200 OK
+Link: &lt;http://webofthings.io/properties&gt;; rel="type"
+
+[
+  {
+    "id":"temperature",
+    "name":"Kitchen Temperature Sensor",
+    "values":{
+      "temp":22,
+      "timestamp":"2015-06-14T14:30:00.000Z"
+    }
+  },
+  {
+    "id":"status",
+    "name":"Device Status",
+    "values":{
+      "status":"OK",
+      "timestamp":"2015-06-14T14:30:00.000Z"
+    }
+  },
+  {
+    "id":"acceleration",
+    "name":"Acceleration",
+    "values":{
+      "x":22,
+      "y":22.56,
+      "z":1.4,
+      "timestamp":"2015-06-14T14:30:00.000Z"
+    }
+  },
+  {
+    "id":"engineAngle",
+    "name":"Engine Angle",
+    "values":{
+      "theta":2,
+      "rho":-0.1,
+      "timestamp":"2015-06-14T14:30:00.000Z"
+    }
+  }
+]</pre></div>
+                </section>
+
+                <section id="retrieve-the-value-of-a-property" typeof="bibo:Chapter" resource="#retrieve-the-value-of-a-property" property="bibo:hasPart">
+                    <h5 id="h-retrieve-the-value-of-a-property" resource="#h-retrieve-the-value-of-a-property"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.4.2 </span>Retrieve the value of a property</span></h5>
+
+                    <p>
+                        In response to an HTTP <code>GET</code> request on a <a href="#dfn-property-url" class="internalDFN" data-link-type="dfn">Property URL</a>, an <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web
+                        Thing</a> <em class="rfc2119" title="MUST">MUST</em> return an array that lists recent values of that <a href="#dfn-property" class="internalDFN" data-link-type="dfn">Property</a>.
+                    </p>
+
+                    <div class="note"><div class="note-title" aria-level="6" role="heading" id="h-note11"><span>Note</span></div><p class="">
+                        Some Web Things might not store the history of 
+sensor readings but only the most recent value of a given property, in 
+which case the array will always contain one object. However, Web Things
+ on clouds and gateway are likely to store many past values of the 
+property, in which case they can
+                        be retrieved using pagination.
+                    </p></div>
+
+
+            <div class="example"><div class="example-title"><span>Example 12</span>: Retrieve the last measures of an accelerometer property</div><pre class="example">--&gt; REQUEST
+GET {wt}/properties/acceleration
+
+&lt;-- RESPONSE
+200 OK
+Link &lt;model/&gt;; rel="model"
+
+[
+  {
+    "x":11,
+    "y":1,
+    "z":-4.4,
+    "timestamp":"2015-06-14T14:30:00.000Z"
+  },
+  {
+    "x":3.4,
+    "y":-1,
+    "z":-4.6,
+    "timestamp":"2015-06-14T14:00:00.000Z"
+  }
+]</pre></div>
+                </section>
+
+
+
+                <section id="update-a-specific-property" typeof="bibo:Chapter" resource="#update-a-specific-property" property="bibo:hasPart">
+                    <h5 id="h-update-a-specific-property" resource="#h-update-a-specific-property"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.4.3 </span>Update a specific property</span></h5>
+
+                    <p>
+                        In response to an HTTP <code>PUT</code> request on a <a href="#dfn-property-url" class="internalDFN" data-link-type="dfn">Property URL</a> with an array of
+                        values as
+                        request body, an <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> either reject the request with the appropriate
+                        status code (e.g. because the <a href="#dfn-client" class="internalDFN" data-link-type="dfn">Client</a> is unauthenticated or because the <a href="#dfn-property" class="internalDFN" data-link-type="dfn">Property</a> is
+                        read-only) or store the provided value(s) as new values for the <a href="#dfn-property" class="internalDFN" data-link-type="dfn">Property</a>. The body of the request <em class="rfc2119" title="SHOULD">SHOULD</em> always be an array of values (at least one), which allows to send several property value updates within a single request.
+                    </p>
+            <div class="example"><div class="example-title"><span>Example 13</span>: Update the Values of the Temperature Property</div><pre class="example">--&gt; REQUEST
+PUT {wt}/properties/temperature/
+
+[
+  {
+    "temp":24
+  }
+]
+
+
+&lt;-- RESPONSE
+204 NO CONTENT
+Location: {wt}/properties/temperature/</pre></div>
+
+                    <div class="note"><div class="note-title" aria-level="6" role="heading" id="h-note12"><span>Note</span></div><p class="">
+                        A <a href="#dfn-property-url" class="internalDFN" data-link-type="dfn">Property URL</a>
+ is always a collection of resources, therefore its representation is an
+ array of individual values with different timestamps. The individual 
+values are not adressable individually, therefore the <code>Location:</code> header in response to a successful property update request <em class="rfc2119" title="SHOULD">SHOULD</em> always be the <a href="#dfn-property-url" class="internalDFN" data-link-type="dfn">Property URL</a> itself.
+                    </p></div>
+
+                </section>
+
+                <section id="update-multiple-properties-at-once" typeof="bibo:Chapter" resource="#update-multiple-properties-at-once" property="bibo:hasPart">
+                    <h5 id="h-update-multiple-properties-at-once" resource="#h-update-multiple-properties-at-once"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.4.4 </span>Update multiple properties at once</span></h5>
+
+                    <p>
+                        In response to an HTTP <code>POST</code> request on the destination URL of a <code>properties</code>
+                        link, an <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> either reject the request with the appropriate status
+                        code
+                        or store the provided values as new values for each of the provided <a href="#dfn-property" class="internalDFN" data-link-type="dfn">Properties</a>.
+                    </p>
+            <div class="example"><div class="example-title"><span>Example 14</span>: Update multiple properties at once</div><pre class="example">--&gt; REQUEST
+PUT {wt}/properties/
+
+[
+  {
+    "id":"temperature",
+    "value":{
+      "temp":24,
+      "timestamp":"2015-06-14T14:30:00.000Z"
+    }
+  },
+  {
+    "id":"acceleration",
+    "value":{
+      "x":-22,
+      "y":2.1,
+      "z":3,
+    }
+  }
+]
+
+&lt;-- RESPONSE
+204 NO CONTENT
+Location: {wt}/properties/</pre></div>
+                </section>
+            </section>
+
+            <section id="actions-resource" typeof="bibo:Chapter" resource="#actions-resource" property="bibo:hasPart">
+                <h4 id="h-actions-resource" resource="#h-actions-resource"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.5 </span><dfn data-dfn-type="dfn" id="dfn-actions-resource">Actions Resource</dfn></span></h4>
+
+                <p>
+                    On top of <a href="#common-constructs" class="sec-ref"><span class="secno">6.1</span> <span class="sec-title">Common Constructs</span></a>, the JSON representation used to describe an
+                    <a href="#dfn-action" class="internalDFN" data-link-type="dfn">Action</a>
+                    includes the following fields:
+                </p>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Field name</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><code>values</code></td>
+                        <td>Object</td>
+                        <td>A description of the parameters that his action accepts.
+                            <br>See <a href="#values" class="sec-ref"><span class="secno">6.3</span> <span class="sec-title">Values</span></a>.
+                            <br><strong>This field is required.</strong></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p>
+                    The <dfn data-dfn-type="dfn" id="dfn-action-url">Action URL</dfn> is the result of resolving the <code>id</code> returned in an
+                    <a href="#dfn-action" class="internalDFN" data-link-type="dfn">Action</a>
+                    description against the destination URL of the <code>actions</code> link that gave birth to it.
+                </p>
+
+                <section id="retrieve-a-list-of-actions" typeof="bibo:Chapter" resource="#retrieve-a-list-of-actions" property="bibo:hasPart">
+                    <h5 id="h-retrieve-a-list-of-actions" resource="#h-retrieve-a-list-of-actions"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.5.1 </span>Retrieve a list of actions</span></h5>
+
+                    <p>
+                        In response to an HTTP <code>GET</code> request on the destination URL of an
+                        <code>actions</code>
+                        link exposed by a resource, an <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> return an array of <a href="#dfn-action" class="internalDFN" data-link-type="dfn">Action</a>
+                        descriptions that the initial resource may perform.
+                    </p>
+            <div class="example"><div class="example-title"><span>Example 15</span>: List of actions</div><pre class="example">--&gt; REQUEST
+GET {wt}/actions
+
+
+&lt;-- RESPONSE
+200 OK
+Link: &lt;http://webofthings.org/actions/upgradefirmware&gt;; rel="type"
+
+[
+  {
+    "id":"upgradeFirmware",
+    "name":"Upgrade Device Firmware"  
+  },
+  {
+    "id":"reboot",
+    "name":"Reboot"  
+  }
+]</pre></div>
+                </section>
+
+                <section id="retrieve-recent-executions-of-a-specific-action" typeof="bibo:Chapter" resource="#retrieve-recent-executions-of-a-specific-action" property="bibo:hasPart">
+                    <h5 id="h-retrieve-recent-executions-of-a-specific-action" resource="#h-retrieve-recent-executions-of-a-specific-action"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.5.2 </span>Retrieve recent executions of a specific action</span></h5>
+
+                    <p>
+                        In response to an HTTP <code>GET</code> request on an <a href="#dfn-action-url" class="internalDFN" data-link-type="dfn">Action URL</a>, an <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web
+                        Thing</a> <em class="rfc2119" title="MUST">MUST</em> return an array that lists the recent executions of a specific <a href="#dfn-action" class="internalDFN" data-link-type="dfn">Action</a>.
+                    </p>
+
+                    <p>
+                        On top of <a href="#common-constructs" class="sec-ref"><span class="secno">6.1</span> <span class="sec-title">Common Constructs</span></a>, the JSON representation used to describe the
+                        execution
+                        of an <a href="#dfn-action" class="internalDFN" data-link-type="dfn">Action</a> includes the following fields:
+                    </p>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Field name</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>status</td>
+                            <td>String</td>
+                            <td>The execution status. One of <code>pending</code>, <code>executing</code>,
+                                <code>completed</code> or <code>failed</code></td>
+                        </tr>
+                        </tbody>
+                    </table>
+            <div class="example"><div class="example-title"><span>Example 16</span>: Retrieve the recent executions of a specific action</div><pre class="example">--&gt; REQUEST
+GET {wt}/actions/upgradefirmware
+
+&lt;-- RESPONSE
+200 OK
+Link: &lt;http://webofthings.org/actions/upgradefirmware&gt;; rel="type"
+Link: &lt;model/&gt;; rel="model"
+
+[
+  {
+    "id":"223",
+    "value":{
+      "delay":30,
+      "mode":"SOFT"
+    },
+    "status":"executing"
+    "timestamp":"2015-06-14T18:33:25.938Z"
+  },
+  {
+    "id":"222",
+    "value":{
+      "delay":60,
+      "mode":"FORCE"
+    },
+    "status":"completed"
+    "timestamp":"2015-06-14T14:22:23.233Z"
+  }
+]</pre></div>
+                </section>
+
+
+
+                <section id="execute-an-action" typeof="bibo:Chapter" resource="#execute-an-action" property="bibo:hasPart">
+                    <h5 id="h-execute-an-action" resource="#h-execute-an-action"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.5.3 </span>Execute an action</span></h5>
+
+                    <p>
+                        In response to an HTTP <code>POST</code> request on an <a href="#dfn-action-url" class="internalDFN" data-link-type="dfn">Action URL</a> with valid parameters
+                        as
+                        request body, an <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> either reject the request with the appropriate
+                        status code or queue a task to run the action and return the status of that action in a <code>201
+                        Created</code> response. The action may not run immediately. The <code>Location</code> HTTP
+                        header
+                        identifies the URL to use to retrieve the most recent update on the action's status.
+                    </p>
+
+                    <div class="note"><div class="note-title" aria-level="6" role="heading" id="h-note13"><span>Note</span></div><p class="">
+                        This is how a <a href="#dfn-client" class="internalDFN" data-link-type="dfn">Client</a> sends a command to a device.
+                    </p></div>
+            <div class="example"><div class="example-title"><span>Example 17</span>: Schedule a reboot</div><pre class="example">--&gt; REQUEST
+POST {wt}/actions/reboot
+
+{
+  "delay":50,
+  "mode":"debug"
+}
+
+&lt;-- RESPONSE
+204 NO RESPONSE
+Location: {wt}/actions/reboot/233</pre></div>
+                </section>
+
+                <section id="retrieve-the-status-of-an-action" typeof="bibo:Chapter" resource="#retrieve-the-status-of-an-action" property="bibo:hasPart">
+                    <h5 id="h-retrieve-the-status-of-an-action" resource="#h-retrieve-the-status-of-an-action"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.5.4 </span>Retrieve the status of an action</span></h5>
+
+                    <p>
+                        In response to an HTTP <code>GET</code> request on the URL targeted by the <code>Location</code>
+                        HTTP header returned in response to the request to execute an action, an <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web
+                        Thing</a>
+                        <em class="rfc2119" title="MUST">MUST</em> return the status of this action or a <code>404 Not Found</code> status code if the
+                        action's
+                        status is no longer available.
+                    </p>
+
+                    <div class="example"><div class="example-title"><span>Example 18</span>: See a Reboot Action</div><pre class="example">--&gt; REQUEST
+GET {wt}/actions/reboot/233
+
+&lt;-- RESPONSE
+200 OK
+
+{
+  "id":"233",
+  "value":{
+    "delay":50,
+    "mode":"debug"
+  },
+  "status":"executing",
+  "timestamp":"2015-06-14T14:30:00.000Z"
+}</pre></div>
+
+                </section>
+            </section>
+
+
+            <section id="things-resource" typeof="bibo:Chapter" resource="#things-resource" property="bibo:hasPart">
+                <h4 id="h-things-resource" resource="#h-things-resource"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.6 </span><dfn data-dfn-type="dfn" id="dfn-things-resource">Things Resource</dfn></span></h4>
+
+                <p>
+                    A <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Thing</a> may proxy other <a href="#dfn-web-thing" class="internalDFN" data-link-type="dfn">Web Things</a> via the Things resource. For instance, it is expected
+                    that gateways and cloud services will proxy a number of third party devices. On top of <a href="#common-constructs" class="sec-ref"><span class="secno">6.1</span> <span class="sec-title">Common Constructs</span></a>, the JSON representation used to describe a link to another
+                    thing
+                    includes the following fields:
+                </p>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Field name</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><code>rootUrl</code></td>
+                        <td>String</td>
+                        <td>The URL of the root resource of the Web Thing if it is different from
+                            <code>{wt}/thing/{id}</code></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <section id="retrieve-a-list-of-web-things" typeof="bibo:Chapter" resource="#retrieve-a-list-of-web-things" property="bibo:hasPart">
+                    <h5 id="h-retrieve-a-list-of-web-things" resource="#h-retrieve-a-list-of-web-things"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.6.1 </span>Retrieve a list of Web Things</span></h5>
+
+                    <p>
+                        In response to an HTTP <code>GET</code> request on the destination URL of a <code>things</code>
+                        link, an <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> return an array of things descriptions.
+                    </p>
+                    <div class="example"><div class="example-title"><span>Example 19</span>: List of things proxied by a device</div><pre class="example">--&gt; REQUEST
+GET {wt}/things
+            
+&lt;-- RESPONSE
+200 OK
+
+[
+  {
+    "id":"982tjqogeih",
+    "name":"Shopping Cart"
+  },  
+  {
+    "id":"2398h87wt489foz",
+    "name":"Shopping Cart",
+    "rootUrl":"/pi",
+    "description":"Shopping Cart that updates its location as it moves"
+  },  
+  {
+    "id":"p9qrnc89w48oh",
+    "name":"Shopping Cart",
+    "rootUrl":"https://192.168.0.6/",
+    "description":"LAN-connected gateway to Lamp #4."
+  }
+]</pre></div>
+                    <div class="note"><div class="note-title" aria-level="6" role="heading" id="h-note14"><span>Note</span></div><p class="">
+                        The <code>id</code> can be interpreted as a URL, but if a Web Thing can be directly accessed without the proxy, the <code>rootUrl</code> can be used to provide a different Root URL.
+                    </p></div>
+
+                </section>
+
+                <section id="add-a-web-thing-to-a-gateway" typeof="bibo:Chapter" resource="#add-a-web-thing-to-a-gateway" property="bibo:hasPart">
+                    <h5 id="h-add-a-web-thing-to-a-gateway" resource="#h-add-a-web-thing-to-a-gateway"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.6.2 </span>Add a Web Thing to a gateway</span></h5>
+
+                    <p>
+                        Clients can add new Things to be proxied by a Web Thing (especially for gateways/cloud) using an HTTP <code>POST</code> request on the <a href="#dfn-thing-url" class="internalDFN" data-link-type="dfn">Thing URL</a> of a <code>Web Thing</code> and by sending in the request body the root resource representation of the Thing to be proxied.
+                    </p>
+                    <div class="example"><div class="example-title"><span>Example 20</span>: List of things proxied by a device</div><pre class="example">--&gt; REQUEST
+POST {wt}/things
+
+{
+  "id":"p9qrnc89w48oh",
+  "name":"Shopping Cart",
+  "rootUrl":"https://192.168.0.6/",
+  "description":"LAN-connected gateway to Lamp #4."
+}
+            
+&lt;-- RESPONSE
+204 NO CONTENT
+Location: {wt}/things/p9qrnc89w48oh</pre></div>
+                </section>
+            </section>
+
+            <section id="subscriptions-resource" typeof="bibo:Chapter" resource="#subscriptions-resource" property="bibo:hasPart">
+                <h4 id="h-subscriptions-resource" resource="#h-subscriptions-resource"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.7 </span><dfn data-dfn-type="dfn" id="dfn-subscriptions-resource">Subscriptions Resource</dfn></span></h4>
+                <p>All resources can be subscribed to but in particular, an <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> <em class="rfc2119" title="SHOULD">SHOULD</em> enable subscriptions to <a href="#dfn-action" class="internalDFN" data-link-type="dfn">Actions</a> and <a href="#dfn-property" class="internalDFN" data-link-type="dfn">Properties</a>. Subscriptions allows for a <a href="#dfn-client" class="internalDFN" data-link-type="dfn">Client</a> to be notified via a push event whenever the state of an observed resource changes.</p>
+
+                <p>
+                    The <dfn data-dfn-type="dfn" id="dfn-subscription-resource">Subscription resource</dfn>
+ allows to list current subscriptions to resources as well as cancelling
+ a subscription. Such a resource is accessible via the root URL of the <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a>.</p>
+
+                <p>
+                    On top of <a href="#common-constructs" class="sec-ref"><span class="secno">6.1</span> <span class="sec-title">Common Constructs</span></a>, the JSON representation used to describe a subscription includes the following fields:
+                </p>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Field name</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><code>subscriberId</code></td>
+                        <td>String</td>
+                        <td>A unique identifier for the subscriber
+                            <br><strong>This field is required.</strong></td>
+                    </tr>
+                    <tr>
+                        <td><code>type</code></td>
+                        <td>String</td>
+                        <td>The type of connection used to exchange updates with the subscriber. One of
+                            <code>httpCallback</code> or <code>websockets</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>resource</code></td>
+                        <td>String</td>
+                        <td>The URL of the resource whose changes the subscriber is subscribed to.</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+                <section id="create-a-subscription" typeof="bibo:Chapter" resource="#create-a-subscription" property="bibo:hasPart">
+                    <h5 id="h-create-a-subscription" resource="#h-create-a-subscription"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.7.1 </span>Create a subscription</span></h5>
+
+               <p>An <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> <em class="rfc2119" title="SHOULD">SHOULD</em> support subscriptions via the WebSocket [<cite><a class="bibref" href="#bib-RFC6455">RFC6455</a></cite>] protocol and <em class="rfc2119" title="MAY">MAY</em> support subscriptions via WebHooks (HTTP callbacks). Subscriptions are enabled via the HTTP protocol upgrade mechanism [<cite><a class="bibref" href="#bib-RFC2616">RFC2616</a></cite>] as shown below.
+                </p>
+                <figure id="fig-client-subscription-to-a-resource-via-a-protocol-upgrade-first-via-websocket-second-via-a-webhook-http-callback-.x">
+                    <img src="Web%20Thing%20Model_files/subscriptions.png" alt="Clients can subscribe to resources via a protocol upgrade." width="600">
+                    <figcaption>Fig. <span class="figno">5</span> <span class="fig-title">Client subscription to a resource via a protocol upgrade, first via Websocket, second via a Webhook (HTTP callback).</span></figcaption>
+                </figure>
+
+                <p>To subscribe to a resource the following HTTP headers should be provided via a GET request (e.g., on <code>/properties/temp</code>).</p> 
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Header name</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><code>Upgrade</code></td>
+                        <td>The protocol that should be used for the subscription, one of
+                            <code>webhook</code> or <code>websocket</code>
+                            <br><strong>This header is required.</strong></td>
+                    </tr>
+                    <tr>
+                        <td><code>Callback</code></td>
+                        <td>The callback URL to which updates should be pushed.
+                            <code>webhook</code> or <code>websocket</code>
+                            <br><strong>This header is required in the case of a <code>webhook</code> subscription.</strong></td>
+                    </tr>
+                    </tbody>
+                </table>
+               <p> In response to a HTTP <code>GET</code> request on the destination URL of a resource, an <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> either reject the request with an appropriate status code or <em class="rfc2119" title="MUST">MUST</em> return a <code>101 Switching Protocol</code> response for a subscription via Websocket or a <code>200 OK</code> for a subscription via Webhook. It <em class="rfc2119" title="SHOULD">SHOULD</em> then create a record for the subscription that can be retrieved via the <code>/subscriptions</code>
+ URL. For both Websockets and Webhooks subscriptions the following 
+headers must be returned (on top of the protocol specific headers):</p>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Header name</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><code>Subscription-ID</code></td>
+                        <td>The identifier of the subscription
+                        <br><strong>This header is required.</strong></td>
+                    </tr>
+                    </tbody>
+                </table>
+                </section>
+
+                <section id="retrieve-a-list-of-subscriptions" typeof="bibo:Chapter" resource="#retrieve-a-list-of-subscriptions" property="bibo:hasPart">
+                    <h5 id="h-retrieve-a-list-of-subscriptions" resource="#h-retrieve-a-list-of-subscriptions"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.7.2 </span>Retrieve a list of subscriptions</span></h5>
+
+                    <p>
+                        In response to an HTTP <code>GET</code> request on the destination URL of a
+                        <code>subscriptions</code> link, an <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> return the array of
+                        subscriptions to the underlying resource.
+                    </p>
+            <div class="example"><div class="example-title"><span>Example 21</span>: List of subscriptions</div><pre class="example">[
+  {
+    "id":"2349",
+    "type":"webhook",
+    "resource":"/properties/temperature",
+    "callbackUrl":"http://www.compose-project.eu/so/ServiceObject-123213213/callback"
+  },
+  {
+    "id":"2350",
+    "subscriberId":"ServiceObject-123213213",
+    "type":"websocket",
+    "resource":"/properties/location"
+  }
+]</pre></div>
+                    <p>
+                        The <dfn data-dfn-type="dfn" id="dfn-subscription-url">Subscription URL</dfn> is the result of resolving the <code>id</code> returned in a <a href="#dfn-subscription-resource" class="internalDFN" data-link-type="dfn">Subscription
+                        resource</a> description against the destination URL of the <code>subscriptions</code> link that
+                        gave birth to it.
+                    </p>
+                </section>
+
+                <section id="retrieve-information-about-a-specific-subscription" typeof="bibo:Chapter" resource="#retrieve-information-about-a-specific-subscription" property="bibo:hasPart">
+                    <h5 id="h-retrieve-information-about-a-specific-subscription" resource="#h-retrieve-information-about-a-specific-subscription"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.7.3 </span>Retrieve information about a specific subscription</span></h5>
+
+                    <p>
+                        In response to an HTTP <code>GET</code> request on a <a href="#dfn-subscription-url" class="internalDFN" data-link-type="dfn">Subscription URL</a>, an <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended Web
+                        Thing</a> <em class="rfc2119" title="MUST">MUST</em> return a JSON representation of the subscription. The JSON representation should
+                        be
+                        the same as the one returned for that subscription in <a href="#retrieve-a-list-of-subscriptions" class="sec-ref"><span class="secno">6.4.7.2</span> <span class="sec-title">Retrieve a list of subscriptions</span></a>.
+                    </p>
+            <div class="example"><div class="example-title"><span>Example 22</span>: Retrieve information about a specific subscription</div><pre class="example">{
+  "id":"2349",
+  "type":"webhook",
+  "resource":"/properties/temperature",
+  "callbackUrl":"http://www.compose-project.eu/so/ServiceObject-123213213/callback"
+}</pre></div>
+                </section>
+
+                <section id="delete-a-subscription" typeof="bibo:Chapter" resource="#delete-a-subscription" property="bibo:hasPart">
+                    <h5 id="h-delete-a-subscription" resource="#h-delete-a-subscription"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.4.7.4 </span>Delete a subscription</span></h5>
+
+                    <p>
+                        In response to an HTTP <code>DELETE</code> request on the destination URL of a
+                        <code>subscriptions</code> an <a href="#dfn-extended-web-thing" class="internalDFN" data-link-type="dfn">Extended
+                        Web Thing</a> <em class="rfc2119" title="MUST">MUST</em> either reject the request with an appropriate status code or remove (unsubscribe) the
+                        subscription and return a <code>200 OK</code> status code.
+                    </p>
+                </section>
+            </section>
+        </section>
+    <section id="semantic-extensions" typeof="bibo:Chapter" resource="#semantic-extensions" property="bibo:hasPart">
+        <h3 id="h-semantic-extensions" resource="#h-semantic-extensions"><span property="xhv:role" resource="xhv:heading"><span class="secno">6.5 </span>Semantic Extensions</span></h3>
+        While it defines a basic semantic for Things in the IoT, the 
+data model defined in this specification benefits from alignment with 
+more detailed vocabularies such as those used in <a href="http://schema.org/">schema.org</a>. The support for semantic extensions <em class="rfc2119" title="SHOULD">SHOULD</em>
+ be implemented using JSON-LD by referencing a JSON-LD context via an 
+HTTP Link Header using the using the 
+http://www.w3.org/ns/json-ld#context link relation as defined in [<cite><a class="bibref" href="#bib-JSONLD">JSONLD</a></cite>].
+            <div class="example"><div class="example-title"><span>Example 23</span></div><pre class="example">GET /model HTTP/1.1
+Host: mydevice.webofthings.org
+Accept: application/json,application/ld+json,*/*;q=0.1
+
+====================================
+
+HTTP/1.1 200 OK
+...
+Content-Type: <span class="highlight">application/json</span>
+<span class="highlight">Link: &lt;https://schema.org/Product&gt;; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"</span>
+
+{
+    "name": "Beaglebone Black",
+    "description": "A Beaglebone Black embedded device",
+    "productID" : "asin:B00CO3MZCW",
+    "manufacturer" : "Beagleboard", ...
+}</pre></div>
+    </section>
+    </section>
+
+    <section id="acknowledgments" typeof="bibo:Chapter" resource="#acknowledgments" property="bibo:hasPart">
+        <!--OddPage--><h2 id="h-acknowledgments" resource="#h-acknowledgments"><span property="xhv:role" resource="xhv:heading"><span class="secno">7. </span>Acknowledgments</span></h2>
+
+        <p>
+            This work is supported by the European Union's 7th Research Framework Programme (FP7/2013-2015) under grant
+            agreement nº317862 – <a href="http://www.compose-project.eu/">COMPOSE</a>).
+        </p>
+
+        <p>
+            The authors would like to thank the participants of the <a href="http://www.w3.org/WoT/IG/">W3C Web of
+            Things Interest Group</a>, the <a href="http://www.webofthings.org/">Web of Things online community</a>
+ and in particular Joel Vogt and Iker Larizgoitia Abad, Francois Daoust,
+ Johannes Hund and Joerg Heuer who have provided very valuable feedback 
+on the drafts of this submission.
+        </p>
+    </section>
+
+<div class="note"><div class="note-title" aria-level="2" role="heading" id="h-note15"><span>Note</span></div><p class="">
+    Further tools and examples to work with this specification are available on <a href="http://webofthings.org/specifications">Web of Things online community Website.</a>
+</p></div>
+        
+    
+
+
+<div id="feedly-mini" title="feedly Mini tookit"></div><span class="_hsShareImage hsShareImage" data-url="http://localhost:63342/wot-compose/integration-direct.png" style="top: 3529.015625px; left: 830px; width: 70px; display: inline;">&nbsp;</span><section id="references" class="appendix" typeof="bibo:Chapter" resource="#references" property="bibo:hasPart"><!--OddPage--><h2 id="h-references" resource="#h-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">A. </span>References</span></h2><section id="normative-references" typeof="bibo:Chapter" resource="#normative-references" property="bibo:hasPart"><h3 id="h-normative-references" resource="#h-normative-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">A.1 </span>Normative references</span></h3><dl class="bibliography" resource=""><dt id="bib-ISO8601">[ISO8601]</dt><dd><cite>Representation of dates and times.</cite> International Organization for Standardization. 2004. ISO 8601:2004. URL: <a href="http://www.iso.org/iso/catalogue_detail?csnumber=40874" property="dc:requires">http://www.iso.org/iso/catalogue_detail?csnumber=40874</a> 
+</dd><dt id="bib-JSON-LD">[JSON-LD]</dt><dd>Manu Sporny; Gregg Kellogg; Markus Lanthaler. <a href="http://www.w3.org/TR/json-ld/" property="dc:requires"><cite>JSON-LD 1.0</cite></a>. 16 January 2014. W3C Recommendation. URL: <a href="http://www.w3.org/TR/json-ld/" property="dc:requires">http://www.w3.org/TR/json-ld/</a>
+</dd><dt id="bib-JSONLD">[JSONLD]</dt><dd><a href="http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld" property="dc:requires"><cite>JSON-LD - Interpreting JSON as JSON-LD</cite></a>. URL: <a href="http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld" property="dc:requires">http://www.w3.org/TR/json-ld/#interpreting-json-as-json-ld</a>
+</dd><dt id="bib-MQTT">[MQTT]</dt><dd><a href="http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html" property="dc:requires"><cite>MQTT Version 3.1.1</cite></a>. URL: <a href="http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html" property="dc:requires">http://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html</a>
+</dd><dt id="bib-RFC2119">[RFC2119]</dt><dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119" property="dc:requires"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119" property="dc:requires">https://tools.ietf.org/html/rfc2119</a>
+</dd><dt id="bib-RFC2616">[RFC2616]</dt><dd>R. Fielding; J. Gettys; J. Mogul; H. Frystyk; L. Masinter; P. Leach; T. Berners-Lee. <a href="https://tools.ietf.org/html/rfc2616" property="dc:requires"><cite>Hypertext Transfer Protocol -- HTTP/1.1</cite></a>. June 1999. Draft Standard. URL: <a href="https://tools.ietf.org/html/rfc2616" property="dc:requires">https://tools.ietf.org/html/rfc2616</a>
+</dd><dt id="bib-RFC3986">[RFC3986]</dt><dd>T. Berners-Lee; R. Fielding; L. Masinter. <a href="https://tools.ietf.org/html/rfc3986" property="dc:requires"><cite>Uniform Resource Identifier (URI): Generic Syntax</cite></a>. January 2005. Internet Standard. URL: <a href="https://tools.ietf.org/html/rfc3986" property="dc:requires">https://tools.ietf.org/html/rfc3986</a>
+</dd><dt id="bib-RFC5246">[RFC5246]</dt><dd>T. Dierks; E. Rescorla. <a href="https://tools.ietf.org/html/rfc5246" property="dc:requires"><cite>The Transport Layer Security (TLS) Protocol Version 1.2</cite></a>. August 2008. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc5246" property="dc:requires">https://tools.ietf.org/html/rfc5246</a>
+</dd><dt id="bib-RFC5988">[RFC5988]</dt><dd>M. Nottingham. <a href="https://tools.ietf.org/html/rfc5988" property="dc:requires"><cite>Web Linking</cite></a>. October 2010. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc5988" property="dc:requires">https://tools.ietf.org/html/rfc5988</a>
+</dd><dt id="bib-RFC6455">[RFC6455]</dt><dd>I. Fette; A. Melnikov. <a href="https://tools.ietf.org/html/rfc6455" property="dc:requires"><cite>The WebSocket Protocol</cite></a>. December 2011. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc6455" property="dc:requires">https://tools.ietf.org/html/rfc6455</a>
+</dd><dt id="bib-RFC7159">[RFC7159]</dt><dd>T. Bray, Ed.. <a href="https://tools.ietf.org/html/rfc7159" property="dc:requires"><cite>The JavaScript Object Notation (JSON) Data Interchange Format</cite></a>. March 2014. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc7159" property="dc:requires">https://tools.ietf.org/html/rfc7159</a>
+</dd><dt id="bib-RFC7252">[RFC7252]</dt><dd>Z. Shelby; K. Hartke; C. Bormann. <a href="https://tools.ietf.org/html/rfc7252" property="dc:requires"><cite>The Constrained Application Protocol (CoAP)</cite></a>. June 2014. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc7252" property="dc:requires">https://tools.ietf.org/html/rfc7252</a>
+</dd><dt id="bib-RFC7540">[RFC7540]</dt><dd>M. Belshe; R. Peon; M. Thomson, Ed.. <a href="https://tools.ietf.org/html/rfc7540" property="dc:requires"><cite>Hypertext Transfer Protocol Version 2 (HTTP/2)</cite></a>. May 2015. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc7540" property="dc:requires">https://tools.ietf.org/html/rfc7540</a>
+</dd><dt id="bib-SI">[SI]</dt><dd><a href="http://physics.nist.gov/cuu/Units/units.html" property="dc:requires"><cite>International System of Units (SI)</cite></a>. URL: <a href="http://physics.nist.gov/cuu/Units/units.html" property="dc:requires">http://physics.nist.gov/cuu/Units/units.html</a>
+</dd><dt id="bib-content-negotiation">[content-negotiation]</dt><dd><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec12.html" property="dc:requires"><cite>HTTP 1.1. Content Negotiation</cite></a>. URL: <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec12.html" property="dc:requires">http://www.w3.org/Protocols/rfc2616/rfc2616-sec12.html</a>
+</dd></dl></section><section id="informative-references" typeof="bibo:Chapter" resource="#informative-references" property="bibo:hasPart"><h3 id="h-informative-references" resource="#h-informative-references"><span property="xhv:role" resource="xhv:heading"><span class="secno">A.2 </span>Informative references</span></h3><dl class="bibliography" resource=""><dt id="bib-REST">[REST]</dt><dd>Roy Thomas Fielding. <a href="http://roy.gbiv.com/pubs/dissertation/top.htm" property="dc:references"><cite>Architectural Styles and the Design of Network-based Software Architectures</cite></a>. September 2000. Doctoral Dissertation. URL: <a href="http://roy.gbiv.com/pubs/dissertation/top.htm" property="dc:references">http://roy.gbiv.com/pubs/dissertation/top.htm</a>
+</dd><dt id="bib-WoTBook">[WoTBook]</dt><dd>Dominique Guinard; Vlad Trifa. <a href="http://book.webofthings.io/" property="dc:references"><cite>Building the Web of Things</cite></a>. May 2015. URL: <a href="http://book.webofthings.io/" property="dc:references">http://book.webofthings.io</a>
+</dd><dt id="bib-WoTPaper">[WoTPaper]</dt><dd>Dominique Guinard; Vlad Trifa. <a href="http://www.vs.inf.ethz.ch/publ/bibtex.html?file=papers/dguinard_09_WOTMashups" property="dc:references"><cite>Towards the Web of Things: Web Mashups for Embedded Devices</cite></a>. April 20, 2009. WWW 2009 Conference Paper. URL: <a href="http://www.vs.inf.ethz.ch/publ/bibtex.html?file=papers/dguinard_09_WOTMashups" property="dc:references">http://www.vs.inf.ethz.ch/publ/bibtex.html?file=papers/dguinard_09_WOTMashups</a>
+</dd></dl></section></section>
+</body></html>
