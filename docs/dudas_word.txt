@@ -1,0 +1,5 @@
+Formato Código
+	- inerlineado menor
+
+Indices y subindices
+	- como "resetearlos" para que empiezen de 0
