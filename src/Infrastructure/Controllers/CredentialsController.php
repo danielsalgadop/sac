@@ -37,6 +37,7 @@ class CredentialsController extends AbstractController
 
         // correct FbLogin will redirect to owner_index
         return $this->render('login.html.twig', ['login_ok_url' => $this->generateUrl('owner_index'), 'login_ko_url' => $this->generateUrl('login')]);
+
     }
 
     // DEPRECATED
