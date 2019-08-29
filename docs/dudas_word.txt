@@ -3,3 +3,9 @@ Formato Código
 
 Indices y subindices
 	- como "resetearlos" para que empiezen de 0
+
+
+hacer q bloques (como ćodigo) permanezcan juntos
+
+Index. quitar secciones mejorar aspecto tal que;
+algo ......................... 23
