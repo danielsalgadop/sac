@@ -11,3 +11,6 @@ Index. quitar secciones mejorar aspecto tal que;
 algo ......................... 23
 
 poner margin a todas las ilustraciones
+
+
+Titulo de ilustraciones está roto, no se pone a la dere
