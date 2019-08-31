@@ -25,7 +25,6 @@ class MergeThingWithThingConnectedByIdHandler
             new SearchThingByIdCommand($mergeThingWithThingConnectedByIdCommand->getThingId())
         );
 
-
         $thingConnected = $this->getThingConnectedCompleteHandler->handle(
             new GetThingConnectedInfoCommand(
                 $thing->getId(),
