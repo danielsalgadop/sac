@@ -3,22 +3,19 @@
 namespace App\Infrastructure\Owner\Command;
 
 
+use App\Application\Command\Owner\GetFbSharingStatusByOwnerCommand;
 use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
+use App\Application\CommandHandler\Owner\GetFbSharingStatusByOwnerHandler;
 use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
-use App\Domain\Repository\OwnerRepository;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
 
-
-use App\Application\Command\Owner\GetFbSharingStatusByOwnerCommand;
-use App\Application\CommandHandler\Owner\GetFbSharingStatusByOwnerHandler;
 
 class GetFbSharingStatusByOwner extends Command
 {
     protected static $defaultName = "app:Owner:GetFbSharingStatus";
-    // TODO: decidir semántica: get o Search
     private $getFbSharingStatusByOwnerHandler;
     private $searchOwnerByFbDelegatedHandler;
 

@@ -5,15 +5,14 @@ use App\Domain\Entity\Friend;
 namespace App\Infrastructure\Friend\Command;
 
 
-use App\Domain\Entity\Friend;
-use App\Domain\Repository\Friend\FriendRepository;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Style\SymfonyStyle;
 use App\Application\Command\Friend\CreateFriendCommand;
 use App\Application\CommandHandler\Friend\CreateFriendHandler;
+use App\Domain\Entity\Friend;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 
 class Create extends Command

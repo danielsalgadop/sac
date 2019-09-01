@@ -6,9 +6,9 @@ namespace App\Infrastructure\Owner\Command;
 use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
 use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
 
 
 class SearchOwnerByfbDelegated extends Command

@@ -5,12 +5,12 @@ use App\Domain\Entity\Action;
 namespace App\Infrastructure\Action\Command;
 
 use App\Application\Command\Action\SearchActionByIdCommand;
+use App\Application\CommandHandler\Action\SearchActionByIdHandler;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use App\Application\CommandHandler\Action\SearchActionByIdHandler;
 
 class SearchActionById extends Command
 {
@@ -27,8 +27,7 @@ class SearchActionById extends Command
     {
         $this
             ->setDescription('Searches Action by actionId')
-            ->addArgument('actionId', InputArgument::REQUIRED, '(int) action id')
-        ;
+            ->addArgument('actionId', InputArgument::REQUIRED, '(int) action id');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

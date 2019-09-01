@@ -2,18 +2,17 @@
 
 namespace App\Infrastructure\Owner\Command;
 
+use App\Application\Command\Owner\AddThingToOwnerCommand;
+use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
+use App\Application\Command\Thing\SearchThingByIdCommand;
+use App\Application\CommandHandler\Owner\AddThingToOwnerHandler;
+use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
+use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-
-use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
-use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
-use App\Application\Command\Thing\SearchThingByIdCommand;
-use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
-use App\Application\Command\Owner\AddThingToOwnerCommand;
-use App\Application\CommandHandler\Owner\AddThingToOwnerHandler;
 
 class AddThingToOwner extends Command
 {

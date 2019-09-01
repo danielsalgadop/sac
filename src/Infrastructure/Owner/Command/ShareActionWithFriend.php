@@ -5,14 +5,14 @@ namespace App\Infrastructure\Owner\Command;
 
 use App\Application\Command\Action\SearchActionByIdCommand;
 use App\Application\Command\Friend\SearchFriendByIdCommand;
+use App\Application\Command\Owner\ShareActionWithFriendCommand;
 use App\Application\CommandHandler\Action\SearchActionByIdHandler;
 use App\Application\CommandHandler\Friend\SearchFriendByIdHandler;
+use App\Application\CommandHandler\Owner\ShareActionWithFriendHandler;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
-use App\Application\Command\Owner\ShareActionWithFriendCommand;
-use App\Application\CommandHandler\Owner\ShareActionWithFriendHandler;
 
 class ShareActionWithFriend extends Command
 {
@@ -36,8 +36,7 @@ class ShareActionWithFriend extends Command
         $this
             ->setDescription("Given an owner fbDelegated, a Friend ID and ActionId. Shares Given Action to Friend")
             ->addArgument('friendId', InputArgument::REQUIRED, 'id of Friend (must exist)')
-            ->addArgument('actionId', InputArgument::REQUIRED, 'id of Action (must exist)')
-            ;
+            ->addArgument('actionId', InputArgument::REQUIRED, 'id of Action (must exist)');
     }
 
 
@@ -48,6 +47,6 @@ class ShareActionWithFriend extends Command
 
         $action = $this->searchActionByIdHandler->handle(new SearchActionByIdCommand($actionId));
         $friend = $this->searchFriendByIdHandler->handle(new SearchFriendByIdCommand($friendId));
-        $this->shareActionWithFriendHandler->handle(new ShareActionWithFriendCommand($friend,$action));
+        $this->shareActionWithFriendHandler->handle(new ShareActionWithFriendCommand($friend, $action));
     }
 }

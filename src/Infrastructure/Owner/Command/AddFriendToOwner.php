@@ -5,18 +5,17 @@ use App\Domain\Entity\Owner;
 
 namespace App\Infrastructure\Owner\Command;
 
+use App\Application\Command\Friend\SearchFriendByFbDelegatedCommand;
 use App\Application\Command\Owner\AddFriendToOwnerCommand;
+use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
+use App\Application\CommandHandler\Friend\SearchFriendByFbDelegatedHandler;
 use App\Application\CommandHandler\Owner\AddFriendToOwnerHandler;
+use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-
-use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
-use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
-use App\Application\Command\Friend\SearchFriendByFbDelegatedCommand;
-use App\Application\CommandHandler\Friend\SearchFriendByFbDelegatedHandler;
 
 class AddFriendToOwner extends Command
 {
@@ -25,7 +24,7 @@ class AddFriendToOwner extends Command
     private $searchFriendByFbDelegatedHandler;
     private $addFriendToOwnerHandler;
 
-    public function __construct (SearchOwnerByFbDelegatedHandler $searchOwnerByFbDelegatedHandler, SearchFriendByFbDelegatedHandler $searchFriendByFbDelegatedHandler, AddFriendToOwnerHandler $addFriendToOwnerHandler)
+    public function __construct(SearchOwnerByFbDelegatedHandler $searchOwnerByFbDelegatedHandler, SearchFriendByFbDelegatedHandler $searchFriendByFbDelegatedHandler, AddFriendToOwnerHandler $addFriendToOwnerHandler)
     {
         parent::__construct();
         $this->searchOwnerByFbDelegatedHandler = $searchOwnerByFbDelegatedHandler;
@@ -39,8 +38,7 @@ class AddFriendToOwner extends Command
         $this
             ->setDescription('Given fbDelegated of Owner and fbDelegated of Friend will create a relationshinp in owner_friend table')
             ->addArgument('OwnerFbDelegated', InputArgument::REQUIRED, 'fb_delegated of Owner (must exist)')
-            ->addArgument('FriendFbDelegated', InputArgument::REQUIRED, 'fb_delegated of Friend (must exist)')
-        ;
+            ->addArgument('FriendFbDelegated', InputArgument::REQUIRED, 'fb_delegated of Friend (must exist)');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -56,6 +54,6 @@ class AddFriendToOwner extends Command
         /* @var $owner Owner */
         $owner = $this->addFriendToOwnerHandler->handle(new AddFriendToOwnerCommand($friend, $owner));
 
-        $io->success('Friend ['.$friend->getFbDelegated().'] added to Owner ['.$owner->getName().']');
+        $io->success('Friend [' . $friend->getFbDelegated() . '] added to Owner [' . $owner->getName() . ']');
     }
 }
