@@ -33,12 +33,9 @@ class Create extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setDescription('Creates an Action')
+            ->setDescription('Given thingId and actionName Creates an Action')
             ->addArgument('thingId', InputArgument::REQUIRED, '(int) thing id')
-//            ->addArgument('friendFbDelegated', InputArgument::REQUIRED, '(string) friends fb_delegated')
-//            ->addArgument('httpVerb', InputArgument::REQUIRED, 'GET | POST')
-            ->addArgument('name', InputArgument::REQUIRED, '(string) name')  // really this is action name (links->actions->link->resources)
-//            ->addArgument('actionDescription', InputArgument::REQUIRED, '(xxx) Action Description')
+            ->addArgument('name', InputArgument::REQUIRED, '(string) name')  // this acctionName matches really this is action name (links->actions->link->resources)
         ;
     }
 
@@ -46,7 +43,7 @@ class Create extends ContainerAwareCommand
     {
         $io = new SymfonyStyle($input, $output);
         // HC will be Command Arguments
-        
+
         // Thing
         $thing = $this->searchThingByIdHandler->handle(new SearchThingByIdCommand($input->getArgument("thingId")));
 
@@ -60,6 +57,6 @@ class Create extends ContainerAwareCommand
             )
         );
 
-        $io->success('Created Action ['.$action->getId().'] with name (actionName) ['.$action->getName().']for ThingId ['.$thing->getId().']');
+        $io->success('Created Action [' . $action->getId() . '] with name (actionName) [' . $action->getName() . ']for ThingId [' . $thing->getId() . ']');
     }
 }

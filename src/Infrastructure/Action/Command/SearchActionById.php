@@ -26,7 +26,7 @@ class SearchActionById extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setDescription('Searches an action By id')
+            ->setDescription('Searches an action By Action id')
             ->addArgument('actionId', InputArgument::REQUIRED, '(int) action id')
         ;
     }
