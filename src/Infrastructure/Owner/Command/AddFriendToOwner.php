@@ -1,5 +1,8 @@
 <?php
 
+use App\Domain\Entity\Friend;
+use App\Domain\Entity\Owner;
+
 namespace App\Infrastructure\Owner\Command;
 
 use App\Application\Command\Owner\AddFriendToOwnerCommand;
@@ -34,7 +37,7 @@ class AddFriendToOwner extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Given fbDelegated of Owner and fbDelegated of Friend will create a relationshing in owner_friend table')
+            ->setDescription('Given fbDelegated of Owner and fbDelegated of Friend will create a relationshinp in owner_friend table')
             ->addArgument('OwnerFbDelegated', InputArgument::REQUIRED, 'fb_delegated of Owner (must exist)')
             ->addArgument('FriendFbDelegated', InputArgument::REQUIRED, 'fb_delegated of Friend (must exist)')
         ;
@@ -44,10 +47,13 @@ class AddFriendToOwner extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
+        /* @var $owner Owner */
         $owner = $this->searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand($input->getArgument('OwnerFbDelegated')));
 
+        /* @var $friend Friend */
         $friend = $this->searchFriendByFbDelegatedHandler->handle(new SearchFriendByFbDelegatedCommand($input->getArgument('FriendFbDelegated')));
 
+        /* @var $owner Owner */
         $owner = $this->addFriendToOwnerHandler->handle(new AddFriendToOwnerCommand($friend, $owner));
 
         $io->success('Friend ['.$friend->getFbDelegated().'] added to Owner ['.$owner->getName().']');

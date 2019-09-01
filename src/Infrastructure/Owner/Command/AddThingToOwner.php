@@ -37,8 +37,7 @@ class AddThingToOwner extends Command
         $this
             ->setDescription('Given fbDelegated of Owner and Thing id  will create a relationship in owner_thing table')
             ->addArgument('OwnerFbDelegated', InputArgument::REQUIRED, 'fb_delegated of Owner (must exist)')
-            ->addArgument('thingId', InputArgument::REQUIRED, 'Thing Id (must exist)')
-        ;
+            ->addArgument('thingId', InputArgument::REQUIRED, 'Thing Id (must exist)');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -49,6 +48,6 @@ class AddThingToOwner extends Command
         $thing = $this->searchThingByIdHandler->handle(new SearchThingByIdCommand($input->getArgument('thingId')));
         $this->addThingToOwnerHandler->handle(new AddThingToOwnerCommand($thing, $owner));
 
-        $io->success('Thing ['.$thing->getId().'] added to Owner ['.$owner->getName().']');
+        $io->success('Thing [' . $thing->getId() . '] added to Owner [' . $owner->getName() . ']');
     }
 }
