@@ -3,10 +3,10 @@
 namespace App\Infrastructure\Owner;
 
 use App\Domain\Entity\Owner;
-//use App\Domain\Repository\OwnerRepositoryInterface;
 use App\Domain\Repository\OwnerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\QueryBuilder;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class MySQLOwnerRepository implements OwnerRepository
@@ -20,8 +20,7 @@ class MySQLOwnerRepository implements OwnerRepository
 
     public function find(int $id)
     {
-//        dd(__LINE__.' '.__METHOD__);
-        return $this->em->find(Owner::class, $id) ;
+        return $this->em->find(Owner::class, $id);
     }
 
     public function save(Owner $owner)
@@ -42,12 +41,12 @@ class MySQLOwnerRepository implements OwnerRepository
             ->findOneBy(['fbDelegated' => $fbDelegated]);
 
         if (!$owner) {
-            throw new \Exception("Owner not found by fbDelegated");
+            throw new Exception("Owner not found by fbDelegated");
         }
 
 
         if ($owner === null) {
-            throw new \Exception("Non-existing fbDelegated");
+            throw new Exception("Non-existing fbDelegated");
         }
         return $owner;
     }
