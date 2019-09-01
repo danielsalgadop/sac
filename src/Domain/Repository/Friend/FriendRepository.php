@@ -11,7 +11,9 @@ interface FriendRepository
 
     public function searchByfbDelegated(string $fbDelegated): ?Friend;
 
-    public function searchById(int $id);
+    public function searchById(int $id): ?Friend;
+
+    public function searchFriendByIdOrException(int $id): Friend;
 
     public function searchFriendByfbDelegatedOrException(string $fbDelegated): Friend;
 

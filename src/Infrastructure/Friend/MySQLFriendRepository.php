@@ -24,12 +24,12 @@ class MySQLFriendRepository implements FriendRepository
 
     public function searchByfbDelegated(string $fbDelegated): ?Friend
     {
-        return $this->friendRepository->findOneBy(['fbDelegated' =>$fbDelegated]);
+        return $this->friendRepository->findOneBy(['fbDelegated' => $fbDelegated]);
     }
 
-    public function searchById(int $id)
+    public function searchById(int $id): ?Friend
     {
-        return $this->friendRepository->findOneBy(['id' =>$id]);
+        return $this->friendRepository->findOneBy(['id' => $id]);
     }
 
     public function save(Friend $owner)
@@ -42,12 +42,21 @@ class MySQLFriendRepository implements FriendRepository
         }
     }
 
+    public function searchFriendByIdOrException(int $id): Friend
+    {
+        $friend = $this->searchById($id);
+        if ($friend === null) {
+            throw new \Exception("Non-existing Friend id [" . $id . "]");
+        }
+        return $friend;
+    }
+
 
     public function searchFriendByfbDelegatedOrException(string $fbDelegated): Friend
     {
         $friend = $this->friendRepository->findOneBy(['fbDelegated' => $fbDelegated]);
         if ($friend === null) {
-            throw new \Exception("Non-existing fbDelegated [".$fbDelegated."]");
+            throw new \Exception("Non-existing fbDelegated [" . $fbDelegated . "]");
         }
         return $friend;
     }
