@@ -38,7 +38,7 @@ class Create extends Command
 
         $createThingCommand = new CreateThingCommand($input->getArgument('rootPath'), $userName, $password);
         $thing = $this->createThingHandler->handle($createThingCommand);
-        $io->success('Created Thing! id['.$thing->getId().'] root['.$thing->getRoot().'] userName ['.$thing->getUser().']');
+        $io->success('Created Thing! id[' . $thing->getId() . '] root[' . $thing->getRoot() . '] userName [' . $thing->getUser() . ']');
     }
 
     private function DefaultUserNameAndPassword($input)

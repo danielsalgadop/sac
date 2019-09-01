@@ -2,7 +2,8 @@
 
 namespace App\Infrastructure\Thing\Command;
 
-use App\Domain\Repository\ThingRepository;
+use App\Application\Command\Thing\GetActionsByThingIdCommand;
+use App\Application\CommandHandler\Thing\GetActionsByThingIdHandler;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -12,14 +13,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use App\Domain\Repository\Friend\FriendRepository;
-
-use App\Application\Command\Thing\GetActionsByThingIdCommand;
-use App\Application\CommandHandler\Thing\GetActionsByThingIdHandler;
-
-
-use App\Domain\Entity\Thing;
 use Symfony\Component\DependencyInjection\Container;
+
 
 class GetActions extends Command
 {

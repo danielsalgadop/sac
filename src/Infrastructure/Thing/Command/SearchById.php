@@ -2,12 +2,12 @@
 
 namespace App\Infrastructure\Thing\Command;
 
+use App\Application\Command\Thing\SearchThingByIdCommand;
+use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use App\Application\Command\Thing\SearchThingByIdCommand;
-use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
 
 
 class SearchById extends Command
@@ -26,8 +26,7 @@ class SearchById extends Command
     {
         $this
             ->setDescription('Given a (int) id searches Thing')
-            ->addArgument('thingId', InputArgument::REQUIRED, '(int) thing id')
-            ;
+            ->addArgument('thingId', InputArgument::REQUIRED, '(int) thing id');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
