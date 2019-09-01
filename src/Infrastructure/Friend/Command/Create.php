@@ -20,11 +20,12 @@ class Create extends Command
 {
     protected static $defaultName = "app:Friend:Create";
     private $friendRepository;
+    private $createFriendHandler;
 
-    public function __construct(FriendRepository $friendRepository)
+    public function __construct(CreateFriendHandler $createFriendHandler)
     {
         parent::__construct();
-        $this->friendRepository = $friendRepository;
+        $this->createFriendHandler = $createFriendHandler;
     }
 
     protected function configure()
@@ -38,7 +39,7 @@ class Create extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $createFriendHandler = new CreateFriendHandler($this->friendRepository);
+        $createFriendHandler = $this->createFriendHandler;
         $createFriendCommand = new CreateFriendCommand($input->getArgument('fbDelegated'), $input->getArgument('friendName'));
         /* @var Friend */
         $friend = $createFriendHandler->handle($createFriendCommand);
