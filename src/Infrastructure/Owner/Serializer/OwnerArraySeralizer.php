@@ -3,8 +3,8 @@
 namespace App\Infrastructure\Owner\Serializer;
 
 use App\Domain\Entity\Owner;
-use App\Infrastructure\Thing\Serializer\ThingArraySerializer;
 use App\Infrastructure\Action\Serializer\ActionArraySerializer;
+use App\Infrastructure\Thing\Serializer\ThingArraySerializer;
 
 class OwnerArraySeralizer
 {
