@@ -1,15 +1,15 @@
 <?php
 
+use App\Domain\Entity\Action;
+
 namespace App\Infrastructure\Action\Command;
 
-use App\Application\Command\Action\CreateActionCommand;
 use App\Application\Command\Action\SearchActionByIdCommand;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use App\Application\Command\Thing\SearchThingByIdCommand;
 use App\Application\CommandHandler\Action\SearchActionByIdHandler;
 
 class SearchActionById extends ContainerAwareCommand
@@ -33,8 +33,7 @@ class SearchActionById extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $io = new SymfonyStyle($input, $output);
-
+        /* @var Action */
         $action = $this->searchActionByIdHandler->handle(new SearchActionByIdCommand($input->getArgument('actionId')));
         dd($action);
     }
