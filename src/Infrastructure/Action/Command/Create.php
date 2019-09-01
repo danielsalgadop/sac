@@ -1,5 +1,8 @@
 <?php
 
+use App\Domain\Entity\Action;
+use App\Domain\Entity\Thing;
+
 namespace App\Infrastructure\Action\Command;
 
 use App\Application\Command\Action\CreateActionCommand;
@@ -11,7 +14,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use App\Application\Command\Thing\SearchThingByIdCommand;
 use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
-use App\Application\Command\Friend\SearchFriendByFbDelegatedCommand;
 use App\Application\CommandHandler\Friend\SearchFriendByFbDelegatedHandler;
 
 
@@ -33,23 +35,20 @@ class Create extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setDescription('Given thingId and actionName Creates an Action')
+            ->setDescription('Given thingId and actionName Creates an Action (if necessary)')
             ->addArgument('thingId', InputArgument::REQUIRED, '(int) thing id')
-            ->addArgument('name', InputArgument::REQUIRED, '(string) name')  // this acctionName matches really this is action name (links->actions->link->resources)
-        ;
+            // this acctionName matches really this is action name (links->actions->link->resources)
+            ->addArgument('name', InputArgument::REQUIRED, '(string) name');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        // HC will be Command Arguments
 
-        // Thing
+        /* @var $thing Thing */
         $thing = $this->searchThingByIdHandler->handle(new SearchThingByIdCommand($input->getArgument("thingId")));
 
-        // Friend
-//        $friend = $this->searchFriendByFbDelegatedHandler->handle(new SearchFriendByFbDelegatedCommand($input->getArgument("friendFbDelegated")));
-
+        /* @var $action Action */
         $action = $this->createActionHandler->handle(
             new CreateActionCommand(
                 $thing,
