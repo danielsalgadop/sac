@@ -35,7 +35,7 @@ class Create extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setDescription('Given thingId and actionName Creates an Action (if necessary)')
+            ->setDescription('Creates Action')
             ->addArgument('thingId', InputArgument::REQUIRED, '(int) thing id')
             // this acctionName matches really this is action name (links->actions->link->resources)
             ->addArgument('name', InputArgument::REQUIRED, '(string) name');
