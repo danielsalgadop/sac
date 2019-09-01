@@ -10,10 +10,10 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 
-class SearchById extends Command
+class SearchThingByThingId extends Command
 {
     // TODO: rename as SearchThingByThingId
-    protected static $defaultName = 'app:Thing:SearchByThingId';
+    protected static $defaultName = 'app:Thing:SearchThingByThingId';
     private $searchThingByIdHandler;
 
     public function __construct(SearchThingByIdHandler $searchThingByIdHandler)
