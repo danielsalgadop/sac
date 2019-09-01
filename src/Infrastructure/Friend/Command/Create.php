@@ -27,7 +27,7 @@ class Create extends Command
 
     protected function configure()
     {
-        $this->setDescription("Test");
+        $this->setDescription("Given an fb_delegated of Friend persists in data base");
         $this
             ->addArgument('fbDelegated', InputArgument::REQUIRED, 'fb_delegated of Friend')
         ;
