@@ -5,14 +5,14 @@ use App\Domain\Entity\Action;
 namespace App\Infrastructure\Action\Command;
 
 use App\Application\Command\Action\SearchActionByIdCommand;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use App\Application\CommandHandler\Action\SearchActionByIdHandler;
 
-class SearchActionById extends ContainerAwareCommand
+class SearchActionById extends Command
 {
     protected static $defaultName = 'app:Action:SearchActionById';
     private $searchActionByIdHandler;

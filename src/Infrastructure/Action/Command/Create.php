@@ -7,7 +7,7 @@ namespace App\Infrastructure\Action\Command;
 
 use App\Application\Command\Action\CreateActionCommand;
 use App\Application\CommandHandler\Action\CreateActionHandler;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
@@ -17,7 +17,7 @@ use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
 use App\Application\CommandHandler\Friend\SearchFriendByFbDelegatedHandler;
 
 
-class Create extends ContainerAwareCommand
+class Create extends Command
 {
     protected static $defaultName = 'app:Action:Create';
     private $searchThingByIdHandler;
