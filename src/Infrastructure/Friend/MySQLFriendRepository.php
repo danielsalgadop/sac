@@ -22,7 +22,7 @@ class MySQLFriendRepository implements FriendRepository
         return $this->friendRepository->findAll();
     }
 
-    public function searchByfbDelegated(string $fbDelegated)
+    public function searchByfbDelegated(string $fbDelegated): ?Friend
     {
         return $this->friendRepository->findOneBy(['fbDelegated' =>$fbDelegated]);
     }
@@ -36,45 +36,18 @@ class MySQLFriendRepository implements FriendRepository
     {
         try {
             $this->em->persist($owner);
-            $this->em->flush();   // TODO: mover el flush al Controller
+            $this->em->flush();
         } catch (Exception $e) {
             return $e->getMessage();
         }
     }
 
-    public function searchFriendByIdOrException(int $id)
-    {
-        $friend = $this->searchById($id);
 
-        $exceptionMessage = null;
-        if (!$friend)  {
-            $exceptionMessage = "Friend not found by";
-        }
-        elseif ($friend === null){
-            $exceptionMessage = "Non-existing Friend";
-        }
-
-        if($exceptionMessage !== null){
-            throw new \Exception($exceptionMessage." id [".$id."]");
-        }
-        return $friend;
-    }
-
-    public function searchFriendByfbDelegatedOrException(string $fbDelegated)
+    public function searchFriendByfbDelegatedOrException(string $fbDelegated): Friend
     {
         $friend = $this->friendRepository->findOneBy(['fbDelegated' => $fbDelegated]);
-
-        $exceptionMessage = null;
-        if (!$friend) {
-            $exceptionMessage = "Friend not found by";
-        }
-
         if ($friend === null) {
-            $exceptionMessage = "Non-existing";
-        }
-
-        if ($exceptionMessage !== null) {
-            throw new \Exception($exceptionMessage." fbDelegated [".$fbDelegated."]");
+            throw new \Exception("Non-existing fbDelegated [".$fbDelegated."]");
         }
         return $friend;
     }
