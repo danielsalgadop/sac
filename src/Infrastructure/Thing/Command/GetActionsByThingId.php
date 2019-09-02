@@ -4,6 +4,7 @@ namespace App\Infrastructure\Thing\Command;
 
 use App\Application\Command\Thing\GetActionsByThingIdCommand;
 use App\Application\CommandHandler\Thing\GetActionsByThingIdHandler;
+use App\Domain\Entity\Action;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
@@ -16,7 +17,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\Container;
 
 
-class GetActions extends Command
+class GetActionsByThingId extends Command
 {
     protected static $defaultName = 'app:Thing:GetActionsByThingId';
     private $getActionsByThingIdHandler;
@@ -37,6 +38,9 @@ class GetActions extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        dump($this->getActionsByThingIdHandler->handle(new GetActionsByThingIdCommand($input->getArgument('thingId'))));
+        /** @var $actions Action */
+        $actions = $this->getActionsByThingIdHandler->handle(new GetActionsByThingIdCommand($input->getArgument('thingId')));
+//        dump($this->getActionsByThingIdHandler->handle(new GetActionsByThingIdCommand($input->getArgument('thingId'))))
+        dd($actions);
     }
 }
