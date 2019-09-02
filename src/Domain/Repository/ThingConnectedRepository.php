@@ -5,8 +5,11 @@ namespace App\Domain\Repository;
 
 interface ThingConnectedRepository
 {
-    public function getThingConnectedCompleteByIdOrException(int $id, string $thing_user_name, string $thing_password);
-    public function searchThingNameByIdOrException(int $id, string $thing_user_name, string $thing_password);
-    public function searchThingBrandByIdOrException(int $id, string $thing_user_name, string $thing_password);
-    public function searchThingActionsByIdOrException(int $id, string $thing_user_name, string $thing_password);
+    public function getThingConnectedCompleteByIdOrException(int $thingRoot, string $thingUserName, string $thingPasssword);
+
+    public function searchThingNameByIdOrException(int $thingRoot, string $thingUserName, string $thingPasssword);
+
+    public function searchThingBrandByIdOrException(int $thingRoot, string $thingUserName, string $thingPasssword);
+
+    public function searchThingActionsByIdOrException(int $thingRoot, string $thingUserName, string $thingPasssword);
 }

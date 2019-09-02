@@ -2,9 +2,8 @@
 
 namespace App\Application\CommandHandler\Thing\ThingConnected;
 
-use App\Application\Command\Thing\GetThingConnectedInfoCommand;
-use App\Application\Command\Thing\SearchThingByIdCommand;
 use App\Application\Command\Action\CreateActionCommand;
+use App\Application\Command\Thing\GetThingConnectedInfoCommand;
 use App\Application\CommandHandler\Action\CreateActionHandler;
 use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
 use App\Domain\Entity\Thing;
@@ -34,24 +33,21 @@ class GetThingConnectedCompleteHandler
     {
         /* @var Thing $thing */
         $thing = $getThingConnectedInfoCommand->getThing();
-        $thingConnected =  $this->thingConnectedRepository->getThingConnectedCompleteByIdOrException($thing->getRoot(),$thing->getUser(),$thing->getPassword());
-    dd($thingConnected);
-
+        $thingConnected = $this->thingConnectedRepository->getThingConnectedCompleteByIdOrException($thing->getRoot(), $thing->getUser(), $thing->getPassword());
         // persistActionToDDBB();
 //        $actionsInThing = [];
         foreach ($thingConnected['data']->links->actions->resources as $actionName => $action) {
 
 
-        $action = $this->createActionHandler->handle(
-            new CreateActionCommand(
-                $thing,
-                $actionName
-            )
-        );
+            $action = $this->createActionHandler->handle(
+                new CreateActionCommand(
+                    $thing,
+                    $actionName
+                )
+            );
 
 
         }
-
 
 
         return $thingConnected;

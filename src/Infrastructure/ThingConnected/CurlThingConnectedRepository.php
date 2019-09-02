@@ -18,9 +18,9 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
         $this->iotEmulatorPort = getenv('IOT_EMULATOR_PORT');
     }
 
-    private function sendCurlOrException($id, $thingUserName, $thingPassword)
+    private function sendCurlOrException($thingRoot, $thingUserName, $thingPassword)
     {
-        $ch = curl_init($this->iotEmulatorHost . '/' . $id);
+        $ch = curl_init($this->iotEmulatorHost . '/' . $thingRoot);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "GET");
         curl_setopt($ch, CURLOPT_PORT, $this->iotEmulatorPort);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -55,7 +55,7 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
     }
 
     // VICTOR poner type de return  {'status': 'message': data}
-    public function getThingConnectedCompleteByIdOrException(int $id, string $thingUserName, string $thingPassword): array
+    public function getThingConnectedCompleteByIdOrException(int $thingRoot, string $thingUserName, string $thingPassword): array
     {
 //        dd("sdafsd");
 //        $thingConnected = new \StdClass();  // antes era objeto, ahora array
@@ -64,14 +64,14 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
 
         // default $data content, just with thingId
         $data = new \stdClass();
-        $data->id = $id;
+        $data->id = $thingRoot;
 
         $thingConnected['status'] = true;
-        $thingConnected['data'] = $this->sendCurlOrException($id, $thingUserName, $thingPassword);
+        $thingConnected['data'] = $this->sendCurlOrException($thingRoot, $thingUserName, $thingPassword);
         return $thingConnected;
 
 //        try {
-            $curlResponse = $this->sendCurlOrException($id, $thingUserName, $thingPassword);
+            $curlResponse = $this->sendCurlOrException($thingRoot, $thingUserName, $thingPassword);
             if ($curlResponse === null) { // problems in iot_emulator response
                 throw new Exception('ThingConnected null response '.$curlResponse->message);
 //                $thingConnected['status'] = false;
@@ -96,9 +96,9 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
 //        return $thingConnected;
     }
 
-    public function searchThingNameByIdOrException(int $id, string $thingUserName, string $thingPassword)
+    public function searchThingNameByIdOrException(int $thingRoot, string $thingUserName, string $thingPassword)
     {
-        $thingConnected = $this->getThingConnectedCompleteByIdOrException($id, $thingUserName, $thingPassword);
+        $thingConnected = $this->getThingConnectedCompleteByIdOrException($thingRoot, $thingUserName, $thingPassword);
 //        dd($thingConnected);
         if ($thingConnected->status === true) {
             return $thingConnected->data->name;
@@ -107,15 +107,15 @@ class CurlThingConnectedRepository implements ThingConnectedRepository
 //        dd($thingConnected);
     }
 
-    public function searchThingBrandByIdOrException(int $id, string $thingUserName, string $thingPassword)
+    public function searchThingBrandByIdOrException(int $thingRoot, string $thingUserName, string $thingPassword)
     {
-        $thingConnected = $this->getThingConnectedCompleteByIdOrException($id, $thingUserName, $thingPassword);
+        $thingConnected = $this->getThingConnectedCompleteByIdOrException($thingRoot, $thingUserName, $thingPassword);
         return $thingConnected->data->brand;
     }
 
-    public function searchThingActionsByIdOrException(int $id, string $thingUserName, string $thingPassword)
+    public function searchThingActionsByIdOrException(int $thingRoot, string $thingUserName, string $thingPassword)
     {
-        $thingConnected = $this->getThingConnectedCompleteByIdOrException($id, $thingUserName, $thingPassword);
+        $thingConnected = $this->getThingConnectedCompleteByIdOrException($thingRoot, $thingUserName, $thingPassword);
         dd($thingConnected);
         return $thingConnected->data->actions;
     }
