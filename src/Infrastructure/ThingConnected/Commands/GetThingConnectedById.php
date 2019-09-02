@@ -43,10 +43,7 @@ class GetThingConnectedById extends Command
 
         dd(
             $this->searchThingConnectedCompleteHandler->handle(
-                new GetThingConnectedInfoCommand(
-                    $thing->getId(),
-                    $thing->getUser(),
-                    $thing->getPassword())
+                new GetThingConnectedInfoCommand($thing)
             )
         );
     }

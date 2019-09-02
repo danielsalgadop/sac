@@ -27,12 +27,9 @@ class MergeThingWithThingConnectedByIdHandler
         );
 
         $thingConnected = $this->getThingConnectedCompleteHandler->handle(
-            new GetThingConnectedInfoCommand(
-                $thing->getId(),
-                $thing->getUser(),
-                $thing->getPassword()
-            )
+            new GetThingConnectedInfoCommand($thing)
         );
+
         $thing->setThingConnected($thingConnected);
         return $thing;
     }

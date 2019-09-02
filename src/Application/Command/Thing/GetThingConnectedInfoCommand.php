@@ -2,31 +2,19 @@
 
 namespace App\Application\Command\Thing;
 
+use App\Domain\Entity\Thing;
+
 class GetThingConnectedInfoCommand
 {
-    private $id;
-    private $thingUsername;
-    private $thingPassword;
+    private $thing;
 
-    public function __construct(int $id, string $thingUsername, string $thingPassword)
+    public function __construct(Thing $thing)
     {
-        $this->id = $id;
-        $this->thingUsername = $thingUsername;
-        $this->thingPassword = $thingPassword;
+        $this->thing = $thing;
     }
 
-    public function getThingUsername()
+    public function getThing(): Thing
     {
-        return $this->thingUsername;
-    }
-
-    public function getThingPassword()
-    {
-        return $this->thingPassword;
-    }
-
-    public function getId()
-    {
-        return $this->id;
+        return $this->thing;
     }
 }

@@ -62,7 +62,7 @@ class FriendController extends AbstractController implements HasFbSessionControl
 
                         if ($loggedFriend === $friend) {
 
-                            $thingConnected = $this->getThingConnectedCompleteHandler->handle(new GetThingConnectedInfoCommand($thing->getId(), $thing->getUser(), $thing->getPassword()));
+                            $thingConnected = $this->getThingConnectedCompleteHandler->handle(new GetThingConnectedInfoCommand($thing));
                             $actions = $thingConnected['data']->links;
                             foreach ($actions as $foo) {
                                 foreach ($foo->resources as $actionName => $value) {

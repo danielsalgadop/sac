@@ -32,21 +32,13 @@ class GetThingConnectedCompleteHandler
 
     public function handle(GetThingConnectedInfoCommand $getThingConnectedInfoCommand)
     {
-        $thingId = $getThingConnectedInfoCommand->getId();
-        /** @var Thing $thing */
-        $thing = $this->searchThingByIdHandler->handle(new SearchThingByIdCommand($thingId));
-
-        $thingRoot = $thing->getRoot();
-        $thingConnected =  $this->thingConnectedRepository->getThingConnectedCompleteByIdOrException(
-            $thingRoot,
-            $getThingConnectedInfoCommand->getThingUsername(),
-            $getThingConnectedInfoCommand->getThingPassword()
-        );
-
-
+        /* @var Thing $thing */
+        $thing = $getThingConnectedInfoCommand->getThing();
+        $thingConnected =  $this->thingConnectedRepository->getThingConnectedCompleteByIdOrException($thing->getRoot(),$thing->getUser(),$thing->getPassword());
+    dd($thingConnected);
 
         // persistActionToDDBB();
-        $actionsInThing = [];
+//        $actionsInThing = [];
         foreach ($thingConnected['data']->links->actions->resources as $actionName => $action) {
 
 
