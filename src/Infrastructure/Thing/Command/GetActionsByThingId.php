@@ -40,7 +40,6 @@ class GetActionsByThingId extends Command
     {
         /** @var $actions Action */
         $actions = $this->getActionsByThingIdHandler->handle(new GetActionsByThingIdCommand($input->getArgument('thingId')));
-//        dump($this->getActionsByThingIdHandler->handle(new GetActionsByThingIdCommand($input->getArgument('thingId'))))
         dd($actions);
     }
 }

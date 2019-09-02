@@ -2,8 +2,8 @@
 
 namespace App\Application\CommandHandler\Thing;
 
-use App\Application\Command\Thing\MergeThingWithThingConnectedByIdCommand;
 use App\Application\Command\Thing\GetThingConnectedInfoCommand;
+use App\Application\Command\Thing\MergeThingWithThingConnectedByIdCommand;
 use App\Application\Command\Thing\SearchThingByIdCommand;
 use App\Application\CommandHandler\Thing\ThingConnected\GetThingConnectedCompleteHandler;
 use App\Domain\Entity\Thing;

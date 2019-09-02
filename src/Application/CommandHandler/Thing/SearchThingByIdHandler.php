@@ -13,7 +13,7 @@ class SearchThingByIdHandler
         $this->thingRepository = $thingRepository;
     }
 
-    public function handle(SearchThingByIdCommand $searchThingByIdCommand):Thing
+    public function handle(SearchThingByIdCommand $searchThingByIdCommand): Thing
     {
         return $this->thingRepository->searchThingByIdOrException($searchThingByIdCommand->getThingId());
     }

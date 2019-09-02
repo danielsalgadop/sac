@@ -21,7 +21,7 @@ class GetActionsByThingIdHandler
         /** @var $thing Thing */
         $thing = $this->searchThingByIdHandler->handle(new SearchThingByIdCommand($getActionByThingIdCommand->getThingId()));
 
-        if (count($thing->getActions() ) > 0) {
+        if (count($thing->getActions()) > 0) {
             return $thing->getActions();
         }
         return null;
