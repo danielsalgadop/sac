@@ -124,15 +124,6 @@ class ThingController extends AbstractController implements HasFbSessionControll
         }
         return $this->redirectToRoute('success', ['message' => 'HC thing created']);
     }
-
-    // TODO: esta route se usa?
-    /*
-     * @Route("/friends", name="friends", methods={"GET"})
-     */
-    public function friends()
-    {
-        return new Response('list of friends and delegated actions');
-    }
 }
 
 
