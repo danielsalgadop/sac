@@ -29,10 +29,6 @@ class MergeThingWithThingConnectedById extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
-//        $thing = $this->searchThingByIdHandler->handle(new SearchThingByIdCommand($input->getArgument('thingId')));
-//        $thingConnected = $this->searchThingConnectedCompleteHandler->handle(new GetThingConnectedInfoCommand($thing->getId(), $thing->getUser(), $thing->getPassword()));
-//        $thing->thingConnected = $thingConnected;
         dd($this->mergeThingWithThingConnectedByIdHandler->handle(new MergeThingWithThingConnectedByIdCommand($input->getArgument('thingId'))));
     }
 }
