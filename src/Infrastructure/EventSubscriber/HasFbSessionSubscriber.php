@@ -9,6 +9,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\HttpFoundation\Response;
 
 class HasFbSessionSubscriber implements EventSubscriberInterface
 {
@@ -31,9 +32,12 @@ class HasFbSessionSubscriber implements EventSubscriberInterface
             $request = $event->getRequest();
             $session = $request->getSession();
             if ($session->get('ownerFbDelegated') === null) {
-                throw new AccessDeniedHttpException('This action needs a valid session!');
+                $event->setController(
+                    function(){
+                        return new Response('Resource Not Found', 404);
+                    }
+                );
             }
-
         }
 
     }
