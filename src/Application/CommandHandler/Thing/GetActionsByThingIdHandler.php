@@ -2,30 +2,28 @@
 
 namespace App\Application\CommandHandler\Thing;
 
-
-use App\Domain\Entity\Owner;
 use App\Application\Command\Thing\GetActionsByThingIdCommand;
-use App\Domain\Repository\ThingRepository;
-
+use App\Application\Command\Thing\SearchThingByIdCommand;
+use App\Domain\Entity\Thing;
 
 class GetActionsByThingIdHandler
 {
 
-    private $thingRepository;
+    private $searchThingByIdHandler;
 
-    public function __construct(ThingRepository $thingRepository)
+    public function __construct(SearchThingByIdHandler $searchThingByIdHandler)
     {
-        $this->thingRepository = $thingRepository;
+        $this->searchThingByIdHandler = $searchThingByIdHandler;
     }
 
-
-    // TODO: return type
-    public function handle(GetActionsByThingIdCommand $getActionByThingIdCommand)
+    public function handle(GetActionsByThingIdCommand $getActionByThingIdCommand): ?object
     {
+        /** @var $thing Thing */
+        $thing = $this->searchThingByIdHandler->handle(new SearchThingByIdCommand($getActionByThingIdCommand->getThingId()));
 
-        $thingId = $getActionByThingIdCommand->getThingId();
-        $thing = $this->thingRepository
-            ->find($thingId);
-        return $thing->getActions();
+        if (count($thing->getActions() ) > 0) {
+            return $thing->getActions();
+        }
+        return null;
     }
 }
