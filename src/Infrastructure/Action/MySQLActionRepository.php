@@ -72,17 +72,8 @@ class MySQLActionRepository implements ActionRepository
     {
         $action = $this->em->find(Action::class, $id);
 
-        $exceptionMessage = null;
-        if (!$action) {
-            $exceptionMessage = "Action not found by";
-        }
-
         if ($action === null) {
-            $exceptionMessage = "Non-existing";
-        }
-
-        if ($exceptionMessage !== null) {
-            throw new \Exception($exceptionMessage." actionId [".$id."]");
+            throw new \Exception("Non-existing actionId [".$id."]");
         }
         return $action;
 
