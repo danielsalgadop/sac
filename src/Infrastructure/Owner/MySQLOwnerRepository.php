@@ -27,7 +27,7 @@ class MySQLOwnerRepository implements OwnerRepository
     {
         try {
             $this->em->persist($owner);
-            $this->em->flush();   // TODO: mover el flush al Controller
+            $this->em->flush();
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -35,15 +35,9 @@ class MySQLOwnerRepository implements OwnerRepository
 
     public function searchOwnerByfbDelegatedOrException(string $fbDelegated)
     {
-
         $owner = $this->em
             ->getRepository(Owner::class)
             ->findOneBy(['fbDelegated' => $fbDelegated]);
-
-        if (!$owner) {
-            throw new Exception("Owner not found by fbDelegated");
-        }
-
 
         if ($owner === null) {
             throw new Exception("Non-existing fbDelegated");
