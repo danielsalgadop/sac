@@ -1,11 +1,10 @@
 <?php
 
-use App\Domain\Entity\Action;
-
 namespace App\Infrastructure\Action\Command;
 
 use App\Application\Command\Action\SearchActionByIdCommand;
 use App\Application\CommandHandler\Action\SearchActionByIdHandler;
+use App\Domain\Entity\Action;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

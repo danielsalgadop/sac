@@ -1,8 +1,5 @@
 <?php
 
-use App\Domain\Entity\Action;
-use App\Domain\Entity\Thing;
-
 namespace App\Infrastructure\Action\Command;
 
 use App\Application\Command\Action\CreateActionCommand;
@@ -10,6 +7,8 @@ use App\Application\Command\Thing\SearchThingByIdCommand;
 use App\Application\CommandHandler\Action\CreateActionHandler;
 use App\Application\CommandHandler\Friend\SearchFriendByFbDelegatedHandler;
 use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
+use App\Domain\Entity\Action;
+use App\Domain\Entity\Thing;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

@@ -1,8 +1,5 @@
 <?php
 
-use App\Domain\Entity\Friend;
-use App\Domain\Entity\Owner;
-
 namespace App\Infrastructure\Owner\Command;
 
 use App\Application\Command\Friend\SearchFriendByFbDelegatedCommand;
@@ -11,6 +8,8 @@ use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
 use App\Application\CommandHandler\Friend\SearchFriendByFbDelegatedHandler;
 use App\Application\CommandHandler\Owner\AddFriendToOwnerHandler;
 use App\Application\CommandHandler\Owner\SearchOwnerByFbDelegatedHandler;
+use App\Domain\Entity\Friend;
+use App\Domain\Entity\Owner;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;

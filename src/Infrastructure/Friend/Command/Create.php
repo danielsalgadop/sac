@@ -1,9 +1,6 @@
 <?php
 
-use App\Domain\Entity\Friend;
-
 namespace App\Infrastructure\Friend\Command;
-
 
 use App\Application\Command\Friend\CreateFriendCommand;
 use App\Application\CommandHandler\Friend\CreateFriendHandler;
