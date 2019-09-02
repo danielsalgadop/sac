@@ -35,16 +35,13 @@ class GetThingConnectedById extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        /* @var Thing $thing */
         $thing = $this->searchThingByIdHandler->handle(
             new SearchThingByIdCommand(
                 $input->getArgument('thingId')
             )
         );
 
-        dd(
-            $this->searchThingConnectedCompleteHandler->handle(
-                new GetThingConnectedInfoCommand($thing)
-            )
-        );
+        dd($this->searchThingConnectedCompleteHandler->handle(new GetThingConnectedInfoCommand($thing)));
     }
 }

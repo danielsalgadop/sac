@@ -30,7 +30,7 @@ class GetActionsByThingId extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Connects to thing and retrieves name')
+            ->setDescription('Connects to thing and retrieves Actions name')
             ->addArgument('thingId', InputArgument::REQUIRED, 'Thing id');
     }
 
@@ -38,6 +38,6 @@ class GetActionsByThingId extends Command
     {
         /* @var Thing $thing */
         $thing = $this->searchThingByIdHandler->handle(new SearchThingByIdCommand($input->getArgument('thingId')));
-        dd($this->searchThingConnectedActionsHandler->handle(new GetThingConnectedInfoCommand($thing->getId(), $thing->getUser(), $thing->getPassword())));
+        dd($this->searchThingConnectedActionsHandler->handle(new GetThingConnectedInfoCommand($thing)));
     }
 }

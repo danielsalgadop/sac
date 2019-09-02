@@ -29,13 +29,14 @@ class GetBrandByThingId extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Connects to thing and retrieves name')
+            ->setDescription('Connects to thing and Brand name')
             ->addArgument('thingId', InputArgument::REQUIRED, 'Thing id');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        /* @var Thing $thing */
         $thing = $this->searchThingByIdHandler->handle(new SearchThingByIdCommand($input->getArgument('thingId')));
-        dd($this->searchThingConnectedBrandHandler->handle(new GetThingConnectedInfoCommand($thing->getId(), $thing->getUser(), $thing->getPassword())));
+        dd($this->searchThingConnectedBrandHandler->handle(new GetThingConnectedInfoCommand($thing)));
     }
 }
