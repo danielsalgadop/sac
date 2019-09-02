@@ -21,6 +21,7 @@ class MergeThingWithThingConnectedByIdHandler
 
     public function handle(MergeThingWithThingConnectedByIdCommand $mergeThingWithThingConnectedByIdCommand): Thing
     {
+        /* @var Thing $thing */
         $thing = $this->searchThingByIdHandler->handle(
             new SearchThingByIdCommand($mergeThingWithThingConnectedByIdCommand->getThingId())
         );

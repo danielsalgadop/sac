@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\ThingConnected\Commands;
 
+use App\Domain\Entity\Thing;
 use App\Application\Command\Thing\GetThingConnectedInfoCommand;
 use App\Application\Command\Thing\SearchThingByIdCommand;
 use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
@@ -35,6 +36,7 @@ class GetActionsByThingId extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        /* @var Thing $thing */
         $thing = $this->searchThingByIdHandler->handle(new SearchThingByIdCommand($input->getArgument('thingId')));
         dd($this->searchThingConnectedActionsHandler->handle(new GetThingConnectedInfoCommand($thing->getId(), $thing->getUser(), $thing->getPassword())));
     }
