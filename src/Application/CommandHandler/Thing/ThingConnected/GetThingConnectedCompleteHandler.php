@@ -34,11 +34,8 @@ class GetThingConnectedCompleteHandler
         /* @var Thing $thing */
         $thing = $getThingConnectedInfoCommand->getThing();
         $thingConnected = $this->thingConnectedRepository->getThingConnectedCompleteByIdOrException($thing->getRoot(), $thing->getUser(), $thing->getPassword());
-        // persistActionToDDBB();
-//        $actionsInThing = [];
+
         foreach ($thingConnected['data']->links->actions->resources as $actionName => $action) {
-
-
             $action = $this->createActionHandler->handle(
                 new CreateActionCommand(
                     $thing,
