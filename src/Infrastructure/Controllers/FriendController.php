@@ -22,7 +22,7 @@ use Facebook\Facebook;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Flex\Response;
+//use Symfony\Flex\Response;
 
 class FriendController extends AbstractController implements HasFbSessionController
 {
