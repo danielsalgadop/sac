@@ -18,10 +18,10 @@ class GetFbSharingStatusByOwnerHandler
         $this->ownerRepository = $ownerRepository;
     }
 
-    public function handle(GetFbSharingStatusByOwnerCommand $command): array
+    public function handle(GetFbSharingStatusByOwnerCommand $getFbSharingStatusByOwnerCommand): array
     {
-
-        $owner = $command->getOwner();
+        /** @var Owner $owner */
+        $owner = $getFbSharingStatusByOwnerCommand->getOwner();
         /*
          *
          *

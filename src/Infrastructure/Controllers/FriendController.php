@@ -22,7 +22,7 @@ use Facebook\Facebook;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Flex\Response;
+//use Symfony\Flex\Response;
 
 class FriendController extends AbstractController implements HasFbSessionController
 {
@@ -62,7 +62,7 @@ class FriendController extends AbstractController implements HasFbSessionControl
 
                         if ($loggedFriend === $friend) {
 
-                            $thingConnected = $this->getThingConnectedCompleteHandler->handle(new GetThingConnectedInfoCommand($thing));
+                            $thingConnected = $this->getThingConnectedCompleteHandler->handle(new GetThingConnectedInfoCommand($thing->getId(), $thing->getUser(), $thing->getPassword()));
                             $actions = $thingConnected['data']->links;
                             foreach ($actions as $foo) {
                                 foreach ($foo->resources as $actionName => $value) {
@@ -121,7 +121,7 @@ class FriendController extends AbstractController implements HasFbSessionControl
 //            $owner->addFriend($this->createFriendHandler->handle(new CreateFriendCommand($fbFriend['id'], $fbFriend['name'])));
 //        }
 //        $this->mySQLOwnerRepository->save($owner);
-
+//dd($friend->getActions());
 
         $owners = $friend->getOwners();
         /** @var Owner $owner */
