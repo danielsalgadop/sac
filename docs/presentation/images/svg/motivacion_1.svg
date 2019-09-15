@@ -43,7 +43,7 @@
       <path
          id="path4792"
          d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
-         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         style="fill-rule:evenodd;stroke:#ae0000;stroke-width:1pt;stroke-opacity:0.43373497;fill:#ae0000;fill-opacity:0.43373497"
          transform="scale(0.8) translate(12.5,0)" />
     </marker>
     <marker
@@ -58,7 +58,7 @@
          inkscape:connector-curvature="0"
          id="path4795-8"
          d="M 0,0 5,-5 -12.5,0 5,5 Z"
-         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         style="fill:#ae0000;fill-opacity:0.43373497;fill-rule:evenodd;stroke:#ae0000;stroke-width:1.00000003pt;stroke-opacity:0.43373497"
          transform="matrix(-0.8,0,0,-0.8,-10,0)" />
     </marker>
     <marker
@@ -84,9 +84,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.1016207"
-     inkscape:cx="141.63267"
-     inkscape:cy="899.19563"
+     inkscape:zoom="8.8129656"
+     inkscape:cx="394.2776"
+     inkscape:cy="928.97179"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -118,7 +118,7 @@
      id="layer1">
     <g
        style="opacity:1"
-       transform="matrix(0.30298096,0,0,0.30298096,123.85628,-0.04679025)"
+       transform="matrix(0.52642528,0,0,0.52642528,200.01041,-8.0805873)"
        id="g4243"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96">
@@ -135,7 +135,7 @@
          d="m -88.403065,54.879069 c 2.442555,0.201945 5.051749,-0.783557 7.331174,1.260471 -0.18951,-0.786876 -1.604092,-1.427335 -0.643483,-0.24105 2.683793,4.140097 5.345133,8.751875 6.70281,14.702779 0.81128,4.10051 0.83962,8.4909 1.17642,12.752799 0.3987,1.785612 1.38343,3.628426 2.55157,3.378403 1.346107,-1.069934 2.5e-4,-4.10457 0.12896,-5.961591 0.0442,-4.802464 -0.85346,-9.642998 -2.45957,-13.513938 -2.3082,-5.395426 -5.177967,-10.089149 -8.472769,-13.5311 -1.991387,-1.985297 -4.321537,-3.100898 -6.607644,-2.489512 -0.586284,0.180477 -1.963245,-0.580083 -2.005791,0.565847 0.582235,1.425814 1.695102,1.690342 2.298323,3.076892 z m -4.684941,0 c -2.442555,0.201945 -5.051749,-0.783557 -7.331174,1.260471 0.18951,-0.786876 1.604092,-1.427335 0.643483,-0.24105 -2.683793,4.140097 -5.345133,8.751875 -6.702813,14.702779 -0.81128,4.10051 -0.83962,8.4909 -1.17642,12.752799 -0.3987,1.785612 -1.38343,3.628426 -2.55157,3.378403 -1.34611,-1.069934 -2.5e-4,-4.10457 -0.12896,-5.961591 -0.0442,-4.802464 0.85346,-9.642998 2.45957,-13.513938 2.3082,-5.395426 5.17797,-10.089149 8.472772,-13.5311 1.991387,-1.985297 4.321537,-3.100898 6.607644,-2.489512 0.586284,0.180477 1.963245,-0.580083 2.005791,0.565847 -0.582235,1.425814 -1.695102,1.690342 -2.298323,3.076892 z" />
     </g>
     <g
-       transform="translate(73.638247,-31.718253)"
+       transform="matrix(1.7374863,0,0,1.7374863,112.75727,-63.109321)"
        id="g4249"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        aria-label="Elizabeth (Owner)"
@@ -153,16 +153,9 @@
            x="18.191582"
            sodipodi:role="line">Friend</tspan></text>
     </g>
-    <path
-       inkscape:connector-curvature="0"
-       id="path4497"
-       d="M 91.338219,18.458497 C 85.510668,13.6968 77.240156,14.329259 70.510442,16.561226 c -5.194451,1.832309 -9.181433,5.851847 -14.149645,8.124969 5.389765,-6.511012 13.518341,-10.875069 22.052222,-10.985907 4.263006,0.02599 8.908234,0.44203 12.450381,3.012959 0.555805,0.370879 0.870305,1.135694 0.474819,1.74525 z"
-       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.28222221;stroke-opacity:0.43373497"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
     <g
        id="g3746"
-       transform="matrix(0.30298097,0,0,0.30298097,71.09774,22.808398)"
+       transform="matrix(0.52642529,0,0,0.52642529,108.34317,31.62999)"
        style="opacity:1"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96">
@@ -182,7 +175,7 @@
        aria-label="Elizabeth (Owner)"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        id="text3750-0-7"
-       transform="translate(19.434255,-8.8630636)"
+       transform="matrix(1.7374863,0,0,1.7374863,18.57857,-23.398742)"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96">
       <text
@@ -199,11 +192,11 @@
     </g>
     <g
        id="g4780"
-       transform="translate(11.260534,12.141413)"
+       transform="matrix(1.7374863,0,0,1.7374863,4.376842,13.096249)"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96">
       <ellipse
-         style="fill:none;stroke:#000000;stroke-width:0.08452327;stroke-opacity:1"
+         style="fill:none;stroke:#000000;stroke-width:0.04864687;stroke-opacity:1"
          ry="3.8848536"
          rx="4.1409974"
          cy="16.689278"
@@ -230,7 +223,7 @@
     <g
        inkscape:export-ydpi="96"
        inkscape:export-xdpi="96"
-       transform="translate(20.675115,6.496969)"
+       transform="matrix(1.7374863,0,0,1.7374863,20.734548,3.289105)"
        id="g4280">
       <ellipse
          id="ellipse4282"
@@ -238,7 +231,7 @@
          cy="16.689278"
          rx="4.1409974"
          ry="3.8848536"
-         style="fill:none;stroke:#000000;stroke-width:0.08452327;stroke-opacity:1" />
+         style="fill:none;stroke:#000000;stroke-width:0.04864687;stroke-opacity:1" />
       <g
          aria-label="Elizabeth (Owner)"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -259,16 +252,20 @@
     </g>
     <ellipse
        id="ellipse4292"
-       cx="53.01815"
-       cy="28.83069"
-       rx="4.1409974"
-       ry="3.8848536"
-       style="fill:none;stroke:#000000;stroke-width:1.10000002;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+       cx="76.93013"
+       cy="42.093639"
+       rx="7.1949267"
+       ry="6.7498803"
+       style="fill:none;stroke:#000000;stroke-width:1.10000002;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
     <g
        aria-label="Elizabeth (Owner)"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.10000002;stroke-miterlimit:4;stroke-dasharray:none"
        id="g4294"
-       transform="translate(31.12002,-30.937309)">
+       transform="matrix(1.7374863,0,0,1.7374863,38.882427,-61.75244)"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
       <text
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1.10000002;stroke-miterlimit:4;stroke-dasharray:none"
@@ -284,7 +281,7 @@
     <g
        inkscape:export-ydpi="96"
        inkscape:export-xdpi="96"
-       transform="translate(39.504284,23.430301)"
+       transform="matrix(1.7374863,0,0,1.7374863,53.449971,32.710538)"
        id="g4300">
       <ellipse
          id="ellipse4302"
@@ -292,7 +289,7 @@
          cy="16.689278"
          rx="4.1409974"
          ry="3.8848536"
-         style="fill:none;stroke:#000000;stroke-width:0.08452327;stroke-opacity:1" />
+         style="fill:none;stroke:#000000;stroke-width:0.04864687;stroke-opacity:1" />
       <g
          aria-label="Elizabeth (Owner)"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
@@ -313,11 +310,11 @@
     </g>
     <g
        id="g4330"
-       transform="translate(1.8459506,22.979315)"
+       transform="matrix(1.7374863,0,0,1.7374863,-11.980868,31.926955)"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96">
       <ellipse
-         style="fill:none;stroke:#000000;stroke-width:0.08452327;stroke-opacity:1"
+         style="fill:none;stroke:#000000;stroke-width:0.04864687;stroke-opacity:1"
          ry="3.8848536"
          rx="4.1409974"
          cy="16.689278"
@@ -343,14 +340,14 @@
     </g>
     <path
        style="fill:none;fill-rule:evenodd;stroke:#ae0000;stroke-width:0.28222221px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.43373497"
-       d="M 29.633333,38.950032 40.922222,37.538921"
+       d="M 36.299329,59.675858 55.91362,57.224073"
        id="path4392"
        inkscape:connector-curvature="0"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#ae0000;stroke-width:0.28222221px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.43373497"
-       d="m 37.112221,31.18892 4.515557,3.104444"
+       d="m 49.293795,46.191033 7.845719,5.393928"
        id="path4392-3"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
@@ -358,7 +355,7 @@
        inkscape:export-ydpi="96" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#ae0000;stroke-width:0.28222221px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.43373497"
-       d="m 43.64135,27.096698 2e-6,5.785555"
+       d="m 60.638068,39.080852 4e-6,10.052324"
        id="path4392-3-6"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
@@ -366,7 +363,7 @@
        inkscape:export-ydpi="96" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#ae0000;stroke-width:0.28222221px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.43373497"
-       d="m 49.812222,32.035587 -3.668887,2.539999"
+       d="m 71.359874,47.662105 -6.374642,4.413214"
        id="path4392-3-6-7"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
@@ -374,7 +371,7 @@
        inkscape:export-ydpi="96" />
     <path
        style="fill:none;fill-rule:evenodd;stroke:#ae0000;stroke-width:0.28222221px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.43373497"
-       d="M 57.573334,40.078922 46.002224,37.256698"
+       d="M 84.8447,61.63729 64.740054,56.733715"
        id="path4392-3-6-7-5"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc"
@@ -382,9 +379,9 @@
        inkscape:export-ydpi="96" />
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.82222223px;line-height:125%;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="56.419151"
-       y="31.377844"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.90357256px;line-height:125%;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ae0000;fill-opacity:0.43529412;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="85.901825"
+       y="58.912018"
        id="text4624"
        sodipodi:linespacing="125%"
        transform="matrix(0.9692834,-0.24594652,0.24594652,0.9692834,0,0)"
@@ -392,7 +389,15 @@
        inkscape:export-ydpi="96"><tspan
          sodipodi:role="line"
          id="tspan4626"
-         x="56.419151"
-         y="31.377844">Compartición</tspan></text>
+         x="85.901825"
+         y="58.912018">Compartición</tspan></text>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#ae0000;stroke-width:0.28200001;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.43373497;marker-end:url(#Arrow1Lend-7)"
+       d="M 139.88754,26.343877 85.179405,39.844586"
+       id="path4392-3-6-7-3"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
   </g>
 </svg>
