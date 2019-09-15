@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 744.09448819 1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="iot_emulator.svg">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible"
+       id="marker6050"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend">
+      <path
+         transform="matrix(-0.8,0,0,-0.8,-10,0)"
+         style="fill:#ae0000;fill-opacity:0.43373497;fill-rule:evenodd;stroke:#ae0000;stroke-width:1pt;stroke-opacity:0.43373497"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path6052"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend-7"
+       style="overflow:visible"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4795-8"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#ae0000;fill-opacity:0.43373497;fill-rule:evenodd;stroke:#ae0000;stroke-width:1pt;stroke-opacity:0.43373497"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="323.69847"
+     inkscape:cy="818.44311"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:window-width="1366"
+     inkscape:window-height="710"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid4854" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="opacity:1">
+    <rect
+       style="opacity:1;fill:#ae0000;fill-opacity:0.43529412;stroke:none;stroke-width:0.99921262;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4136"
+       width="128.05658"
+       height="259.96814"
+       x="240.19583"
+       y="101.10308"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96" />
+    <g
+       id="g4780"
+       transform="matrix(6.1564475,0,0,6.1564475,268.96413,107.14832)"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       style="">
+      <ellipse
+         style="fill:none;stroke:#000000;stroke-width:0.04864687;stroke-opacity:1"
+         ry="3.8848536"
+         rx="4.1409974"
+         cy="16.689278"
+         cx="22.928452"
+         id="path3794" />
+      <g
+         transform="translate(1.030322,-43.078722)"
+         id="text3750-0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         aria-label="Elizabeth (Owner)">
+        <text
+           id="text4621"
+           y="60.904366"
+           x="19.443241"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.07000434"
+           xml:space="preserve"><tspan
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.07000434"
+             y="60.904366"
+             x="19.443241"
+             id="tspan4619"
+             sodipodi:role="line">WT</tspan></text>
+      </g>
+    </g>
+    <g
+       id="g4780-3"
+       transform="matrix(6.1564475,0,0,6.1564475,382.1279,168.04411)"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <ellipse
+         style="fill:none;stroke:#000000;stroke-width:0.04864687;stroke-opacity:1"
+         ry="3.8848536"
+         rx="4.1409974"
+         cy="16.689278"
+         cx="22.928452"
+         id="path3794-6" />
+      <g
+         transform="translate(1.030322,-43.078722)"
+         id="text3750-0-7"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         aria-label="Elizabeth (Owner)">
+        <text
+           id="text4621-5"
+           y="60.904366"
+           x="19.443241"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.07000434"
+           xml:space="preserve"><tspan
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.07000434"
+             y="60.904366"
+             x="19.443241"
+             id="tspan4619-3"
+             sodipodi:role="line">WT</tspan></text>
+      </g>
+    </g>
+    <g
+       inkscape:export-ydpi="96"
+       inkscape:export-xdpi="96"
+       transform="matrix(6.1564475,0,0,6.1564475,271.41362,30.901257)"
+       id="g4814">
+      <ellipse
+         id="ellipse4816"
+         cx="22.928452"
+         cy="16.689278"
+         rx="4.1409974"
+         ry="3.8848536"
+         style="fill:none;stroke:#000000;stroke-width:0.04864687;stroke-opacity:1" />
+      <g
+         aria-label="Elizabeth (Owner)"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         id="g4818"
+         transform="translate(1.030322,-43.078722)">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.07000434"
+           x="19.443241"
+           y="60.904366"
+           id="text4820"><tspan
+             sodipodi:role="line"
+             id="tspan4822"
+             x="19.443241"
+             y="60.904366"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.07000434">WT</tspan></text>
+      </g>
+    </g>
+    <g
+       id="g4824"
+       transform="matrix(6.1564475,0,0,6.1564475,327.1279,122.32983)"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <ellipse
+         style="fill:none;stroke:#000000;stroke-width:0.04864687;stroke-opacity:1"
+         ry="3.8848536"
+         rx="4.1409974"
+         cy="16.689278"
+         cx="22.928452"
+         id="ellipse4826" />
+      <g
+         transform="translate(1.030322,-43.078722)"
+         id="g4828"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         aria-label="Elizabeth (Owner)">
+        <text
+           id="text4830"
+           y="60.904366"
+           x="19.443241"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.07000434"
+           xml:space="preserve"><tspan
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.07000434"
+             y="60.904366"
+             x="19.443241"
+             id="tspan4832"
+             sodipodi:role="line">WT</tspan></text>
+      </g>
+    </g>
+    <g
+       inkscape:export-ydpi="96"
+       inkscape:export-xdpi="96"
+       transform="matrix(6.1564475,0,0,6.1564475,281.41362,174.61554)"
+       id="g4834">
+      <ellipse
+         id="ellipse4836"
+         cx="22.928452"
+         cy="16.689278"
+         rx="4.1409974"
+         ry="3.8848536"
+         style="fill:none;stroke:#000000;stroke-width:0.04864687;stroke-opacity:1" />
+      <g
+         aria-label="Elizabeth (Owner)"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         id="g4838"
+         transform="translate(1.030322,-43.078722)">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.07000434"
+           x="19.443241"
+           y="60.904366"
+           id="text4840"><tspan
+             sodipodi:role="line"
+             id="tspan4842"
+             x="19.443241"
+             y="60.904366"
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.07000434">WT</tspan></text>
+      </g>
+    </g>
+    <g
+       id="g4844"
+       transform="matrix(6.1564475,0,0,6.1564475,324.27076,55.329828)"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       style="">
+      <ellipse
+         style="fill:none;stroke:#000000;stroke-width:0.04864687;stroke-opacity:1"
+         ry="3.8848536"
+         rx="4.1409974"
+         cy="16.689278"
+         cx="22.928452"
+         id="ellipse4846" />
+      <g
+         transform="translate(1.030322,-43.078722)"
+         id="g4848"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         aria-label="Elizabeth (Owner)">
+        <text
+           id="text4850"
+           y="60.904366"
+           x="19.443241"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;line-height:1.25;font-family:Arial;-inkscape-font-specification:Arial;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.07000434"
+           xml:space="preserve"><tspan
+             style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.17499995px;font-family:Arial;-inkscape-font-specification:Arial;stroke-width:0.07000434"
+             y="60.904366"
+             x="19.443241"
+             id="tspan4852"
+             sodipodi:role="line">WT</tspan></text>
+      </g>
+    </g>
+    <g
+       id="g6135"
+       transform="translate(0,38.675397)"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <path
+         inkscape:export-ydpi="96"
+         inkscape:export-xdpi="96"
+         sodipodi:nodetypes="cc"
+         inkscape:connector-curvature="0"
+         id="path4392-3-6-7-3"
+         d="m 106.20022,182.27302 125.438,0.15859"
+         style="fill:none;fill-rule:evenodd;stroke:#ae0000;stroke-width:0.99921262;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.43373497;marker-end:url(#Arrow1Lend-7)" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#ae0000;stroke-width:0.99921262;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.43373497;marker-end:url(#marker6050)"
+         d="m 233.45618,202.27302 -125.438,0.15859"
+         id="path6048"
+         inkscape:connector-curvature="0"
+         sodipodi:nodetypes="cc"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:125%;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="140"
+       y="172.3622"
+       id="text6096"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan6098"
+         x="140"
+         y="172.3622" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:18.38388634px;line-height:125%;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="250.65486"
+       y="235.92101"
+       id="text6100"
+       sodipodi:linespacing="125%"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan6102"
+         x="250.65486"
+         y="235.92101">Iot_emulator</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:125%;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="130.83984"
+       y="192.3622"
+       id="text6139"
+       sodipodi:linespacing="125%"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan6141"
+         x="130.83984"
+         y="192.3622">request WT</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:125%;font-family:'Liberation Sans';-inkscape-font-specification:'Liberation Sans, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="124.92188"
+       y="272.36221"
+       id="text6143"
+       sodipodi:linespacing="125%"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"><tspan
+         sodipodi:role="line"
+         id="tspan6145"
+         x="124.92188"
+         y="272.36221">Response WT</tspan></text>
+  </g>
+</svg>
