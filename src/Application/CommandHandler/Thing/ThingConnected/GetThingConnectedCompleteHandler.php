@@ -47,7 +47,10 @@ class GetThingConnectedCompleteHandler
                 );
             }
         } else {
-            throw new Exception('Invalid Credentials');
+
+            $thingName = $thingConnected['data']->name;
+            $thingBrand = $thingConnected['data']->brand;
+            throw new Exception('Invalid Credentials for THING with name ['.$thingName.'] and Brand ['.$thingBrand.']');
         }
 
 
