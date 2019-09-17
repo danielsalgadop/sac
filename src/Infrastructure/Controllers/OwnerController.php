@@ -52,8 +52,6 @@ class OwnerController extends AbstractController
         $session = $request->getSession();
 
         if (!$request->cookies->has('fbResponse') && !$request->cookies->has('connectFbResponse') &&  !$session->get('ownerFbDelegated')){
-        // fbResponse exists?
-        //        if (!$request->cookies->has('fbResponse')) {
             return $this->redirectToRoute('login');
         }
 
@@ -139,25 +137,24 @@ class OwnerController extends AbstractController
 
 
     // Se usa?
-    public function create(Request $request)
-    {
-        $name = $request->request->get('name');
-        $fbDelegated = $request->request->get('fbDelegated');
+//    public function create(Request $request)
+//    {
+//        $name = $request->request->get('name');
+//        $fbDelegated = $request->request->get('fbDelegated');
+//
+//        $name = filter_var($name ?? '', FILTER_SANITIZE_STRING);
+//
+//        try {
+//            $this->createOwnerHandler->handle(new CreateOwnerCommand($name, $fbDelegated));
+//
+//        } catch (\Exception $e) {
+//            return new Response($e->getMessage());
+//        }
+//        return new Response("HC owner created");
+//    }
 
-        $name = filter_var($name ?? '', FILTER_SANITIZE_STRING);
-
-        try {
-            $this->createOwnerHandler->handle(new CreateOwnerCommand($name, $fbDelegated));
-
-        } catch (\Exception $e) {
-            return new Response($e->getMessage());
-        }
-        return new Response("HC owner created");
-    }
-
-
-    public function things()
-    {
-        return new Response('list of things owned by user');
-    }
+//    public function things()
+//    {
+//        return new Response('list of things owned by user');
+//    }
 }
