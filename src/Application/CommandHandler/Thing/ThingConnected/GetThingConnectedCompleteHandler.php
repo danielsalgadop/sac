@@ -9,6 +9,7 @@ use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
 use App\Domain\Entity\Thing;
 use App\Domain\Repository\ThingConnectedRepository;
 use App\Infrastructure\Action\MySQLActionRepository;
+use \Exception;
 
 class GetThingConnectedCompleteHandler
 {
@@ -16,10 +17,11 @@ class GetThingConnectedCompleteHandler
     private $thingConnectedRepository;
     private $searchThingByIdHandler;
     private $createActionHandler;
+
     /**
      * @var MySQLActionRepository
      */
-    private $mySQLActionRepository;  // deberia ser la interfaz
+    private $mySQLActionRepository;  // TODO    OOOOOOOOOOOO deberia ser la interfaz
 
     public function __construct(ThingConnectedRepository $thingConnectedRepository, SearchThingByIdHandler $searchThingByIdHandler, MySQLActionRepository $mySQLActionRepository, CreateActionHandler $createActionHandler)
     {
@@ -35,15 +37,17 @@ class GetThingConnectedCompleteHandler
         $thing = $getThingConnectedInfoCommand->getThing();
         $thingConnected = $this->thingConnectedRepository->getThingConnectedCompleteByIdOrException($thing->getRoot(), $thing->getUser(), $thing->getPassword());
 
-        foreach ($thingConnected['data']->links->actions->resources as $actionName => $action) {
-            $action = $this->createActionHandler->handle(
-                new CreateActionCommand(
-                    $thing,
-                    $actionName
-                )
-            );
-
-
+        if (isset($thingConnected['data']->links->actions->resources)) {
+            foreach ($thingConnected['data']->links->actions->resources as $actionName => $action) {
+                $action = $this->createActionHandler->handle(
+                    new CreateActionCommand(
+                        $thing,
+                        $actionName
+                    )
+                );
+            }
+        } else {
+            throw new Exception('Invalid Credentials');
         }
 
 
