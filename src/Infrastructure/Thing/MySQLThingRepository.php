@@ -25,7 +25,7 @@ class MySQLThingRepository implements ThingRepository
     {
         try {
             $this->em->persist($thing);
-            $this->em->flush();   // TODO: mover el flush al Controller
+            $this->em->flush();
         } catch (\Exception $e) {
             return $e->getMessage();
         }
