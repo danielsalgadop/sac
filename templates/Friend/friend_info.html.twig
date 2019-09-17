@@ -1,8 +1,8 @@
 {% extends('Common/base.html.twig') %}
-{%  block title %}
+{% block title %}
     List of Friends
 {% endblock %}
-    {%  block header %}
+    {% block header %}
         {% include 'Friend/friend_header.html.twig' %}
     {% endblock %}
 {% block body %}
@@ -10,7 +10,26 @@
     <h1>Hello, {{ friend.name }} </h1>
     <p>Your friend <b>{{ ownerName }} </b> has kindly shared this actions with you:</p>
 
-    {% for action in friend.actions %}
-        <p> {{ action.getId }}</p>
-    {% endfor %}
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped table-sm table-hover">
+                <thead class="thead-dark">
+                <th>Thing Action Name</th>
+                <th>Show</th>
+                </thead>
+                <tbody>
+                {% for action in friend.actions %}
+                    <tr>
+                        {#<td> {{ action.getName }} {{ action.getThing.getId }}</td>#}
+                        <td> {{ action.getThing.getId }}</td>
+                        {#<button class="btn btn-primary" onclick='{{ path(friend_see_action) }}'>Admin</button>#}
+                        <td>
+                            <a class="btn btn-primary" href="/friend/thing/2/action/1">Show</a>
+                        </td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+        </div>
+    </div>
 {% endblock %}
