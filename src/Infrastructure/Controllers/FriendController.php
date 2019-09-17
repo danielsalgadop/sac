@@ -3,14 +3,14 @@
 
 namespace App\Infrastructure\Controllers;
 
-use App\Application\Command\Friend\CreateFriendCommand;
+//use App\Application\Command\Friend\CreateFriendCommand;
 use App\Application\Command\Friend\SearchFriendByFbDelegatedCommand;
-use App\Application\Command\Friend\SearchFriendByIdCommand;
-use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
+//use App\Application\Command\Friend\SearchFriendByIdCommand;
+//use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
 use App\Application\Command\Thing\GetThingConnectedInfoCommand;
 use App\Application\Command\Thing\SearchThingByIdCommand;
 use App\Application\CommandHandler\Friend\SearchFriendByFbDelegatedHandler;
-use App\Application\CommandHandler\Friend\SearchFriendByIdHandler;
+//use App\Application\CommandHandler\Friend\SearchFriendByIdHandler;
 use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
 use App\Application\CommandHandler\Thing\ThingConnected\GetThingConnectedCompleteHandler;
 use App\Domain\Entity\Action;
@@ -22,7 +22,6 @@ use Facebook\Facebook;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-//use Symfony\Flex\Response;
 
 class FriendController extends AbstractController implements HasFbSessionController
 {
@@ -87,7 +86,6 @@ class FriendController extends AbstractController implements HasFbSessionControl
 
     public function info(Request $request)
     {
-//    dd("dsasd");
         $session = $request->getSession();
         $sessionFbDelegated = $session->get('ownerFbDelegated');
         $friend = $this->searchFriendByFbDelegatedHandler->handle(new SearchFriendByFbDelegatedCommand($sessionFbDelegated));
@@ -106,22 +104,10 @@ class FriendController extends AbstractController implements HasFbSessionControl
         try{
             $response = $fb->get('/me?fields=id,name', $accessToken);
             $user = $response->getGraphUser();
-//            dd($user);
         }
         catch (FacebookSDKException $e){
             return $this->redirectToRoute('login');
         }
-
-        // How to get friend list
-//        $friends = $fb->get('/'.$user->getId().'/friends',$accessToken);
-
-        // add friends to database
-//        $friendsAsArray = $friends->getDecodedBody();
-//        foreach ($friendsAsArray['data'] as $fbFriend) {
-//            $owner->addFriend($this->createFriendHandler->handle(new CreateFriendCommand($fbFriend['id'], $fbFriend['name'])));
-//        }
-//        $this->mySQLOwnerRepository->save($owner);
-//dd($friend->getActions());
 
         $owners = $friend->getOwners();
         /** @var Owner $owner */
