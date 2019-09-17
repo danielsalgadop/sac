@@ -6,12 +6,7 @@
     {%  include 'Owner/owner_header.html.twig' %}
 {% endblock %}
 {% block body %}
-    {#<h1>{{ thingId }}</h1>#}
-    {#<h1>Thing</h1>#}
     {% verbatim %}
-        <!--<div id="thing_info2"></div>-->
-            <!--{{ thing.thingConnected()|json_encode|raw }}-->
-
 
     <div class="card">
     <div class="card-body">
@@ -32,7 +27,7 @@
                     <tr>
                         <td>{{@key}}</td>
                         <td>{{this.values}}</td>
-                        <td><button onclick='openFriendDialog3("{{@key}}")'>Admin</button></td>
+                        <td><button class="btn btn-primary" onclick='openFriendDialog("{{@key}}")'>Admin</button></td>
                     </tr>
                     {{/each}}
                 {{/if}}
@@ -122,7 +117,7 @@
             }
         }
 
-        function openFriendDialog3(actionName) {
+        function openFriendDialog(actionName) {
             var actionId = getActionIdByActionName(actionName);
             // console.log("In thing thingId[" + thingId + "] clicked this action id[" + actionId + "]");
             // TODO: buil html ul with js
