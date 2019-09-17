@@ -3,14 +3,14 @@
 
 namespace App\Infrastructure\Controllers;
 
-//use App\Application\Command\Friend\CreateFriendCommand;
+use App\Application\Command\Friend\CreateFriendCommand;
 use App\Application\Command\Friend\SearchFriendByFbDelegatedCommand;
-//use App\Application\Command\Friend\SearchFriendByIdCommand;
-//use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
+use App\Application\Command\Friend\SearchFriendByIdCommand;
+use App\Application\Command\Owner\SearchOwnerByFbDelegatedCommand;
 use App\Application\Command\Thing\GetThingConnectedInfoCommand;
 use App\Application\Command\Thing\SearchThingByIdCommand;
 use App\Application\CommandHandler\Friend\SearchFriendByFbDelegatedHandler;
-//use App\Application\CommandHandler\Friend\SearchFriendByIdHandler;
+use App\Application\CommandHandler\Friend\SearchFriendByIdHandler;
 use App\Application\CommandHandler\Thing\SearchThingByIdHandler;
 use App\Application\CommandHandler\Thing\ThingConnected\GetThingConnectedCompleteHandler;
 use App\Domain\Entity\Action;
@@ -61,7 +61,7 @@ class FriendController extends AbstractController implements HasFbSessionControl
 
                         if ($loggedFriend === $friend) {
 
-                            $thingConnected = $this->getThingConnectedCompleteHandler->handle(new GetThingConnectedInfoCommand($thing->getId(), $thing->getUser(), $thing->getPassword()));
+                            $thingConnected = $this->getThingConnectedCompleteHandler->handle(new GetThingConnectedInfoCommand($thing));
                             $actions = $thingConnected['data']->links;
                             foreach ($actions as $foo) {
                                 foreach ($foo->resources as $actionName => $value) {
@@ -101,11 +101,10 @@ class FriendController extends AbstractController implements HasFbSessionControl
             'default_graph_version' => 'v3.3',
         ]);
 
-        try{
+        try {
             $response = $fb->get('/me?fields=id,name', $accessToken);
             $user = $response->getGraphUser();
-        }
-        catch (FacebookSDKException $e){
+        } catch (FacebookSDKException $e) {
             return $this->redirectToRoute('login');
         }
 
