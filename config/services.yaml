@@ -53,14 +53,6 @@ services:
     arguments:
     - "@app.repository.owner"
 
-# TODO try this
-  app.command_handler.owner.add_friend:
-    class: App\Application\CommandHandler\Owner\AddFriendToOwner
-    public: true
-    arguments:
-    - "@app.repository.owner"
-
-# TODO test this
   app.command_handler.owner.add_thing:
     class: App\Application\CommandHandler\Owner\AddThingToOwnerHandler
     public: true
@@ -68,21 +60,20 @@ services:
     - "@app.repository.owner"
 
 
-# THING
+  # THING
   app.repository.thing:
     class: App\Infrastructure\Thing\MySQLThingRepository
     public: true
     arguments:
     - "@doctrine.orm.default_entity_manager"
 
-# TODO test this
   app.command_handler.thing.search_by_id:
     class: App\Application\CommandHandler\Thing\SearchThingByIdHandler
     public: true
     arguments:
     - "@app.repository.thing"
 
-  # TODO test this
+
   app.command_handler.thing.get_actions:
     class: App\Application\CommandHandler\Thing\GetActionsByThingIdHandler
     public: true
@@ -96,12 +87,12 @@ services:
     - "@app.command_handler.thing.search_by_id"
     - "@app.command_handler.thing_connected.get_complete"
 
-# THINGCONNECTED
+  # THINGCONNECTED
   app.repository.thing_connected:
     class: App\Infrastructure\ThingConnected\CurlThingConnectedRepository
     public: true
-#    arguments:
-#      $iotEmulatorHost: env(IOT_EMULATOR_HOST)
+  #    arguments:
+  #      $iotEmulatorHost: env(IOT_EMULATOR_HOST)
 
   app.command_handler.thing_connected.get_actions:
     class: App\Application\CommandHandler\Thing\ThingConnected\GetThingConnectedActionsHandler
@@ -119,21 +110,14 @@ services:
     class: App\Application\CommandHandler\Owner\IsActualUserAnOwnerHandler
     arguments: ['@app.command_handler.owner.search.by_fb_delegated']
 
-# TODO faltan de ThingConnected get_name, get_brand
-
-
-
-
-
-
-# FRIEND
+  # FRIEND
   app.repository.friend:
     class: App\Infrastructure\Friend\MySQLFriendRepository
     public: true
     arguments:
     - "@doctrine.orm.default_entity_manager"
 
-# ACTION
+  # ACTION
   app.repository.action:
     class: App\Infrastructure\Action\MySQLActionRepository
     public: true
