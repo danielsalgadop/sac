@@ -25,3 +25,4 @@ components
 CI/deploy/.vagrant
 CI/deploy/*log
 docs/~*
+CI/deploy/playbook.retry
