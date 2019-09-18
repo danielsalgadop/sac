@@ -23,7 +23,7 @@ class MySQLOwnerRepository implements OwnerRepository
         return $owner;
     }
 
-    public function save(Owner $owner): int
+    public function save(Owner $owner)
     {
         try {
             $this->em->persist($owner);

@@ -7,7 +7,7 @@ use App\Domain\Entity\Owner;
 
 interface OwnerRepository
 {
-    public function save(Owner $owner): int;
+    public function save(Owner $owner);
 
     public function searchOwnerByfbDelegatedOrException(string $fbDelegated): Owner;
 
