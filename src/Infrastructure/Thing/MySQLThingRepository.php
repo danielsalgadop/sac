@@ -7,7 +7,7 @@ use App\Domain\Repository\ThingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Route;
 use Doctrine\ORM\QueryBuilder;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+//use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class MySQLThingRepository implements ThingRepository
 {

@@ -3,22 +3,12 @@
 namespace App\Infrastructure\Controllers;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+//use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+//use Symfony\Component\HttpFoundation\Request;
+//use Symfony\Component\HttpFoundation\Response;
 
 class CredentialsController extends AbstractController
 {
-    public function test()
-    {
-        return $this->render('test.html.twig');
-    }
-
-    public function handlebars()
-    {
-        return $this->render('test/handlebars.html.twig');
-    }
-
     public function login()
     {
         // correct FbLogin will redirect to owner_index

@@ -177,6 +177,7 @@ class Sac extends Fixture
         $arrayActions = [];
         foreach ($httpVerbs as $httpVerb) {
 
+            /** @var Action $action */
             $action = new Action();
             $action->setDescription($actionDescription);
             $action->setHttpVerb($httpVerb);
