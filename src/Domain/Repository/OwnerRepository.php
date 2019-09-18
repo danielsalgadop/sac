@@ -11,5 +11,5 @@ interface OwnerRepository
 
     public function searchOwnerByfbDelegatedOrException(string $fbDelegated): Owner;
 
-    public function find(int $ownerId): Owner;
+    public function find(int $ownerId);
 }

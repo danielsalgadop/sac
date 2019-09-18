@@ -85,8 +85,6 @@
 
     <script>
 
-        {#var urlForThingConnectedTemplate = {{ url('url_provider_for_thing_info_connected_url_template_provider') }};#}
-
         $(document).ready(
             function () {
                 $.ajax({
@@ -99,7 +97,11 @@
 
                         // fill Things with ConnectedThings
                         var listOfThingsTable = $("#list_of_things");
-                        if (owner.things.length === 0) {
+
+                            console.log(owner);
+                            console.log(owner.hasOwnProperty(things));
+                            console.log(owner.has("thing"));
+                        if (owner.hasOwnProperty(things) == false) {
                             listOfThingsTable.append(
                                 '<tr><td colspan="3">Please fill in the form below to add a Thing</td></tr>');
                         } else {
@@ -121,14 +123,6 @@
 
         function fillThingRow(thingConnected, urlForThingInfo, listOfThingsTable) {
 
-            // console.log(thingConnected);
-            // console.log(urlForThingInfo);
-            // console.log(thingId);
-
-
-            // const thingRow = $("#thing_row_" + thingId);
-            // console.log(thingRow);
-
             if (thingConnected.status === true) {
 
                 console.log(thingConnected.data.name);
@@ -144,25 +138,6 @@
             } else {
                 listOfThingsTable.append('<tr class="table-danger"><td colspan="3">' + thingConnected.message + '</tr>');
             }
-
-            //
-            // var thingElement = $("#thing_id_" + thingId);
-            //
-            // if (thingConnected.status === true) {
-            //     // TODO manage thing front structure with handlebars
-            //     thingElement.addClass('thing_ok');
-            //     // add name and brand
-            //     thingElement.append(' | ' + thingConnected.data.name + ' | ' + thingConnected.data.brand);
-            //     // add View/Admin thing
-            //     thingElement.append('<button onclick="window.location.href = \'' + urlForThingInfo +
-            //         '\'">Admin</button>');
-            //
-            // }
-            // else {
-            //     thingElement.addClass('thing_error');
-            //     thingElement.append(' | ' + thingConnected.message);
-            //
-            // }
         }
 
 
@@ -185,13 +160,9 @@
                                     fillThingRow(thingConnectedInfo, urlThingInfoProvidedResponse, listOfThingsTable);
                                 },
                                 error: function (error) {
-                                    // console.log("error for thingId "+thingId);
-                                    // console.log(error);
                                     var thingConnectedInfoWithError = {
                                         'status': false, 'message': error.responseText
                                     };
-                                    // console.log(thingConnectedInfoWithError);
-                                    // console.log(thingId);
                                     fillThingRow(thingConnectedInfoWithError, '', listOfThingsTable);
                                 }
                             })
