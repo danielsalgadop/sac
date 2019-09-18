@@ -4,7 +4,8 @@ namespace App\Domain\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+
+//use Doctrine\ORM\Mapping as ORM;
 
 class Owner
 {
@@ -44,14 +45,6 @@ class Owner
     {
         return $this->fbDelegated;
     }
-
-//    public function setFbDelegated(string $fbDelegated): self
-//    {
-//        $this->fbDelegated = $fbDelegated;
-//
-//        return $this;
-//    }
-
 
     public function getThings(): Collection
     {
@@ -112,20 +105,10 @@ class Owner
 
     private function validateName(string $name)
     {
-        // TODO: ahora esta entrando (via POST) name=' '. Esto no debería pasar
         if ($name == '' || preg_match('/[0-9]/', $name)) {
             Throw new \Exception("Invalid Name for Owner");
         }
     }
-//    public function toArray()
-//    {
-//         TODO: duda Victor (este serilizer, ¿esta bien?)
-//         toArray aún. Lo que hay dentro de Dominio son estructuras "puras". Pero toJson, toXML, toHtml van a Infrastructura
-//        return [
-//            'name' => $this->getName(),
-//            'id' => $this->getId()
-//        ];
-//    }
 
     public function getArrayFiendsIds(): array
     {

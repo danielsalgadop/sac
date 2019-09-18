@@ -32,14 +32,15 @@ class MySQLFriendRepository implements FriendRepository
         return $this->friendRepository->findOneBy(['id' => $id]);
     }
 
-    public function save(Friend $owner)
+    public function save(Friend $friend)
     {
         try {
-            $this->em->persist($owner);
+            $this->em->persist($friend);
             $this->em->flush();
         } catch (Exception $e) {
             return $e->getMessage();
         }
+        return $friend;
     }
 
     public function searchFriendByIdOrException(int $id): Friend

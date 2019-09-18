@@ -16,7 +16,9 @@
         "symfony/framework-bundle": "4.2.*",
         "symfony/twig-bundle": "4.2.*",
         "symfony/web-profiler-bundle": "4.2.*",
-        "symfony/yaml": "4.2.*"
+        "symfony/yaml": "4.2.*",
+        "ext-json":"*",
+        "ext-curl":"*"
     },
     "config": {
         "preferred-install": {

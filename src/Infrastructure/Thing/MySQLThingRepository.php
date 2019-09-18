@@ -29,6 +29,7 @@ class MySQLThingRepository implements ThingRepository
         } catch (\Exception $e) {
             return $e->getMessage();
         }
+        return $thing;
     }
 
     public function find(int $thingId)

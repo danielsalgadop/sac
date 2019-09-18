@@ -74,14 +74,13 @@ class Sac extends Fixture
             $superfriend = new Friend();
             $superfriend->setFbDelegated('fb_delegated_super_friend');
             $this->manager->persist($superfriend);
-//            $this->manager->flush();
 
             $owner->addFriend($superfriend);
 
             $this->manager->flush();
 
             // Action
-            // vuelvo a recorrer things para, dar permiso al último friend
+            // giving acces to last friend
             foreach ($things as $thing) {
 
                 $actions = $this->createAndPersistAction($thing, $friend, "action_" . $i, ["GET", "POST"], "action/route/for/thing/" . $thing->getId());
@@ -161,7 +160,6 @@ class Sac extends Fixture
     public function createAndPersistFriend($fbDelegated)
     {
         $friend = new Friend($fbDelegated);
-//        $friend->setFbDelegated($fbDelegated);
         $this->manager->persist($friend);
         $this->manager->flush();
         return $friend;

@@ -18,7 +18,9 @@ class AddThingToOwnerHandler
 
     public function handle(AddThingToOwnerCommand $addThingCommand)
     {
+        /** @var Thing $thing */
         $thing = $addThingCommand->getThing();
+        /** @var Owner $owner */
         $owner = $addThingCommand->getOwner();
         $owner->addThing($thing);
         $this->ownerRepository->save($owner);
