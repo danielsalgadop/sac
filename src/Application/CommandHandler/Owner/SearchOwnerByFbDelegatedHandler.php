@@ -19,6 +19,8 @@ class SearchOwnerByFbDelegatedHandler
 
     public function handle(SearchOwnerByFbDelegatedCommand $searchOwnerByFbDelegatedCommand): Owner
     {
-        return $this->ownerRepository->searchOwnerByfbDelegatedOrException($searchOwnerByFbDelegatedCommand->getFbDelegated());
+        /** @var Owner $owner */
+        $owner = $this->ownerRepository->searchOwnerByfbDelegatedOrException($searchOwnerByFbDelegatedCommand->getFbDelegated());
+        return $owner;
     }
 }

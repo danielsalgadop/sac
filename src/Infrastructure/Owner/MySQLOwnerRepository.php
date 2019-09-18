@@ -16,12 +16,14 @@ class MySQLOwnerRepository implements OwnerRepository
         $this->em = $entityManager;
     }
 
-    public function find(int $id)
+    public function find(int $id): Owner
     {
-        return $this->em->find(Owner::class, $id);
+        /** @var Owner $owner */
+        $owner = $this->em->find(Owner::class, $id);
+        return $owner;
     }
 
-    public function save(Owner $owner)
+    public function save(Owner $owner): int
     {
         try {
             $this->em->persist($owner);
@@ -29,9 +31,10 @@ class MySQLOwnerRepository implements OwnerRepository
         } catch (Exception $e) {
             return $e->getMessage();
         }
+        return $owner->getId();
     }
 
-    public function searchOwnerByfbDelegatedOrException(string $fbDelegated)
+    public function searchOwnerByfbDelegatedOrException(string $fbDelegated): Owner
     {
         /** @var Owner $owner */
         $owner = $this->em
