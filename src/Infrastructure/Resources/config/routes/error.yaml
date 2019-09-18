@@ -1,3 +1,7 @@
 error:
   path: /error
   controller: App\Infrastructure\Controllers\ErrorController::index
+
+fallback_route:
+  path: /{url}
+  controller: App\Infrastructure\Controllers\ErrorController::fallback

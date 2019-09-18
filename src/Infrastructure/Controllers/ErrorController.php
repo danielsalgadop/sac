@@ -12,8 +12,11 @@ class ErrorController extends AbstractController
 {
     public function index(Request $request)
     {
-//        var_export($errors);
         $message = $request->get('message');
-        return new Response("ERROR ".$message);
+        return $this->render('Error/error.twig',['message' => $message]);
+    }
+    public function fallback()
+    {
+        return $this->render('Error/error.twig',['message' => 'Page not found']);
     }
 }
