@@ -5,9 +5,7 @@ namespace App\Infrastructure\Owner;
 use App\Domain\Entity\Owner;
 use App\Domain\Repository\OwnerRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\QueryBuilder;
 use Exception;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class MySQLOwnerRepository implements OwnerRepository
 {
@@ -35,6 +33,7 @@ class MySQLOwnerRepository implements OwnerRepository
 
     public function searchOwnerByfbDelegatedOrException(string $fbDelegated)
     {
+        /** @var Owner $owner */
         $owner = $this->em
             ->getRepository(Owner::class)
             ->findOneBy(['fbDelegated' => $fbDelegated]);
