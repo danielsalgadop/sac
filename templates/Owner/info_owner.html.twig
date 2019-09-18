@@ -98,13 +98,7 @@
                         // fill Things with ConnectedThings
                         var listOfThingsTable = $("#list_of_things");
 
-                            console.log(owner);
-                            console.log(owner.hasOwnProperty(things));
-                            console.log(owner.has("thing"));
-                        if (owner.hasOwnProperty(things) == false) {
-                            listOfThingsTable.append(
-                                '<tr><td colspan="3">Please fill in the form below to add a Thing</td></tr>');
-                        } else {
+                        if (owner.things) {
                             owner.things.forEach(function (thing) {
                                 fillOneThingOfOwner(thing.id, listOfThingsTable);
                             });
@@ -112,7 +106,9 @@
                             // Things
                             var thingTemplate = Handlebars.compile(document.getElementById("things_template").innerHTML);
                             document.getElementById("things_info").innerHTML = thingTemplate({things: owner.things});
-
+                        } else {
+                            listOfThingsTable.append(
+                                '<tr><td colspan="3">Please fill in the form below to add a Thing</td></tr>');
                         }
                     },
                     error: function () {
