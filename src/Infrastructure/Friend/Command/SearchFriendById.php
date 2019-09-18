@@ -5,7 +5,6 @@ namespace App\Infrastructure\Friend\Command;
 use App\Application\Command\Friend\SearchFriendByIdCommand;
 use App\Application\CommandHandler\Friend\SearchFriendByIdHandler;
 use App\Domain\Entity\Friend;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
