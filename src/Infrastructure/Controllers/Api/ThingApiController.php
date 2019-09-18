@@ -7,7 +7,7 @@ namespace App\Infrastructure\Controllers\Api;
 use App\Application\Command\Thing\MergeThingWithThingConnectedByIdCommand;
 use App\Application\CommandHandler\Thing\MergeThingWithThingConnectedByIdHandler;
 use App\Infrastructure\Controllers\HasFbSessionController;
-use App\Infrastructure\Owner\Serializer\JsonSerializer;
+//use App\Infrastructure\Owner\Serializer\JsonSerializer;
 use App\Infrastructure\Thing\Serializer\ThingWithThingConnectedArraySerializer;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

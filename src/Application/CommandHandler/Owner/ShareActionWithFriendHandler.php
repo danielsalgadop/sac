@@ -7,7 +7,7 @@ use App\Domain\Entity\Action;
 use App\Domain\Entity\Friend;
 use App\Domain\Entity\Owner;
 use App\Domain\Repository\Friend\FriendRepository;
-use App\Repository\OwnerRepository;
+//use App\Repository\OwnerRepository;
 
 class ShareActionWithFriendHandler
 {
