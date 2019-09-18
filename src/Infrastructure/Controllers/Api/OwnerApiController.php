@@ -49,7 +49,7 @@ class OwnerApiController extends AbstractController implements HasFbSessionContr
         return new JsonResponse(OwnerArraySeralizer::serialize($owner));
     }
 
-    /* route invoking this method is dinamically built */
+    /* route invoking this method is dinamicaly built */
     public function shareActionWithFriend(int $actionId, int $friendId)
     {
 

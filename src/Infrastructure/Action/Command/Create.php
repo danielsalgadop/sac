@@ -36,7 +36,7 @@ class Create extends Command
         $this
             ->setDescription('Creates Action')
             ->addArgument('thingId', InputArgument::REQUIRED, '(int) thing id')
-            // this acctionName matches really this is action name (links->actions->link->resources)
+            // this action Name really matches this is action name (links->actions->link->resources)
             ->addArgument('name', InputArgument::REQUIRED, '(string) name');
     }
 
