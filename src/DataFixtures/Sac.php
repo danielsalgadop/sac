@@ -33,17 +33,16 @@ class Sac extends Fixture
 {
     private $manager;
 
-    // DUDA: he probado (y no funciona) a tener solo 1 $this->manager->flush(); al final de_d método ->load. Por q no funciona?
     public function load(ObjectManager $manager)
     {
         $this->manager = $manager;
 
         foreach ([1, 2, 3] as $i) {
 
-            // Thing
+            // array of Thing
             $things = $this->createAndPersistThisNumberOfThing($i);
 
-            // Owner
+            /** @var Owner $owner */
             $owner = $this->createOwner("owner_name" , "fb_delegated_" . $i);
             foreach ($things as $thing) {
                 $owner->addThing($thing); // Owner has thing  owner_thing
@@ -71,8 +70,8 @@ class Sac extends Fixture
             }
 
             // create superfriend
-            $superfriend = new Friend();
-            $superfriend->setFbDelegated('fb_delegated_super_friend');
+            /** @var Friend $superfriend */
+            $superfriend = new Friend(999999, 'super_friend');
             $this->manager->persist($superfriend);
 
             $owner->addFriend($superfriend);
@@ -83,13 +82,14 @@ class Sac extends Fixture
             // giving acces to last friend
             foreach ($things as $thing) {
 
-                $actions = $this->createAndPersistAction($thing, $friend, "action_" . $i, ["GET", "POST"], "action/route/for/thing/" . $thing->getId());
+                $actions = $this->createAndPersistAction($thing, $friend, "action_" . $i,  "action/route/for/thing/" . $thing->getId());
             }
 
         }
 
         // Creating things alone "without owner"
         // could not use createAndPersistThing because setRoot remains with temporal value will_be_substituted
+        /** @var Thing $thing */
         $thing = new Thing();
         $thing->setPassword("password");
         $thing->setUser("user");
@@ -151,44 +151,39 @@ class Sac extends Fixture
     {
         $arrayFriends = [];
         for ($z = 0; $z < $i; $z++) {
-            $arrayFriends[] = $this->createAndPersistFriend($z . '_fbDelegated_friend_of_this_owner_id' . $owner_id);
+            $arrayFriends[] = $this->createAndPersistFriend($z . $owner_id, 'firend_name_'.$z.'_of_ownner'.$owner_id);
         }
         return $arrayFriends;
     }
 
 
-    public function createAndPersistFriend($fbDelegated)
+    public function createAndPersistFriend($fbDelegated,$name)
     {
-        $friend = new Friend($fbDelegated);
+        /** @var Friend $friend */
+        $friend = new Friend($fbDelegated, $name);
         $this->manager->persist($friend);
         $this->manager->flush();
         return $friend;
     }
 
 
-    public function createOwner(string $ownerName = "user_without_thing", string $fbDelegated = "fb_delegated_without_thing")
+    public function createOwner(string $ownerName = "user_without_thing", string $fbDelegated = "fb_delegated_without_thing"): Owner
     {
         return new Owner($ownerName, $fbDelegated);
     }
 
 
-    public function createAndPersistAction(Thing $thing, Friend $friend, $actionDescription, array $httpVerbs, $route): array
+    public function createAndPersistAction(Thing $thing, Friend $friend, $route): array
     {
         $arrayActions = [];
-        foreach ($httpVerbs as $httpVerb) {
 
             /** @var Action $action */
-            $action = new Action();
-            $action->setDescription($actionDescription);
-            $action->setHttpVerb($httpVerb);
-            $action->setName($route);
-            $action->setThing($thing);
+            $action = new Action($thing,$route);
             $action->addFriend($friend);
             $this->manager->persist($action);
             $this->manager->flush();
             $arrayActions[] = $action;
-        }
-        return $arrayActions;
+            return $arrayActions;
     }
 }
 
