@@ -20,11 +20,9 @@
                 <tbody>
                 {% for action in friend.actions %}
                     <tr>
-                        {#<td> {{ action.getName }} {{ action.getThing.getId }}</td>#}
-                        <td> {{ action.getThing.getId }}</td>
-                        {#<button class="btn btn-primary" onclick='{{ path(friend_see_action) }}'>Admin</button>#}
+                        <td> {{ action.getName }} {{ action.getThing.getId }}</td>
                         <td>
-                            <a class="btn btn-primary" href="/friend/thing/2/action/1">Show</a>
+                            <a class="btn btn-primary" href="{{ path('friend_see_action', {'thingId' : action.getThing.getId, 'actionId' : action.getId }) }}">Show</a>
                         </td>
 
                     </tr>
