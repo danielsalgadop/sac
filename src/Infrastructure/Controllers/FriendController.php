@@ -111,7 +111,15 @@ class FriendController extends AbstractController implements HasFbSessionControl
         $owners = $friend->getOwners();
         /** @var Owner $owner */
         $owner = $owners->first();
-        $response = $this->render('Friend/friend_info.html.twig', ['friend' => $friend, 'ownerName' => $owner->getName()]);
+
+        $friendActions = $friend->getActions();
+
+        if($friendActions->isEmpty()){
+            $response = $this->render('Error/error.twig', ['message' => 'Resource Not Found']);
+        }
+        else{
+            $response = $this->render('Friend/friend_info.html.twig', ['friend' => $friend, 'ownerName' => $owner->getName()]);
+        }
         $response->headers->clearCookie('fbResponse');
         $response->headers->clearCookie('connectFbResponse');
         return $response;
