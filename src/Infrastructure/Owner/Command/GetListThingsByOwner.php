@@ -24,7 +24,6 @@ class GetListThingsByOwner extends Command
         $this->getListThingsByOwnerHandler = $getListThingsByOwnerHandler;
     }
 
-
     protected function configure()
     {
         $this
@@ -34,8 +33,6 @@ class GetListThingsByOwner extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
-
         $owner = $this->searchOwnerByFbDelegatedHandler->handle(new SearchOwnerByFbDelegatedCommand($input->getArgument('ownerFbDelegated')));
 
         $things = $this->getListThingsByOwnerHandler->handle(new GetListThingsByOwnerCommand($owner));
